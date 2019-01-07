@@ -1,15 +1,8 @@
-.idea/compiler.xml
-.idea/misc.xml
 .idea/uidesigner.xml
-.idea/vcs.xml
 .idea/workspace.xml
 .idea/dictionaries
 .idea/libraries
-<<<<<<< HEAD
--idea/artifacts
-=======
->>>>>>> development
+.idea/artifacts
 target
 META-INF
 .idea/artifacts
-.idea/compiler.xml
