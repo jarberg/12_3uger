@@ -1,0 +1,14 @@
+.idea/compiler.xml
+.idea/misc.xml
+.idea/uidesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/dictionaries
+<<<<<<< HEAD
+-idea/artifacts
+=======
+>>>>>>> development
+target
+META-INF
+.idea/artifacts
+.idea/compiler.xml
