@@ -6,8 +6,8 @@ CARD_5:::Take the Øresund ferry - Move forward, and og if you pass "Start", rece
 CARD_6:::Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
 CARD_7:::You have received a parking ticket. Pay the bank kr 20,00.
 CARD_8:::Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
-CARD_9:::Move free fields back.
-CARD_10:::Move free fields back.
+CARD_9:::Move three fields back.
+CARD_10:::Move three fields back.
 CARD_11:::Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
 CARD_12:::Move to "Start".
 CARD_13:::The coal prices have gone up, and you have to pay: kr. 25,00 pr. house og kr. 125,00 pr. hotel.
