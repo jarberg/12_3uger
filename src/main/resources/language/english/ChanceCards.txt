@@ -1,0 +1,32 @@
+CARD_1:::Receive dividends from your shares: kr. 50,00.
+CARD_2:::You receive the "Monopoly-grant for the appropriately poor", an entire kr. 2000. By appropriately poor it is understood that your assets,  that is your cash + deeds + buildings, does not exceed kr. 750.
+CARD_3:::Go to Rådhuspladsen.
+CARD_4:::Move to Grønningen. If you pass "Start", receive kr. 200,00.
+CARD_5:::Take the Øresund ferry - Move forward, and og if you pass "Start", receive kr. 200,00.
+CARD_6:::Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
+CARD_7:::You have received a parking ticket. Pay the bank kr 20,00.
+CARD_8:::Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
+CARD_9:::Move free fields back.
+CARD_10:::Move free fields back.
+CARD_11:::Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
+CARD_12:::Move to "Start".
+CARD_13:::The coal prices have gone up, and you have to pay: kr. 25,00 pr. house og kr. 125,00 pr. hotel.
+CARD_14:::Property tax has gone up, the extra fees are: kr. 50,00 pr. house, kr. 125,00 pr. hotel.
+CARD_15:::You have paid up front for a community dinner. Strangely, everyone immediately reimburses you. Receive from each other player kr. 25,00.
+CARD_16:::The value of what you have grown in your garden makes up kr. 200,00, that you receive from the bank.
+CARD_17:::Move to the closest ferry company and pay the owner twice what he would otherwise be owed. If the company has no owner, you may buy it from the Bank.
+CARD_18:::You have bought a new tire for your car. Pay kr. 100,00.
+CARD_19:::You have driven through a "Full Stop". Pay kr. 100,00 in fees.
+CARD_20:::Pay kr. 10,00 for a car was and lubrication.
+CARD_21:::You have had a trip abroad and brought too many cigarettes back with you. Pay customs of kr.20,00.
+CARD_22:::You have received a parking ticket. Pay the bank kr 20,00.
+CARD_23:::You have received a raise due to the cost of living. Receive kr. 25,00.
+CARD_24:::In the occasions of the King's birthday you have been exonerated from jail. This card kan be kept, until you need it, or you can sell it.
+CARD_25:::Pay kr. 10,00 for a car was and lubrication.
+CARD_26:::In the occasions of the King's birthday you have been exonerated from jail. This card kan be kept, until you need it, or you can sell it.
+CARD_27:::Move to the closest ferry company and pay the owner twice what he would otherwise be owed. If the company has no owner, you may buy it from the Bank.
+CARD_28:::You have sold your old cloths. Receive kr. 20,00.
+CARD_29:::You have returned your subscription card on time. Receive back your deposit of kr. 1,00 from the bank.
+CARD_30:::Goods have become cheaper and better, saving you kr. 50,00 that you receive from the bank.
+CARD_31:::After the auction at the place you had pawned your clothes, you receive an extra kr. 108,00.
+CARD_32:::Less than before has yet to before they after. You receive kr. 100,00 from the bank.
