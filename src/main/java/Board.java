@@ -1,12 +1,19 @@
 public class Board {
-    Field[] board;
+    Field[] fields;
 
     public Board(){
-        board = new Field[40];
+        fields = new Field[40];
+    }
+
+    public void setupBoard(){
+        //felt i : title - subTitle - description - price - rent - fillColor
+        for (int i = 0; i < fields.length; i++) {
+
+        }
     }
 
 
-    public Field[] getBoard() {
-        return board;
+    public Field[] getFields() {
+        return fields;
     }
 }

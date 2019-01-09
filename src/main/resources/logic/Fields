@@ -1,0 +1,70 @@
+start:1:0:200
+rådovrevej:2:1:60:20
+prøvLykken:3:0
+hvidovrevej:2:1:60:20
+indkomstskat:4:0:200
+shipping:2:200:75
+roskildevej:2:2:100:40
+prøvLykken:3:0
+valbylanggade:2:2:100:40
+allégade:2:2:120:45
+fængsel:5:0
+frederiksbergAllé:2:3:140:50
+brewery:2:150:10
+bülowsvej:2:3:140:50
+gammelKongevej:2:3:140:50
+shipping:2:200:75
+bernstorffsvej:2:4:180:60
+prøvLykken:3:0
+hellerupvej:2:4:180:60
+strandvejen:2:4:180:60
+refuge:7:0
+trianglen:2:5:220:70
+prøvLykken:3:0
+østerbroGade:2:5:220:70
+grønningen:2:5:250:80
+shipping:2:200:75
+bredegade:2:6:260:80
+kgsNytorv:2:6:260:80
+brewery:2:150:10
+østergade:2:6:280:85
+gåIFængsel:6:0
+amagertorv:2:7:300:95
+vimmelSkaftet:2:7:300:95
+prøvLykken:3:0
+nygade:2:7:320:100
+shipping:2:200:75
+prøvLykken:3:0
+frederiksberggade:2:8:350:120
+extraordinærStatsSkat:4:0:100
+rådhuspladsen:2:8:400:150
+
+
+/* Første ciffer (Type)
+1	Start
+2	Property
+3	Chance
+4	Tax
+5	Jail
+6	GoToJail
+7	Parking
+*/
+
+/* Andet ciffer (Gruppe)
+0   Ingen gruppe
+1   Blå         (Rødovrevej, Hvidovrevej)
+2   Lyserød     (Roskildevej, Valbylanggade, Allégade)
+3   Grøn        (FrederiksbergAllé, Bülowsvej, GammelKongenvej)
+4   Grå         (Bernstorffsvej, Hellerupvej, Strandvejen)
+5   Rød         (Trianglen, ØsterbroGade, Grønningen)
+6   Hvid        (Bredgade, KgsNytorv, Østergade)
+7   Gul         (Amagertorv, Vimmelskaftet, Nygade)
+8   Lilla       (Frederiksberggade, Rådhuspladsen)
+*/
+
+/* Tredje ciffer (Price) */
+
+/* Fjerde ciffer (Rent)
+ Brewery (10 x Terningslag)
+ */
+
