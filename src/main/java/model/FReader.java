@@ -47,7 +47,7 @@ public class FReader {
 
         String newFilepath = filePath+fileName;
         String[] stringList = fileReader(newFilepath);
-        String[][] finalStringList = new String[stringList.length][5];
+        String[][] finalStringList = new String[stringList.length][15];
 
         for (int i = 0; i < finalStringList.length; i++) {
             finalStringList[i] = stringList[i].split(":");
