@@ -1,0 +1,181 @@
+package model;
+
+import java.io.*;
+
+import java.util.ArrayList;
+
+import java.util.HashMap;
+
+import java.util.List;
+
+import java.util.Map;
+
+import java.util.Scanner;
+
+
+
+public class Reader {
+
+
+
+    private static Reader singletonInstance = null;
+
+    private Map<String, String> messageMap;
+
+
+
+    public Reader(){
+
+    }
+
+
+
+    public static Reader getInstance(){
+
+        if(singletonInstance ==null){
+
+            singletonInstance = new Reader();
+
+        }
+
+        return singletonInstance;
+
+    }
+
+
+
+    //reads from given filepath
+
+    private String[] fileReader(String filePath){
+
+        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath);
+
+        Scanner scanner = new Scanner(resourceAsStream);
+
+        List<String> stringList = new ArrayList<>();
+
+        while (scanner.hasNext()) {
+
+            stringList.add(scanner.nextLine());
+
+        }
+
+        return stringList.toArray(new String[0]);
+
+    }
+
+
+
+    //Uses reader method to build a 2d stringArray from a given filepath+filename
+
+    private String[][] twoDStringArray(String filePath, String fileName){
+
+        String newFilepath = filePath+fileName;
+
+        String[] stringList = fileReader(newFilepath);
+
+        String[][] finalStringList = new String[stringList.length][5];
+
+
+
+        for (int i = 0; i < finalStringList.length; i++) {
+
+            finalStringList[i] = stringList[i].split(":");
+
+        }
+
+        return finalStringList;
+
+    }
+
+    //Uses reader method to build a stringArray from a given filepath+filename
+
+    private String[] oneDStringArray(String filePath, String fileName){
+
+        String newFilepath = filePath+fileName;
+
+        String[] fields = fileReader(newFilepath);
+
+        String[] finalFields = new String[fields.length];
+
+
+
+        System.arraycopy(fields, 0, finalFields, 0, finalFields.length);
+
+        return finalFields;
+
+    }
+
+
+
+    // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
+
+    public String[][] getFieldsText(String filePath){ return twoDStringArray(filePath,"/Fields.txt"); }
+
+
+
+    public String[][] getChanceCards(String filePath){ return twoDStringArray(filePath,"/ChanceCards.txt"); }
+
+
+
+    public String[][] getMenuText(String filePath){return twoDStringArray(filePath,"/Menu.txt"); }
+
+
+
+    public String[] getFieldMessages(String filePath){return oneDStringArray(filePath,"/FieldMessages.txt"); }
+
+
+
+    public String[] getFieldDescriptions(String filePath){ return oneDStringArray(filePath, "/FieldDescriptions.txt"); }
+
+
+
+    public String[] getDirectoriesStringArray(){ return fileReader("TextFiles/"); }
+
+
+
+    public void loadMenuMessages(String filePath){
+
+        Map<String, String> messageMap = new HashMap<>();
+
+        try(InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath+"/Menu.txt")){
+
+            try(Scanner scanner = new Scanner(resourceAsStream)){
+
+                while(scanner.hasNext()){
+
+                    String line = scanner.nextLine();
+
+                    String[] splitLine = line.split(":::");
+
+                    messageMap.put(splitLine[0], splitLine[1]);
+
+                }
+
+            } catch (Exception e){
+
+                e.printStackTrace();
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+        this.messageMap = messageMap;
+
+    }
+
+
+
+    public String getMenuMessageBeMessageKey(String messageKey){
+
+        return messageMap.get(messageKey);
+
+    }
+
+
+
+}
