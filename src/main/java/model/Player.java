@@ -11,6 +11,7 @@ public class Player {
     private int position;
     private boolean broke=false;
     private boolean hasGetOutOfJailCard=false;
+    private boolean doubbleTurn;
 
     //constructor
     public Player(String name){
@@ -26,11 +27,13 @@ public class Player {
 
     public int getBalance(){ return this.account.getBalance(); }
 
-    public Color getPlayerColor(){ return this.playerColor}
+    public Color getPlayerColor(){ return this.playerColor;}
 
     public int getPosition(){ return this.position; }
 
     public boolean getBrokeStatus(){ return this.broke; }
+
+    public boolean getDoubbleTurnStatus(){ return this.doubbleTurn; }
 
     //Setters
 
@@ -45,4 +48,6 @@ public class Player {
     public void setPosition(int setPosition){ this.position = setPosition; }
 
     public void setBrokeStatus(boolean status){ this.broke = status; }
+
+    public void setDoubbleTurnStatus(boolean status){ this.doubbleTurn =status; }
 }
