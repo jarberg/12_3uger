@@ -10,7 +10,7 @@ public class Account {
         if(balance+amount >= 0){
             this.balance += amount;
         }
-        if(balance >0){
+        if(balance <0){
             this.balance = 0;
         }
      }
