@@ -5,26 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class FReader {
 
     private static FReader singletonInstance = null;
 
-    public FReader(){
+    private static String Filepath;
 
-    }
-
-    public static FReader getInstance(){
+    public static FReader getInstance(String filepath){
 
         if(singletonInstance ==null){
-
+            Filepath = filepath;
             singletonInstance = new FReader();
-
         }
-
         return singletonInstance;
-
     }
 
     //reads from given filepath

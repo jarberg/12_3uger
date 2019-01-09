@@ -2,22 +2,22 @@ package model;
 
 public class LogicStringCollection {
 
-    FReader freader = FReader.getInstance();
-    String filepath="";
-
     private static LogicStringCollection singletonInstance = null;
-    private String[][] ChanceCard = freader.getChanceCards(filepath);
 
-    public LogicStringCollection(String filepath){
-        this.filepath = filepath;
-    }
-
-    public static LogicStringCollection getInstance(String filepath){
+    public static LogicStringCollection getInstance(String FilePath){
         if(singletonInstance ==null){
-            singletonInstance = new LogicStringCollection(filepath);
+            filepath = FilePath;
+            singletonInstance = new LogicStringCollection();
+
         }
+
         return singletonInstance;
     }
+
+    FReader freader = FReader.getInstance(filepath);
+    static String filepath;
+
+    private String[][] ChanceCard = freader.getChanceCards(filepath);
 
     public String getChancecard(int a, int b){
         return ChanceCard[a][b];

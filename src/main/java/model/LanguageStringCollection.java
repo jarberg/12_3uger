@@ -2,24 +2,24 @@ package model;
 
 public class LanguageStringCollection {
 
-    FReader freader = FReader.getInstance();
-    String filepath="";
-
     private static LanguageStringCollection singletonInstance = null;
-    private String[][] ChanceCard = freader.getChanceCards(filepath);
 
-    public LanguageStringCollection(String filepath){
-        this.filepath = filepath;
-    }
-
-    public static LanguageStringCollection getInstance(String filepath){
+    public static LanguageStringCollection getInstance(String FilePath){
         if(singletonInstance ==null){
-            singletonInstance = new LanguageStringCollection(filepath);
+            filepath = FilePath;
+            singletonInstance = new LanguageStringCollection();
+
         }
+
         return singletonInstance;
     }
 
-    public String Chancecard(int a, int b){
+    FReader freader = FReader.getInstance(filepath);
+    static String filepath;
+
+    private String[][] ChanceCard = freader.getChanceCards(filepath);
+
+    public String getChancecard(int a, int b){
         return ChanceCard[a][b];
     }
 }
