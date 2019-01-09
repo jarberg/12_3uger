@@ -7,5 +7,6 @@ public interface Visitor {
     void visit(PropertyField field);
     void visit(TaxField field);
     void visit(StartField field);
+    void visit(BreweryField field);
 
 }

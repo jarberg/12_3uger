@@ -7,6 +7,8 @@ public class Board {
     }
 
     public void setupBoard(){
+
+        /*
         for (int i = 0; i < fields.length; i++) {
             Color fillColor = new Color(0,0,0);
             switch (fieldsTXT[i][1]){
@@ -30,8 +32,8 @@ public class Board {
                 case 7: this.fields[i] = new ParkingField(); break;
             }
 
-
         }
+        */
     }
 
 
