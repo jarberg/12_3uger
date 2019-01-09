@@ -6,6 +6,7 @@ public class StartField extends Field{
 
     public StartField(String title, String subtitle, String description, String message, Color fillColor, int amount){
         super(title, subtitle, description, message, fillColor);
+
         this.amount = amount;
     }
 
