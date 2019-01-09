@@ -26,12 +26,19 @@ public class ViewController {
     }
 
     public void addPlayer(String name, int balance){
-        int length = gui_players.length;
+        int length;
+        try{
+            length = gui_players.length;
+        } catch (NullPointerException e){
+            length = 0;
+        }
         GUI_Player[] temp = new GUI_Player[length+1];
-        System.arraycopy(gui_players, 0, temp, 0, length);
+        //System.arraycopy(gui_players, 0, temp, 0, length);
         gui_players = temp;
         gui_players[length] = new GUI_Player(name, balance);
     }
 
-
+    public GUI_Player[] getGui_players() {
+        return gui_players;
+    }
 }
