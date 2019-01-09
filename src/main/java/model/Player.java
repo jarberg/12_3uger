@@ -11,7 +11,7 @@ public class Player {
     private int position;
     private boolean broke=false;
     private boolean hasGetOutOfJailCard=false;
-    private boolean doubbleTurn;
+    private boolean doubbleTurn = false;
 
     //constructor
     public Player(String name){

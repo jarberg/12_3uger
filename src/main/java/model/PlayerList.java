@@ -2,17 +2,18 @@ package model;
 
 public class PlayerList {
 
-    private int playerAmount =0;
+    private int playerAmount;
     private int NextPlayerIndex;
-
+    Player[] playerList;
     //constructor
 
     PlayerList(int amount){
 
         this.playerAmount = amount;
+        playerList= new Player[playerAmount];
     }
 
-    Player[] playerList= new Player[playerAmount];
+
 
 
     //getters
@@ -26,15 +27,15 @@ public class PlayerList {
     //setters
 
     public void addPlayer(int index, Player player){
-        playerList[index] = player;
+        this.playerList[index] = player;
     }
 
     public void setNextPlayer(){
 
-        if(!getCurrentPlayer().getDoubbleTurnStatus()){
+        if(getCurrentPlayer().getDoubbleTurnStatus()==false){
             Player currPlayer = playerList[0];
-            for (int i = 1; i <playerList.length ; i++) {
-                playerList[i]=playerList[i-1];
+            for (int i = 0; i <playerList.length-1 ; i++) {
+                playerList[i]=playerList[i+1];
             }
             playerList[playerList.length-1]= currPlayer;
 

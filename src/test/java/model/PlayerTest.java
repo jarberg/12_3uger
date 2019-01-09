@@ -26,15 +26,7 @@ public class PlayerTest {
         assertEquals(true,player.getJailCardStatus());
     }
 
-    @Test
-    public void setGetBalance() {
-        int newbalance = 5;
 
-        assertEquals(0,player.getBalance());
-
-        player.addBalance(newbalance);
-        assertEquals(newbalance,player.getBalance());
-    }
 
     @Test
     public void setGetPlayerColor() {
@@ -74,4 +66,15 @@ public class PlayerTest {
         assertEquals(true,player.getDoubbleTurnStatus());
 
     }
+    //integrated tests
+    @Test
+    public void setGetBalance() {
+        int newbalance = 5;
+
+        assertEquals(0,player.getBalance());
+
+        player.addBalance(newbalance);
+        assertEquals(newbalance,player.getBalance());
+    }
+
 }
