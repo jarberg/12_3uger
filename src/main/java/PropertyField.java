@@ -8,13 +8,12 @@ public class PropertyField extends Field {
     private int buildingCount;
     private int[] rents;
 
-    public PropertyField(String title, String subtitle, String description, String message, Color fillColor, String type, int price, int buildingPrice, int buildingCount, int... rents){
+    public PropertyField(String title, String subtitle, String description, String message, Color fillColor, String type, int price, int buildingPrice, int... rents){
         super(title, subtitle, description, message, fillColor);
 
         this.type = type;
         this.price = price;
         this.buildingPrice = buildingPrice;
-        this.buildingCount = buildingCount;
         this.rents = rents;
     }
 
@@ -35,12 +34,24 @@ public class PropertyField extends Field {
         return buildingCount;
     }
 
+    public void addBuilding(){
+        buildingCount++;
+    }
+
+    public void removeBuilding(){
+        buildingCount--;
+    }
+
     public String getType(){
         return type;
     }
 
-    public int getRent(){
-        return rents[buildingCount];
+    public int getRent() throws RentNotSpecifiedException {
+        try{
+            return rents[buildingCount];
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new RentNotSpecifiedException("Rent for this amount of buildings is not specified.");
+        }
     }
 
 }
