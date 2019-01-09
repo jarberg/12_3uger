@@ -26,7 +26,7 @@ public class Player {
 
     public int getBalance(){ return this.account.getBalance(); }
 
-    public Color getPlayerColor(){ return this.playerColor}
+    public Color getPlayerColor(){ return this.playerColor;}
 
     public int getPosition(){ return this.position; }
 
