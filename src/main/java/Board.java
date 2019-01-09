@@ -25,11 +25,12 @@ public class Board {
             switch (fieldsTXT[i][0]){
                 case 1: this.fields[i] = new StartField(); break;
                 case 2: this.fields[i] = new PropertyField(); break;
-                case 3: this.fields[i] =  new ChanceField(); break;
+                case 3: this.fields[i] = new ChanceField(); break;
                 case 4: this.fields[i] = new TaxField(); break;
                 case 5: this.fields[i] = new JailField(); break;
                 case 6: this.fields[i] = new GoToJailField(); break;
                 case 7: this.fields[i] = new ParkingField(); break;
+                case 8: this.fields[i] = new BreweryField(); break;
             }
 
         }
