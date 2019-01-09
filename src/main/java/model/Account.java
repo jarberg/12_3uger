@@ -5,7 +5,7 @@ public class Account {
     private int balance=0;
 
 
-    public void setBalance(int amount){
+    public void addBalance(int amount){
 
         if(balance+amount >= 0){
             this.balance += amount;
