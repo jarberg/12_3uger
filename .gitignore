@@ -1,8 +1,4 @@
-.idea/uidesigner.xml
-.idea/workspace.xml
-.idea/dictionaries
-.idea/libraries
-.idea/artifacts
+.idea
 target
 META-INF
 .idea/artifacts
