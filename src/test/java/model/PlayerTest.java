@@ -1,0 +1,80 @@
+package model;
+
+import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
+
+public class PlayerTest {
+
+    Player player = new Player("Bob");
+
+
+    @Test
+    public void setGetName() {
+        assertEquals("Bob", player.getName());
+
+        player.setName("Bob Dylan");
+        assertEquals("Bob Dylan", player.getName());
+    }
+
+    @Test
+    public void setGetJailCardStatus() {
+        assertEquals(false,player.getJailCardStatus());
+        player.setJailCardStatus(true);
+        assertEquals(true,player.getJailCardStatus());
+    }
+
+
+
+    @Test
+    public void setGetPlayerColor() {
+
+        Color colorCheck= Color.CYAN;
+
+        assertEquals(null, player.getPlayerColor());
+
+        player.setPlayerColor(colorCheck);
+        assertEquals(colorCheck, player.getPlayerColor());
+    }
+
+    @Test
+    public void setGetPosition() {
+
+        int testPosition =5;
+        int boardsize =40;
+        assertEquals(0,player.getPosition()%boardsize);
+        player.setPosition(testPosition);
+        assertEquals(testPosition,player.getPosition()%boardsize);
+
+        assertEquals(testPosition,(player.getPosition()+boardsize)%boardsize);
+    }
+
+    @Test
+    public void setGetBrokeStatus() {
+        assertEquals(false,player.getJailCardStatus());
+        player.setJailCardStatus(true);
+        assertEquals(true,player.getJailCardStatus());
+
+    }
+
+    @Test
+    public void setGetDoubbleTurnStatus() {
+        assertEquals(false,player.getDoubbleTurnStatus());
+        player.setDoubbleTurnStatus(true);
+        assertEquals(true,player.getDoubbleTurnStatus());
+
+    }
+    //integrated tests
+    @Test
+    public void setGetBalance() {
+        int newbalance = 5;
+
+        assertEquals(0,player.getBalance());
+
+        player.addBalance(newbalance);
+        assertEquals(newbalance,player.getBalance());
+    }
+
+}
