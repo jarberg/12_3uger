@@ -1,25 +1,23 @@
 package model;
 
-public class LanguageStringCollection {
+public class LanguageStringCollection extends StringCollection{
 
     private static LanguageStringCollection singletonInstance = null;
 
     public static LanguageStringCollection getInstance(String FilePath){
         if(singletonInstance ==null){
             filepath = FilePath;
-            singletonInstance = new LanguageStringCollection();
+            singletonInstance = new LanguageStringCollection(filepath);
 
         }
 
         return singletonInstance;
     }
 
-    FReader freader = FReader.getInstance(filepath);
-    static String filepath;
+    public LanguageStringCollection(String FilePath){
 
-    private String[][] ChanceCard = freader.getChanceCards(filepath);
+        super();
 
-    public String getChancecard(int a, int b){
-        return ChanceCard[a][b];
     }
+
 }

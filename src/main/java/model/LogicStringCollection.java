@@ -1,25 +1,23 @@
 package model;
 
-public class LogicStringCollection {
+public class LogicStringCollection extends StringCollection{
 
     private static LogicStringCollection singletonInstance = null;
 
     public static LogicStringCollection getInstance(String FilePath){
         if(singletonInstance ==null){
             filepath = FilePath;
-            singletonInstance = new LogicStringCollection();
+            singletonInstance = new LogicStringCollection(filepath);
 
         }
 
         return singletonInstance;
     }
 
-    FReader freader = FReader.getInstance(filepath);
-    static String filepath;
+    public LogicStringCollection(String FilePath){
 
-    private String[][] ChanceCard = freader.getChanceCards(filepath);
+        super();
 
-    public String getChancecard(int a, int b){
-        return ChanceCard[a][b];
     }
+
 }
