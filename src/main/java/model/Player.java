@@ -6,12 +6,12 @@ public class Player {
 
     Account account = new Account();
 
-    private String name="";
+    private String name;
     private Color playerColor;
     private int position;
     private boolean broke=false;
     private boolean hasGetOutOfJailCard=false;
-    private boolean doubbleTurn = false;
+    private boolean doubleTurn = false;
 
     //constructor
     public Player(String name){
@@ -33,7 +33,7 @@ public class Player {
 
     public boolean getBrokeStatus(){ return this.broke; }
 
-    public boolean getDoubbleTurnStatus(){ return this.doubbleTurn; }
+    public boolean getDoubleTurnStatus(){ return this.doubleTurn; }
 
     //Setters
 
@@ -49,5 +49,5 @@ public class Player {
 
     public void setBrokeStatus(boolean status){ this.broke = status; }
 
-    public void setDoubbleTurnStatus(boolean status){ this.doubbleTurn =status; }
+    public void setDoubleTurnStatus(boolean status){ this.doubleTurn =status; }
 }
