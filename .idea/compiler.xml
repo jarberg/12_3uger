@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="12_3uger" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="12_3uger" target="1.10" />
       <module name="3ugers" target="1.10" />
     </bytecodeTargetLevel>
   </component>
