@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class PropertyFieldTest {
 
-    private static final String title = "Property";
+    private static final String ID = "Property";
     private static final String subtitle = "Real Estate Property";
     private static final String description = "A magnificent property.";
     private static final String message = "You've seen the pinnacle of property existence";
@@ -22,7 +22,7 @@ public class PropertyFieldTest {
 
     @Before
     public void setUp(){
-        field = new PropertyField(title, subtitle, description, message, fillColor, type, price, buildingPrice,rents);
+        field = new PropertyField(ID, fillColor, type, price, buildingPrice,rents);
     }
 
     @After
