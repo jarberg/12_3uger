@@ -1,28 +1,22 @@
-package model;
+package model.text;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class FReader {
 
     private static FReader singletonInstance = null;
 
-    public FReader(){
+    private static String Filepath;
 
-    }
-
-    public static FReader getInstance(){
+    public static FReader getInstance(String filepath){
 
         if(singletonInstance ==null){
-
+            Filepath = filepath;
             singletonInstance = new FReader();
-
         }
-
         return singletonInstance;
 
     }
@@ -47,7 +41,7 @@ public class FReader {
 
         String newFilepath = filePath+fileName;
         String[] stringList = fileReader(newFilepath);
-        String[][] finalStringList = new String[stringList.length][];
+        String[][] finalStringList = new String[stringList.length][15];
 
         for (int i = 0; i < finalStringList.length; i++) {
             finalStringList[i] = stringList[i].split(":");
