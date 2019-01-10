@@ -5,31 +5,20 @@ import model.text.LogicStringCollection;
 import java.awt.*;
 
 public class Board {
-    private LogicStringCollection logicCollection;
-    private int[][] fieldsLogic;
     private Field[] fields;
 
 
     public Board(){
         fields = new Field[40];
-        logicCollection = LogicStringCollection.getInstance("logic");
 
     }
 
-    public void setupBoard(){
-        fieldsLogic = logicCollection.getFieldsText();
-        int i = 0;
-        for (int[] field : fieldsLogic){
+    public void setupBoard(int[][] fieldsLogic, String[] fieldDescriptions, String[] fieldMessages){
+        for (int i = 0; i < fields.length; i++) {
+            int[] field = fieldsLogic[i];
             Color fieldColor = decideFieldColor(field);
-            Field newField = makeField(field, fieldColor);
-            this.fields[i++] = newField;
+            this.fields[i] = makeField(field, fieldColor, fieldDescriptions, fieldMessages);
         }
-
-        /*for (int i = 0; i < fields.length; i++) {
-            String[] field = fieldsLogic[i];
-            Color fieldColor = decideFieldColor(field);
-            this.fields[i] = makeField(field, fieldColor);
-        }*/
     }
 
     private Color decideFieldColor(int[] fieldLogic) {
@@ -66,7 +55,7 @@ public class Board {
         return fieldColor;
     }
 
-    private Field makeField(int[] fieldLogic , Color color) {
+    private Field makeField(int[] fieldLogic , Color color, String[] message, String[] descriprion) {
         String ID = Integer.toString(fieldLogic[0]);
         int fieldType = fieldLogic[1];
         Field field = null;
