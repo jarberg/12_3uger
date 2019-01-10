@@ -1,6 +1,5 @@
 package model.player;
 
-import model.player.Player;
 import org.junit.Test;
 
 import java.awt.*;
