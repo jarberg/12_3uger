@@ -1,16 +1,24 @@
-package controller;
+package Controller;
 import model.Board.Board;
 import model.Board.Field;
 import model.player.Player;
 import model.player.PlayerList;
+import model.text.FReader;
+import model.text.LanguageStringCollection;
+import model.text.LogicStringCollection;
 
 
 public class GameController {
 
-    ViewControllerAbs viewcon ;
+    //ViewControllerAbs viewcon ;
+    private FReader fileReader;
+    private LogicStringCollection logicCollection;
+    private LanguageStringCollection languageCollection;
 
     private boolean test = false;
     private static GameController singletonInstance = null;
+    private Board board;
+    private PlayerList playerlist;
 
     public static GameController getInstance(){
 
@@ -22,15 +30,20 @@ public class GameController {
 
     }
     private GameController(){
-        viewcon = ViewController.getSingleInstance();
+        //viewcon = ViewController.getSingleInstance();
+        logicCollection = LogicStringCollection.getInstance("logic");
+        //languageCollection = LanguageStringCollection.getInstance("language/danish");
     }
 
 
-    private Board board;
-    private PlayerList playerlist;
-
     public void createBoard(){
-        board = new Board();
+        this.board = new Board();
+        int[][] fieldLogic = logicCollection.getFieldsText();
+        //String[] fieldDescriptions = languageCollection.getFieldDescription();
+        //String[] fieldMessages = languageCollection.getFieldMessages();
+        String[] fieldDescriptions = null;
+        String[] fieldMessages = null;
+        this.board.setupBoard(fieldLogic, fieldDescriptions, fieldMessages);
     }
 
     public void createPlayerList(int amount){
@@ -59,6 +72,8 @@ public class GameController {
         }
         return player;
     }
+
+
 
     public Player[] getPlayers() { return playerlist.getAllPlayers(); }
 
