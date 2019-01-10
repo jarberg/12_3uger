@@ -8,8 +8,8 @@ public class PropertyField extends Field {
     private int buildingCount;
     private int[] rents;
 
-    public PropertyField(String title, String subtitle, String description, String message, Color fillColor, String type, int price, int buildingPrice, int... rents){
-        super(title, subtitle, description, message, fillColor);
+    public PropertyField(String ID, Color fieldColor, String type, int price, int buildingPrice, int... rents){
+        super(ID, fieldColor);
 
         this.type = type;
         this.price = price;

@@ -5,8 +5,8 @@ public class TaxField extends Field{
     private int flatAmount;
     private int percentage;
 
-    public TaxField(String title, String subtitle, String description, String message, Color fillColor, int flatAmount, int percentage){
-        super(title, subtitle, description, message, fillColor);
+    public TaxField(String ID, Color fieldColor, int flatAmount, int percentage){
+        super(ID, fieldColor);
 
         this.flatAmount = flatAmount;
         this.percentage = percentage;

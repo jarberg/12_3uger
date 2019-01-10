@@ -1,36 +1,14 @@
 import java.awt.*;
 
 public abstract class Field implements Visitable {
-    private String title;
-    private String subtitle;
-    private String description;
-    private String message;
+    private String ID;
     private Color fillColor;
     private Color borderColor;
 
-    public Field(String title, String subtitle, String description, String message, Color fillColor){
-        this.title = title;
-        this.subtitle = subtitle;
-        this.description = description;
-        this.message = message;
-        this.fillColor = fillColor;
-        borderColor = Color.black;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getMessage() {
-        return message;
+    public Field(String ID, Color fieldColor){
+        this.ID = ID;
+        this.fillColor = fieldColor;
+        this.borderColor = fieldColor;
     }
 
     public Color getFillColor() {

@@ -4,9 +4,8 @@ public class StartField extends Field{
 
     private int amount;
 
-    public StartField(String title, String subtitle, String description, String message, Color fillColor, int amount){
-        super(title, subtitle, description, message, fillColor);
-
+    public StartField(String ID, Color fieldColor, int amount){
+        super(ID, fieldColor);
         this.amount = amount;
     }
 

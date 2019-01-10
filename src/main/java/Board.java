@@ -69,28 +69,28 @@ public class Board {
         Field field = null;
         switch (fieldType){
             case 1:
-                field = new StartField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[3]));
+                field = new StartField(fieldLogic[0], color, Integer.valueOf(fieldLogic[3]));
                 break;
             case 2:
-                field = new PropertyField("title", "subtitle", "description", "message", color, fieldLogic[2], Integer.valueOf(fieldLogic[3]), Integer.valueOf(fieldLogic[4]), Integer.valueOf(fieldLogic[5]), Integer.valueOf(fieldLogic[6]), Integer.valueOf(fieldLogic[7]), Integer.valueOf(fieldLogic[8]), Integer.valueOf(fieldLogic[9]));
+                field = new PropertyField(fieldLogic[0], color, fieldLogic[2], Integer.valueOf(fieldLogic[3]), Integer.valueOf(fieldLogic[4]), Integer.valueOf(fieldLogic[5]), Integer.valueOf(fieldLogic[6]), Integer.valueOf(fieldLogic[7]), Integer.valueOf(fieldLogic[8]), Integer.valueOf(fieldLogic[9]));
                 break;
             case 3:
-                field = new ChanceField("title", "subtitle", "description", "message", color);
+                field = new ChanceField(fieldLogic[0], color);
                 break;
             case 4:
-                field = new TaxField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[3]), Integer.valueOf(fieldLogic[4]));
+                field = new TaxField(fieldLogic[0], color, Integer.valueOf(fieldLogic[3]), Integer.valueOf(fieldLogic[4]));
                 break;
             case 5:
-                field = new JailField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[3]),0);
+                field = new JailField(fieldLogic[0],  color, Integer.valueOf(fieldLogic[3]),0);
                 break;
             case 6:
-                field = new GoToJailField("title", "subtitle", "description", "message", color);
+                field = new GoToJailField(fieldLogic[0], color);
                 break;
             case 7:
-                field = new ParkingField("title", "subtitle", "description", "message", color);
+                field = new ParkingField(fieldLogic[0], color);
                 break;
             case 8:
-                field = new BreweryField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[4]), Integer.valueOf(fieldLogic[5]));
+                field = new BreweryField(fieldLogic[0], color, Integer.valueOf(fieldLogic[4]), Integer.valueOf(fieldLogic[5]));
                 break;
         }
         return field;

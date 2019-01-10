@@ -6,8 +6,8 @@ public class JailField extends Field {
     private int maxSuccessiveAttempts;
 
 
-    public JailField(String title, String subtitle, String description, String message, Color fillColor, int releaseCharge, int maxSuccessiveAttempts){
-        super(title, subtitle, description, message, fillColor);
+    public JailField(String ID, Color fieldColor, int releaseCharge, int maxSuccessiveAttempts){
+        super(ID, fieldColor);
 
         this.releaseCharge = releaseCharge;
         this.maxSuccessiveAttempts = maxSuccessiveAttempts;
