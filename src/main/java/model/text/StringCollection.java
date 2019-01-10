@@ -1,4 +1,4 @@
-package model;
+package model.text;
 
 public abstract class StringCollection {
 
@@ -14,8 +14,4 @@ public abstract class StringCollection {
     }
 
     public String getField(int a, int b){   return fields[a][b];  }
-
-
-
-
 }
