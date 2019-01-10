@@ -14,18 +14,39 @@ public class DrawController implements Drawer {
     @Override //CARD: 24 - 26
     public void draw(GetOutOfJailCard card) {
         //viewController.showFieldMessage(playerName);
+        /*
+        Set spillerens getOutOfJailCard til true
+         */
 
     }
 
     @Override //CARD: 2
     public void draw(MonoplyJackpotCard card) {
         //viewController.showFieldMessage(playerName);
+        /*
+        Transaction
+         */
 
     }
 
-    @Override //CARD: 3 - 4 - 5 - 9 - 10 - 12 - !!17!! - !!27!!
+    @Override //CARD: 3 - 4 - 5 - 9 - 10 - 12
     public void draw(MoveCard card) {
         //viewController.showFieldMessage(playerName);
+
+
+        /* FLYT TIL ØNSKET FELT METODE @param ønsketFieldID
+        Field[] fields = get fields
+        int position = player.getPosition
+        String fieldID = fields[position].getID
+        while(!(fieldID.equals ØnsketFieldID)){
+            position = position++ % fields.length;
+            fieldID = fields[position].getID
+            viewContoller movePlayer 1 step
+            set spillerens position på board
+
+        }
+
+         */
 
     }
 
@@ -50,12 +71,12 @@ public class DrawController implements Drawer {
         /* FLYT TIL FÆNGSEL METODE
         Field[] fields = get fields
         int position = player.getPosition
-        field = fields[position]
+        Field curfield = fields[position]
         while(!(field instanceOf JailField)){
             position = position++ % fields.length();
-            field = fields[position]
+            curfield = fields[position]
             viewController.movePlayer 1 felt
-            set spillerens position
+            set spillerens position på board
         }
         set spillerens fængsels boolean til true.
 
