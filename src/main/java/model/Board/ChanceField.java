@@ -1,8 +1,10 @@
+package model.Board;
+
 import java.awt.*;
 
-public class ParkingField extends Field {
+public class ChanceField extends Field {
 
-    public ParkingField(String ID, Color fieldColor){
+    public ChanceField(String ID, Color fieldColor){
         super(ID, fieldColor);
     }
 

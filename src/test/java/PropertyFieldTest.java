@@ -1,3 +1,5 @@
+import model.Board.PropertyField;
+import model.Board.RentNotSpecifiedException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

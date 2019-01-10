@@ -1,4 +1,4 @@
-import gui_fields.GUI_Player;
+import controller.ViewController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
