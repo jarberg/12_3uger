@@ -15,8 +15,7 @@ public abstract class StringCollection {
 
     public String getField(int a, int b){   return fields[a][b];  }
 
-    public int[][] getFieldsText() {
-        int[][] fields = freader.getFieldsText(filepath);
-        return fields;
-    }
+
+
+
 }

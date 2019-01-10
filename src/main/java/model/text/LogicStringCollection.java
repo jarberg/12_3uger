@@ -19,5 +19,9 @@ public class LogicStringCollection extends StringCollection{
         super();
 
     }
+    public int[][] getFieldsText() {
+        int[][] fields = freader.getFieldsText(filepath);
+        return fields;
+    }
 
 }

@@ -41,9 +41,8 @@ public class GameController {
         int[][] fieldLogic = logicCollection.getFieldsText();
         //String[] fieldDescriptions = languageCollection.getFieldDescription();
         //String[] fieldMessages = languageCollection.getFieldMessages();
-        String[] fieldDescriptions = null;
-        String[] fieldMessages = null;
-        this.board.setupBoard(fieldLogic, fieldDescriptions, fieldMessages);
+        String[][] fieldInfo = null;
+        this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
     public void createPlayerList(int amount){

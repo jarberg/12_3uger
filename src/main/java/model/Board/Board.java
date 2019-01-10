@@ -13,11 +13,11 @@ public class Board {
 
     }
 
-    public void setupBoard(int[][] fieldsLogic, String[] fieldDescriptions, String[] fieldMessages){
+    public void setupBoard(int[][] fieldsLogic, String[][] fieldInfo){
         for (int i = 0; i < fields.length; i++) {
             int[] field = fieldsLogic[i];
             Color fieldColor = decideFieldColor(field);
-            this.fields[i] = makeField(field, fieldColor, fieldDescriptions, fieldMessages);
+            this.fields[i] = makeField(field, fieldColor, fieldInfo);
         }
     }
 
@@ -55,7 +55,7 @@ public class Board {
         return fieldColor;
     }
 
-    private Field makeField(int[] fieldLogic , Color color, String[] message, String[] descriprion) {
+    private Field makeField(int[] fieldLogic , Color color, String[][] fieldInfo) {
         String ID = Integer.toString(fieldLogic[0]);
         int fieldType = fieldLogic[1];
         Field field = null;
