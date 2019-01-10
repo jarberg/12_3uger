@@ -25,8 +25,8 @@ public class LogicStringCollection {
     }*/
 
 
-    public String[][] getFieldsText() {
-        String[][] fields = freader.getFieldsText(filepath);
+    public int[][] getFieldsText() {
+        int[][] fields = freader.getFieldsText(filepath);
         return fields;
     }
 }
