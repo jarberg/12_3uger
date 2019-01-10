@@ -1,4 +1,4 @@
-import model.LogicStringCollection;
+import model.text.LogicStringCollection;
 
 import java.awt.*;
 
