@@ -42,5 +42,6 @@ public class BoardTest {
         assertEquals(1, numOfFieldType[5]);
         assertEquals(1, numOfFieldType[6]);
         assertEquals(1, numOfFieldType[7]);
+        assertEquals(40, board.getFields().length);
     }
 }
