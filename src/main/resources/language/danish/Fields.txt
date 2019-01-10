@@ -18,7 +18,7 @@
 18~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
 19~Hellerupvej~Pris: 180 kr.~De er ankommet til Hellerupvej.
 20~Strandvej~Pris: 200 kr.~De er ankommet til Strandvejen.
-21~Helle~Et sikkert sted~De er i helle.9~~Pris:  kr.~
+21~Helle~Et sikkert sted~De er i helle.
 22~Trianglen~Pris: 220 kr.~De er landet på trianglen.
 23~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
 24~Østerbrogade~Pris: 220 kr.~De er ankommet til Østerbrogade.
