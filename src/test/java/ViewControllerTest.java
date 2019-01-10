@@ -7,22 +7,22 @@ import static org.junit.Assert.*;
 
 public class ViewControllerTest {
 
+    private ViewController viewController = ViewController.getSingleInstance();
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
     }
 
     @Test
     public void addPlayer() {
-        ViewController singleInstance = ViewController.getSingleInstance();
         for (int i = 1; i <= 6; i++) {
-            singleInstance.addPlayer("name "+i, 1500);
-            assertEquals(singleInstance.getGui_players().length, i);
+            viewController.addPlayer("name "+i, 1500);
+            assertEquals(viewController.getGui_players().length, i);
         }
-
 
         /*
         for (int i = 0; i < gui_players.length; i++) {

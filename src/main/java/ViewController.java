@@ -1,5 +1,6 @@
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
+import gui_fields.GUI_Street;
 import gui_main.GUI;
 
 public class ViewController {
@@ -25,6 +26,20 @@ public class ViewController {
         this.gui.close();
     }
 
+    public void createBoard(){
+        for (int i = 0; i < gui_board.length; i++) {
+            gui_board[i] = new GUI_Street();
+        }
+        showGUI();
+    }
+
+    private void showGUI(){
+        if(this.gui != null)
+            gui.close();
+
+        this.gui = new GUI(gui_board);
+    }
+
     public void addPlayer(String name, int balance){
         int length;
         try{
@@ -37,7 +52,16 @@ public class ViewController {
             temp[i] = gui_players[i];
         }
         gui_players = temp;
-        gui_players[length] = new GUI_Player(name, balance);
+        GUI_Player newPlayer = new GUI_Player(name, balance);
+
+        gui_players[length] = newPlayer;
+        this.gui.addPlayer(newPlayer);
+    }
+
+    public void changePlayerBalance(String playerName, int amount){
+        GUI_Player player = getPlayerByName(playerName);
+        int currentBalance = player.getBalance();
+        player.setBalance(currentBalance + amount);
     }
 
     public void spawnPlayers(){
@@ -70,5 +94,9 @@ public class ViewController {
                 player = p;
         }
         return player;
+    }
+
+    public GUI_Player[] getGui_players() {
+        return gui_players;
     }
 }
