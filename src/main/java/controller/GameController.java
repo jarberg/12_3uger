@@ -39,8 +39,8 @@ public class GameController {
     public void createBoard(){
         this.board = new Board();
         int[][] fieldLogic = logicCollection.getFieldsText();
-        //String[] fieldDescriptions = languageCollection.getFieldDescription();
         //String[] fieldMessages = languageCollection.getFieldMessages();
+        //String[][] fieldInfo = languageCollection.getFieldInfo();
         String[][] fieldInfo = null;
         this.board.setupBoard(fieldLogic, fieldInfo);
     }

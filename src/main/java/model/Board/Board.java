@@ -16,8 +16,8 @@ public class Board {
     public void setupBoard(int[][] fieldsLogic, String[][] fieldsInfo){
         for (int i = 0; i < fields.length; i++) {
             int[] fieldLogic = fieldsLogic[i];
-            String[] fieldInfo = fieldsInfo[i];
             Color fieldColor = decideFieldColor(fieldLogic);
+            String[] fieldInfo = fieldsInfo[i];
             this.fields[i] = makeField(fieldLogic, fieldColor, fieldInfo);
         }
     }
