@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 public class PlayerList {
 
@@ -32,7 +32,7 @@ public class PlayerList {
 
     public void setNextPlayer(){
 
-        if(getCurrentPlayer().getDoubbleTurnStatus()==false){
+        if(getCurrentPlayer().getDoubleTurnStatus()==false){
             Player currPlayer = playerList[0];
             for (int i = 0; i <playerList.length-1 ; i++) {
                 playerList[i]=playerList[i+1];

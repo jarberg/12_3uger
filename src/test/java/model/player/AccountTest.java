@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 import org.junit.Test;
 
@@ -22,7 +22,10 @@ public class AccountTest {
         int newBalance = 5;
 
         account.addBalance(newBalance);
-        assertEquals(account.getBalance(),newBalance);
+        assertEquals(newBalance,account.getBalance());
+
+        account.addBalance(-20);
+        assertEquals(0,account.getBalance());
 
     }
 

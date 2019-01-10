@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 import org.junit.Test;
 
@@ -53,17 +53,17 @@ public class PlayerTest {
 
     @Test
     public void setGetBrokeStatus() {
-        assertEquals(false,player.getJailCardStatus());
-        player.setJailCardStatus(true);
-        assertEquals(true,player.getJailCardStatus());
+        assertEquals(false,player.getBrokeStatus());
+        player.setBrokeStatus(true);
+        assertEquals(true,player.getBrokeStatus());
 
     }
 
     @Test
     public void setGetDoubbleTurnStatus() {
-        assertEquals(false,player.getDoubbleTurnStatus());
-        player.setDoubbleTurnStatus(true);
-        assertEquals(true,player.getDoubbleTurnStatus());
+        assertEquals(false,player.getDoubleTurnStatus());
+        player.setDoubleTurnStatus(true);
+        assertEquals(true,player.getDoubleTurnStatus());
 
     }
     //integrated tests

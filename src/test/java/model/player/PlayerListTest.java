@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 import org.junit.Test;
 
@@ -31,10 +31,7 @@ public class PlayerListTest {
         assertEquals(player1, playerlist.getPlayer(0));
         assertEquals(player2, playerlist.getPlayer(1));
         assertEquals(player3, playerlist.getPlayer(2));
-
-
     }
-
 
 
     @Test
@@ -48,19 +45,14 @@ public class PlayerListTest {
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
             if (i == 0) {
                 assertEquals(player1.getName(), playerlist.getPlayer(i).getName());
-
             }
             if (i == 1) {
                 assertEquals(player2.getName(), playerlist.getPlayer(i).getName());
-
             }
             if (i == 2) {
                 assertEquals(player3.getName(), playerlist.getPlayer(i).getName());
-
             }
         }
-
-
     }
 
     @Test
@@ -69,7 +61,6 @@ public class PlayerListTest {
         assertEquals(null, playerlist.getCurrentPlayer());
         addPlayer();
         assertEquals(player1, playerlist.getCurrentPlayer());
-
     }
 
     @Test
