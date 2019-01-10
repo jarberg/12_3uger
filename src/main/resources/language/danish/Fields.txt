@@ -1,0 +1,40 @@
+1~Start~Hver gang De passerer modtag 200 kr.~Hvad løber og løber men lander alligevel tilbage på start? Dig!
+2~Rødovrevej~Pris: 60 kr.~De har landet på Rødovrevej.
+3~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+4~Hvidovre~Pris: 60 kr.~De er ankommet til Hvidovrevej.
+5~Indkomstskat~Betal indkomstskat 10% eller 200 kr.~De skal betale indkomstskat på 10% eller 200 kr.
+6~Øresund A/S~Pris: 200 kr.~De er ankommet til Øresundsfærgen.
+7~Roskildevej~Pris: 100 kr.~De er ankommet til Roskildevej.
+8~
+9~
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
