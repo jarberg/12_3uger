@@ -7,7 +7,7 @@ public class MoveCard extends Card{
         super(title, description);
     }
 
-    public void accept (Drawer drawer) {
+    public void accept (Drawer drawer){
         drawer.draw(this);
     }
 }

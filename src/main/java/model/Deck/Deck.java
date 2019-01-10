@@ -3,7 +3,7 @@ package model.Deck;
 import java.util.Random;
 
 public class Deck {
-    Card[] cardArray;
+    private Card[] cardArray;
 
     public Deck(int length) {
         cardArray = new Card[length];
@@ -24,7 +24,7 @@ public class Deck {
         }
     }
 
-    public void ShuffleDeck(Card[] array) {
+    public void shuffleDeck(Card[] array) {
 
         Random random = new Random(); //generator random number
 

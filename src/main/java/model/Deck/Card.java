@@ -1,6 +1,6 @@
 package model.Deck;
 
-public abstract class Card {
+public abstract class Card implements Drawable {
     private String title;
     private String description;
 
