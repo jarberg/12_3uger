@@ -3,9 +3,10 @@ import model.LogicStringCollection;
 import java.awt.*;
 
 public class Board {
-    Field[] fields;
-    LogicStringCollection logicCollection;
-    String[][] fieldsLogic;
+    private LogicStringCollection logicCollection;
+    private String[][] fieldsLogic;
+    private Field[] fields;
+
 
     public Board(){
         fields = new Field[40];
@@ -15,15 +16,21 @@ public class Board {
 
     public void setupBoard(){
         fieldsLogic = logicCollection.getFieldsText();
-
-        for (int i = 0; i < fields.length; i++) {
-            String[] field = fieldsLogic[i];
-            Color fieldColor = chooseFieldColor(field);
-            makeField(i, fieldColor);
+        int i = 0;
+        for (String[] field : fieldsLogic){
+            Color fieldColor = decideFieldColor(field);
+            Field newField = makeField(field, fieldColor);
+            this.fields[i++] = newField;
         }
+
+        /*for (int i = 0; i < fields.length; i++) {
+            String[] field = fieldsLogic[i];
+            Color fieldColor = decideFieldColor(field);
+            this.fields[i] = makeField(field, fieldColor);
+        }*/
     }
 
-    private Color chooseFieldColor(String[] fieldLogic) {
+    private Color decideFieldColor(String[] fieldLogic) {
         Color fieldColor = new Color(0,0,0);
         int fieldGroup = Integer.parseInt(fieldLogic[2]);
         switch (fieldGroup){
@@ -57,34 +64,36 @@ public class Board {
         return fieldColor;
     }
 
-    private void makeField(int i, Color color) {
-        int fieldType = Integer.parseInt(fieldsLogic[i][1]);
+    private Field makeField(String[] fieldLogic , Color color) {
+        int fieldType = Integer.parseInt(fieldLogic[1]);
+        Field field = null;
         switch (fieldType){
             case 1:
-                this.fields[i] = new StartField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldsLogic[i][3]));
+                field = new StartField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[3]));
                 break;
             case 2:
-                this.fields[i] = new PropertyField("title", "subtitle", "description", "message", color, fieldsLogic[i][2], Integer.valueOf(fieldsLogic[i][3]), Integer.valueOf(fieldsLogic[i][4]), Integer.valueOf(fieldsLogic[i][5]), Integer.valueOf(fieldsLogic[i][6]), Integer.valueOf(fieldsLogic[i][7]), Integer.valueOf(fieldsLogic[i][8]), Integer.valueOf(fieldsLogic[i][9]));
+                field = new PropertyField("title", "subtitle", "description", "message", color, fieldLogic[2], Integer.valueOf(fieldLogic[3]), Integer.valueOf(fieldLogic[4]), Integer.valueOf(fieldLogic[5]), Integer.valueOf(fieldLogic[6]), Integer.valueOf(fieldLogic[7]), Integer.valueOf(fieldLogic[8]), Integer.valueOf(fieldLogic[9]));
                 break;
             case 3:
-                this.fields[i] = new ChanceField("title", "subtitle", "description", "message", color);
+                field = new ChanceField("title", "subtitle", "description", "message", color);
                 break;
             case 4:
-                this.fields[i] = new TaxField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldsLogic[i][3]), Integer.valueOf(fieldsLogic[i][4]));
+                field = new TaxField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[3]), Integer.valueOf(fieldLogic[4]));
                 break;
             case 5:
-                this.fields[i] = new JailField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldsLogic[i][3]),0);
+                field = new JailField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[3]),0);
                 break;
             case 6:
-                this.fields[i] = new GoToJailField("title", "subtitle", "description", "message", color);
+                field = new GoToJailField("title", "subtitle", "description", "message", color);
                 break;
             case 7:
-                this.fields[i] = new ParkingField("title", "subtitle", "description", "message", color);
+                field = new ParkingField("title", "subtitle", "description", "message", color);
                 break;
             case 8:
-                this.fields[i] = new BreweryField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldsLogic[i][4]), Integer.valueOf(fieldsLogic[i][5]));
+                field = new BreweryField("title", "subtitle", "description", "message", color, Integer.valueOf(fieldLogic[4]), Integer.valueOf(fieldLogic[5]));
                 break;
         }
+        return field;
     }
 
     public Field[] getFields() {
