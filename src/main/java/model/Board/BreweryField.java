@@ -8,8 +8,8 @@ public class BreweryField extends Field {
     private int multiplier2;
 
 
-    public BreweryField(String ID, Color fieldColor, int multiplier1, int multiplier2){
-        super(ID, fieldColor);
+    public BreweryField(String ID, String title, String subtitle, String message, Color fieldColor, int multiplier1, int multiplier2){
+        super(ID, title, subtitle, message, fieldColor);
 
         this.multiplier1 = multiplier1;
         this.multiplier2 = multiplier2;

@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class ChanceField extends Field {
 
-    public ChanceField(String ID, Color fieldColor){
-        super(ID, fieldColor);
+    public ChanceField(String ID, String title, String subtitle, String message, Color fieldColor){
+        super(ID, title, subtitle, message, fieldColor);
     }
 
     @Override

@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class GoToJailField extends Field{
 
-    public GoToJailField(String ID, Color fieldColor){
-        super(ID, fieldColor);
+    public GoToJailField(String ID, String title, String subtitle, String message, Color fieldColor){
+        super(ID, title, subtitle, message, fieldColor);
     }
 
     @Override
