@@ -29,7 +29,7 @@ public class DrawController implements Drawer {
 
     }
 
-    @Override //CARD: 3 - 4 - 5 - 9 - 10 - 12
+    @Override //CARD: 4 - 5 - 9 - 10 - 12
     public void draw(MoveCard card) {
         //viewController.showFieldMessage(playerName);
 
@@ -50,7 +50,7 @@ public class DrawController implements Drawer {
 
     }
 
-    @Override //CARD: !!17!! - !!27!!
+    @Override //CARD: 13 - 14 -
     public void draw(PayForBuildingsCard card) {
         //viewController.showFieldMessage(playerName);
         /*
@@ -61,13 +61,13 @@ public class DrawController implements Drawer {
 
     }
 
-    @Override //CARD:
+    @Override //CARD: 17 - 27
     public void draw(TeleportAndPayDoubleCard card) {
         //viewController.showFieldMessage(playerName);
 
     }
 
-    @Override //CARD: 6 - 8 - 11
+    @Override //CARD: 3 - 6 - 8 - 11
     public void draw(TeleportCard card) {
 
         //viewController.showFieldMessage(playerName);
@@ -95,7 +95,7 @@ public class DrawController implements Drawer {
 
     }
 
-    @Override //CARD: 1 - 7 - 13 - 14 - 16 - 18 - 19 - 20 - 21 - 22 - 25 - 28 - 29 - 30 - 31 - 32
+    @Override //CARD: 1 - 7 - 16 - 18 - 19 - 20 - 21 - 22 - 25 - 28 - 29 - 30 - 31 - 32
     public void draw(TransactionWithBankCard card) {
         //viewController.showFieldMessage(playerName);
 
