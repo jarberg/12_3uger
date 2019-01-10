@@ -1,3 +1,5 @@
+package model.Board;
+
 public interface Visitor {
 
     void visit(ChanceField field);

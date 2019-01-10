@@ -1,3 +1,5 @@
+package model.Board;
+
 import java.awt.*;
 
 public class PropertyField extends Field {

@@ -16,7 +16,6 @@ public abstract class ViewControllerAbs {
         this.gui_board = new GUI_Field[40];
     }
 
-
     public void showEmptyGUI(){
         this.gui = new GUI(new GUI_Field[0]);
     }

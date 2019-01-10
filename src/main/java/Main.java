@@ -5,8 +5,5 @@ public class Main {
 
         GameController gamecon = GameController.getInstance();
 
-        gamecon.getViewCon().showEmptyGUI();
-        gamecon.GodMode(true);
-        gamecon.getViewCon().showEmptyGUI();
     }
 }
