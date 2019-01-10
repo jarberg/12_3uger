@@ -18,6 +18,7 @@ public class FReader {
             singletonInstance = new FReader();
         }
         return singletonInstance;
+
     }
 
     //reads from given filepath
@@ -48,6 +49,23 @@ public class FReader {
         return finalStringList;
     }
 
+    private int[][] twoDIntArray(String filePath, String fileName){
+
+        String newFilepath = filePath+fileName;
+        String[] stringList = fileReader(newFilepath);
+        int[][] finalStringList = new int[stringList.length][];
+
+        for (int i = 0; i < finalStringList.length; i++) {
+            String[] temp1 = stringList[i].split(":");
+            int[] temp2 = new int[temp1.length];
+            for (int j = 0; j < temp1.length; j++) {
+                temp2[j] = Integer.parseInt(temp1[j]);
+            }
+            finalStringList[i] = temp2;
+        }
+        return finalStringList;
+    }
+
     //Uses reader method to build a stringArray from a given filepath+filename
 
     private String[] oneDStringArray(String filePath, String fileName){
@@ -61,7 +79,7 @@ public class FReader {
 
     // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
 
-    public String[][] getFieldsText(String filePath){ return twoDStringArray(filePath,"/Fields.txt"); }
+    public int[][] getFieldsText(String filePath){ return twoDIntArray(filePath,"/Fields.txt"); }
 
     public String[][] getChanceCards(String filePath){ return twoDStringArray(filePath,"/ChanceCards.txt"); }
 
