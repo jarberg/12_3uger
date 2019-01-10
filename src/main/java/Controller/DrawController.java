@@ -24,7 +24,7 @@ public class DrawController implements Drawer {
     public void draw(MonoplyJackpotCard card) {
         //viewController.showFieldMessage(playerName);
         /*
-        Transaction
+        Giv transaction metode argument 2000
          */
 
     }
@@ -33,8 +33,8 @@ public class DrawController implements Drawer {
     public void draw(MoveCard card) {
         //viewController.showFieldMessage(playerName);
 
+        /* MOVE TIL ØNSKET FELT METODE @param ønsketFieldID
 
-        /* FLYT TIL ØNSKET FELT METODE @param ønsketFieldID
         Field[] fields = get fields
         int position = player.getPosition
         String fieldID = fields[position].getID
@@ -53,6 +53,11 @@ public class DrawController implements Drawer {
     @Override //CARD: !!17!! - !!27!!
     public void draw(PayForBuildingsCard card) {
         //viewController.showFieldMessage(playerName);
+        /*
+        MOVE TIL ØNSKET FELT @param fieldID
+
+
+         */
 
     }
 

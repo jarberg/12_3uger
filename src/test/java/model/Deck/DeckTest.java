@@ -33,10 +33,11 @@ public class DeckTest {
 
         Card theCard = cards[0];
 
+        /*
         for (int i = 0; i < cards.length ; i++) {
             Card ca
 
-        }
+        }*/
 
         deck.shuffleDeck(cards);
 
