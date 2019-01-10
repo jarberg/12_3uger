@@ -1,24 +1,24 @@
 1~Start~Hver gang De passerer modtag 200 kr.~Hvad løber og løber men lander alligevel tilbage på start? Dig!
-2~Rødovrevej~Pris: 60 kr.~De har landet på Rødovrevej.
+2~Rødovrevej~Pris: 60 kr.~De er ankommet til Rødovrevej.
 3~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
 4~Hvidovre~Pris: 60 kr.~De er ankommet til Hvidovrevej.
 5~Indkomstskat~Betal indkomstskat 10% eller 200 kr.~De skal betale indkomstskat på 10% eller 200 kr.
 6~Øresund A/S~Pris: 200 kr.~De er ankommet til Øresundsfærgen.
 7~Roskildevej~Pris: 100 kr.~De er ankommet til Roskildevej.
-8~
-9~
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
+8~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+9~Valby Langgade~Pris: 100 kr.~De er ankommet til Valby Langgade.
+10~Allégade~Pris: 120 kr.~De er ankommet til Allégade.
+11~Fængsel~Her bor de frihedsbesværede~De er på besøg ved fængslet.
+12~Frederiksberg Allé~Pris: 140 kr.~De er ankommet til Frederiksberg Allé.
+13~Tuborg Bryggeri~Pris: 150 kr.~De er ankommet til Tuborg Bryggeri.
+14~Bülowsvej~Pris: 140 kr.~De er ankommet til Bülowsvej.
+15~Gamle Kongevej~Pris: 160 kr.~De er ankommet til Gamle Kongevej.
+16~D.F.D.S. A/S~Pris: 200 kr.~De er ankommet til D.F.D.S.
+17~Bernstorffsvej~Pris: 180 kr.~De er ankommet til Bernstorffsvej.
+18~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+19~Hellerupvej~Pris: 180 kr.~De er ankommet til Hellerupvej.
+20~Strandvej~Pris: 200 kr.~De er ankommet til Strandvejen.
+21~Helle~Et sikkert sted~De er i helle.
 22
 23
 24
