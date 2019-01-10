@@ -18,23 +18,23 @@
 18~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
 19~Hellerupvej~Pris: 180 kr.~De er ankommet til Hellerupvej.
 20~Strandvej~Pris: 200 kr.~De er ankommet til Strandvejen.
-21~Helle~Et sikkert sted~De er i helle.
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
+21~Helle~Et sikkert sted~De er i helle.9~~Pris:  kr.~
+22~Trianglen~Pris: 220 kr.~De er landet på trianglen.
+23~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+24~Østerbrogade~Pris: 220 kr.~De er ankommet til Østerbrogade.
+25~Grønningen~Pris: 240 kr.~De er ankommet til Grønningen.
+26~Ø.K. dampskibe~Pris: 200 kr.~De er landet på Ø.K. dampskibe.
+27~Bredgade~Pris: 260 kr.~De er landet på Bredgade.
+28~Nytorv~Pris: 260 kr.~De er landet på Nytorvet.
+29~Carlsberg~Pris: 150 kr.~De er ankommet til Carlsberg. Drik nu ikke for mangle øl!
+30~Østergade~Pris: 280 kr.~De er ankommet til Østergade.
+31~Gå i fænglsel~Gå i fængsel~De er landet på gå i fængsel.
+32~Amagertorv~Pris: 300 kr.~De er ankommet til Amagertorvet.
+33~Vimmelskaftet~Pris: 300 kr.~De er landet på Vimmelkaftet.
+34~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+35~Nygade~Pris: 320 kr.~De er landet på Nygade.
+36~D/S Bornholm 1866~Pris: 200 kr.~De er ankommet til Bornholmerfærgen.
+37~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+38~Frederiksberggade~Pris: 350 kr.~De er landet på Frederiksberggade.
+39~Extraordinær statsskat~Betal 100 kr.~De skal betale extraordinær statsskat.
+40~Rådhuspladsen~Pris: 400 kr.~De er landet på Rådhuspladsen.
