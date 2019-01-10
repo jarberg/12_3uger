@@ -65,12 +65,25 @@ public class PlayerListTest {
 
     @Test
     public void setNextPlayer() {
-        getCurrentPlayer();
+        addPlayer();
 
+        assertEquals("Bob",playerlist.getCurrentPlayer().getName());
         playerlist.setNextPlayer();
 
-        assertEquals(player2.getName(),playerlist.getCurrentPlayer().getName());
-        assertEquals(player3.getName(),playerlist.getAllPlayers()[1].getName());
-        assertEquals(player1.getName(),playerlist.getAllPlayers()[2].getName());
+        assertEquals("Dylan",playerlist.getCurrentPlayer().getName());;
+        playerlist.setNextPlayer();
+
+        assertEquals("Bae",playerlist.getCurrentPlayer().getName());
+        playerlist.setNextPlayer();
+
+        assertEquals("Bob",playerlist.getCurrentPlayer().getName());
+        playerlist.getCurrentPlayer().setDoubleTurnStatus(true);
+        playerlist.setNextPlayer();
+
+        assertEquals("Bob",playerlist.getCurrentPlayer().getName());
+        playerlist.setNextPlayer();
+
+        assertEquals("Dylan",playerlist.getCurrentPlayer().getName());
+
     }
 }

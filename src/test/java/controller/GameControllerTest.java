@@ -1,5 +1,6 @@
 package controller;
 
+import model.player.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -82,4 +83,55 @@ public class GameControllerTest {
             assertEquals((i+1*2),gamecontroller.getPlayers()[i].getPosition());
         }
     }
+
+    @Test
+    public void checkdiceForDoubleRollTest(){
+    }
+
+    @Test
+    public void getCurrentPlayerTurn(){
+
+        addPlayer();
+
+        Player currentPlayer = gamecontroller.getPlayers()[0];
+        Player nextCurrentPlayer = gamecontroller.getPlayers()[1];
+        Player next2CurrentPlayer = gamecontroller.getPlayers()[2];
+        Player next3CurrentPlayer = gamecontroller.getPlayers()[3];
+
+        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
+        assertEquals(currentPlayer,gamecontroller.getCurrentPlayerTurn());
+
+        gamecontroller.nextPlayerTurn();
+        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
+        assertEquals(nextCurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+
+        gamecontroller.nextPlayerTurn();
+        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
+        assertEquals(next2CurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+
+        gamecontroller.nextPlayerTurn();
+        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
+        assertEquals(next3CurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+
+        gamecontroller.nextPlayerTurn();
+
+
+        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
+        assertEquals(currentPlayer,gamecontroller.getCurrentPlayerTurn());
+        gamecontroller.getCurrentPlayerTurn().setDoubleTurnStatus(true);
+        gamecontroller.nextPlayerTurn();
+        assertNotEquals(nextCurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+        assertEquals(currentPlayer,gamecontroller.getCurrentPlayerTurn());
+
+        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
+        gamecontroller.nextPlayerTurn();
+        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
+        assertEquals(nextCurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+
+    }
+    @Test
+    public void nextPlayerTurn(){
+
+    }
+
 }

@@ -35,8 +35,9 @@ public class PlayerList {
                 playerList[i]=playerList[i+1];
             }
             playerList[playerList.length-1]= currPlayer;
-
-
+        }
+        else{
+            getCurrentPlayer().setDoubleTurnStatus(false);
         }
     }
 }

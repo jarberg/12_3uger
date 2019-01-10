@@ -1,6 +1,7 @@
 package controller;
 import model.Board.Board;
 import model.Board.Field;
+import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
 
@@ -28,6 +29,7 @@ public class GameController {
 
     private Board board;
     private PlayerList playerlist;
+    private DieSet dice = new DieSet();
 
     public void createBoard(){
         board = new Board();
@@ -64,7 +66,22 @@ public class GameController {
 
     public Field[] getBoard(){return board.getFields();}
 
+    public int rollDice(){
+        dice.roll();
+        return dice.getValue();
+    }
+
+    public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
+
     public void GodMode(boolean mode){
         this.test = mode;
+    }
+
+    public Player getCurrentPlayerTurn(){
+        return playerlist.getCurrentPlayer();
+    }
+
+    public void nextPlayerTurn(){
+        playerlist.setNextPlayer();
     }
 }

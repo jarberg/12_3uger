@@ -1,4 +1,4 @@
-
+package model.misc;
 
 import java.util.concurrent.ThreadLocalRandom;
 
