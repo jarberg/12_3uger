@@ -5,6 +5,8 @@ import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
 
+import java.util.Scanner;
+
 
 public class GameController {
 
@@ -31,12 +33,53 @@ public class GameController {
     private PlayerList playerlist;
     private DieSet dice = new DieSet();
 
+    public void setupGame(){
+        createBoard();
+        createPlayerList(4);
+        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+            addPlayer("test"+i,i);
+        }
+    }
+
+    public void playGame(){
+        Scanner scan = new Scanner(System.in);
+
+        setupGame();
+        while(!checkIfAllBroke()){
+
+
+            System.out.println(getCurrentPlayerTurn().getName()+"'s turn");
+            boolean input = scan.nextBoolean();
+            getCurrentPlayerTurn().setBrokeStatus(input);
+            nextPlayerTurn();
+        }
+        checkForWinner();
+    }
+
+    public boolean checkIfAllBroke(){
+        boolean allBroke=false;
+        int counter=0;
+
+            for (int i = 0; i < playerlist.getAllPlayers().length; i++) {
+                if (playerlist.getAllPlayers()[i].getBrokeStatus()==false) {
+
+                } else {
+                    counter+=1;
+                }
+            }
+            if(counter >=playerlist.getAllPlayers().length-1){
+                allBroke=true;
+            }
+        return allBroke;
+    }
+
     public void createBoard(){
         board = new Board();
     }
 
     public void createPlayerList(int amount){
         playerlist = new PlayerList(amount);
+
     }
 
     public void addPlayer(String name, int index){
@@ -83,5 +126,14 @@ public class GameController {
 
     public void nextPlayerTurn(){
         playerlist.setNextPlayer();
+    }
+    public void checkForWinner(){
+        String winner="";
+        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+            if(playerlist.getPlayer(i).getBrokeStatus()==false){
+                winner = getPlayers()[i].getName();
+            }
+        }
+        System.out.println(winner+" is the winner!");
     }
 }

@@ -84,6 +84,5 @@ public class PlayerListTest {
         playerlist.setNextPlayer();
 
         assertEquals("Dylan",playerlist.getCurrentPlayer().getName());
-
     }
 }

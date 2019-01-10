@@ -1,6 +1,10 @@
+import controller.GameController;
+
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board();
-        board.setupBoard();
+        GameController gamecontroller = GameController.getInstance();
+
+        gamecontroller.setupGame();
+        gamecontroller.playGame();
     }
 }

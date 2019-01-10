@@ -29,15 +29,17 @@ public class PlayerList {
 
     public void setNextPlayer(){
 
-        if(getCurrentPlayer().getDoubleTurnStatus()==false){
-            Player currPlayer = playerList[0];
-            for (int i = 0; i <playerList.length-1 ; i++) {
-                playerList[i]=playerList[i+1];
+            if (getCurrentPlayer().getDoubleTurnStatus() == false) {
+                Player currPlayer = playerList[0];
+                for (int i = 0; i < playerList.length - 1; i++) {
+                    playerList[i] = playerList[i + 1];
+                }
+                playerList[playerList.length - 1] = currPlayer;
+            } else {
+                getCurrentPlayer().setDoubleTurnStatus(false);
             }
-            playerList[playerList.length-1]= currPlayer;
-        }
-        else{
-            getCurrentPlayer().setDoubleTurnStatus(false);
+            if(getCurrentPlayer().getBrokeStatus()==true){
+                setNextPlayer();
         }
     }
 }
