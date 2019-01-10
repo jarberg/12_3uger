@@ -2,8 +2,8 @@ package model.Deck;
 
 import Controller.Drawer;
 
-public class TransactionWithBankCard extends Card {
-    public TransactionWithBankCard(String title, String description) {
+public class MoneyCard extends Card {
+    public MoneyCard(String title, String description) {
         super(title, description);
     }
 

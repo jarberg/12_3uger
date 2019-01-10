@@ -18,8 +18,8 @@ public class Deck {
             cardArray[i] = new PayForBuildingsCard("name", desc);
             cardArray[i] = new TeleportAndPayDoubleCard("name", desc);
             cardArray[i] = new TeleportCard("name", desc);
-            cardArray[i] = new TransactionToAllPlayersCard("name", desc);
-            cardArray[i] = new TransactionWithBankCard("name", desc);
+            cardArray[i] = new BirthdayCard("name", desc);
+            cardArray[i] = new MoneyCard("name", desc);
 
         }
     }
