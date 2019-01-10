@@ -1,28 +1,22 @@
-package model;
+package model.text;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class FReader {
 
     private static FReader singletonInstance = null;
 
-    public FReader(){
+    private static String Filepath;
 
-    }
-
-    public static FReader getInstance(){
+    public static FReader getInstance(String filepath){
 
         if(singletonInstance ==null){
-
+            Filepath = filepath;
             singletonInstance = new FReader();
-
         }
-
         return singletonInstance;
 
     }
@@ -47,10 +41,27 @@ public class FReader {
 
         String newFilepath = filePath+fileName;
         String[] stringList = fileReader(newFilepath);
-        String[][] finalStringList = new String[stringList.length][5];
+        String[][] finalStringList = new String[stringList.length][15];
 
         for (int i = 0; i < finalStringList.length; i++) {
             finalStringList[i] = stringList[i].split(":");
+        }
+        return finalStringList;
+    }
+
+    private int[][] twoDIntArray(String filePath, String fileName){
+
+        String newFilepath = filePath+fileName;
+        String[] stringList = fileReader(newFilepath);
+        int[][] finalStringList = new int[stringList.length][];
+
+        for (int i = 0; i < finalStringList.length; i++) {
+            String[] temp1 = stringList[i].split(":");
+            int[] temp2 = new int[temp1.length];
+            for (int j = 0; j < temp1.length; j++) {
+                temp2[j] = Integer.parseInt(temp1[j]);
+            }
+            finalStringList[i] = temp2;
         }
         return finalStringList;
     }
@@ -68,7 +79,7 @@ public class FReader {
 
     // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
 
-    public String[][] getFieldsText(String filePath){ return twoDStringArray(filePath,"/Fields.txt"); }
+    public int[][] getFieldsText(String filePath){ return twoDIntArray(filePath,"/Fields.txt"); }
 
     public String[][] getChanceCards(String filePath){ return twoDStringArray(filePath,"/ChanceCards.txt"); }
 

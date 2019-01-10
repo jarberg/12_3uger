@@ -6,7 +6,8 @@ public class LogicStringCollection {
     String filepath="";
 
     private static LogicStringCollection singletonInstance = null;
-    private String[][] ChanceCard = freader.getChanceCards(filepath);
+    //private String[][] ChanceCard = freader.getChanceCards(filepath);
+
 
     public LogicStringCollection(String filepath){
         this.filepath = filepath;
@@ -18,8 +19,14 @@ public class LogicStringCollection {
         }
         return singletonInstance;
     }
-
+    /*
     public String getChancecard(int a, int b){
         return ChanceCard[a][b];
+    }*/
+
+
+    public int[][] getFieldsText() {
+        int[][] fields = freader.getFieldsText(filepath);
+        return fields;
     }
 }

@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 public class Account {
 
@@ -7,9 +7,8 @@ public class Account {
 
     public void addBalance(int amount){
 
-        if(balance+amount >= 0){
-            this.balance += amount;
-        }
+        this.balance += amount;
+
         if(balance <0){
             this.balance = 0;
         }
