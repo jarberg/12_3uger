@@ -55,7 +55,12 @@ public class ViewController {
         GUI_Player newPlayer = new GUI_Player(name, balance);
 
         gui_players[length] = newPlayer;
-        this.gui.addPlayer(newPlayer);
+    }
+
+    public void showPlayerScores(){
+        for(GUI_Player player : gui_players){
+            this.gui.addPlayer(player);
+        }
     }
 
     public void changePlayerBalance(String playerName, int amount){
@@ -96,7 +101,7 @@ public class ViewController {
         return player;
     }
 
-    public GUI_Player[] getGui_players() {
+    public GUI_Player[] getGUI_Players() {
         return gui_players;
     }
 }

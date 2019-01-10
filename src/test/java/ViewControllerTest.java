@@ -18,19 +18,10 @@ public class ViewControllerTest {
     }
 
     @Test
-    public void addPlayer() {
+    public void shouldAddPlayerToGUI_Players() {
         for (int i = 1; i <= 6; i++) {
             viewController.addPlayer("name "+i, 1500);
-            assertEquals(viewController.getGui_players().length, i);
+            assertEquals(viewController.getGUI_Players().length, i);
         }
-
-        /*
-        for (int i = 0; i < gui_players.length; i++) {
-            gui_players[i] = new GUI_Player("name "+i, i);
-        }
-
-        singleInstance.addPlayer("name 4", 4);
-        assertEquals(4, gui_players.length);
-        */
     }
 }
