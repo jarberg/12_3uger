@@ -17,11 +17,12 @@ public class GameController {
     //ViewControllerType viewCon ;
     private LogicStringCollection logicCollection;
     private LanguageStringCollection languageCollection;
+    private GameLogic gamelogic;
 
     private boolean test = false;
     private static GameController singletonInstance = null;
     private Board board;
-    private PlayerList playerlist;
+
 
     public static GameController getInstance(){
 
@@ -32,56 +33,69 @@ public class GameController {
         return singletonInstance;
 
     }
+
     private GameController(){
         //viewcon = ViewController.getSingleInstance();
         logicCollection = LogicStringCollection.getInstance();
         languageCollection = LanguageStringCollection.getInstance("/danish");
+        gamelogic = new GameLogic(4);
+        setupGame();
     }
 
 
-    private DieSet dice = new DieSet();
 
-    public void setupGame(){
-        createBoard();
-        createPlayerList(4);
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+    private void setupGame(){
+
+        gamelogic.createPlayerList(4);
+        for (int i = 0; i <gamelogic.getAllPlayers().length ; i++) {
             addPlayer("test"+i,i);
         }
     }
 
     public void playGame(){
+
         Scanner scan = new Scanner(System.in);
 
-        setupGame();
+        //setupGame();
         while(!checkIfAllBroke()){
+            Player currPlayer = gamelogic.getCurrentPlayer();
 
+            System.out.println(gamelogic.getCurrentPlayer().getName()+"'s turn");
 
-            System.out.println(getCurrentPlayerTurn().getName()+"'s turn");
-            boolean input = scan.nextBoolean();
-            getCurrentPlayerTurn().setBrokeStatus(input);
-            nextPlayerTurn();
+            //boolean input = scan.nextBoolean();
+
+            gamelogic.rollDice(currPlayer);
+            System.out.println(gamelogic.getValue());
+
+            gamelogic.movePlayer(currPlayer,currPlayer.getPosition(), gamelogic.getValue(),board.getFields().length);
+
+            System.out.println(currPlayer.getName()+" is now on "+currPlayer.getPosition());
+
+            gamelogic.setNextPlayer();
         }
+
         checkForWinner();
+
     }
 
-    public boolean checkIfAllBroke(){
+    private boolean checkIfAllBroke(){
         boolean allBroke=false;
         int counter=0;
 
-            for (int i = 0; i < playerlist.getAllPlayers().length; i++) {
-                if (playerlist.getAllPlayers()[i].getBrokeStatus()==false) {
+            for (int i = 0; i < gamelogic.getAllPlayers().length; i++) {
+                if (!gamelogic.getAllPlayers()[i].getBrokeStatus()) {
 
                 } else {
                     counter+=1;
                 }
             }
-            if(counter >=playerlist.getAllPlayers().length-1){
+            if(counter >=gamelogic.getAllPlayers().length-1){
                 allBroke=true;
             }
         return allBroke;
     }
 
-    public void createBoard(){
+    void createBoard(){
         this.board = new Board();
         int[][] fieldLogic = logicCollection.getFieldsText();
         //String[] fieldMessages = languageCollection.getFieldMessages();
@@ -91,62 +105,38 @@ public class GameController {
         this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
-    public void createPlayerList(int amount){
-        playerlist = new PlayerList(amount);
-
-    }
-
     public void addPlayer(String name, int index){
         Player player = new Player(name);
-        playerlist.addPlayer(index, player);
+        gamelogic.addPlayer(index, player);
     }
 
     public void changePlayerBalance(Player player, int amount){
         player.addToBalance(amount);
     }
 
-    public void movePlayer(Player player, int position, int amount){
-        player.setPosition((position+amount)%board.getFields().length);
-    }
-
     private Player getPlayerByName(String playerName){
        Player player = null;
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            if(playerlist.getPlayer(i).getName().equals(playerName)){
-                player =playerlist.getPlayer(i);
+        for (int i = 0; i <gamelogic.getAllPlayers().length ; i++) {
+            if(gamelogic.getPlayer(i).getName().equals(playerName)){
+                player =gamelogic.getPlayer(i);
             }
         }
         return player;
     }
 
-
-
-    public Player[] getPlayers() { return playerlist.getAllPlayers(); }
+    public Player[] getPlayers() { return gamelogic.getAllPlayers(); }
 
     public Field[] getBoard(){return board.getFields();}
-
-    public int rollDice(){
-        dice.roll();
-        return dice.getValue();
-    }
-
-    public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
 
     public void GodMode(boolean mode){
         this.test = mode;
     }
 
-    public Player getCurrentPlayerTurn(){
-        return playerlist.getCurrentPlayer();
-    }
-
-    public void nextPlayerTurn(){
-        playerlist.setNextPlayer();
-    }
     public void checkForWinner(){
-        String winner="";
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            if(playerlist.getPlayer(i).getBrokeStatus()==false){
+
+        String winner = "";
+        for (int i = 0; i <gamelogic.getAllPlayers().length ; i++) {
+            if(gamelogic.getPlayer(i).getBrokeStatus()==false){
                 winner = getPlayers()[i].getName();
             }
         }

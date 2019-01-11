@@ -41,14 +41,12 @@ public class ViewController implements ViewControllerType {
         showGUI();
     }
 
-
     private void showGUI(){
         if(this.gui != null)
             gui.close();
 
         this.gui = new GUI(gui_board);
     }
-
 
     public void addPlayer(String name, int balance){
         int length;
