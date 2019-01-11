@@ -10,7 +10,7 @@ import model.text.LogicStringCollection;
 
 public class GameController {
 
-    //ViewControllerAbs viewcon ;
+    //ViewControllerType viewCon ;
     private FReader fileReader;
     private LogicStringCollection logicCollection;
     private LanguageStringCollection languageCollection;

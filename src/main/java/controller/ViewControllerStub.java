@@ -2,17 +2,8 @@ package controller;
 
 import gui_fields.GUI_Player;
 
-public class ViewControllerStub extends ViewControllerAbs {
+public class ViewControllerStub implements ViewControllerType {
 
-    private static final ViewControllerStub singleInstance = new ViewControllerStub();
-
-    private ViewControllerStub() {
-        super();
-    }
-
-    public static ViewControllerStub getSingleInstance(){
-        return singleInstance;
-    }
 
     @Override
     public void showEmptyGUI(){
