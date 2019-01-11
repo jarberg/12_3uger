@@ -99,7 +99,7 @@ public class DrawController implements Drawer {
 
     }
 
-    @Override //CARD: 1 - 7 - 16 - 18 - 19 - 20 - 21 - 22 - 25 - 28 - 29 - 30 - 31 - 32
+    @Override //CARD: 1 - 7 - 16 - 18 - 19 - 20 - 21 - 22 - 23 - 25 - 28 - 29 - 30 - 31 - 32
     public void draw(MoneyCard card) {
         //viewController.showFieldMessage(playerName);
         //
