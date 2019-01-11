@@ -1,6 +1,4 @@
-package model.Board;
-
-import model.text.LogicStringCollection;
+package model.board;
 
 import java.awt.*;
 

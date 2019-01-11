@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import model.Deck.*;
+import model.deck.*;
 
 public class DrawController implements Drawer {
     //Player player;

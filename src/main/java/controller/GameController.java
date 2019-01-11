@@ -1,6 +1,6 @@
-package Controller;
-import model.Board.Board;
-import model.Board.Field;
+package controller;
+import model.board.Board;
+import model.board.Field;
 import model.player.Player;
 import model.player.PlayerList;
 import model.text.FReader;

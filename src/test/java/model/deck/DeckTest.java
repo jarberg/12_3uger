@@ -1,12 +1,8 @@
-package model.Deck;
+package model.deck;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Random;
-
-import static junit.framework.TestCase.*;
 
 public class DeckTest {
 

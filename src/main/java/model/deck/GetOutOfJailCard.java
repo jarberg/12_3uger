@@ -1,6 +1,6 @@
-package model.Deck;
+package model.deck;
 
-import Controller.Drawer;
+import controller.Drawer;
 
 public class GetOutOfJailCard extends Card{
     public GetOutOfJailCard(String title, String description) {

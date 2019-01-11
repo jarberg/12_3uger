@@ -1,6 +1,6 @@
-package model.Deck;
+package model.deck;
 
-import Controller.Drawer;
+import controller.Drawer;
 
 public class MoneyCard extends Card {
     public MoneyCard(String title, String description) {

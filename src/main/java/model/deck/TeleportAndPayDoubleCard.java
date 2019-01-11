@@ -1,6 +1,6 @@
-package model.Deck;
+package model.deck;
 
-import Controller.Drawer;
+import controller.Drawer;
 
 public class TeleportAndPayDoubleCard extends Card{
     public TeleportAndPayDoubleCard(String title, String description) {

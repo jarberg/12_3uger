@@ -1,4 +1,4 @@
-package model.Board;
+package model.board;
 
 public class RentNotSpecifiedException extends Exception {
 

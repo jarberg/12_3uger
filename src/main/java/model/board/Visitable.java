@@ -1,6 +1,6 @@
-package model.Board;
+package model.board;
 
-import Controller.Visitor;
+import controller.Visitor;
 
 public interface Visitable {
 
