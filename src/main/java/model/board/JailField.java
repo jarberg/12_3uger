@@ -6,14 +6,14 @@ import java.awt.*;
 
 public class JailField extends Field {
 
-    private int releaseCharge;
+    private int bailAmount;
     private int maxSuccessiveAttempts;
 
 
     public JailField(String ID, String title, String subtitle, String message, Color fieldColor, int releaseCharge, int maxSuccessiveAttempts){
         super(ID, title, subtitle, message, fieldColor);
 
-        this.releaseCharge = releaseCharge;
+        this.bailAmount = releaseCharge;
         this.maxSuccessiveAttempts = maxSuccessiveAttempts;
     }
 
@@ -22,8 +22,8 @@ public class JailField extends Field {
         visitor.visit(this);
     }
 
-    public int getReleaseCharge(){
-        return releaseCharge;
+    public int getBailAmount(){
+        return bailAmount;
     }
 
     public int getMaxSuccesiveAttempts(){
