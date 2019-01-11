@@ -27,7 +27,8 @@ public class LanguageStringCollection {
 
     private static String filepath = "language/";
 
-    public LanguageStringCollection(String FilePath){
+    public LanguageStringCollection(String FilePath)
+    {
         super();
     }
     public String[][] getFieldsText() {

@@ -53,7 +53,7 @@ public class FileReader {
         String[][] finalStringArray = new String[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
-            finalStringArray[i] = stringArray[i].split(":");
+            finalStringArray[i] = stringArray[i].split("~");
         }
         return finalStringArray;
     }
@@ -65,7 +65,7 @@ public class FileReader {
         int[][] finalStringArray = new int[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
-            String[] temp1 = stringArray[i].split(":");
+            String[] temp1 = stringArray[i].split("~");
             int[] temp2 = new int[temp1.length];
             for (int j = 0; j < temp1.length; j++) {
                 temp2[j] = Integer.parseInt(temp1[j]);
