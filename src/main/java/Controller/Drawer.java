@@ -10,7 +10,7 @@ public interface Drawer {
     void draw (PayForBuildingsCard card);
     void draw (TeleportAndPayDoubleCard card);
     void draw (TeleportCard card);
-    void draw (TransactionToAllPlayersCard card);
-    void draw (TransactionWithBankCard card);
+    void draw (BirthdayCard card);
+    void draw (MoneyCard card);
 
 }

@@ -1,21 +1,19 @@
+package controller;
+
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 
-public class ViewController {
+public abstract class ViewControllerAbs {
 
-    private static final ViewController singleInstance = new ViewController();
+
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
 
-    private ViewController(){
+    public ViewControllerAbs() {
         this.gui_board = new GUI_Field[40];
-    }
-
-    public static ViewController getSingleInstance(){
-        return singleInstance;
     }
 
     public void showEmptyGUI(){

@@ -7,13 +7,10 @@ public class PlayerList {
     Player[] playerList;
     //constructor
 
-    PlayerList(int amount){
-
+    public PlayerList(int amount){
         this.playerAmount = amount;
         playerList= new Player[playerAmount];
     }
-
-
 
 
     //getters

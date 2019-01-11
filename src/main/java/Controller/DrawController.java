@@ -24,7 +24,9 @@ public class DrawController implements Drawer {
     public void draw(MonoplyJackpotCard card) {
         //viewController.showFieldMessage(playerName);
         /*
-        Giv transaction metode argument 2000
+        Hvis player total assets >= 750 kr.
+            Giv transaction metode argumentet 2000
+
          */
 
     }
@@ -33,17 +35,17 @@ public class DrawController implements Drawer {
     public void draw(MoveCard card) {
         //viewController.showFieldMessage(playerName);
 
-        /* MOVE TIL ØNSKET FELT METODE @param ønsketFieldID
+        /* MOVE TIL ØNSKET FELT METODE
+        @param ønsketFieldID
 
-        Field[] fields = get fields
-        int position = player.getPosition
-        String fieldID = fields[position].getID
-        while(!(fieldID.equals ØnsketFieldID)){
+        Field[] fields = get fields                 // få fat i alle fields
+        int position = player.getPosition           // få fat i spillerens current position
+        String fieldID = fields[position].getID     // få fat i spillerens current position på board
+        while(!(fieldID.equals ØnsketFieldID)){     // bliv ved med at rykke spilleren indtil ønsket felt er fundet
             position = position++ % fields.length;
             fieldID = fields[position].getID
             viewContoller movePlayer 1 step
             set spillerens position på board
-
         }
 
          */
@@ -54,7 +56,9 @@ public class DrawController implements Drawer {
     public void draw(PayForBuildingsCard card) {
         //viewController.showFieldMessage(playerName);
         /*
-        MOVE TIL ØNSKET FELT @param fieldID
+        Få fat i spillerens buildings
+        int bøde = multiply buildings med faktor fra kort
+        anvend transaction metoden med argumentet bøde
 
 
          */
@@ -90,14 +94,15 @@ public class DrawController implements Drawer {
     }
 
     @Override //CARD: 15
-    public void draw(TransactionToAllPlayersCard card) {
+    public void draw(BirthdayCard card) {
         //viewController.showFieldMessage(playerName);
 
     }
 
     @Override //CARD: 1 - 7 - 16 - 18 - 19 - 20 - 21 - 22 - 25 - 28 - 29 - 30 - 31 - 32
-    public void draw(TransactionWithBankCard card) {
+    public void draw(MoneyCard card) {
         //viewController.showFieldMessage(playerName);
+        //
 
     }
 }

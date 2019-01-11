@@ -1,33 +1,25 @@
+package model.Board;
+
 import model.text.LogicStringCollection;
 
 import java.awt.*;
 
 public class Board {
-    private LogicStringCollection logicCollection;
-    private int[][] fieldsLogic;
     private Field[] fields;
 
 
     public Board(){
         fields = new Field[40];
-        logicCollection = LogicStringCollection.getInstance("logic");
 
     }
 
-    public void setupBoard(){
-        fieldsLogic = logicCollection.getFieldsText();
-        int i = 0;
-        for (int[] field : fieldsLogic){
-            Color fieldColor = decideFieldColor(field);
-            Field newField = makeField(field, fieldColor);
-            this.fields[i++] = newField;
+    public void setupBoard(int[][] fieldsLogic, String[][] fieldsInfo){
+        for (int i = 0; i < fields.length; i++) {
+            int[] fieldLogic = fieldsLogic[i];
+            Color fieldColor = decideFieldColor(fieldLogic);
+            String[] fieldInfo = fieldsInfo[i];
+            this.fields[i] = makeField(fieldLogic, fieldColor, fieldInfo);
         }
-
-        /*for (int i = 0; i < fields.length; i++) {
-            String[] field = fieldsLogic[i];
-            Color fieldColor = decideFieldColor(field);
-            this.fields[i] = makeField(field, fieldColor);
-        }*/
     }
 
     private Color decideFieldColor(int[] fieldLogic) {
@@ -64,34 +56,37 @@ public class Board {
         return fieldColor;
     }
 
-    private Field makeField(int[] fieldLogic , Color color) {
+    private Field makeField(int[] fieldLogic , Color color, String[] fieldInfo) {
         String ID = Integer.toString(fieldLogic[0]);
+        String name = fieldInfo[1];
+        String subtitle = fieldInfo[2];
+        String message = fieldInfo[3];
         int fieldType = fieldLogic[1];
         Field field = null;
         switch (fieldType){
             case 1:
-                field = new StartField(ID, color, fieldLogic[3]);
+                field = new StartField(ID, name, subtitle, message, color, fieldLogic[3]);
                 break;
             case 2:
-                field = new PropertyField(ID, color, Integer.toString(fieldLogic[2]), fieldLogic[3], fieldLogic[4], fieldLogic[5], fieldLogic[6], fieldLogic[7], fieldLogic[8], fieldLogic[9], fieldLogic[10]);
+                field = new PropertyField(ID, name, subtitle, message, color, Integer.toString(fieldLogic[2]), fieldLogic[3], fieldLogic[4], fieldLogic[5], fieldLogic[6], fieldLogic[7], fieldLogic[8], fieldLogic[9], fieldLogic[10]);
                 break;
             case 3:
-                field = new ChanceField(ID, color);
+                field = new ChanceField(ID, name, subtitle, message, color);
                 break;
             case 4:
-                field = new TaxField(ID, color, fieldLogic[3], fieldLogic[4]);
+                field = new TaxField(ID, name, subtitle, message, color, fieldLogic[3], fieldLogic[4]);
                 break;
             case 5:
-                field = new JailField(ID,  color, fieldLogic[3],0);
+                field = new JailField(ID, name, subtitle, message,  color, fieldLogic[3],0);
                 break;
             case 6:
-                field = new GoToJailField(ID, color);
+                field = new GoToJailField(ID, name, subtitle, message, color);
                 break;
             case 7:
-                field = new ParkingField(ID, color);
+                field = new ParkingField(ID, name, subtitle, message, color);
                 break;
             case 8:
-                field = new BreweryField(ID, color, fieldLogic[4], fieldLogic[5]);
+                field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5]);
                 break;
         }
         return field;

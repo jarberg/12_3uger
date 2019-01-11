@@ -44,7 +44,7 @@ public class FReader {
         String[][] finalStringList = new String[stringList.length][15];
 
         for (int i = 0; i < finalStringList.length; i++) {
-            finalStringList[i] = stringList[i].split(":");
+            finalStringList[i] = stringList[i].split("~");
         }
         return finalStringList;
     }
@@ -56,7 +56,7 @@ public class FReader {
         int[][] finalStringList = new int[stringList.length][];
 
         for (int i = 0; i < finalStringList.length; i++) {
-            String[] temp1 = stringList[i].split(":");
+            String[] temp1 = stringList[i].split("~");
             int[] temp2 = new int[temp1.length];
             for (int j = 0; j < temp1.length; j++) {
                 temp2[j] = Integer.parseInt(temp1[j]);
@@ -85,9 +85,7 @@ public class FReader {
 
     public String[][] getMenuText(String filePath){return twoDStringArray(filePath,"/Menu.txt"); }
 
-    public String[] getFieldMessages(String filePath){return oneDStringArray(filePath,"/FieldMessages.txt"); }
-
-    public String[] getFieldDescriptions(String filePath){ return oneDStringArray(filePath, "/FieldDescriptions.txt"); }
+    public String[][] getFieldInfo(String filepath){return twoDStringArray(filepath, "/Fields.txt"); }
 
     public String[] getDirectoriesStringArray(){ return fileReader("TextFiles/"); }
 
