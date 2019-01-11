@@ -1,5 +1,7 @@
 package model.Board;
 
+import Controller.Visitor;
+
 import java.awt.*;
 
 public class GoToJailField extends Field{

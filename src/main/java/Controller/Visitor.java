@@ -1,4 +1,6 @@
-package model.Board;
+package Controller;
+
+import model.Board.*;
 
 public interface Visitor {
 
