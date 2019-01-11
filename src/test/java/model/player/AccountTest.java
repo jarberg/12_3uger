@@ -21,10 +21,10 @@ public class AccountTest {
         //check if adding to balance works
         int newBalance = 5;
 
-        account.addBalance(newBalance);
+        account.addToBalance(newBalance);
         assertEquals(newBalance,account.getBalance());
 
-        account.addBalance(-20);
+        account.addToBalance(-20);
         assertEquals(0,account.getBalance());
 
     }

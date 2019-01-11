@@ -2,14 +2,14 @@ package model.player;
 
 public class Account {
 
-    private int balance=0;
+    private int balance = 0;
 
 
-    public void addBalance(int amount){
+    public void addToBalance(int amount){
 
         this.balance += amount;
 
-        if(balance <0){
+        if(balance < 0){
             this.balance = 0;
         }
      }

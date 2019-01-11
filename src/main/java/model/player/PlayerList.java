@@ -4,10 +4,12 @@ public class PlayerList {
 
     private int playerAmount;
     private int NextPlayerIndex;
-    Player[] playerList;
+    private Player[] playerList;
+
     //constructor
 
     public PlayerList(int amount){
+
         this.playerAmount = amount;
         playerList= new Player[playerAmount];
     }
@@ -15,6 +17,7 @@ public class PlayerList {
 
     //getters
 
+    //TODO: check if needed
     public Player getPlayer(int index){ return playerList[index]; }
 
     public Player[] getAllPlayers(){ return playerList; }
@@ -29,7 +32,7 @@ public class PlayerList {
 
     public void setNextPlayer(){
 
-            if (getCurrentPlayer().getDoubleTurnStatus() == false) {
+            if (!getCurrentPlayer().getDoubleTurnStatus()) {
                 Player currPlayer = playerList[0];
                 for (int i = 0; i < playerList.length - 1; i++) {
                     playerList[i] = playerList[i + 1];
@@ -38,7 +41,7 @@ public class PlayerList {
             } else {
                 getCurrentPlayer().setDoubleTurnStatus(false);
             }
-            if(getCurrentPlayer().getBrokeStatus()==true){
+            if(getCurrentPlayer().getBrokeStatus()){
                 setNextPlayer();
         }
     }

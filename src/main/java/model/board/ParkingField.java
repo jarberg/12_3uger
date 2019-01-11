@@ -1,10 +1,10 @@
-package model.Board;
+package model.board;
 
 import java.awt.*;
 
-public class GoToJailField extends Field{
+public class ParkingField extends Field {
 
-    public GoToJailField(String ID, Color fieldColor){
+    public ParkingField(String ID, Color fieldColor){
         super(ID, fieldColor);
     }
 

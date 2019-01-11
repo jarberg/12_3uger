@@ -9,12 +9,14 @@ import static org.junit.Assert.*;
 
 public class GameControllerTest {
 
-    GameController gamecontroller = GameController.getInstance();
+    private GameController gamecontroller;
 
     @Before
     public void before(){
+        gamecontroller = GameController.getInstance();
         gamecontroller.GodMode(true);
     }
+
     @After
     public void After(){
         gamecontroller = null;
@@ -63,9 +65,9 @@ public class GameControllerTest {
 
         addPlayer();
         assertEquals(0, gamecontroller.getPlayers()[2].getBalance());
-        gamecontroller.getPlayers()[2].addBalance(55);
+        gamecontroller.getPlayers()[2].addToBalance(55);
         assertEquals(55, gamecontroller.getPlayers()[2].getBalance());
-        gamecontroller.getPlayers()[2].addBalance(-255);
+        gamecontroller.getPlayers()[2].addToBalance(-255);
         assertEquals(0, gamecontroller.getPlayers()[2].getBalance());
     }
 

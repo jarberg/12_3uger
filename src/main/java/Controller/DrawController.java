@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import model.Deck.*;
+import model.deck.*;
 
 public class DrawController implements Drawer {
     //Player player;
@@ -43,11 +43,9 @@ public class DrawController implements Drawer {
             fieldID = fields[position].getID
             viewContoller movePlayer 1 step
             set spillerens position på board
-
         }
 
          */
-
     }
 
     @Override //CARD: 13 - 14 -
@@ -55,8 +53,6 @@ public class DrawController implements Drawer {
         //viewController.showFieldMessage(playerName);
         /*
         MOVE TIL ØNSKET FELT @param fieldID
-
-
          */
 
     }

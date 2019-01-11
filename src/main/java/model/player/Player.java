@@ -4,17 +4,22 @@ import java.awt.*;
 
 public class Player {
 
-    Account account = new Account();
+    private Account account;
 
     private String name;
     private Color playerColor;
     private int position;
-    private boolean broke=false;
-    private boolean hasGetOutOfJailCard=false;
-    private boolean doubleTurn = false;
+    private boolean broke;
+    private boolean hasGetOutOfJailCard;
+    private boolean doubleTurn;
 
     //constructor
     public Player(String name){
+
+        account = new Account();
+        broke = false;
+        hasGetOutOfJailCard = false;
+        doubleTurn = false;
         this.name = name;
     }
 
@@ -35,13 +40,13 @@ public class Player {
 
     public boolean getDoubleTurnStatus(){ return this.doubleTurn; }
 
+
     //Setters
 
-    public void setName(String name){ this.name = name;    }
 
     public void setJailCardStatus(boolean status){   this.hasGetOutOfJailCard = status; }
 
-    public void addBalance(int amount){ this.account.addBalance(amount); }
+    public void addToBalance(int amount){ this.account.addToBalance(amount); }
 
     public void setPlayerColor(Color setColor){ this.playerColor = setColor;}
 
@@ -49,5 +54,5 @@ public class Player {
 
     public void setBrokeStatus(boolean status){ this.broke = status; }
 
-    public void setDoubleTurnStatus(boolean status){ this.doubleTurn =status; }
+    public void setDoubleTurnStatus(boolean status){ this.doubleTurn = status; }
 }

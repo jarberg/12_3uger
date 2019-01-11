@@ -1,19 +1,22 @@
 package model.text;
 
-public abstract class StringCollection {
+public class StringCollection {
 
-    FReader freader = FReader.getInstance(filepath);
+    FileReader freader = FileReader.getInstance(filepath);
     static String filepath;
 
     private String[][] ChanceCard = freader.getChanceCards(filepath);
     private String[][] fields = freader.getChanceCards(filepath);
 
+    public StringCollection(){
 
-    public String getChancecard(int a, int b){
-        return ChanceCard[a][b];
     }
 
-    public String getField(int a, int b){   return fields[a][b];  }
+    public String getChancecard(int row, int column){
+        return ChanceCard[row][column];
+    }
+
+    public String getField(int row, int column){   return fields[row][column];  }
 
     public int[][] getFieldsText() {
         int[][] fields = freader.getFieldsText(filepath);

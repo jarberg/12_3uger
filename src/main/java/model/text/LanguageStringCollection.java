@@ -15,9 +15,7 @@ public class LanguageStringCollection extends StringCollection{
     }
 
     public LanguageStringCollection(String FilePath){
-
         super();
-
     }
 
 }

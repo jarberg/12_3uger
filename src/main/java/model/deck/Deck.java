@@ -1,4 +1,4 @@
-package model.Deck;
+package model.deck;
 
 import java.util.Random;
 
@@ -20,7 +20,6 @@ public class Deck {
             cardArray[i] = new TeleportCard("name", desc);
             cardArray[i] = new TransactionToAllPlayersCard("name", desc);
             cardArray[i] = new TransactionWithBankCard("name", desc);
-
         }
     }
 

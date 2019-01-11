@@ -5,25 +5,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FReader {
+public class FileReader {
 
-    private static FReader singletonInstance = null;
+    private static FileReader singletonInstance = null;
 
     private static String Filepath;
 
-    public static FReader getInstance(String filepath){
+    public static FileReader getInstance(String filepath){
 
         if(singletonInstance ==null){
             Filepath = filepath;
-            singletonInstance = new FReader();
+            singletonInstance = new FileReader();
         }
         return singletonInstance;
 
     }
 
+    private FileReader(){
+
+
+    }
+
     //reads from given filepath
 
-    private String[] fileReader(String filePath){
+    private String[] read1DFromFile(String filePath){
+
+        //TODO:convert to array
 
         InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath);
         Scanner scanner = new Scanner(resourceAsStream);
@@ -39,45 +46,49 @@ public class FReader {
 
     private String[][] twoDStringArray(String filePath, String fileName){
 
-        String newFilepath = filePath+fileName;
-        String[] stringList = fileReader(newFilepath);
-        String[][] finalStringList = new String[stringList.length][15];
+        //TODO: split at ~ instead of :
 
-        for (int i = 0; i < finalStringList.length; i++) {
-            finalStringList[i] = stringList[i].split(":");
+        String newFilepath = filePath+fileName;
+        String[] stringArray = read1DFromFile(newFilepath);
+        String[][] finalStringArray = new String[stringArray.length][];
+
+        for (int i = 0; i < finalStringArray.length; i++) {
+            finalStringArray[i] = stringArray[i].split(":");
         }
-        return finalStringList;
+        return finalStringArray;
     }
 
     private int[][] twoDIntArray(String filePath, String fileName){
 
         String newFilepath = filePath+fileName;
-        String[] stringList = fileReader(newFilepath);
-        int[][] finalStringList = new int[stringList.length][];
+        String[] stringArray = read1DFromFile(newFilepath);
+        int[][] finalStringArray = new int[stringArray.length][];
 
-        for (int i = 0; i < finalStringList.length; i++) {
-            String[] temp1 = stringList[i].split(":");
+        for (int i = 0; i < finalStringArray.length; i++) {
+            String[] temp1 = stringArray[i].split(":");
             int[] temp2 = new int[temp1.length];
             for (int j = 0; j < temp1.length; j++) {
                 temp2[j] = Integer.parseInt(temp1[j]);
             }
-            finalStringList[i] = temp2;
+            finalStringArray[i] = temp2;
         }
-        return finalStringList;
+        return finalStringArray;
     }
 
     //Uses reader method to build a stringArray from a given filepath+filename
 
     private String[] oneDStringArray(String filePath, String fileName){
         String newFilepath = filePath+fileName;
-        String[] fields = fileReader(newFilepath);
-        String[] finalFields = new String[fields.length];
-        System.arraycopy(fields, 0, finalFields, 0, finalFields.length);
+        String[] fields = read1DFromFile(newFilepath);
+        //String[] finalFields = new String[fields.length];
+        //System.arraycopy(fields, 0, finalFields, 0, finalFields.length);
 
-        return finalFields;
+        return fields;
     }
 
     // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
+
+    //TODO: make filename final static variables
 
     public int[][] getFieldsText(String filePath){ return twoDIntArray(filePath,"/Fields.txt"); }
 
@@ -89,6 +100,6 @@ public class FReader {
 
     public String[] getFieldDescriptions(String filePath){ return oneDStringArray(filePath, "/FieldDescriptions.txt"); }
 
-    public String[] getDirectoriesStringArray(){ return fileReader("TextFiles/"); }
+    public String[] getDirectoriesStringArray(){ return read1DFromFile("TextFiles/"); }
 
 }

@@ -15,10 +15,11 @@ public class DieSet {
     }
 
     public void roll(){
+        //TODO: make nonthread
         this.dieOneValue = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         this.dieTwoValue = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        this.value = (this.dieOneValue+this.dieTwoValue);
-        identicalRoll = (dieOneValue==dieTwoValue);
+        this.value = (this.dieOneValue + this.dieTwoValue);
+        identicalRoll = (dieOneValue == dieTwoValue);
     }
 
     public int getValue(){
@@ -26,7 +27,7 @@ public class DieSet {
     }
 
     public boolean getIdenticalRolls(){
-        return (identicalRoll);
+        return identicalRoll;
     }
 
 }

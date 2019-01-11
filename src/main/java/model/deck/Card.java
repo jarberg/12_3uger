@@ -1,4 +1,4 @@
-package model.Deck;
+package model.deck;
 
 public abstract class Card implements Drawable {
     private String title;

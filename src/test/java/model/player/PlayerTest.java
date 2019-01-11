@@ -15,7 +15,6 @@ public class PlayerTest {
     public void setGetName() {
         assertEquals("Bob", player.getName());
 
-        player.setName("Bob Dylan");
         assertEquals("Bob Dylan", player.getName());
     }
 
@@ -73,7 +72,7 @@ public class PlayerTest {
 
         assertEquals(0,player.getBalance());
 
-        player.addBalance(newbalance);
+        player.addToBalance(newbalance);
         assertEquals(newbalance,player.getBalance());
     }
 
