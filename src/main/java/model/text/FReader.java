@@ -79,7 +79,7 @@ public class FReader {
 
     // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
 
-    public int[][] getFieldsText(String filePath){ return twoDIntArray(filePath,"/Fields.txt"); }
+    public int[][] getFieldsInt(String filePath){ return twoDIntArray(filePath,"/Fields.txt"); }
 
     public String[][] getChanceCards(String filePath){ return twoDStringArray(filePath,"/ChanceCards.txt"); }
 

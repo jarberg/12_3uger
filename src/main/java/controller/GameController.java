@@ -31,8 +31,8 @@ public class GameController {
     }
     private GameController(){
         //viewcon = ViewController.getSingleInstance();
-        logicCollection = LogicStringCollection.getInstance("logic");
-        //languageCollection = LanguageStringCollection.getInstance("language/danish");
+        logicCollection = LogicStringCollection.getInstance();
+        languageCollection = LanguageStringCollection.getInstance("/danish");
     }
 
 
@@ -40,8 +40,9 @@ public class GameController {
         this.board = new Board();
         int[][] fieldLogic = logicCollection.getFieldsText();
         //String[] fieldMessages = languageCollection.getFieldMessages();
-        //String[][] fieldInfo = languageCollection.getFieldInfo();
-        String[][] fieldInfo = null;
+
+
+        String[][] fieldInfo = languageCollection.getFieldsText();
         this.board.setupBoard(fieldLogic, fieldInfo);
     }
 

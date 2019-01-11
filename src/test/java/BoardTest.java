@@ -17,7 +17,7 @@ public class BoardTest {
     public void tearDown() throws Exception {
         board = null;
     }
-
+/*
     @Test
     public void setupBoard() {
         int[] numOfFieldType = new int[8];
@@ -45,4 +45,5 @@ public class BoardTest {
         assertEquals(1, numOfFieldType[7]);
         assertEquals(40, board.getFields().length);
     }
+    */
 }
