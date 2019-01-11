@@ -9,7 +9,7 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 public class PropertyFieldTest {
-
+/*
     private static final String ID = "Property";
     private static final String subtitle = "Real Estate Property";
     private static final String description = "A magnificent property.";
@@ -62,5 +62,5 @@ public class PropertyFieldTest {
         }
         field.getRent();
     }
-
+*/
 }

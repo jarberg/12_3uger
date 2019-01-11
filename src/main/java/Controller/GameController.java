@@ -1,19 +1,29 @@
 package controller;
+
+import model.misc.DieSet;
 import model.board.Board;
 import model.board.Field;
-import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
+import model.text.FReader;
+import model.text.LanguageStringCollection;
+import model.text.LogicStringCollection;
 
 import java.util.Scanner;
 
 
 public class GameController {
 
-    private ViewControllerAbs viewcon ;
+    ViewController viewcon ;
+    //ViewControllerType viewCon ;
+    private FReader fileReader;
+    private LogicStringCollection logicCollection;
+    private LanguageStringCollection languageCollection;
 
     private boolean test = false;
     private static GameController singletonInstance = null;
+    private Board board;
+    private PlayerList playerlist;
 
     public static GameController getInstance(){
 
@@ -24,9 +34,10 @@ public class GameController {
         return singletonInstance;
 
     }
-
     private GameController(){
-        viewcon = ViewController.getSingleInstance();
+        //viewcon = ViewController.getSingleInstance();
+        logicCollection = LogicStringCollection.getInstance();
+        languageCollection = LanguageStringCollection.getInstance("/danish");
     }
 
 
@@ -35,7 +46,6 @@ public class GameController {
     private DieSet dice = new DieSet();
 
     public void setupGame(){
-
         createBoard();
         createPlayerList(4);
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
@@ -61,6 +71,7 @@ public class GameController {
     public boolean checkIfAllBroke(){
         boolean allBroke=false;
         int counter=0;
+
             for (int i = 0; i < playerlist.getAllPlayers().length; i++) {
                 if (playerlist.getAllPlayers()[i].getBrokeStatus()==false) {
 
@@ -75,11 +86,18 @@ public class GameController {
     }
 
     public void createBoard(){
-        board = new Board();
+        this.board = new Board();
+        int[][] fieldLogic = logicCollection.getFieldsText();
+        //String[] fieldMessages = languageCollection.getFieldMessages();
+
+
+        String[][] fieldInfo = languageCollection.getFieldsText();
+        this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
     public void createPlayerList(int amount){
         playerlist = new PlayerList(amount);
+
     }
 
     public void addPlayer(String name, int index){
@@ -88,7 +106,7 @@ public class GameController {
     }
 
     public void changePlayerBalance(Player player, int amount){
-        player.addToBalance(amount);
+        player.addBalance(amount);
     }
 
     public void movePlayer(Player player, int position, int amount){
@@ -104,6 +122,8 @@ public class GameController {
         }
         return player;
     }
+
+
 
     public Player[] getPlayers() { return playerlist.getAllPlayers(); }
 
@@ -127,7 +147,6 @@ public class GameController {
     public void nextPlayerTurn(){
         playerlist.setNextPlayer();
     }
-
     public void checkForWinner(){
         String winner="";
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {

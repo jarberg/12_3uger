@@ -1,8 +1,12 @@
 package controller;
 
 import model.misc.DieSet;
+import model.board.Board;
+import model.board.Field;
 import model.player.Player;
 import model.player.PlayerList;
+import model.text.LanguageStringCollection;
+import model.text.LogicStringCollection;
 
 import java.util.Scanner;
 
@@ -10,9 +14,14 @@ import java.util.Scanner;
 public class GameController {
 
     ViewController viewcon ;
+    //ViewControllerType viewCon ;
+    private LogicStringCollection logicCollection;
+    private LanguageStringCollection languageCollection;
 
     private boolean test = false;
     private static GameController singletonInstance = null;
+    private Board board;
+    private PlayerList playerlist;
 
     public static GameController getInstance(){
 
@@ -24,12 +33,12 @@ public class GameController {
 
     }
     private GameController(){
-        viewcon = ViewController.getSingleInstance();
+        //viewcon = ViewController.getSingleInstance();
+        logicCollection = LogicStringCollection.getInstance();
+        languageCollection = LanguageStringCollection.getInstance("/danish");
     }
 
 
-    private Board board;
-    private PlayerList playerlist;
     private DieSet dice = new DieSet();
 
     public void setupGame(){
@@ -73,7 +82,13 @@ public class GameController {
     }
 
     public void createBoard(){
-        board = new Board();
+        this.board = new Board();
+        int[][] fieldLogic = logicCollection.getFieldsText();
+        //String[] fieldMessages = languageCollection.getFieldMessages();
+
+
+        String[][] fieldInfo = languageCollection.getFieldsText();
+        this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
     public void createPlayerList(int amount){
@@ -87,7 +102,7 @@ public class GameController {
     }
 
     public void changePlayerBalance(Player player, int amount){
-        player.addBalance(amount);
+        player.addToBalance(amount);
     }
 
     public void movePlayer(Player player, int position, int amount){
@@ -103,6 +118,8 @@ public class GameController {
         }
         return player;
     }
+
+
 
     public Player[] getPlayers() { return playerlist.getAllPlayers(); }
 

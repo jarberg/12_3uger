@@ -96,10 +96,6 @@ public class FileReader {
 
     public String[][] getMenuText(String filePath){return twoDStringArray(filePath,"/Menu.txt"); }
 
-    public String[] getFieldMessages(String filePath){return oneDStringArray(filePath,"/FieldMessages.txt"); }
-
-    public String[] getFieldDescriptions(String filePath){ return oneDStringArray(filePath, "/FieldDescriptions.txt"); }
-
     public String[] getDirectoriesStringArray(){ return read1DFromFile("TextFiles/"); }
 
     public String[][] getFieldInfo(String filepath) {
