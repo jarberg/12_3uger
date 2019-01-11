@@ -26,4 +26,20 @@ public abstract class Field implements Visitable {
     public Color getBorderColor() {
         return borderColor;
     }
+
+    public String getID() {
+        return ID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

@@ -11,6 +11,8 @@ public class Board {
 
     }
 
+    //TODO: make board setup board on creation
+
     public void setupBoard(int[][] fieldsLogic, String[][] fieldsInfo){
         for (int i = 0; i < fields.length; i++) {
             int[] fieldLogic = fieldsLogic[i];
@@ -66,7 +68,21 @@ public class Board {
                 field = new StartField(ID, name, subtitle, message, color, fieldLogic[3]);
                 break;
             case 2:
-                field = new PropertyField(ID, name, subtitle, message, color, Integer.toString(fieldLogic[2]), fieldLogic[3], fieldLogic[4], fieldLogic[5], fieldLogic[6], fieldLogic[7], fieldLogic[8], fieldLogic[9], fieldLogic[10]);
+                field = new PropertyField(
+                        ID,
+                        name,
+                        subtitle,
+                        message,
+                        color,
+                        Integer.toString(fieldLogic[2]),
+                        fieldLogic[3],
+                        fieldLogic[4],
+                        fieldLogic[5],
+                        fieldLogic[6],
+                        fieldLogic[7],
+                        fieldLogic[8],
+                        fieldLogic[9],
+                        fieldLogic[10]);
                 break;
             case 3:
                 field = new ChanceField(ID, name, subtitle, message, color);
