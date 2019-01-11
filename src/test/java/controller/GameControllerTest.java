@@ -9,12 +9,13 @@ import static org.junit.Assert.*;
 
 public class GameControllerTest {
 
-    private GameController gamecontroller;
+    private GameController gamecontroller = GameController.getInstance();
+    GameLogic gamelogic = gamecontroller.getGameLogic();
 
     @Before
     public void before(){
-        gamecontroller = GameController.getInstance();
-        gamecontroller.GodMode(true);
+    gamecontroller.GodMode(true);
+
     }
 
     @After
@@ -27,9 +28,8 @@ public class GameControllerTest {
         gamecontroller.createBoard();
 
         assertEquals(40, gamecontroller.getBoard().length);
-        for (int i = 0; i < gamecontroller.getBoard().length; i++) {
-            assertEquals(null, gamecontroller.getBoard()[i]);
-        }
+        assertEquals("Start", gamecontroller.getBoard()[0].getTitle());
+
     }
 
     @Test
@@ -39,7 +39,7 @@ public class GameControllerTest {
 
     @Test
     public void createPlayerList() {
-        gamecontroller.createPlayerList(4);
+        gamelogic.createPlayerList(4);
         assertEquals(4, gamecontroller.getPlayers().length);
         for (int i = 0; i < gamecontroller.getPlayers().length; i++) {
             assertEquals(null, gamecontroller.getPlayers()[i]);
@@ -100,35 +100,34 @@ public class GameControllerTest {
         Player next2CurrentPlayer = gamecontroller.getPlayers()[2];
         Player next3CurrentPlayer = gamecontroller.getPlayers()[3];
 
-        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
-        assertEquals(currentPlayer,gamecontroller.getCurrentPlayerTurn());
+        assertEquals(currentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
 
-        gamecontroller.nextPlayerTurn();
-        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
-        assertEquals(nextCurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+        gamelogic.setNextPlayer();
 
-        gamecontroller.nextPlayerTurn();
-        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
-        assertEquals(next2CurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+        assertEquals(nextCurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
 
-        gamecontroller.nextPlayerTurn();
-        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
-        assertEquals(next3CurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+        gamelogic.setNextPlayer();
 
-        gamecontroller.nextPlayerTurn();
+        assertEquals(next2CurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
+
+        gamelogic.setNextPlayer();
+
+        assertEquals(next3CurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
+
+        gamelogic.setNextPlayer();
 
 
-        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
-        assertEquals(currentPlayer,gamecontroller.getCurrentPlayerTurn());
-        gamecontroller.getCurrentPlayerTurn().setDoubleTurnStatus(true);
-        gamecontroller.nextPlayerTurn();
-        assertNotEquals(nextCurrentPlayer,gamecontroller.getCurrentPlayerTurn());
-        assertEquals(currentPlayer,gamecontroller.getCurrentPlayerTurn());
 
-        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
-        gamecontroller.nextPlayerTurn();
-        System.out.println(gamecontroller.getCurrentPlayerTurn().getName());
-        assertEquals(nextCurrentPlayer,gamecontroller.getCurrentPlayerTurn());
+        assertEquals(currentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
+        gamelogic.getCurrentPlayer().setDoubleTurnStatus(true);
+        gamelogic.setNextPlayer();
+        assertNotEquals(nextCurrentPlayer.getName(),gamelogic.getCurrentPlayer());
+        assertEquals(currentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
+
+
+        gamelogic.setNextPlayer();
+
+        assertEquals(nextCurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
 
     }
     @Test

@@ -4,6 +4,14 @@ import gui_fields.GUI_Player;
 
 public class ViewControllerStub implements ViewControllerType {
 
+    private static ViewControllerStub singleInstance = null;
+
+    public static ViewControllerStub getSingleInstance(){
+        if(singleInstance == null)
+            singleInstance = new ViewControllerStub();
+
+        return singleInstance;
+    }
 
     @Override
     public void showEmptyGUI(){

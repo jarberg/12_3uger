@@ -1,10 +1,8 @@
 package controller;
 
-import model.misc.DieSet;
 import model.board.Board;
 import model.board.Field;
 import model.player.Player;
-import model.player.PlayerList;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 
@@ -13,15 +11,15 @@ import java.util.Scanner;
 
 public class GameController {
 
-    ViewController viewcon ;
-    //ViewControllerType viewCon ;
+    private ViewControllerType viewcon ;
     private LogicStringCollection logicCollection;
     private LanguageStringCollection languageCollection;
     private GameLogic gamelogic;
-
-    private boolean test = false;
     private static GameController singletonInstance = null;
     private Board board;
+
+    private boolean test = false;
+
 
 
     public static GameController getInstance(){
@@ -35,14 +33,12 @@ public class GameController {
     }
 
     private GameController(){
-        //viewcon = ViewController.getSingleInstance();
         logicCollection = LogicStringCollection.getInstance();
         languageCollection = LanguageStringCollection.getInstance("/danish");
         gamelogic = new GameLogic(4);
+        board = new Board();
         setupGame();
     }
-
-
 
     private void setupGame(){
 
@@ -60,18 +56,10 @@ public class GameController {
         while(!checkIfAllBroke()){
             Player currPlayer = gamelogic.getCurrentPlayer();
 
-            System.out.println(gamelogic.getCurrentPlayer().getName()+"'s turn");
-
-            //boolean input = scan.nextBoolean();
-
             gamelogic.rollDice(currPlayer);
-            System.out.println(gamelogic.getValue());
-
             gamelogic.movePlayer(currPlayer,currPlayer.getPosition(), gamelogic.getValue(),board.getFields().length);
-
-            System.out.println(currPlayer.getName()+" is now on "+currPlayer.getPosition());
-
             gamelogic.setNextPlayer();
+
         }
 
         checkForWinner();
@@ -81,9 +69,9 @@ public class GameController {
     private boolean checkIfAllBroke(){
         boolean allBroke=false;
         int counter=0;
-
-            for (int i = 0; i < gamelogic.getAllPlayers().length; i++) {
-                if (!gamelogic.getAllPlayers()[i].getBrokeStatus()) {
+            Player[] playerlist = gamelogic.getAllPlayers();
+            for (int i = 0; i < playerlist.length; i++) {
+                if (!playerlist[i].getBrokeStatus()) {
 
                 } else {
                     counter+=1;
@@ -129,7 +117,12 @@ public class GameController {
     public Field[] getBoard(){return board.getFields();}
 
     public void GodMode(boolean mode){
-        this.test = mode;
+        if(this.test){
+            this.viewcon = ViewControllerStub.getSingleInstance();
+        }
+        else{
+            this.viewcon = ViewController.getSingleInstance();
+        }
     }
 
     public void checkForWinner(){
@@ -141,5 +134,9 @@ public class GameController {
             }
         }
         System.out.println(winner+" is the winner!");
+    }
+
+    public GameLogic getGameLogic(){
+        return gamelogic;
     }
 }
