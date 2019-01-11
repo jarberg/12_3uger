@@ -21,7 +21,7 @@ public class FileReader {
 
     }
 
-    private FileReader(){
+    public FileReader(){
 
 
     }
@@ -102,4 +102,11 @@ public class FileReader {
 
     public String[] getDirectoriesStringArray(){ return read1DFromFile("TextFiles/"); }
 
+    public String[][] getFieldInfo(String filepath) {
+        return twoDStringArray(filepath,"/Fields.txt");
+    }
+
+    public int[][] getFieldsInt(String filepath) {
+        return twoDIntArray(filepath,"/Fields.txt");
+    }
 }

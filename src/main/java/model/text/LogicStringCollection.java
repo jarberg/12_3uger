@@ -1,23 +1,46 @@
 package model.text;
 
-public class LogicStringCollection extends StringCollection{
+public class LogicStringCollection{
 
     private static LogicStringCollection singletonInstance = null;
 
-    public static LogicStringCollection getInstance(String FilePath){
+    private FileReader filereader = FileReader.getInstance(filepath);
+    private String[][] ChanceCard;
+    private int[][] fields;
+
+
+    public static LogicStringCollection getInstance(){
+
+
+
         if(singletonInstance ==null){
-            filepath = FilePath;
-            singletonInstance = new LogicStringCollection(filepath);
+
+            singletonInstance = new LogicStringCollection();
 
         }
 
         return singletonInstance;
     }
 
-    public LogicStringCollection(String FilePath){
+    private static String filepath = "logic";
+
+
+
+
+    public LogicStringCollection(){
 
         super();
 
     }
 
+    public int[][] getFieldsText() {
+        this.fields = this.filereader.getFieldsInt(filepath);
+        return fields;
+    }
+
+
+    public String[][] getChanceCard() {
+        this.ChanceCard = this.filereader.getChanceCards(filepath);
+        return ChanceCard;
+    }
 }

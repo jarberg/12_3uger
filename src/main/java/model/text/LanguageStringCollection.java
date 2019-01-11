@@ -1,12 +1,22 @@
 package model.text;
 
-public class LanguageStringCollection extends StringCollection{
+public class LanguageStringCollection {
 
     private static LanguageStringCollection singletonInstance = null;
 
+
+    private FileReader freader = new FileReader();
+    private String[][] ChanceCard;
+    private String[][] fields;
+
+    private LanguageStringCollection(){
+
+
+    }
+
     public static LanguageStringCollection getInstance(String FilePath){
         if(singletonInstance ==null){
-            filepath = FilePath;
+            filepath = filepath+FilePath;
             singletonInstance = new LanguageStringCollection(filepath);
 
         }
@@ -14,8 +24,20 @@ public class LanguageStringCollection extends StringCollection{
         return singletonInstance;
     }
 
+
+    private static String filepath = "language/";
+
     public LanguageStringCollection(String FilePath){
         super();
     }
+    public String[][] getFieldsText() {
+        this.fields = this.freader.getFieldInfo(filepath);
+        return this.fields;
+    }
 
+
+    public String[][] getChanceCard() {
+        this.ChanceCard= this.freader.getChanceCards(filepath);
+        return ChanceCard;
+    }
 }

@@ -1,6 +1,5 @@
 package controller;
-import model.Board.Board;
-import model.Board.Field;
+
 import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 
 public class GameController {
 
-    ViewControllerAbs viewcon ;
+    ViewController viewcon ;
 
     private boolean test = false;
     private static GameController singletonInstance = null;
