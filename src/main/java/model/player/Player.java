@@ -21,6 +21,7 @@ public class Player {
         hasGetOutOfJailCard = false;
         doubleTurn = false;
         this.name = name;
+
     }
 
 

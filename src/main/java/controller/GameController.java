@@ -9,6 +9,7 @@ import model.text.FileReader;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 
+import java.awt.*;
 import java.util.Scanner;
 
 
@@ -48,15 +49,43 @@ public class GameController {
     public void setupGame(){
         setupLanguage();
         createBoard();
-        playerAmount = getPlayerAmount();
-        this.gameLogic = new GameLogic(playerAmount);
-
-
-        createPlayerList(4);
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            addPlayer("test"+i,i);
-        }
+        this.playerAmount = getPlayerAmount();
+        createPlayers();
+        //makePlayerChooseCar();
         showGameBoard();
+    }
+
+    private void makePlayerChooseCar() {
+        for (int i = 0; i < playerAmount; i++) {
+            Player playerChoosingColor = gameLogic.getPlayer(i);
+            for (Player player : gameLogic.getAllPlayers()){
+                if (playerChoosingColor.getPlayerColor() != Color.black)
+                    playerChoosingColor = player;
+            }
+            Color chosenColor = viewController.getUserColor(playerChoosingColor.getName());
+            playerChoosingColor.setPlayerColor(chosenColor);
+            gameLogic.setNextPlayer();
+        }
+    }
+
+    private void createPlayers() {
+        this.gameLogic = new GameLogic(playerAmount);
+        for (int i = 0; i < playerAmount; i++) {
+            //String name = viewController.getPlayerName();
+            //int age = viewController.getPlayerAge();
+
+            String name = "name " + i;
+
+
+            String playerName = name;
+            /*
+            int playerIdentifier = 2;
+            while(this.gameLogic.hasPlayerWithName(playerName)){
+                playerName = name + "#" + playerIdentifier;
+                playerIdentifier++;
+            }*/
+            gameLogic.addPlayer(i, new Player(playerName));
+        }
     }
 
     private int getPlayerAmount() {
@@ -95,7 +124,6 @@ public class GameController {
         setupGame();
         while(!checkIfAllBroke()){
 
-
             System.out.println(getCurrentPlayerTurn().getName()+"'s turn");
             boolean input = scan.nextBoolean();
             getCurrentPlayerTurn().setBrokeStatus(input);
@@ -108,16 +136,14 @@ public class GameController {
         boolean allBroke=false;
         int counter=0;
 
-            for (int i = 0; i < playerlist.getAllPlayers().length; i++) {
-                if (playerlist.getAllPlayers()[i].getBrokeStatus()==false) {
+        for (Player player : gameLogic.getAllPlayers()){
+            if (player.getBrokeStatus())
+                counter++;
+        }
 
-                } else {
-                    counter+=1;
-                }
-            }
-            if(counter >=playerlist.getAllPlayers().length-1){
-                allBroke=true;
-            }
+        if(counter >=gameLogic.getAllPlayers().length-1){
+            allBroke=true;
+        }
         return allBroke;
     }
 
@@ -151,7 +177,7 @@ public class GameController {
 
 
 
-    public Player[] getPlayers() { return playerlist.getAllPlayers(); }
+    public Player[] getPlayers() { return gameLogic.getAllPlayers(); }
 
     public Field[] getBoard(){return board.getFields();}
 
@@ -167,18 +193,17 @@ public class GameController {
     }
 
     public Player getCurrentPlayerTurn(){
-        return playerlist.getCurrentPlayer();
+        return gameLogic.getCurrentPlayer();
     }
 
     public void nextPlayerTurn(){
-        playerlist.setNextPlayer();
+        gameLogic.setNextPlayer();
     }
     public void checkForWinner(){
         String winner="";
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            if(playerlist.getPlayer(i).getBrokeStatus()==false){
+        for (int i = 0; i <gameLogic.getAllPlayers().length ; i++) {
+            if (!gameLogic.getPlayer(i).getBrokeStatus())
                 winner = getPlayers()[i].getName();
-            }
         }
         System.out.println(winner+" is the winner!");
     }

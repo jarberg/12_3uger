@@ -146,11 +146,10 @@ public class ViewController {
     }
 
     public String getUserLanguage() {
+        // default language is engelsk otherwise chance the string arguement below :))))
         String[] languageChoices = languageStringCollection.getDirectories();
         String userChoice = gui.getUserSelection("Choose a language", languageChoices);
         return userChoice;
-
-
     }
 
     public void setFilepath(String languageFilepath) {
@@ -159,8 +158,35 @@ public class ViewController {
 
     public int getPLayerAmount() {
         String[] playerOptions = {"3", "4", "5", "6"};
-        String[] message = languageStringCollection.getMenu();
-        String userChoise = gui.getUserSelection(message[0], playerOptions);
+        String message = languageStringCollection.getMenu()[0];
+        String userChoise = gui.getUserSelection(message, playerOptions);
         return Integer.parseInt(userChoise);
+    }
+
+    public String getPlayerName() {
+        String message = languageStringCollection.getMenu()[1];
+        String name = gui.getUserString(message);
+        return name;
+    }
+
+    public int getPlayerAge() {
+        String message = languageStringCollection.getMenu()[2];
+        int age = gui.getUserInteger(message);
+        return age;
+    }
+
+    public Color getUserColor(String name) {
+        String message = languageStringCollection.getMenu()[4];
+        String[] colorChoices = new String[gui_players.length];
+        String cyan = languageStringCollection.getMenu()[5];
+        String red = languageStringCollection.getMenu()[6];
+        String orange = languageStringCollection.getMenu()[7];
+        String green = languageStringCollection.getMenu()[8];
+
+        for (int i = 0; i < gui_players.length; i++) {
+            String colorMessage = null;
+            Color color = Color.BLACK;
+        }
+        return  Color.black;
     }
 }

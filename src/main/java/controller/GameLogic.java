@@ -13,6 +13,18 @@ public class GameLogic {
         createPlayerList(amount);
     }
 
+    void createPlayerList(int amount){
+        playerlist = new PlayerList(amount);
+    }
+
+    public boolean hasPlayerWithName(String name){
+        for(Player player : getAllPlayers()){
+            if (player.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
+
     public int rollDice(Player player){
         dice.roll();
         player.setDoubleTurnStatus(checkdiceForDoubleRoll());
@@ -28,7 +40,6 @@ public class GameLogic {
     public int getValue(){
         return dice.getValue();
     }
-
     public Player[] getAllPlayers(){
         return playerlist.getAllPlayers();
     }
@@ -36,13 +47,9 @@ public class GameLogic {
     public Player getCurrentPlayer(){
         return playerlist.getCurrentPlayer();
     }
+
     public void setNextPlayer(){
         playerlist.setNextPlayer();
-    }
-
-    void createPlayerList(int amount){
-        playerlist = new PlayerList(amount);
-
     }
 
     public void addPlayer(int index, Player player) {

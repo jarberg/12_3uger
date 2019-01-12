@@ -11,7 +11,7 @@ public class PlayerList {
     public PlayerList(int amount){
 
         this.playerAmount = amount;
-        playerList= new Player[playerAmount];
+        playerList = new Player[playerAmount];
     }
 
 
