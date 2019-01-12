@@ -74,9 +74,7 @@ public class GameController {
             //String name = viewController.getPlayerName();
             //int age = viewController.getPlayerAge();
 
-            String name = "name " + i;
-
-
+            String name = "name " + i; // gider ikke skrive navne ind hver gang programmet skal køres
             String playerName = name;
             /*
             int playerIdentifier = 2;
@@ -123,7 +121,6 @@ public class GameController {
 
         setupGame();
         while(!checkIfAllBroke()){
-
             System.out.println(getCurrentPlayerTurn().getName()+"'s turn");
             boolean input = scan.nextBoolean();
             getCurrentPlayerTurn().setBrokeStatus(input);
