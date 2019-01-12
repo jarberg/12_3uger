@@ -1,0 +1,9 @@
+Hvor mange spillere er i?
+Hvem er du?
+Hvor gammel er du?
+Så er det tid til at slå med terningerne. Det er din tur,
+Hvilken bil vælger du?
+Den cyan UFO
+Den røde racerbil
+Den orange traktor
+Den grønne bil

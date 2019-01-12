@@ -6,18 +6,23 @@ import gui_fields.GUI_Street;
 import gui_main.GUI;
 import model.board.Board;
 import model.board.Field;
+import model.text.FileReader;
+import model.text.LanguageStringCollection;
 
 import java.awt.*;
 
 public class ViewController {
 
 
+    private final LanguageStringCollection languageStringCollection;
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
     private Board board;
 
     private static ViewController singleInstance = null;
+    private FileReader fileReader;
+    private String languageFilepath;
 
     public static ViewController getSingleInstance(){
         if(singleInstance == null)
@@ -28,6 +33,7 @@ public class ViewController {
 
     private ViewController() {
         this.gui_board = new GUI_Field[40];
+        this.languageStringCollection = LanguageStringCollection.getInstance("");
     }
 
     public void showGameGUI(Field[] fields){
@@ -137,5 +143,24 @@ public class ViewController {
 
     public GUI_Player[] getGUI_Players() {
         return gui_players;
+    }
+
+    public String getUserLanguage() {
+        String[] languageChoices = languageStringCollection.getDirectories();
+        String userChoice = gui.getUserSelection("Choose a language", languageChoices);
+        return userChoice;
+
+
+    }
+
+    public void setFilepath(String languageFilepath) {
+        this.languageFilepath = languageFilepath;
+    }
+
+    public int getPLayerAmount() {
+        String[] playerOptions = {"3", "4", "5", "6"};
+        String[] message = languageStringCollection.getMenu();
+        String userChoise = gui.getUserSelection(message[0], playerOptions);
+        return Integer.parseInt(userChoise);
     }
 }

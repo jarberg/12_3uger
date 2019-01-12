@@ -1,4 +1,4 @@
-1~Start~Whenever you pass Start, you recieve 200 kr.~You landed on Start.
+1~Start~Receive 200 kr.~You landed on Start.
 2~Rødovrevej~Price: 60 kr.~You landed on Rødovrevej.
 3~Try your luck~Draw a chancecard~You try your luck. Draw a chancecard.
 4~Hvidovre~Price: 60 kr.~You landed on Hvidovre.

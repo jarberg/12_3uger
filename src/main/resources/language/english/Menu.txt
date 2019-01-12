@@ -1,0 +1,9 @@
+How many players are you?
+Who are you?
+How old are you?
+Now it's time to roll the dice. It's your turn,
+Which car would you like?
+The cyan UFO
+The red race car
+The orange tractor
+The green car

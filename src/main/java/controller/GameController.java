@@ -14,11 +14,14 @@ import java.util.Scanner;
 
 public class GameController {
 
-    ViewController viewcon ;
+    ViewController viewController;
     //ViewControllerType viewCon ;
     private FileReader fileReader;
+    private GameLogic gameLogic;
     private LogicStringCollection logicCollection;
     private LanguageStringCollection languageCollection;
+    private String language;
+    private int playerAmount;
 
     private boolean test = false;
     private static GameController singletonInstance = null;
@@ -35,17 +38,20 @@ public class GameController {
 
     }
     private GameController(){
-        //viewcon = ViewController.getSingleInstance();
-        logicCollection = LogicStringCollection.getInstance();
-        languageCollection = LanguageStringCollection.getInstance("/danish");
-        this.viewcon = ViewController.getSingleInstance();
+        this.viewController = ViewController.getSingleInstance();
+
     }
 
 
     private DieSet dice = new DieSet();
 
     public void setupGame(){
+        setupLanguage();
         createBoard();
+        playerAmount = getPlayerAmount();
+        this.gameLogic = new GameLogic(playerAmount);
+
+
         createPlayerList(4);
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
             addPlayer("test"+i,i);
@@ -53,8 +59,34 @@ public class GameController {
         showGameBoard();
     }
 
+    private int getPlayerAmount() {
+        if (playerAmount == 0)
+            playerAmount = viewController.getPLayerAmount();
+        return playerAmount;
+    }
+
+    private void setupLanguage(){
+        viewController.showEmptyGUI();
+        String userLanguage = viewController.getUserLanguage();
+        setFilepathLanguage(userLanguage);
+    }
+
+    private void setFilepathLanguage(String language) {
+        this.language = language;
+        viewController.setFilepath(this.language);
+    }
+
+    public void createBoard(){
+        this.board = new Board();
+        logicCollection = LogicStringCollection.getInstance();
+        languageCollection = LanguageStringCollection.getInstance(language);
+        int[][] fieldLogic = logicCollection.getFieldsText();
+        String[][] fieldInfo = languageCollection.getFieldsText();
+        this.board.setupBoard(fieldLogic, fieldInfo);
+    }
+
     public void showGameBoard(){ ;
-        viewcon.showGameGUI(board.getFields());
+        viewController.showGameGUI(board.getFields());
     }
 
     public void playGame(){
@@ -87,16 +119,6 @@ public class GameController {
                 allBroke=true;
             }
         return allBroke;
-    }
-
-    public void createBoard(){
-        this.board = new Board();
-        int[][] fieldLogic = logicCollection.getFieldsText();
-        //String[] fieldMessages = languageCollection.getFieldMessages();
-
-
-        String[][] fieldInfo = languageCollection.getFieldsText();
-        this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
     public void createPlayerList(int amount){

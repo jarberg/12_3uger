@@ -90,13 +90,11 @@ public class FileReader {
 
     //TODO: make filename final static variables
 
-    public int[][] getFieldsText(String filePath){ return twoDIntArray(filePath,"/Fields.txt"); }
-
     public String[][] getChanceCards(String filePath){ return twoDStringArray(filePath,"/ChanceCards.txt"); }
 
-    public String[][] getMenuText(String filePath){return twoDStringArray(filePath,"/Menu.txt"); }
+    public String[] getMenuText(String filePath){return oneDStringArray(filePath,"/Menu.txt"); }
 
-    public String[] getDirectoriesStringArray(){ return read1DFromFile("TextFiles/"); }
+    public String[] getDirectoriesStringArray(){ return read1DFromFile("language"); }
 
     public String[][] getFieldInfo(String filepath) {
         return twoDStringArray(filepath,"/Fields.txt");
