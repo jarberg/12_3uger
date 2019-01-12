@@ -4,13 +4,18 @@ import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
+import model.board.Board;
+import model.board.Field;
 
-public class ViewController implements ViewControllerType {
+import java.awt.*;
+
+public class ViewController {
 
 
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
+    private Board board;
 
     private static ViewController singleInstance = null;
 
@@ -23,6 +28,22 @@ public class ViewController implements ViewControllerType {
 
     private ViewController() {
         this.gui_board = new GUI_Field[40];
+    }
+
+    public void showGameGUI(Field[] fields){
+        int boardLength = fields.length;
+        GUI_Street[] gui_street = new GUI_Street[boardLength];
+        for (int i = 0; i < boardLength; i++) {
+            Field field = fields[i];
+            gui_street[i] = new GUI_Street();
+            gui_street[i].setTitle(field.getTitle());
+            gui_street[i].setSubText(field.getSubtitle());
+            gui_street[i].setDescription(field.getMessage());
+            gui_street[i].setForeGroundColor(Color.BLACK);
+            gui_street[i].setBackGroundColor(field.getFillColor());
+        }
+        this.gui_board = gui_street;
+        this.gui = new GUI(gui_board, Color.green);
     }
 
     public void showEmptyGUI(){
@@ -41,12 +62,14 @@ public class ViewController implements ViewControllerType {
         showGUI();
     }
 
+
     private void showGUI(){
         if(this.gui != null)
             gui.close();
 
         this.gui = new GUI(gui_board);
     }
+
 
     public void addPlayer(String name, int balance){
         int length;
