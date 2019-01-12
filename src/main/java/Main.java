@@ -5,6 +5,5 @@ public class Main {
 
         GameController gamecon = GameController.getInstance();
         gamecon.playGame();
-
     }
 }

@@ -1,4 +1,4 @@
-1~Start~Hver gang De passerer modtag 200 kr.~Hvad løber og løber men lander alligevel tilbage på start? Dig!
+1~Start~Modtag 200 kr.~Hvad løber og løber men lander alligevel tilbage på start? Dig!
 2~Rødovrevej~Pris: 60 kr.~De er ankommet til Rødovrevej.
 3~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
 4~Hvidovre~Pris: 60 kr.~De er ankommet til Hvidovrevej.

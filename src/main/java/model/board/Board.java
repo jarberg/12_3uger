@@ -26,31 +26,44 @@ public class Board {
         Color fieldColor = new Color(0,0,0);
         int fieldGroup = fieldLogic[2];
         switch (fieldGroup){
-            case 1:
+            case 0: // Start, Skat, Helle
+                fieldColor = Color.getHSBColor(60, 5, 100);
+                break;
+            case 1: // Rødovre, Hvidovre
                 fieldColor = Color.blue;
                 break;
-            case 2:
+            case 2: // Roskildevej, ValbyLanggade, Allégade
                 fieldColor = Color.pink;
                 break;
-            case 3:
+            case 3: //FrederiksbergAllé, Bülowsvej, GamleKongevej
                 fieldColor = Color.green.darker();
                 break;
-            case 4:
-                fieldColor = Color.gray;
+            case 4: // Bernstrffsvej, Hellerupvej, Strandvej
+                fieldColor = Color.LIGHT_GRAY;
                 break;
-            case 5:
+            case 5: // Trianglen, Isterbrogade, Grønningen
                 fieldColor = Color.red;
                 break;
-            case 6:
+            case 6: //Bredgade, Nytorv, Østergade
                 fieldColor = Color.white;
                 break;
-            case 7:
-                fieldColor = Color.yellow;
+            case 7: // Amagertorv, VimmelSkaft, Nygade
+                fieldColor = Color.yellow.darker();
                 break;
-            case 8:
+            case 8: // Frederiksberg, Rådhuspladsen
                 fieldColor = Color.magenta;
                 break;
-            default:
+            case 9: // Dampskib
+                fieldColor = Color.cyan;
+                break;
+            case 10: // Bryggeri
+                fieldColor = Color.orange;
+                break;
+            case 11: // Fængsel
+                fieldColor = Color.GRAY.darker();
+                break;
+            case 12: // Chance
+                fieldColor = Color.YELLOW;
                 break;
         }
         return fieldColor;
@@ -91,7 +104,7 @@ public class Board {
                 field = new TaxField(ID, name, subtitle, message, color, fieldLogic[3], fieldLogic[4]);
                 break;
             case 5:
-                field = new JailField(ID, name, subtitle, message,  color, fieldLogic[3],0);
+                field = new JailField(ID, name, subtitle, message,  color, fieldLogic[3],fieldLogic[4]);
                 break;
             case 6:
                 field = new GoToJailField(ID, name, subtitle, message, color);

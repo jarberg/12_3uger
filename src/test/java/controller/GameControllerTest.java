@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class GameControllerTest {
 
     private GameController gamecontroller = GameController.getInstance();
-    GameLogic gamelogic = gamecontroller.getGameLogic();
+    private GameLogic gamelogic = new GameLogic(gamecontroller.getPlayers().length);
 
     @Before
     public void before(){
