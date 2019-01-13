@@ -12,10 +12,8 @@ public class PlayerTest {
 
 
     @Test
-    public void setGetName() {
+    public void getName() {
         assertEquals("Bob", player.getName());
-
-        assertEquals("Bob Dylan", player.getName());
     }
 
     @Test

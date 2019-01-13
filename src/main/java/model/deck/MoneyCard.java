@@ -3,8 +3,11 @@ package model.deck;
 import controller.Drawer;
 
 public class MoneyCard extends Card {
-    public MoneyCard(String title, String description) {
-        super(title, description);
+
+    //TODO: add int "amount" attribute and appropriate getter
+    //Note: This will require small changes in the test class.
+    public MoneyCard(String description, int amount) {
+        super(description);
     }
 
     public void accept (Drawer drawer) {
