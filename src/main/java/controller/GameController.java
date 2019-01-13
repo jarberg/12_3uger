@@ -51,20 +51,14 @@ public class GameController {
         createBoard();
         this.playerAmount = getPlayerAmount();
         createPlayers();
-        //makePlayerChooseCar();
+        makePlayerChooseCar();
         showGameBoard();
     }
 
     private void makePlayerChooseCar() {
-        for (int i = 0; i < playerAmount; i++) {
-            Player playerChoosingColor = gameLogic.getPlayer(i);
-            for (Player player : gameLogic.getAllPlayers()){
-                if (playerChoosingColor.getPlayerColor() != Color.black)
-                    playerChoosingColor = player;
-            }
-            Color chosenColor = viewController.getUserColor(playerChoosingColor.getName());
-            playerChoosingColor.setPlayerColor(chosenColor);
-            gameLogic.setNextPlayer();
+        for (Player player : gameLogic.getAllPlayers()){
+            Color chosenColor = viewController.getUserColor(player.getName());
+            player.setPlayerColor(chosenColor);
         }
     }
 
@@ -74,14 +68,14 @@ public class GameController {
             //String name = viewController.getPlayerName();
             //int age = viewController.getPlayerAge();
 
-            String name = "name " + i; // gider ikke skrive navne ind hver gang programmet skal køres
+            String name = "name"; // gider ikke skrive navne ind hver gang programmet skal køres
             String playerName = name;
-            /*
+
             int playerIdentifier = 2;
             while(this.gameLogic.hasPlayerWithName(playerName)){
                 playerName = name + "#" + playerIdentifier;
                 playerIdentifier++;
-            }*/
+            }
             gameLogic.addPlayer(i, new Player(playerName));
         }
     }

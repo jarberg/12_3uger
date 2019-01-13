@@ -7,3 +7,5 @@ The cyan UFO
 The red race car
 The orange tractor
 The green car
+The blue UFO
+The pink race car

@@ -7,3 +7,5 @@ Den cyan UFO
 Den røde racerbil
 Den orange traktor
 Den grønne bil
+Den blå UFO
+Den pinke racerbil

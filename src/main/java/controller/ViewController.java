@@ -19,6 +19,7 @@ public class ViewController {
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
     private Board board;
+    private String[] colorChoices;
 
     private static ViewController singleInstance = null;
     private FileReader fileReader;
@@ -34,6 +35,7 @@ public class ViewController {
     private ViewController() {
         this.gui_board = new GUI_Field[40];
         this.languageStringCollection = LanguageStringCollection.getInstance("");
+        this.colorChoices = new String[6];
     }
 
     public void showGameGUI(Field[] fields){
@@ -176,18 +178,47 @@ public class ViewController {
         return age;
     }
 
-    public Color getUserColor(String name) {
-        String message = languageStringCollection.getMenu()[4];
-        String[] colorChoices = new String[gui_players.length];
-        String cyan = languageStringCollection.getMenu()[5];
-        String red = languageStringCollection.getMenu()[6];
-        String orange = languageStringCollection.getMenu()[7];
-        String green = languageStringCollection.getMenu()[8];
-
-        for (int i = 0; i < gui_players.length; i++) {
-            String colorMessage = null;
-            Color color = Color.BLACK;
+    public void setUpColors(){
+        for (int i = 0; i < colorChoices.length; i++) {
+            this.colorChoices[i] = languageStringCollection.getMenu()[i+5];
         }
-        return  Color.black;
+    }
+
+    public Color getUserColor(String name) {
+        if (colorChoices[0] == null)
+            setUpColors();
+
+        String message = languageStringCollection.getMenu()[4] + name;
+        String colorString = gui.getUserSelection(message, colorChoices);
+        Color colorChosen;
+        if (colorString.equals(colorChoices[0]))
+            colorChosen = Color.cyan;
+        else if (colorString.equals(colorChoices[1]))
+            colorChosen = Color.red;
+        else if (colorString.equals(colorChoices[2]))
+            colorChosen = Color.orange;
+        else if (colorString.equals(colorChoices[3]))
+            colorChosen = Color.green;
+        else if (colorString.equals(colorChoices[4]))
+            colorChosen = Color.blue;
+        else if (colorString.equals(colorChoices[5]))
+            colorChosen = Color.pink;
+        else {
+            colorChosen = Color.BLACK;
+        }
+        this.colorChoices = removeColor(colorString, colorChoices);
+        return  colorChosen;
+    }
+
+    private String[] removeColor(String colorChosen, String[] colorChoices){
+        String[] updatedColorChoices = new String[colorChoices.length-1];
+        int idx = 0;
+        for (int i = 0; i < colorChoices.length; i++) {
+            if (!colorChosen.equals(colorChoices[i])){
+                updatedColorChoices[idx] = colorChoices[i];
+                idx++;
+            }
+        }
+        return updatedColorChoices;
     }
 }
