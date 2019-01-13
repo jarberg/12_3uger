@@ -1,0 +1,32 @@
+CARD_1::: // get 50
+CARD_2::: // get 2000 kr if your total assets dont equate to above 750 kr
+CARD_3::: // go to rådhuspladsen
+CARD_4::: // move to grønningen, get 200 if you pass start
+CARD_5::: // take the øresund ferry, get 200 if you pass start
+CARD_6::: // go to jail, no get 200
+CARD_7::: // pay 20 kr
+CARD_8::: // go to jail, no get 200
+CARD_9::: // move 3 back
+CARD_10::: // move 3 back
+CARD_11::: // go to jail, no get 200
+CARD_12::: // move to start
+CARD_13::: // pay 25 pr house and 125 pr hotel
+CARD_14::: // pay 50 pr house and 125 pr hotel
+CARD_15::: // get 25 kr from each other player
+CARD_16::: // get 200
+CARD_17::: // move to closest ferry, pay double normal price or get opportunity to buy
+CARD_18::: // pay 100
+CARD_19::: // pay 100
+CARD_20::: // pay 10
+CARD_21::: // pay 20
+CARD_22::: // pay 20
+CARD_23::: // get 25
+CARD_24::: // get out of jail card
+CARD_25::: // pay 10
+CARD_26::: // get out of jail card
+CARD_27::: // move to closest ferry, pay double normal price or get opportunity to buy
+CARD_28::: // get 20
+CARD_29::: // get 1
+CARD_30::: // get 50
+CARD_31::: // get 108
+CARD_32::: // get 100
