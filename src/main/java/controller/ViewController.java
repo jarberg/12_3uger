@@ -94,13 +94,13 @@ public class ViewController {
         }
 
         gui_players = temp;
-        GUI_Car car = playerCar(color);
+        GUI_Car car = makePlayerCar(color);
         GUI_Player newPlayer = new GUI_Player(name, balance, car);
 
         gui_players[length] = newPlayer;
     }
 
-    private GUI_Car playerCar(Color color) {
+    private GUI_Car makePlayerCar(Color color) {
         GUI_Car playerCar = new GUI_Car();
 
         if (color == Color.cyan)
@@ -205,6 +205,9 @@ public class ViewController {
     }
 
     public Color getUserColor(String name) {
+        // TODO: SKRALDE METODE
+        // Den her metode er lige til skraldespanden - men virker.............
+        // Gerne omskriv den og muligvis skal farve beskeder have en fil får sig, så de ikke skal hardcodes
         if (colorChoices[0] == null)
             setUpColors();
 
@@ -215,9 +218,10 @@ public class ViewController {
         String blue = languageStringCollection.getMenu()[9];
         String pink = languageStringCollection.getMenu()[10];
 
-        String message = languageStringCollection.getMenu()[4] + name;
+        String message = languageStringCollection.getMenu()[4] + " " + name;
         String colorString = gui.getUserSelection(message, colorChoices);
         Color colorChosen;
+
         if (colorString.equals(cyan))
             colorChosen = Color.cyan;
         else if (colorString.equals(red))
@@ -240,9 +244,9 @@ public class ViewController {
     private String[] removeColor(String colorChosen, String[] colorChoices){
         String[] updatedColorChoices = new String[colorChoices.length-1];
         int idx = 0;
-        for (int i = 0; i < colorChoices.length; i++) {
-            if (!colorChosen.equals(colorChoices[i])){
-                updatedColorChoices[idx] = colorChoices[i];
+        for (String colorChoice : colorChoices) {
+            if (!colorChosen.equals(colorChoice)) {
+                updatedColorChoices[idx] = colorChoice;
                 idx++;
             }
         }
