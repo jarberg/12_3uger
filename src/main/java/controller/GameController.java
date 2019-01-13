@@ -10,8 +10,6 @@ import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 
 import java.awt.*;
-import java.util.Scanner;
-
 
 public class GameController {
 
@@ -54,7 +52,6 @@ public class GameController {
     public void playTurn(){
         Player currentPlayer = gameLogic.getCurrentPlayer();
         rollAndShowDice(currentPlayer);
-
         int lastField = currentPlayer.getPosition();
         viewController.movePlayer(currentPlayer.getName(), lastField, gameLogic.getSumOfDice());
         currentPlayer.movePosition(gameLogic.getSumOfDice(), board.getFields().length);
