@@ -5,9 +5,7 @@ import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
-import model.board.Board;
 import model.board.Field;
-import model.text.FileReader;
 import model.text.LanguageStringCollection;
 
 import java.awt.*;
@@ -19,11 +17,10 @@ public class ViewController {
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
-    private Board board;
+
     private String[] colorChoices;
 
     private static ViewController singleInstance = null;
-    private FileReader fileReader;
     private String languageFilepath;
 
     public static ViewController getSingleInstance(){
@@ -63,15 +60,6 @@ public class ViewController {
         this.gui.close();
     }
 
-    public void createBoard(){
-        for (int i = 0; i < gui_board.length; i++) {
-            gui_board[i] = new GUI_Street();
-        }
-
-        showGUI();
-    }
-
-
     private void showGUI(){
         if(this.gui != null)
             gui.close();
@@ -102,7 +90,6 @@ public class ViewController {
 
     private GUI_Car makePlayerCar(Color color) {
         GUI_Car playerCar = new GUI_Car();
-
         if (color == Color.cyan)
             playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
         else if (color == Color.orange)
@@ -169,7 +156,7 @@ public class ViewController {
     }
 
     public String getUserLanguage() {
-        // default language is engelsk otherwise chance the string arguement below :))))
+        // default language is english otherwise change the string argument below :))))
         String[] languageChoices = languageStringCollection.getDirectories();
         String userChoice = gui.getUserSelection("Choose a language", languageChoices);
         return userChoice;
@@ -211,6 +198,9 @@ public class ViewController {
         if (colorChoices[0] == null)
             setUpColors();
 
+        String message = languageStringCollection.getMenu()[4] + " " + name;
+        String colorString = gui.getUserSelection(message, colorChoices);
+
         String cyan = languageStringCollection.getMenu()[5];
         String red = languageStringCollection.getMenu()[6];
         String orange = languageStringCollection.getMenu()[7];
@@ -218,10 +208,7 @@ public class ViewController {
         String blue = languageStringCollection.getMenu()[9];
         String pink = languageStringCollection.getMenu()[10];
 
-        String message = languageStringCollection.getMenu()[4] + " " + name;
-        String colorString = gui.getUserSelection(message, colorChoices);
         Color colorChosen;
-
         if (colorString.equals(cyan))
             colorChosen = Color.cyan;
         else if (colorString.equals(red))
