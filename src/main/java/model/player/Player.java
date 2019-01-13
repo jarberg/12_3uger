@@ -21,11 +21,6 @@ public class Player {
         hasGetOutOfJailCard = false;
         doubleTurn = false;
         this.name = name;
-
-    }
-
-    public void movePosition(int amount, int boardSize){
-        this.position = (position + amount) % boardSize;
     }
 
 

@@ -12,7 +12,7 @@ public class Account {
         if(balance < 0){
             this.balance = 0;
         }
-     }
+    }
 
     public int getBalance(){ return this.balance; }
 

@@ -5,7 +5,7 @@ import model.deck.*;
 public interface Drawer {
 
     void draw (GetOutOfJailCard card);
-    void draw (MonoplyJackpotCard card);
+    void draw (MonopolyJackpotCard card);
     void draw (MoveCard card);
     void draw (PayForBuildingsCard card);
     void draw (TeleportAndPayDoubleCard card);

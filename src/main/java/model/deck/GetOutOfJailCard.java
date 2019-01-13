@@ -3,8 +3,8 @@ package model.deck;
 import controller.Drawer;
 
 public class GetOutOfJailCard extends Card{
-    public GetOutOfJailCard(String title, String description) {
-        super(title, description);
+    public GetOutOfJailCard(String description) {
+        super(description);
     }
 
     public void accept (Drawer drawer) {

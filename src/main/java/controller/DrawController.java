@@ -21,7 +21,7 @@ public class DrawController implements Drawer {
     }
 
     @Override //CARD: 2
-    public void draw(MonoplyJackpotCard card) {
+    public void draw(MonopolyJackpotCard card) {
         //viewController.showFieldMessage(playerName);
         /*
         Hvis player total assets >= 750 kr.
