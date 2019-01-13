@@ -88,6 +88,7 @@ public class DieSetTest {
         System.out.println("11: "+count[11]+"/"+testAmount*2/36);
         System.out.println("12: "+count[12]+"/"+testAmount/36);
 
+        //TODO: http://prntscr.com/m6ic6b
         assertTrue(count[2]<=(testAmount/36)+(testAmount/testAcceptance) && count[2]>=(testAmount/36)-(testAmount/testAcceptance));
         assertTrue(count[3]<=(testAmount*2/36)+(testAmount/testAcceptance) && count[3]>=(testAmount*2/36)-(testAmount/testAcceptance));
         assertTrue(count[4]<=(testAmount*3/36)+(testAmount/testAcceptance) && count[4]>=(testAmount*3/36)-(testAmount/testAcceptance));
