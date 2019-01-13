@@ -1,5 +1,6 @@
 package controller;
 
+import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
@@ -51,8 +52,7 @@ public class ViewController {
             gui_street[i].setBackGroundColor(field.getFillColor());
         }
         this.gui_board = gui_street;
-        this.gui.close();
-        this.gui = new GUI(gui_board, Color.green);
+        showGUI();
     }
 
     public void showEmptyGUI(){
@@ -80,7 +80,7 @@ public class ViewController {
     }
 
 
-    public void addPlayer(String name, int balance){
+    public void addPlayer(String name, Color color, int balance){
         int length;
         try{
             length = gui_players.length;
@@ -94,9 +94,28 @@ public class ViewController {
         }
 
         gui_players = temp;
-        GUI_Player newPlayer = new GUI_Player(name, balance);
+        GUI_Car car = playerCar(color);
+        GUI_Player newPlayer = new GUI_Player(name, balance, car);
+        newPlayer.getCar().setPrimaryColor(color);
 
         gui_players[length] = newPlayer;
+    }
+
+    private GUI_Car playerCar(Color color) {
+        GUI_Car playerCar = new GUI_Car();
+        if (color == Color.cyan)
+            playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
+        else if (color == Color.orange)
+            playerCar = new GUI_Car(color, color, GUI_Car.Type.TRACTOR, GUI_Car.Pattern.FILL);
+        else if (color == Color.red)
+            playerCar = new GUI_Car(color, color, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+        else if (color == Color.green)
+            playerCar = new GUI_Car(color, color, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+        else if (color == Color.blue)
+            playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
+        else if (color == Color.pink)
+            playerCar = new GUI_Car(color, color, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+        return playerCar;
     }
 
     public void showPlayerScores(){
@@ -188,20 +207,27 @@ public class ViewController {
         if (colorChoices[0] == null)
             setUpColors();
 
+        String cyan = languageStringCollection.getMenu()[5];
+        String red = languageStringCollection.getMenu()[6];
+        String orange = languageStringCollection.getMenu()[7];
+        String green = languageStringCollection.getMenu()[8];
+        String blue = languageStringCollection.getMenu()[9];
+        String pink = languageStringCollection.getMenu()[10];
+
         String message = languageStringCollection.getMenu()[4] + name;
         String colorString = gui.getUserSelection(message, colorChoices);
         Color colorChosen;
-        if (colorString.equals(colorChoices[0]))
+        if (colorString.equals(cyan))
             colorChosen = Color.cyan;
-        else if (colorString.equals(colorChoices[1]))
+        else if (colorString.equals(red))
             colorChosen = Color.red;
-        else if (colorString.equals(colorChoices[2]))
+        else if (colorString.equals(orange))
             colorChosen = Color.orange;
-        else if (colorString.equals(colorChoices[3]))
+        else if (colorString.equals(green))
             colorChosen = Color.green;
-        else if (colorString.equals(colorChoices[4]))
+        else if (colorString.equals(blue))
             colorChosen = Color.blue;
-        else if (colorString.equals(colorChoices[5]))
+        else if (colorString.equals(pink))
             colorChosen = Color.pink;
         else {
             colorChosen = Color.BLACK;

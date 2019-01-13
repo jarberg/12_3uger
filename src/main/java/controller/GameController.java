@@ -53,6 +53,17 @@ public class GameController {
         createPlayers();
         makePlayerChooseCar();
         showGameBoard();
+        addPlayersToGUI();
+    }
+
+    private void addPlayersToGUI() {
+        int startAmout = 1500;
+        for (Player player : gameLogic.getAllPlayers()){
+            player.addToBalance(startAmout);
+            viewController.addPlayer(player.getName(), player.getPlayerColor() ,startAmout);
+            viewController.showPlayerScores();
+            viewController.spawnPlayers();
+        }
     }
 
     private void makePlayerChooseCar() {

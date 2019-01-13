@@ -18,8 +18,8 @@ public class GameLogic {
     }
 
     public boolean hasPlayerWithName(String name){
-        for (int i = 0; i < getAllPlayers().length; i++) {
-            if (getPlayer(i) != null && getPlayer(i).getName().equals(name))
+        for (Player player : getAllPlayers()){
+            if (player != null && player.getName().equals(name))
                 return true;
         }
         return false;
