@@ -24,6 +24,10 @@ public class Player {
 
     }
 
+    public void movePosition(int amount, int boardSize){
+        this.position = (position + amount) % boardSize;
+    }
+
 
     //getters
 

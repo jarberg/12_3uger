@@ -25,10 +25,9 @@ public class GameLogic {
         return false;
     }
 
-    public int rollDice(Player player){
+    public void rollDice(Player player){
         dice.roll();
         player.setDoubleTurnStatus(checkdiceForDoubleRoll());
-        return dice.getValue();
     }
 
     public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
@@ -37,9 +36,19 @@ public class GameLogic {
         player.setPosition((position+amount)%length);
     }
 
-    public int getValue(){
-        return dice.getValue();
+
+    public int getDieOneValue(){
+        return dice.getDieOneValue();
     }
+
+    public int getDieTwoValue(){
+        return dice.getDieTwoValue();
+    }
+
+    public int getSumOfDice(){
+        return dice.getDieOneValue() + dice.getDieTwoValue();
+    }
+
     public Player[] getAllPlayers(){
         return playerlist.getAllPlayers();
     }

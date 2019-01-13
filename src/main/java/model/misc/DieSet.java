@@ -1,29 +1,34 @@
 package model.misc;
-
-import java.util.concurrent.ThreadLocalRandom;
-
 public class DieSet {
 
 
+    private final int SIDES;
     private int value;
     private boolean identicalRoll;
     private int dieOneValue;
     private int dieTwoValue;
 
     public DieSet(){
-        roll();
+        this.SIDES = 6;
     }
 
     public void roll(){
-        //TODO: make nonthread
-        this.dieOneValue = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        this.dieTwoValue = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        this.dieOneValue = rollDie();
+        this.dieTwoValue = rollDie();
         this.value = (this.dieOneValue + this.dieTwoValue);
         identicalRoll = (dieOneValue == dieTwoValue);
     }
 
-    public int getValue(){
-        return this.value;
+    private int rollDie(){
+        return (int) (Math.random() * SIDES) + 1;
+    }
+
+    public int getDieOneValue() {
+        return dieOneValue;
+    }
+
+    public int getDieTwoValue() {
+        return dieTwoValue;
     }
 
     public boolean getIdenticalRolls(){

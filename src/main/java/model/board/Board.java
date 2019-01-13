@@ -26,7 +26,7 @@ public class Board {
         Color fieldColor = new Color(0,0,0);
         int fieldGroup = fieldLogic[2];
         switch (fieldGroup){
-            case 0: // Start, Skat, Helle
+            case 0: // Skat, Helle
                 fieldColor = Color.getHSBColor(60, 5, 100);
                 break;
             case 1: // Rødovre, Hvidovre

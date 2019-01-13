@@ -22,7 +22,7 @@ public class DieSetTest {
     @Test
     public void shouldRollBetweenOneAndTwelve() {
         dieSet.roll();
-        int returnValue = dieSet.getValue();
+        int returnValue = dieSet.getDieOneValue() + dieSet.getDieTwoValue();
         assertTrue(returnValue <= 12 && returnValue >= 1);
     }
 
@@ -36,39 +36,39 @@ public class DieSetTest {
 
         for(int i=0;i<testAmount;i++) {
             dieSet.roll();
-            int value = dieSet.getValue();
+            int sum = dieSet.getDieOneValue() + dieSet.getDieTwoValue();
 
-            if (value == 2) {
+            if (sum == 2) {
                 count[2]++;
             }
-            if (value == 3) {
+            if (sum == 3) {
                 count[3]++;
             }
-            if (value == 4) {
+            if (sum == 4) {
                 count[4]++;
             }
-            if (value == 5) {
+            if (sum == 5) {
                 count[5]++;
             }
-            if (value == 6) {
+            if (sum == 6) {
                 count[6]++;
             }
-            if (value == 7) {
+            if (sum == 7) {
                 count[7]++;
             }
-            if (value == 8) {
+            if (sum == 8) {
                 count[8]++;
             }
-            if (value == 9) {
+            if (sum == 9) {
                 count[9]++;
             }
-            if (value == 10) {
+            if (sum == 10) {
                 count[10]++;
             }
-            if (value == 11) {
+            if (sum == 11) {
                 count[11]++;
             }
-            if (value == 12) {
+            if (sum == 12) {
                 count[12]++;
             }
         }

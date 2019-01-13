@@ -96,13 +96,13 @@ public class ViewController {
         gui_players = temp;
         GUI_Car car = playerCar(color);
         GUI_Player newPlayer = new GUI_Player(name, balance, car);
-        newPlayer.getCar().setPrimaryColor(color);
 
         gui_players[length] = newPlayer;
     }
 
     private GUI_Car playerCar(Color color) {
         GUI_Car playerCar = new GUI_Car();
+
         if (color == Color.cyan)
             playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
         else if (color == Color.orange)
@@ -115,6 +115,7 @@ public class ViewController {
             playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
         else if (color == Color.pink)
             playerCar = new GUI_Car(color, color, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+
         return playerCar;
     }
 
@@ -197,7 +198,7 @@ public class ViewController {
         return age;
     }
 
-    public void setUpColors(){
+    private void setUpColors(){
         for (int i = 0; i < colorChoices.length; i++) {
             this.colorChoices[i] = languageStringCollection.getMenu()[i+5];
         }
@@ -246,5 +247,13 @@ public class ViewController {
             }
         }
         return updatedColorChoices;
+    }
+
+    public void showDice(int dieOneValue, int dieTwoValue) {
+        gui.setDice(dieOneValue, dieTwoValue);
+    }
+
+    public void showFieldMessage(String name, String fieldMessasge) {
+        gui.showMessage(name + " " + fieldMessasge);
     }
 }
