@@ -49,6 +49,7 @@ public class ViewController {
             gui_street[i].setBackGroundColor(field.getFillColor());
         }
         this.gui_board = gui_street;
+        this.gui.close();
         this.gui = new GUI(gui_board, Color.green);
     }
 

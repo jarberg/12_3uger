@@ -112,7 +112,7 @@ public class GameController {
         this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
-    public void showGameBoard(){ ;
+    public void showGameBoard(){
         viewController.showGameGUI(board.getFields());
     }
 
