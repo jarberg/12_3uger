@@ -54,7 +54,7 @@ public class GameController {
         rollAndShowDice(currentPlayer);
         int lastField = currentPlayer.getPosition();
         viewController.movePlayer(currentPlayer.getName(), lastField, gameLogic.getSumOfDice());
-        currentPlayer.movePosition(gameLogic.getSumOfDice(), board.getFields().length);
+        movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice());
         int position = currentPlayer.getPosition();
 
         Field currentField = board.getFields()[position];
