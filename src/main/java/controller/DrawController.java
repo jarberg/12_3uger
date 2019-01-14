@@ -67,6 +67,16 @@ public class DrawController implements Drawer {
 
          */
 
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        int position = player.getPosition();
+        int amount = card.getAmount();
+
+
+        player.setPosition(position);
+        viewController.movePlayer(player.getName(),position, amount);
+
     }
 
     @Override //CARD: 13 - 14 -
@@ -79,6 +89,16 @@ public class DrawController implements Drawer {
 
 
          */
+
+        String message = card.getDescription();
+        viewController.showMessage(message); //(message) = parameter
+
+        int house = card.getHouse();
+        int hotel = card.getHotel();
+
+        //metode til at finde ownerable på house og hotel
+        //player.addToBalance();
+
 
     }
 
