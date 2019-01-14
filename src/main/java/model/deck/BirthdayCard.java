@@ -4,14 +4,21 @@ import controller.Drawer;
 
 public class BirthdayCard extends Card {
 
-    //TODO: Add "amount" attribute and getter
-    //Note: This will require a small change in the test class.
+    private int amount;
 
     public BirthdayCard(String description) {
         super(description);
+
+
+        this.amount = amount;
     }
+
 
     public void accept (Drawer drawer) {
         drawer.draw(this);
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }
