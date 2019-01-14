@@ -1,5 +1,6 @@
 package controller;
 
+import model.board.Field;
 import model.player.Player;
 
 public class TradeController {
@@ -18,5 +19,15 @@ public class TradeController {
 
     }
 
+    public void TransferAssets(Player targetPlayer, int amount){
 
+    }
+
+    public void TransferAssets(Player sourcePlayer, Player targetPlayer, Field field){
+
+    }
+
+    public void TransferAssets(Player targetPlayer, Field field){
+
+    }
 }
