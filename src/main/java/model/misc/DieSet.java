@@ -31,6 +31,10 @@ public class DieSet {
         return dieTwoValue;
     }
 
+    public int getValue(){
+        return dieOneValue + dieTwoValue;
+    }
+
     public boolean getIdenticalRolls(){
         return identicalRoll;
     }
