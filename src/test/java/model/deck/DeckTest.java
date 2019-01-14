@@ -10,7 +10,6 @@ public class DeckTest {
 
     private Deck deck;
 
-
     @Before
     public void setup(){
 

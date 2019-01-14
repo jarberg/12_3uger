@@ -15,6 +15,7 @@ public class MonopolyJackpotCard extends Card {
 
     }
 
+    @Override
     public void accept(Drawer drawer) {
         drawer.draw(this);
     }
