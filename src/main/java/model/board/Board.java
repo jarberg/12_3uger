@@ -14,7 +14,7 @@ public class Board {
     //TODO: make board setup board on creation
 
     public void setupBoard(int[][] fieldsLogic, String[][] fieldsInfo){
-        for (int i = 0; i < fields.length; i++) {
+        for (int i = 0; i < fieldsLogic[0].length-1; i++) {
             int[] fieldLogic = fieldsLogic[i];
             Color fieldColor = decideFieldColor(fieldLogic);
             String[] fieldInfo = fieldsInfo[i];
@@ -121,5 +121,9 @@ public class Board {
 
     public Field[] getFields() {
         return fields;
+    }
+
+    public Field getField(int index){
+        return fields[index];
     }
 }

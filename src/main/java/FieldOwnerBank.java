@@ -19,7 +19,7 @@ public class FieldOwnerBank {
         fieldOwnerBank = new String[playerListLength][];
 
         for (int i = 0; i < playerListLength; i++) {
-            fieldOwnerBank[i][0] = playerList.getPlayer(i).getName();
+            fieldOwnerBank[0][0] = playerList.getPlayer(i).getName();
         }
 
 
@@ -114,6 +114,10 @@ public class FieldOwnerBank {
 
         return(count == amountOfFields);
 
+    }
+
+    public String getInfo(int index1,int index2){
+        return fieldOwnerBank[index1][index2];
     }
 
 }
