@@ -1,11 +1,8 @@
 package controller;
 
-import model.misc.DieSet;
-import model.board.Board;
+
 import model.board.Field;
 import model.player.Player;
-import model.player.PlayerList;
-import model.text.FileReader;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 
@@ -21,7 +18,7 @@ public class GameController {
     private int playerAmount;
     private boolean test = false;
     private static GameController singletonInstance = null;
-    private Board board;
+
     private int boardLength = 40;
 
 
@@ -36,7 +33,6 @@ public class GameController {
 
     private GameController(){
         this.viewController = ViewController.getSingleInstance();
-
     }
 
     public void playGame(){
@@ -56,9 +52,9 @@ public class GameController {
         gameLogic.movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice(),boardLength);
         int position = currentPlayer.getPosition();
 
-        Field currentField = board.getFields()[position];
+        Field currentField = gameLogic.getBoard().getFields()[position];
 
-        nextPlayerTurn();
+        gameLogic.setNextPlayer();
 
     }
 
@@ -71,37 +67,25 @@ public class GameController {
 
     public void setupGame(){
         setupLanguage();
-        createBoard();
         this.playerAmount = getPlayerAmount();
         createPlayers();
         makePlayerChooseCar();
+        gameLogic.createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
         showGameBoard();
         addPlayersToGUI();
     }
 
     protected void setupLanguage(){
-        if(!test) {
-            viewController.showEmptyGUI();
-            String userLanguage = viewController.getUserLanguage();
-            setFilepathLanguage(userLanguage);
-            this.logicCollection = LogicStringCollection.getInstance();
-            this.languageCollection = LanguageStringCollection.getInstance(language);
-        }
-        else{
-            language = "danish";
-        }
+        viewController.showEmptyGUI();
+        String userLanguage = viewController.getUserLanguage();
+        setFilepathLanguage(userLanguage);
+        this.logicCollection = LogicStringCollection.getInstance();
+        this.languageCollection = LanguageStringCollection.getInstance(language);
     }
 
     private void setFilepathLanguage(String language) {
         this.language = language;
         viewController.setFilepath(this.language);
-    }
-
-    public void createBoard(){
-        this.board = new Board();
-        int[][] fieldLogic = logicCollection.getFieldsText();
-        String[][] fieldInfo = languageCollection.getFieldsText();
-        this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
     protected void createPlayers() {
@@ -127,7 +111,7 @@ public class GameController {
     }
 
     private void showGameBoard(){
-        viewController.showGameGUI(board.getFields());
+        viewController.showGameGUI(gameLogic.getBoard().getFields());
     }
 
     private void addPlayersToGUI() {
@@ -154,15 +138,6 @@ public class GameController {
         System.out.println(winner+" is the winner!");
     }
 
-    public void addPlayer(String name, int index){
-        Player player = new Player(name);
-        gameLogic.addPlayer(index, player);
-    }
-
-    public void changePlayerBalance(Player player, int amount){
-        player.addToBalance(amount);
-    }
-
     private int getPlayerAmount() {
         if (playerAmount == 0)
             playerAmount = viewController.getPLayerAmount();
@@ -178,8 +153,6 @@ public class GameController {
         }
         return player;
     }
-
-    public Field[] getBoard(){return board.getFields();}
 
     public void GodMode(boolean mode){
         this.test = mode;

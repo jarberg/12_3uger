@@ -1,5 +1,7 @@
 package controller;
 
+import model.board.Board;
+import model.board.Field;
 import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
@@ -8,6 +10,8 @@ public class GameLogic {
 
     private PlayerList playerlist;
     private DieSet dice = new DieSet();
+    private Board board;
+
 
     public GameLogic(int amount){
         createPlayerList(amount);
@@ -82,5 +86,12 @@ public class GameLogic {
     public Player getPlayer(int index) {
 
         return playerlist.getPlayer(index);
+    }
+
+    public Board getBoard(){return this.board;}
+
+    public void createBoard(int[][] fieldLogic, String[][] fieldInfo){
+        this.board = new Board();
+        this.board.setupBoard(fieldLogic, fieldInfo);
     }
 }

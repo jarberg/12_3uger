@@ -51,11 +51,11 @@ public class ViewController implements ViewControllerType {
         this.gui_board = gui_street;
         showGUI();
     }
-
+    @Override
     public void showEmptyGUI(){
         this.gui = new GUI(new GUI_Field[0]);
     }
-
+    @Override
     public void closeGUI(){
         this.gui.close();
     }
@@ -70,7 +70,7 @@ public class ViewController implements ViewControllerType {
 
     }
 
-    private void showGUI(){
+    public void showGUI(){
         if(this.gui != null)
             gui.close();
 
@@ -98,7 +98,7 @@ public class ViewController implements ViewControllerType {
         gui_players[length] = newPlayer;
     }
 
-    private GUI_Car makePlayerCar(Color color) {
+    public GUI_Car makePlayerCar(Color color) {
         GUI_Car playerCar = new GUI_Car();
         if (color == Color.cyan)
             playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
@@ -115,19 +115,19 @@ public class ViewController implements ViewControllerType {
 
         return playerCar;
     }
-
+    @Override
     public void showPlayerScores(){
         for(GUI_Player player : gui_players){
             this.gui.addPlayer(player);
         }
     }
-
+    @Override
     public void changePlayerBalance(String playerName, int amount){
         GUI_Player player = getPlayerByName(playerName);
         int currentBalance = player.getBalance();
         player.setBalance(currentBalance + amount);
     }
-
+    @Override
     public void spawnPlayers(){
         if(gui_board[0] != null){
             for(GUI_Player player : gui_players){
@@ -135,7 +135,7 @@ public class ViewController implements ViewControllerType {
             }
         }
     }
-
+    @Override
     public void movePlayer(String playerName, int position, int amount){
         GUI_Player movingPlayer = getPlayerByName(playerName);
         for (int i = 0; i < amount; i++) {
@@ -151,7 +151,7 @@ public class ViewController implements ViewControllerType {
         }
     }
 
-    private GUI_Player getPlayerByName(String playerName){
+    public GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
         for(GUI_Player p : gui_players){
             if(p.getName().equals(playerName))
@@ -160,7 +160,7 @@ public class ViewController implements ViewControllerType {
 
         return player;
     }
-
+    @Override
     public GUI_Player[] getGUI_Players() {
         return gui_players;
     }
@@ -196,7 +196,7 @@ public class ViewController implements ViewControllerType {
         return age;
     }
 
-    private void setUpColors(){
+    public void setUpColors(){
         for (int i = 0; i < colorChoices.length; i++) {
             this.colorChoices[i] = languageStringCollection.getMenu()[i+5];
         }
@@ -239,7 +239,7 @@ public class ViewController implements ViewControllerType {
         return  colorChosen;
     }
 
-    private String[] removeColor(String colorChosen, String[] colorChoices){
+    public String[] removeColor(String colorChosen, String[] colorChoices){
         String[] updatedColorChoices = new String[colorChoices.length-1];
         int idx = 0;
         for (String colorChoice : colorChoices) {
