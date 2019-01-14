@@ -263,19 +263,16 @@ public class ViewController implements ViewControllerType {
     public void addBuilding(PropertyField field){
         if(field.getBuildingCount()==5){
 
-
+            ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHotel(true);
         }
         else{
-            if(field.getBuildingCount()==4){
-                ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHotel(true);
-            }
-            else{
-                ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHouses(field.getBuildingCount());
-            }
+            ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHouses(field.getBuildingCount());
+
         }
 
 
     }
+
     public GUI_Player getGui_playerByName(String name){
         GUI_Player player = null;
         for (GUI_Player p:getGUI_Players()) {
@@ -285,5 +282,11 @@ public class ViewController implements ViewControllerType {
 
         }
         return player;
+    }
+
+
+    public String getUserSelection(String message, String[]choiceOptions) {
+
+        return gui.getUserSelection(message, choiceOptions);
     }
 }

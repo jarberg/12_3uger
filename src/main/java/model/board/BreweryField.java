@@ -8,7 +8,7 @@ public class BreweryField extends Field {
 
     private int multiplier1;
     private int multiplier2;
-
+    private boolean owned=false ;
 
     public BreweryField(String ID, String title, String subtitle, String message, Color fieldColor, int multiplier1, int multiplier2){
         super(ID, title, subtitle, message, fieldColor);
@@ -29,5 +29,11 @@ public class BreweryField extends Field {
     public int getMultiplier2(){
         return multiplier2;
     }
+
+    public boolean isOwned() {
+        return owned;
+    }
+    public void setOwned(boolean status) {    }
+
 
 }

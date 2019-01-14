@@ -1,9 +1,6 @@
 package controller;
 
-
-import gui_fields.GUI_Street;
-import model.board.Field;
-import model.board.PropertyField;
+import model.board.*;
 import model.player.Player;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
@@ -20,6 +17,9 @@ public class GameController {
     private int playerAmount;
     private boolean test = false;
     private static GameController singletonInstance = null;
+    private boolean endTurn= false;
+    private Field currentField;
+    private Player currentPlayer;
 
     private int boardLength = 40;
 
@@ -46,30 +46,34 @@ public class GameController {
         checkForWinner();
     }
 
-    public void playTurn(){
-        Player currentPlayer = gameLogic.getCurrentPlayer();
+    private void playTurn(){
+        endTurn = false;
+        currentPlayer = gameLogic.getCurrentPlayer();
+
+
         rollAndShowDice(currentPlayer);
         int lastField = currentPlayer.getPosition();
         viewController.movePlayer(currentPlayer.getName(), lastField, gameLogic.getSumOfDice());
         gameLogic.movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice(),boardLength);
         int position = currentPlayer.getPosition();
-        Field currentField = gameLogic.getBoard().getFields()[position];
-        if(currentField instanceof  PropertyField){
-            buyBuilding(currentPlayer, currentField);
+        currentField = gameLogic.getBoard().getFields()[position];
+
+        while(!endTurn) {
+          playerOptions(getChoices(currentPlayer),currentPlayer);
         }
 
         gameLogic.setNextPlayer();
 
     }
 
-    public void rollAndShowDice(Player curPlayer){
+    private void rollAndShowDice(Player curPlayer){
         gameLogic.rollDice(curPlayer);
         int dieOneValue = gameLogic.getDieOneValue();
         int dieTwoValue = gameLogic.getDieTwoValue();
         viewController.showDice(dieOneValue, dieTwoValue);
     }
 
-    public void setupGame(){
+    private void setupGame(){
         setupLanguage();
         this.playerAmount = getPlayerAmount();
         createPlayers();
@@ -79,7 +83,7 @@ public class GameController {
         addPlayersToGUI();
     }
 
-    protected void setupLanguage(){
+    private void setupLanguage(){
         viewController.showEmptyGUI();
         String userLanguage = viewController.getUserLanguage();
         setFilepathLanguage(userLanguage);
@@ -92,7 +96,7 @@ public class GameController {
         viewController.setFilepath(this.language);
     }
 
-    protected void createPlayers() {
+    private void createPlayers() {
         this.gameLogic = new GameLogic(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
             String name = viewController.getPlayerName();
@@ -129,11 +133,7 @@ public class GameController {
         }
     }
 
-    public void nextPlayerTurn(){
-        gameLogic.setNextPlayer();
-    }
-
-    public void checkForWinner(){
+    private void checkForWinner(){
         String winner="";
         for (int i = 0; i <gameLogic.getAllPlayers().length ; i++) {
             if (!gameLogic.getPlayer(i).getBrokeStatus())
@@ -148,27 +148,15 @@ public class GameController {
         return playerAmount;
     }
 
-    private Player getPlayerByName(String playerName){
-       Player player = null;
-        for (int i = 0; i <gameLogic.getAllPlayers().length ; i++) {
-            if(gameLogic.getPlayer(i).getName().equals(playerName)){
-                player =gameLogic.getPlayer(i);
-            }
-        }
-        return player;
-    }
-
     public void GodMode(boolean mode){
         this.test = mode;
     }
 
-    public GameLogic getGameLogic(){
+    GameLogic getGameLogic(){
         return gameLogic;
     }
 
-    public void setPlayerAmount(int amount){this.playerAmount = amount;}
-
-    public void buyBuilding(Player player, Field field){
+    private void buyBuilding(Player player, Field field){
 
 
         if (field instanceof PropertyField) {
@@ -176,7 +164,7 @@ public class GameController {
 
             }
             else{
-                if (((PropertyField) field).getBuildingCount() == 4) {
+                if (((PropertyField) field).getBuildingCount() <5) {
                     ((PropertyField) field).addBuilding();
                     viewController.addBuilding(((PropertyField) field));
                     payment(player, -((PropertyField) field).getBuildingPrice());
@@ -191,10 +179,134 @@ public class GameController {
         }
     }
 
-    public void payment(Player player,int amount){
+    private void payment(Player player, int amount){
         player.addToBalance(amount);
         viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance()
         );
     }
 
+    public String[][] getChoices(Player player){
+        List choiceList = new List();
+
+        boolean playerInJail = player.isInJail();
+
+        Field field = gameLogic.getBoard().getFields()[player.getPosition()];
+
+        if(field instanceof  PropertyField){
+            if(!((PropertyField) field).isOwned()) {
+                choiceList.add("Buy Field,1");
+            }
+            else{
+                choiceList.add("Buy House,8");
+            }
+
+
+        }
+        if(field instanceof  BreweryField && !((BreweryField) field).isOwned() ){
+            choiceList.add("Buy Field,4");
+        }
+        if(playerInJail)
+        {
+            if(player.getJailCardStatus())
+                choiceList.add("Use JailCard,2");
+            if(player.getBalance() > ((JailField) field).getBailAmount()){
+                choiceList.add("Pay "+((JailField) field).getBailAmount()+",3");
+            }
+        }
+
+        if(field instanceof ChanceField){
+
+            choiceList.add("take card,5");
+        }
+
+        if(field instanceof GoToJailField){
+
+        }
+        if(field instanceof ParkingField){
+
+        }
+        if(field instanceof StartField){
+
+        }
+        if(field instanceof TaxField){
+
+        }
+
+
+        choiceList.add("Auktion,7");
+        choiceList.add("End turn,0");
+
+        String[][] finalChoiceList = new String[choiceList.getItemCount()][];
+
+        for (int i = 0; i <choiceList.getItemCount() ; i++) {
+            finalChoiceList[i] = choiceList.getItem(i).split(",");
+        }
+
+        return finalChoiceList;
+    }
+
+
+
+    public void playerOptions(String[][] choices,Player player) {
+
+        String[] choiceOptions = new String[choices.length];
+        int[] typeArray = new int[choices.length];
+        for (int i = 0; i < choices.length; i++) {
+            choiceOptions[i] = choices[i][0];
+            typeArray[i] = Integer.parseInt(choices[i][1]);
+        }
+
+
+        int typeChoice=0;
+
+        String choiceList = viewController.getUserSelection("Do a thing", choiceOptions);
+
+        for (int i = 0; i < choiceOptions.length ; i++) {
+            if( choiceOptions[i]== choiceList ){
+                typeChoice = Integer.parseInt(choices[i][1]);
+            }
+        }
+
+
+
+        switch(typeChoice){
+
+            case 0: this.endTurn = true;    break;
+
+            case 1: buyProperty(player, currentField);break;
+
+            case 2: this.endTurn = true;    break;
+
+            case 3: this.endTurn = true;    break;
+
+            case 4: this.endTurn = true;    break;
+
+            case 5: this.endTurn = true;    break;
+
+            case 6: this.endTurn = true;    break;
+
+            case 7: this.endTurn = true;    break;
+
+            case 8: buyBuilding(player, currentField);  break;
+
+            case 9: ;break;
+        }
+
+
+   }
+
+   public void buyProperty(Player player, Field field){
+
+        if(field instanceof PropertyField){
+            player.addToBalance(-((PropertyField) field).getPrice());
+            viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
+            ((PropertyField) field).setOwned(true);
+        }
+        if(field instanceof  BreweryField) {
+            player.addToBalance(-150);
+            viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
+
+            ((BreweryField) field).setOwned(true);
+        }
+   }
 }

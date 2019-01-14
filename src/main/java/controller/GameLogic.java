@@ -94,4 +94,18 @@ public class GameLogic {
         this.board = new Board();
         this.board.setupBoard(fieldLogic, fieldInfo);
     }
+
+    private Player getPlayerByName(String playerName){
+        Player player = null;
+        for (int i = 0; i <getAllPlayers().length ; i++) {
+            if(getPlayer(i).getName().equals(playerName)){
+                player =getPlayer(i);
+            }
+        }
+        return player;
+    }
+
+    public void Auktion(Player player, Field field){
+
+    }
 }
