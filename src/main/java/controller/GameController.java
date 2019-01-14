@@ -1,7 +1,9 @@
 package controller;
 
 
+import gui_fields.GUI_Street;
 import model.board.Field;
+import model.board.PropertyField;
 import model.player.Player;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
@@ -51,8 +53,10 @@ public class GameController {
         viewController.movePlayer(currentPlayer.getName(), lastField, gameLogic.getSumOfDice());
         gameLogic.movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice(),boardLength);
         int position = currentPlayer.getPosition();
-
         Field currentField = gameLogic.getBoard().getFields()[position];
+        if(currentField instanceof  PropertyField){
+            buyBuilding(currentPlayer, currentField);
+        }
 
         gameLogic.setNextPlayer();
 
@@ -163,5 +167,34 @@ public class GameController {
     }
 
     public void setPlayerAmount(int amount){this.playerAmount = amount;}
+
+    public void buyBuilding(Player player, Field field){
+
+
+        if (field instanceof PropertyField) {
+            if(((PropertyField) field).getBuildingCount()==5) {
+
+            }
+            else{
+                if (((PropertyField) field).getBuildingCount() == 4) {
+                    ((PropertyField) field).addBuilding();
+                    viewController.addBuilding(((PropertyField) field));
+                    payment(player, -((PropertyField) field).getBuildingPrice());
+
+                }
+                else {
+                    ((PropertyField) field).addBuilding();
+                    viewController.addBuilding(((PropertyField) field));
+                    payment(player, -((PropertyField) field).getBuildingPrice());
+                }
+            }
+        }
+    }
+
+    public void payment(Player player,int amount){
+        player.addToBalance(amount);
+        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance()
+        );
+    }
 
 }

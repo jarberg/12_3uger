@@ -6,6 +6,7 @@ import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 import model.board.Field;
+import model.board.PropertyField;
 import model.text.LanguageStringCollection;
 
 import java.awt.*;
@@ -257,5 +258,32 @@ public class ViewController implements ViewControllerType {
 
     public void showFieldMessage(String name, String fieldMessasge) {
         gui.showMessage(name + " " + fieldMessasge);
+    }
+
+    public void addBuilding(PropertyField field){
+        if(field.getBuildingCount()==5){
+
+
+        }
+        else{
+            if(field.getBuildingCount()==4){
+                ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHotel(true);
+            }
+            else{
+                ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHouses(field.getBuildingCount());
+            }
+        }
+
+
+    }
+    public GUI_Player getGui_playerByName(String name){
+        GUI_Player player = null;
+        for (GUI_Player p:getGUI_Players()) {
+            if(p.getName()==name){
+                player = p;
+            }
+
+        }
+        return player;
     }
 }
