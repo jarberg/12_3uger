@@ -14,6 +14,7 @@ public class TeleportAndPayDoubleCard extends Card{
         this.multiplier = multiplier;
     }
 
+    @Override
     public void accept (Drawer drawer) {
         drawer.draw(this);
     }

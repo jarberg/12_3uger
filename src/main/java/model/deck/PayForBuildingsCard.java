@@ -14,7 +14,7 @@ public class PayForBuildingsCard extends Card {
         this.hotel = hotel;
     }
 
-
+    @Override
     public void accept(Drawer drawer) {
         drawer.draw(this);
     }

@@ -12,6 +12,7 @@ public class MoneyCard extends Card {
         this.amount = amount;
     }
 
+    @Override
     public void accept (Drawer drawer) {
         drawer.draw(this);
     }

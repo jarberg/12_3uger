@@ -9,11 +9,10 @@ public class BirthdayCard extends Card {
     public BirthdayCard(String description) {
         super(description);
 
-
         this.amount = amount;
     }
 
-
+    @Override
     public void accept (Drawer drawer) {
         drawer.draw(this);
     }

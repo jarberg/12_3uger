@@ -14,7 +14,7 @@
 4~Pay 50 pr house and 125 pr hotel~50~125
 7~Get 25 kr from each other player~
 8~Get 200~200
-5~Move to closest ferry, pay double normal price or get opportunity to buy
+5~Move to closest ferry, pay double normal price or get opportunity to buy~~2
 8~Pay 100~-100
 8~Pay 100~-100
 8~Pay 10~-10

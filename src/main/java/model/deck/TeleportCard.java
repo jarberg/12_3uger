@@ -12,6 +12,7 @@ public class TeleportCard extends Card {
         this.position = position;
     }
 
+    @Override
     public void accept (Drawer drawer) {
         drawer.draw(this);
     }
