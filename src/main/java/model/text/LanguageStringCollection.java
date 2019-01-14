@@ -45,10 +45,6 @@ public class LanguageStringCollection {
         return this.directories;
     }
 
-
-
-
-
     public String[][] getChanceCard() {
         this.ChanceCard= this.freader.getChanceCards(filepath);
         return ChanceCard;

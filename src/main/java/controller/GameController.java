@@ -14,18 +14,16 @@ import java.awt.*;
 public class GameController {
 
     ViewController viewController;
-    private FileReader fileReader;
     private GameLogic gameLogic;
     private LogicStringCollection logicCollection;
     private LanguageStringCollection languageCollection;
     private String language;
     private int playerAmount;
-
     private boolean test = false;
     private static GameController singletonInstance = null;
     private Board board;
-    private PlayerList playerlist;
-    private DieSet dice;
+    private int boardLength = 40;
+
 
     public static GameController getInstance(){
 
@@ -35,15 +33,16 @@ public class GameController {
         return singletonInstance;
 
     }
+
     private GameController(){
         this.viewController = ViewController.getSingleInstance();
-        dice = new DieSet();
+
     }
 
     public void playGame(){
         setupGame();
         viewController.showFieldMessage(gameLogic.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
-        while(!checkIfAllBroke()){
+        while(!gameLogic.checkIfAllBroke()){
             playTurn();
         }
         checkForWinner();
@@ -54,7 +53,7 @@ public class GameController {
         rollAndShowDice(currentPlayer);
         int lastField = currentPlayer.getPosition();
         viewController.movePlayer(currentPlayer.getName(), lastField, gameLogic.getSumOfDice());
-        movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice());
+        gameLogic.movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice(),boardLength);
         int position = currentPlayer.getPosition();
 
         Field currentField = board.getFields()[position];
@@ -80,12 +79,17 @@ public class GameController {
         addPlayersToGUI();
     }
 
-    private void setupLanguage(){
-        viewController.showEmptyGUI();
-        String userLanguage = viewController.getUserLanguage();
-        setFilepathLanguage(userLanguage);
-        this.logicCollection = LogicStringCollection.getInstance();
-        this.languageCollection = LanguageStringCollection.getInstance(language);
+    protected void setupLanguage(){
+        if(!test) {
+            viewController.showEmptyGUI();
+            String userLanguage = viewController.getUserLanguage();
+            setFilepathLanguage(userLanguage);
+            this.logicCollection = LogicStringCollection.getInstance();
+            this.languageCollection = LanguageStringCollection.getInstance(language);
+        }
+        else{
+            language = "danish";
+        }
     }
 
     private void setFilepathLanguage(String language) {
@@ -100,7 +104,7 @@ public class GameController {
         this.board.setupBoard(fieldLogic, fieldInfo);
     }
 
-    private void createPlayers() {
+    protected void createPlayers() {
         this.gameLogic = new GameLogic(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
             String name = viewController.getPlayerName();
@@ -137,49 +141,26 @@ public class GameController {
         }
     }
 
-    public boolean checkIfAllBroke(){
-        boolean allBroke=false;
-        int counter=0;
-
-        for (Player player : gameLogic.getAllPlayers()){
-            if (player.getBrokeStatus())
-                counter++;
-        }
-
-        if(counter >=gameLogic.getAllPlayers().length-1){
-            allBroke=true;
-        }
-        return allBroke;
-    }
-
     public void nextPlayerTurn(){
         gameLogic.setNextPlayer();
     }
+
     public void checkForWinner(){
         String winner="";
         for (int i = 0; i <gameLogic.getAllPlayers().length ; i++) {
             if (!gameLogic.getPlayer(i).getBrokeStatus())
-                winner = getPlayers()[i].getName();
+                winner = gameLogic.getAllPlayers()[i].getName();
         }
         System.out.println(winner+" is the winner!");
     }
 
-    public void createPlayerList(int amount){
-        playerlist = new PlayerList(amount);
-
-    }
-
     public void addPlayer(String name, int index){
         Player player = new Player(name);
-        playerlist.addPlayer(index, player);
+        gameLogic.addPlayer(index, player);
     }
 
     public void changePlayerBalance(Player player, int amount){
         player.addToBalance(amount);
-    }
-
-    public void movePlayer(Player player, int position, int amount){
-        player.setPosition((position+amount)%board.getFields().length);
     }
 
     private int getPlayerAmount() {
@@ -190,25 +171,24 @@ public class GameController {
 
     private Player getPlayerByName(String playerName){
        Player player = null;
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            if(playerlist.getPlayer(i).getName().equals(playerName)){
-                player =playerlist.getPlayer(i);
+        for (int i = 0; i <gameLogic.getAllPlayers().length ; i++) {
+            if(gameLogic.getPlayer(i).getName().equals(playerName)){
+                player =gameLogic.getPlayer(i);
             }
         }
         return player;
     }
 
-    public Player[] getPlayers() { return gameLogic.getAllPlayers(); }
-
     public Field[] getBoard(){return board.getFields();}
-
-    public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
 
     public void GodMode(boolean mode){
         this.test = mode;
     }
 
-    public Player getCurrentPlayerTurn(){
-        return gameLogic.getCurrentPlayer();
+    public GameLogic getGameLogic(){
+        return gameLogic;
     }
+
+    public void setPlayerAmount(int amount){this.playerAmount = amount;}
+
 }

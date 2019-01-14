@@ -10,7 +10,7 @@ import model.text.LanguageStringCollection;
 
 import java.awt.*;
 
-public class ViewController {
+public class ViewController implements ViewControllerType {
 
 
     private final LanguageStringCollection languageStringCollection;
@@ -58,6 +58,16 @@ public class ViewController {
 
     public void closeGUI(){
         this.gui.close();
+    }
+
+    @Override
+    public void createBoard() {
+
+    }
+
+    @Override
+    public void addPlayer(String name, int balance) {
+
     }
 
     private void showGUI(){
@@ -159,6 +169,7 @@ public class ViewController {
         // default language is english otherwise change the string argument below :))))
         String[] languageChoices = languageStringCollection.getDirectories();
         String userChoice = gui.getUserSelection("Choose a language", languageChoices);
+        languageFilepath = userChoice;
         return userChoice;
     }
 

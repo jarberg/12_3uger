@@ -36,6 +36,20 @@ public class GameLogic {
         player.setPosition((position+amount)%length);
     }
 
+    public boolean checkIfAllBroke(){
+        boolean foundWinner=false;
+        int counter=0;
+
+        for (Player player : getAllPlayers()){
+            if (player.getBrokeStatus())
+                counter++;
+        }
+
+        if(counter >=getAllPlayers().length-1){
+            foundWinner=true;
+        }
+        return foundWinner;
+    }
 
     public int getDieOneValue(){
         return dice.getDieOneValue();
