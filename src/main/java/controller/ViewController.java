@@ -78,7 +78,6 @@ public class ViewController implements ViewControllerType {
         this.gui = new GUI(gui_board);
     }
 
-
     public void addPlayer(String name, Color color, int balance){
         int length;
         try{

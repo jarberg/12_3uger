@@ -196,8 +196,14 @@ public class GameController {
             if(!((PropertyField) field).isOwned()) {
                 choiceList.add("Buy Field,1");
             }
-            else{
-                choiceList.add("Buy House,8");
+            else {
+                if(((PropertyField) field).isOwned() && ((PropertyField) field).getBuildingCount()==5){
+
+                }
+                else{
+                    choiceList.add("Buy House,8");
+
+                }
             }
 
 
@@ -245,12 +251,11 @@ public class GameController {
         return finalChoiceList;
     }
 
-
-
     public void playerOptions(String[][] choices,Player player) {
 
         String[] choiceOptions = new String[choices.length];
         int[] typeArray = new int[choices.length];
+
         for (int i = 0; i < choices.length; i++) {
             choiceOptions[i] = choices[i][0];
             typeArray[i] = Integer.parseInt(choices[i][1]);
@@ -295,7 +300,7 @@ public class GameController {
 
    }
 
-   public void buyProperty(Player player, Field field){
+    public void buyProperty(Player player, Field field){
 
         if(field instanceof PropertyField){
             player.addToBalance(-((PropertyField) field).getPrice());
@@ -308,5 +313,5 @@ public class GameController {
 
             ((BreweryField) field).setOwned(true);
         }
-   }
+    }
 }
