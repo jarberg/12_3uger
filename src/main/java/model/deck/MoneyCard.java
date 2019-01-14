@@ -4,13 +4,19 @@ import controller.Drawer;
 
 public class MoneyCard extends Card {
 
-    //TODO: add int "amount" attribute and appropriate getter
-    //Note: This will require small changes in the test class.
+    private int amount;
+
     public MoneyCard(String description, int amount) {
         super(description);
+
+        this.amount = amount;
     }
 
     public void accept (Drawer drawer) {
         drawer.draw(this);
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }
