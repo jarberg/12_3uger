@@ -15,19 +15,19 @@ public class TradeController {
         return singleInstance;
     }
 
-    public void TransferAssets(Player sourcePlayer, Player targetPlayer, int amount){
+    public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
 
     }
 
-    public void TransferAssets(Player targetPlayer, int amount){
+    public void transferAssets(Player targetPlayer, int amount){
 
     }
 
-    public void TransferAssets(Player sourcePlayer, Player targetPlayer, Field field){
+    public void transferAssets(Player sourcePlayer, Player targetPlayer, Field field){
 
     }
 
-    public void TransferAssets(Player targetPlayer, Field field){
+    public void transferAssets(Player targetPlayer, Field field){
 
     }
 }

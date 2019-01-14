@@ -23,6 +23,7 @@ public class ViewController {
     private static ViewController singleInstance = null;
     private String languageFilepath;
 
+
     public static ViewController getSingleInstance(){
         if(singleInstance == null)
             singleInstance = new ViewController();
@@ -144,6 +145,18 @@ public class ViewController {
             }
         }
     }
+
+
+
+    public void teleportPlayer (String playerName, int oldposition, int newposition){
+        GUI_Player teleportPlayer = getPlayerByName(playerName);
+             gui_board[oldposition].setCar(teleportPlayer,false);
+             gui_board[newposition].setCar(teleportPlayer, true);
+
+        }
+
+
+
 
     private GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
