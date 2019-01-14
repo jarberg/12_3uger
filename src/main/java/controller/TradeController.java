@@ -5,13 +5,13 @@ import model.player.Player;
 
 public class TradeController {
 
-    private TradeController singleInstance = new TradeController();
+    private static TradeController singleInstance = new TradeController();
 
     private TradeController(){
 
     }
 
-    public TradeController getSingleInstance(){
+    public static TradeController getSingleInstance(){
         return singleInstance;
     }
 
