@@ -16,6 +16,9 @@ public class DrawController implements Drawer {
         //viewController.showFieldMessage(playerName);
         /*
         Set spillerens getOutOfJailCard til true
+
+        boolean
+
          */
 
     }
@@ -26,6 +29,8 @@ public class DrawController implements Drawer {
         /*
         Hvis player total assets >= 750 kr.
             Giv transaction metode argumentet 2000
+
+            if
 
          */
 
@@ -96,6 +101,12 @@ public class DrawController implements Drawer {
     @Override //CARD: 15
     public void draw(BirthdayCard card) {
         //viewController.showFieldMessage(playerName);
+
+        transferAsserts(player,otherPlayer,amount);
+
+        balance = getBalance();
+
+
 
     }
 
