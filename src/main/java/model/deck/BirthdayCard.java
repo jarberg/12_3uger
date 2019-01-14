@@ -6,7 +6,7 @@ public class BirthdayCard extends Card {
 
     private int amount;
 
-    public BirthdayCard(String description) {
+    public BirthdayCard(String description, int amount) {
         super(description);
 
         this.amount = amount;
