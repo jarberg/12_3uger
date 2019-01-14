@@ -1,15 +1,24 @@
 package controller;
 
 import model.deck.*;
+import model.player.Player;
 
 public class DrawController implements Drawer {
-    //Player player;
+
+    private Player player;
+    private Player[] otherPlayers;
+    private ViewController viewController;
 
 
-    /*
-    DrawController(Player player){
+    DrawController(Player player, Player[] otherPlayers){
         this.player = player;
-    }*/
+        this.otherPlayers = otherPlayers;
+
+        this.viewController = ViewController.getSingleInstance();
+    }
+
+
+
 
     @Override //CARD: 24 - 26
     public void draw(GetOutOfJailCard card) {
@@ -102,9 +111,43 @@ public class DrawController implements Drawer {
     public void draw(BirthdayCard card) {
         //viewController.showFieldMessage(playerName);
 
+        String message = card.getDescription();
+        viewController.showMessage(message); //(message) = parameter
+
+        int amount = card.getAmount();
+
+        for (int i = 0; i < otherPlayers.length; i++) {
+
+
+        }
+
+
+
+
+
+
+
+
+
+        this.balance = balance;
+        this.amount = amount;
+        this.otherPlayer = otherPlayer;
+        this.player = player;
+
         transferAsserts(player,otherPlayer,amount);
 
         balance = getBalance();
+
+        if (balance >= amount){
+            addToBalence(-amount); //player
+            addToBalence(amount); //otherplayer
+
+            showTransferMessage(player.getName(),otherPlayer.getName(),amount);
+
+        } else {
+
+
+        }
 
 
 
@@ -116,4 +159,5 @@ public class DrawController implements Drawer {
         //
 
     }
+
 }
