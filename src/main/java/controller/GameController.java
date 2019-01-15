@@ -187,26 +187,19 @@ public class GameController {
 
     public String[][] getChoices(Player player){
         List choiceList = new List();
-
         boolean playerInJail = player.isInJail();
-
         Field field = gameLogic.getBoard().getFields()[player.getPosition()];
-
         if(field instanceof  PropertyField){
             if(!((PropertyField) field).isOwned()) {
                 choiceList.add("Buy Field,1");
             }
             else {
                 if(((PropertyField) field).isOwned() && ((PropertyField) field).getBuildingCount()==5){
-
                 }
                 else{
                     choiceList.add("Buy House,8");
-
                 }
             }
-
-
         }
         if(field instanceof  BreweryField && !((BreweryField) field).isOwned() ){
             choiceList.add("Buy Field,4");
@@ -219,25 +212,6 @@ public class GameController {
                 choiceList.add("Pay "+((JailField) field).getBailAmount()+",3");
             }
         }
-
-        if(field instanceof ChanceField){
-
-            choiceList.add("take card,5");
-        }
-
-        if(field instanceof GoToJailField){
-
-        }
-        if(field instanceof ParkingField){
-
-        }
-        if(field instanceof StartField){
-
-        }
-        if(field instanceof TaxField){
-
-        }
-
 
         choiceList.add("Auktion,7");
         choiceList.add("End turn,0");
@@ -261,7 +235,6 @@ public class GameController {
             typeArray[i] = Integer.parseInt(choices[i][1]);
         }
 
-
         int typeChoice=0;
 
         String choiceList = viewController.getUserSelection("Do a thing", choiceOptions);
@@ -271,33 +244,19 @@ public class GameController {
                 typeChoice = Integer.parseInt(choices[i][1]);
             }
         }
-
-
-
         switch(typeChoice){
 
             case 0: this.endTurn = true;    break;
-
             case 1: buyProperty(player, currentField);break;
-
             case 2: this.endTurn = true;    break;
-
             case 3: this.endTurn = true;    break;
-
             case 4: this.endTurn = true;    break;
-
             case 5: this.endTurn = true;    break;
-
             case 6: this.endTurn = true;    break;
-
             case 7: this.endTurn = true;    break;
-
             case 8: buyBuilding(player, currentField);  break;
-
             case 9: ;break;
         }
-
-
    }
 
     public void buyProperty(Player player, Field field){
