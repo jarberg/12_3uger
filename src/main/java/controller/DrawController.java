@@ -10,7 +10,7 @@ public class DrawController implements Drawer {
     private Player[] otherPlayers;
     private ViewController viewController;
     private TradeController tradeController;
-    private GameLogic gameLogic;
+
 
 
     DrawController(Player player, Player[] otherPlayers){
@@ -96,7 +96,7 @@ public class DrawController implements Drawer {
         int house = card.getHouse();
         int hotel = card.getHotel();
 
-        //metode til at finde ownerable på house og hotel
+        //TODO: metode til at finde ownerable på house og hotel
         //player.addToBalance();
 
 
@@ -119,7 +119,12 @@ public class DrawController implements Drawer {
 
         //TODO owner funktion
 
-        if ()
+        if (newPosition == field.getOwner) owned
+            player.addBalance(amount).getMultiplier
+        tradeController.transferAssets(otherPlayer,player,amount);
+
+        } else {
+        tradeController.transferAssets(player,field)
         int amount = card.getAmount();
 
         tradeController.transferAssets(player,amount);
