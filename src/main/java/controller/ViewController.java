@@ -14,7 +14,7 @@ import java.awt.*;
 public class ViewController implements ViewControllerType {
 
 
-    private final LanguageStringCollection languageStringCollection;
+    private final LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
@@ -22,7 +22,6 @@ public class ViewController implements ViewControllerType {
     private String[] colorChoices;
 
     private static ViewController singleInstance = new ViewController();
-    private String languageFilepath;
 
     public static ViewController getSingleInstance(){
         return singleInstance;
@@ -30,7 +29,6 @@ public class ViewController implements ViewControllerType {
 
     private ViewController() {
         this.gui_board = new GUI_Field[40];
-        this.languageStringCollection = LanguageStringCollection.getInstance("");
         this.colorChoices = new String[6];
     }
 
@@ -166,12 +164,7 @@ public class ViewController implements ViewControllerType {
         // default language is english otherwise change the string argument below :))))
         String[] languageChoices = languageStringCollection.getDirectories();
         String userChoice = gui.getUserSelection("Choose a language", languageChoices);
-        languageFilepath = userChoice;
         return userChoice;
-    }
-
-    public void setFilepath(String languageFilepath) {
-        this.languageFilepath = languageFilepath;
     }
 
     public int getPLayerAmount() {

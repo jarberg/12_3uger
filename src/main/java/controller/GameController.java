@@ -4,6 +4,7 @@ import model.board.*;
 import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
+import model.text.FileReader;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 
@@ -11,30 +12,32 @@ import java.awt.*;
 
 public class GameController {
 
-    private static final int LENGTH_OF_BOARD = 40;
-
-
-    private DieSet dice = new DieSet();
-    ViewController viewController;
-    private LogicStringCollection logicCollection;
-    private LanguageStringCollection languageCollection;
-    private String language;
-    private int playerAmount;
-    private boolean test = false;
     private static GameController singletonInstance = new GameController();
-    private boolean endTurn= false;
+    private LanguageStringCollection languageCollection;
+    private LogicStringCollection logicCollection;
+    private ViewController viewController;
+    private FileReader fileReader;
+
+    private DieSet dice;
+    private int playerAmount;
+    private boolean endTurn = false;
     private Field currentField;
     private Player currentPlayer;
     private PlayerList playerlist;
     private Board board;
 
 
-    public static GameController getSingleInstance(){
-        return singletonInstance;
+    private GameController(){
+        this.fileReader = FileReader.getSingleInstance();
+        this.viewController = ViewController.getSingleInstance();
+        this.logicCollection = LogicStringCollection.getSingleInstance();
+        this.languageCollection = LanguageStringCollection.getSingleInstance();
+        dice = new DieSet();
+
     }
 
-    private GameController(){
-        this.viewController = ViewController.getSingleInstance();
+    public static GameController getSingleInstance(){
+        return singletonInstance;
     }
 
     public void playGame(){
@@ -145,8 +148,8 @@ public class GameController {
         viewController.showEmptyGUI();
         String userLanguage = viewController.getUserLanguage();
         setFilepathLanguage(userLanguage);
-        this.logicCollection = LogicStringCollection.getInstance();
-        this.languageCollection = LanguageStringCollection.getInstance(language);
+        this.logicCollection = LogicStringCollection.getSingleInstance();
+        this.languageCollection = LanguageStringCollection.getSingleInstance();
     }
 
     public boolean hasPlayerWithName(String name){
@@ -163,9 +166,8 @@ public class GameController {
     }
 
     private void setFilepathLanguage(String language) {
-        this.language = language;
         //TODO: Filereader changes language, is shared singleton
-        viewController.setFilepath(this.language);
+        FileReader.setLanguage(language);
     }
 
     private void createPlayers() {
@@ -218,11 +220,6 @@ public class GameController {
             playerAmount = viewController.getPLayerAmount();
             //TODO: Getplayerchoice, no hardcoded options
         return playerAmount;
-    }
-
-    public void GodMode(boolean mode){
-        //TODO: Enable easy testmode, wait until viewController nearly done
-        this.test = mode;
     }
 
     private void buyBuilding(Player player, Field field){
