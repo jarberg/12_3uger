@@ -6,11 +6,13 @@ public class MoveCard extends Card{
 
     private int amount;
 
-    //TODO: Make sure the parameter "int amount" is used in constructor
     public MoveCard(String description,int amount) {
         super(description);
+
+        this.amount = amount;
     }
 
+    @Override
     public void accept (Drawer drawer){
         drawer.draw(this);
     }

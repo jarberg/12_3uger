@@ -1,35 +1,52 @@
 package controller;
 
+import model.board.Field;
 import model.deck.*;
+import model.player.Player;
 
 public class DrawController implements Drawer {
-    //Player player;
+
+    private Player player;
+    private Player[] otherPlayers;
+    private ViewController viewController;
+    private TradeController tradeController;
 
 
-    /*
-    DrawController(Player player){
+
+    DrawController(Player player, Player[] otherPlayers){
         this.player = player;
-    }*/
+        this.otherPlayers = otherPlayers;
+
+        this.viewController = ViewController.getSingleInstance();
+
+        this.tradeController = TradeController.getSingleInstance();
+
+    }
+
 
     @Override //CARD: 24 - 26
     public void draw(GetOutOfJailCard card) {
-        //viewController.showFieldMessage(playerName);
-        /*
-        Set spillerens getOutOfJailCard til true
-         */
+
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        player.setJailCardStatus(true);
 
     }
+
 
     @Override //CARD: 2
     public void draw(MonopolyJackpotCard card) {
-        //viewController.showFieldMessage(playerName);
-        /*
-        Hvis player total assets >= 750 kr.
-            Giv transaction metode argumentet 2000
 
-         */
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        if (player.getBalance() > 750) {
+            player.addToBalance(2000);
+        }
 
     }
+
 
     @Override //CARD: 4 - 5 - 9 - 10 - 12
     public void draw(MoveCard card) {
@@ -50,6 +67,16 @@ public class DrawController implements Drawer {
 
          */
 
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        int position = player.getPosition();
+        int amount = card.getAmount();
+
+
+        player.setPosition(position);
+        viewController.movePlayer(player.getName(),position, amount);
+
     }
 
     @Override //CARD: 13 - 14 -
@@ -63,19 +90,50 @@ public class DrawController implements Drawer {
 
          */
 
+        String message = card.getDescription();
+        viewController.showMessage(message); //(message) = parameter
+
+        int house = card.getHouse();
+        int hotel = card.getHotel();
+
+        //TODO: metode til at finde ownerable på house og hotel
+        //player.addToBalance();
+
+
     }
 
     @Override //CARD: 17 - 27
     public void draw(TeleportAndPayDoubleCard card) {
         //viewController.showFieldMessage(playerName);
 
+        /*
+
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        int oldPosition = player.getPosition();
+        int newPosition = card.getPosition();
+
+        player.setPosition(newPosition);
+        viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
+
+        //TODO owner funktion
+
+        if (newPosition == field.getOwner) owned
+            player.addBalance(amount).getMultiplier
+        tradeController.transferAssets(otherPlayer,player,amount);
+
+        } else {
+        tradeController.transferAssets(player,field)
+        int amount = card.getAmount();
+
+        tradeController.transferAssets(player,amount);
+        */
+
     }
 
     @Override //CARD: 3 - 6 - 8 - 11
     public void draw(TeleportCard card) {
-
-        //viewController.showFieldMessage(playerName);
-
 
         /* FLYT TIL FÆNGSEL METODE
         Field[] fields = get fields
@@ -88,21 +146,48 @@ public class DrawController implements Drawer {
             set spillerens position på board
         }
         set spillerens fængsels boolean til true.
-
-
         */
+
+
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        int oldPosition = player.getPosition();
+        int newPosition = card.getPosition();
+
+
+        player.setPosition(newPosition);
+        viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
+
     }
 
     @Override //CARD: 15
     public void draw(BirthdayCard card) {
-        //viewController.showFieldMessage(playerName);
+
+        String message = card.getDescription();
+        viewController.showMessage(message); //(message) = parameter
+
+        int amount = card.getAmount();
+
+        for (int i = 0; i < otherPlayers.length; i++) {
+
+            tradeController.transferAssets(otherPlayers[i],player,amount);
+
+        }
 
     }
 
     @Override //CARD: 1 - 7 - 16 - 18 - 19 - 20 - 21 - 22 - 23 - 25 - 28 - 29 - 30 - 31 - 32
     public void draw(MoneyCard card) {
-        //viewController.showFieldMessage(playerName);
-        //
+
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        int amount = card.getAmount();
+
+        tradeController.transferAssets(player,amount);
+
 
     }
+
 }

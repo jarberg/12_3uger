@@ -6,7 +6,6 @@ public class PayForBuildingsCard extends Card {
     private int house;
     private int hotel;
 
-    //make int house, int hotel into attributes and get methods
 
     public PayForBuildingsCard(String description, int house, int hotel) {
         super(description);
@@ -15,7 +14,7 @@ public class PayForBuildingsCard extends Card {
         this.hotel = hotel;
     }
 
-
+    @Override
     public void accept(Drawer drawer) {
         drawer.draw(this);
     }

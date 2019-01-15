@@ -33,13 +33,13 @@ public class Deck {
                     cardArray[i] = new PayForBuildingsCard(desc,info1int,info2int);
                     break;
                 case "5":
-                    cardArray[i] = new TeleportAndPayDoubleCard(desc);
+                    cardArray[i] = new TeleportAndPayDoubleCard(desc,info1int,info2int);
                     break;
                 case "6":
                     cardArray[i] = new TeleportCard(desc,info1int);
                     break;
                 case "7":
-                    cardArray[i] = new BirthdayCard(desc);
+                    cardArray[i] = new BirthdayCard(desc,info1int);
                     break;
                 case "8":
                     cardArray[i] = new MoneyCard(desc,info1int);

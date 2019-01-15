@@ -8,6 +8,7 @@ public class GetOutOfJailCard extends Card{
         super(description);
     }
 
+    @Override
     public void accept (Drawer drawer) {
         drawer.draw(this);
     }

@@ -18,7 +18,9 @@ public class ViewController implements ViewControllerType {
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
+
     private String[] colorChoices;
+
     private static ViewController singleInstance = null;
     private String languageFilepath;
 
@@ -33,6 +35,10 @@ public class ViewController implements ViewControllerType {
         this.gui_board = new GUI_Field[40];
         this.languageStringCollection = LanguageStringCollection.getInstance("");
         this.colorChoices = new String[6];
+    }
+
+    public void showMessage(String message){
+        gui.showMessage(message);
     }
 
     public void showGameGUI(Field[] fields){
@@ -75,6 +81,7 @@ public class ViewController implements ViewControllerType {
 
         this.gui = new GUI(gui_board);
     }
+
 
     public void addPlayer(String name, Color color, int balance){
         int length;
@@ -150,6 +157,19 @@ public class ViewController implements ViewControllerType {
     }
 
     public GUI_Player getPlayerByName(String playerName){
+
+
+    public void teleportPlayer (String playerName, int oldposition, int newposition){
+        GUI_Player teleportPlayer = getPlayerByName(playerName);
+             gui_board[oldposition].setCar(teleportPlayer,false);
+             gui_board[newposition].setCar(teleportPlayer, true);
+
+        }
+
+
+
+
+    private GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
         for(GUI_Player p : gui_players){
             if(p.getName().equals(playerName))
