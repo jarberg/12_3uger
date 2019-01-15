@@ -32,6 +32,10 @@ public class ViewController implements ViewControllerType {
         this.colorChoices = new String[6];
     }
 
+    public void showMessage(String message){
+        gui.showMessage(message);
+    }
+
     public void showGameGUI(Field[] fields){
         int boardLength = fields.length;
         GUI_Street[] gui_street = new GUI_Street[boardLength];
@@ -147,6 +151,19 @@ public class ViewController implements ViewControllerType {
     }
 
     public GUI_Player getPlayerByName(String playerName){
+
+
+    public void teleportPlayer (String playerName, int oldposition, int newposition){
+        GUI_Player teleportPlayer = getPlayerByName(playerName);
+             gui_board[oldposition].setCar(teleportPlayer,false);
+             gui_board[newposition].setCar(teleportPlayer, true);
+
+        }
+
+
+
+
+    private GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
         for(GUI_Player p : gui_players){
             if(p.getName().equals(playerName))

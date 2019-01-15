@@ -3,12 +3,12 @@
 6~Go to rådhuspladsen~40
 3~Move to grønningen, get 200 if you pass start~25
 3~Take the øresund ferry, get 200 if you pass start~6
-6~Go to jail, no get 200~
+6~Go to jail, no get 200~31
 8~Pay 20 kr~20
-6~Go to jail, no get 200~
+6~Go to jail, no get 200~31
 3~Move 3 back~-3
 3~Move 3 back~-3
-6~Go to jail, no get 200~
+6~Go to jail, no get 200~31
 3~Move to start~1
 4~Pay 25 pr house and 125 pr hotel~25~125
 4~Pay 50 pr house and 125 pr hotel~50~125

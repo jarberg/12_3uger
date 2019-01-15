@@ -21,3 +21,4 @@ public class BirthdayCard extends Card {
         return amount;
     }
 }
+

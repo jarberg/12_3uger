@@ -45,6 +45,11 @@ public class ViewControllerStub implements ViewControllerType {
     }
 
     @Override
+    public void teleport(String playerName, int oldposition, int newposition) {
+
+    }
+
+    @Override
     public GUI_Player[] getGUI_Players() {
         return null;
     }
