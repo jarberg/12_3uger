@@ -1,13 +1,3 @@
-import model.board.PropertyField;
-import model.board.RentNotSpecifiedException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.awt.*;
-
-import static org.junit.Assert.*;
-
 public class PropertyFieldTest {
 /*
     private static final String ID = "Property";

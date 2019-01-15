@@ -36,7 +36,7 @@ public class FieldOwnerBank {
     }
 
     public String getOwner(Field field){
-
+        return null;
     }
 
 
