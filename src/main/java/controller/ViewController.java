@@ -21,13 +21,10 @@ public class ViewController implements ViewControllerType {
 
     private String[] colorChoices;
 
-    private static ViewController singleInstance = null;
+    private static ViewController singleInstance = new ViewController();
     private String languageFilepath;
 
     public static ViewController getSingleInstance(){
-        if(singleInstance == null)
-            singleInstance = new ViewController();
-
         return singleInstance;
     }
 
