@@ -10,6 +10,7 @@ public class DrawController implements Drawer {
     private Player[] otherPlayers;
     private ViewController viewController;
     private TradeController tradeController;
+    private FieldOwnerBank fieldOwnerBank;
 
 
 
@@ -93,8 +94,13 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message); //(message) = parameter
 
-        int house = card.getHouse();
-        int hotel = card.getHotel();
+        int house = player.getHouse();
+        int hotel = player.getHotel();
+
+        fieldOwnerBank.getOwner(getHouse);
+        player.addToBalance(amount);
+        fieldOwnerBank.getOwner(getHotel);
+        player.addToBalance(amount);
 
         //TODO: metode til at finde ownerable på house og hotel
         //player.addToBalance();
@@ -117,17 +123,23 @@ public class DrawController implements Drawer {
         player.setPosition(newPosition);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
 
+        fieldOwnerBank.getOwner(newPosition)
+
         //TODO owner funktion
 
-        if (newPosition == field.getOwner) owned
+        if (field.getOwner = true) owned
             player.addBalance(amount).getMultiplier
         tradeController.transferAssets(otherPlayer,player,amount);
 
-        } else {
-        tradeController.transferAssets(player,field)
+        } else if ( field.getOwner = false) {
+
         int amount = card.getAmount();
 
         tradeController.transferAssets(player,amount);
+        tradeController.transferAssets(player,field);
+
+
+        }
         */
 
     }

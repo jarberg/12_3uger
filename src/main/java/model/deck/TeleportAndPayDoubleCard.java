@@ -6,8 +6,9 @@ public class TeleportAndPayDoubleCard extends Card{
 
     private int position;
     private int multiplier;
+    private int amount;
 
-    public TeleportAndPayDoubleCard(String description, int position, int multiplier) {
+    public TeleportAndPayDoubleCard(String description, int position, int multiplier, int amount) {
         super(description);
 
         this.position = position;
@@ -25,5 +26,9 @@ public class TeleportAndPayDoubleCard extends Card{
 
     public int getMultiplier() {
         return multiplier;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }
