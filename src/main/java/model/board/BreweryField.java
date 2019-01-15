@@ -8,13 +8,14 @@ public class BreweryField extends Field {
 
     private int multiplier1;
     private int multiplier2;
+    private int price;
 
-
-    public BreweryField(String ID, String title, String subtitle, String message, Color fieldColor, int multiplier1, int multiplier2){
+    public BreweryField(String ID, String title, String subtitle, String message, Color fieldColor, int multiplier1, int multiplier2, int price){
         super(ID, title, subtitle, message, fieldColor);
 
         this.multiplier1 = multiplier1;
         this.multiplier2 = multiplier2;
+        this.price       = price;
     }
 
     @Override
@@ -28,6 +29,10 @@ public class BreweryField extends Field {
 
     public int getMultiplier2(){
         return multiplier2;
+    }
+
+    public int getPrice(){
+        return price;
     }
 
 }

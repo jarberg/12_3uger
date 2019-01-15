@@ -113,7 +113,7 @@ public class Board {
                 field = new ParkingField(ID, name, subtitle, message, color);
                 break;
             case 8:
-                field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5]);
+                field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5], fieldLogic[3]);
                 break;
         }
         return field;

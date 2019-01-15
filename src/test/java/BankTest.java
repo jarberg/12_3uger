@@ -8,11 +8,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class FieldOwnerBankTest {
+public class BankTest {
     Board board;
     PlayerList playerList;
 
-    FieldOwnerBank fieldOwnerBankTest;
+    Bank bank;
 
     @Before
     public void setUp(){
@@ -54,22 +54,22 @@ public class FieldOwnerBankTest {
         playerList.addPlayer(0,player1);
         playerList.addPlayer(1,player2);
         playerList.addPlayer(2,player3);
-        fieldOwnerBankTest = new FieldOwnerBank(playerList,board);
+        bank = new Bank(playerList,board);
     }
 
     @After
     public void tearDown(){
         playerList = null;
         board = null;
-        fieldOwnerBankTest = null;
+        bank = null;
     }
 
     @Test
     public void shouldAddFieldToPlayer() {
         Field testField = board.getField(1);
-        fieldOwnerBankTest.addFieldToPlayer(playerList.getPlayer(1),board.getField(1));
+        bank.addFieldToPlayer(playerList.getPlayer(1),board.getField(1));
 
-        assertEquals(fieldOwnerBankTest.getInfo(1,1),testField.getID());
+        assertEquals(bank.getInfo(1,1),testField.getID());
     }
 
     @Test
