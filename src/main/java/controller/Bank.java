@@ -16,23 +16,16 @@ public class Bank {
     private int boardLength = 40;
 
 
-    private static Bank singletonInstance = new Bank();
 
-    public static Bank getSingleInstance(){
-        return singletonInstance;
-    }
 
-    public Bank(){
-        fieldOwnerArray = new String[playerListLength][30];
-    }
-
-    public void setPlayerList(PlayerList playerlist){
-        this.playerList = playerlist;
-        this.playerListLength = this.playerList.getAllPlayers().length;
-    }
-
-    public void setBoard(Board board){
+    public Bank(PlayerList playerList, Board board){
+        playerListLength = playerList.getAllPlayers().length;
+        this.playerList = playerList;
         this.board = board;
+        fieldOwnerArray = new String[playerListLength][30];
+        for (int i = 0; i < playerListLength; i++) {
+            fieldOwnerArray[i][0] = playerList.getPlayer(i).getName();
+        }
     }
 
     public void removeFieldOwner(Field field){
@@ -182,6 +175,8 @@ public class Bank {
         return fieldOwnerArray[index1][index2];
     }
 
+    //sudo
+
     public int getNetWorth(Player p){
         int netWorth =0;
         netWorth += p.getBalance();
@@ -271,6 +266,7 @@ public class Bank {
         }
         return ownedFields;
     }
+
 
     public Field[] getFieldsWithNoHousesByPlayer(Player p){
 
