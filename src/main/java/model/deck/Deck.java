@@ -13,11 +13,13 @@ public class Deck {
 
     private void makeDeck(String[][] deckData) {
         for (int i = 0; i < cardArray.length; i++) {
-            String desc = deckData[i][4];
+            String desc = deckData[i][1];
             String info1 = deckData[i][2];
             String info2 = deckData[i][3];
+            String info3 = deckData[i][4];
             int info1int = Integer.parseInt(info1);
             int info2int = Integer.parseInt(info2);
+            int info3int = Integer.parseInt(info3);
 
             switch (deckData[i][0]){
                 case "1":
@@ -33,13 +35,13 @@ public class Deck {
                     cardArray[i] = new PayForBuildingsCard(desc,info1int,info2int);
                     break;
                 case "5":
-                    cardArray[i] = new TeleportAndPayDoubleCard(desc);
+                    cardArray[i] = new TeleportAndPayDoubleCard(desc,info1int,info2int, info3int);
                     break;
                 case "6":
                     cardArray[i] = new TeleportCard(desc,info1int);
                     break;
                 case "7":
-                    cardArray[i] = new BirthdayCard(desc);
+                    cardArray[i] = new BirthdayCard(desc,info1int);
                     break;
                 case "8":
                     cardArray[i] = new MoneyCard(desc,info1int);

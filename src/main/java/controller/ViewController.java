@@ -6,34 +6,34 @@ import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 import model.board.Field;
+import model.board.PropertyField;
 import model.text.LanguageStringCollection;
 
 import java.awt.*;
 
-public class ViewController {
+public class ViewController implements ViewControllerType {
 
 
-    private final LanguageStringCollection languageStringCollection;
+    private final LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
 
     private String[] colorChoices;
 
-    private static ViewController singleInstance = null;
-    private String languageFilepath;
+    private static ViewController singleInstance = new ViewController();
 
     public static ViewController getSingleInstance(){
-        if(singleInstance == null)
-            singleInstance = new ViewController();
-
         return singleInstance;
     }
 
     private ViewController() {
         this.gui_board = new GUI_Field[40];
-        this.languageStringCollection = LanguageStringCollection.getInstance("");
         this.colorChoices = new String[6];
+    }
+
+    public void showMessage(String message){
+        gui.showMessage(message);
     }
 
     public void showGameGUI(Field[] fields){
@@ -51,16 +51,26 @@ public class ViewController {
         this.gui_board = gui_street;
         showGUI();
     }
-
+    @Override
     public void showEmptyGUI(){
         this.gui = new GUI(new GUI_Field[0]);
     }
-
+    @Override
     public void closeGUI(){
         this.gui.close();
     }
 
-    private void showGUI(){
+    @Override
+    public void createBoard() {
+
+    }
+
+    @Override
+    public void addPlayer(String name, int balance) {
+
+    }
+
+    public void showGUI(){
         if(this.gui != null)
             gui.close();
 
@@ -88,7 +98,7 @@ public class ViewController {
         gui_players[length] = newPlayer;
     }
 
-    private GUI_Car makePlayerCar(Color color) {
+    public GUI_Car makePlayerCar(Color color) {
         GUI_Car playerCar = new GUI_Car();
         if (color == Color.cyan)
             playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
@@ -105,19 +115,19 @@ public class ViewController {
 
         return playerCar;
     }
-
+    @Override
     public void showPlayerScores(){
         for(GUI_Player player : gui_players){
             this.gui.addPlayer(player);
         }
     }
-
+    @Override
     public void changePlayerBalance(String playerName, int amount){
         GUI_Player player = getPlayerByName(playerName);
         int currentBalance = player.getBalance();
         player.setBalance(currentBalance + amount);
     }
-
+    @Override
     public void spawnPlayers(){
         if(gui_board[0] != null){
             for(GUI_Player player : gui_players){
@@ -125,21 +135,67 @@ public class ViewController {
             }
         }
     }
-
+    @Override
     public void movePlayer(String playerName, int position, int amount){
         GUI_Player movingPlayer = getPlayerByName(playerName);
-        for (int i = 0; i < amount; i++) {
-            gui_board[position].setCar(movingPlayer, false);
-            position++;
-            position = position % gui_board.length;
-            gui_board[position].setCar(movingPlayer, true);
-            try {
-                Thread.sleep(150);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if(amount > 0){
+            for (int i = 0; i < amount; i++) {
+                gui_board[position].setCar(movingPlayer, false);
+                position++;
+                position = position % gui_board.length;
+                gui_board[position].setCar(movingPlayer, true);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
+
+        else{
+            if(amount>0){
+            for (int i = 0; i > amount; i++) {
+                if(amount>0) {
+                    gui_board[position].setCar(movingPlayer, false);
+                    position--;
+                    position = position % gui_board.length;
+                    gui_board[position].setCar(movingPlayer, true);
+                }
+                }
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                for (int i = 0; i >= amount; i--) {
+                    gui_board[position].setCar(movingPlayer, false);
+                    position--;
+                    position = (position + 40)%40;
+                    System.out.println(position);
+                    gui_board[position].setCar(movingPlayer, true);
+                }
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
+
+
+    public void teleportPlayer (String playerName, int oldposition, int newposition){
+        GUI_Player teleportPlayer = getPlayerByName(playerName);
+             gui_board[oldposition].setCar(teleportPlayer,false);
+             gui_board[newposition].setCar(teleportPlayer, true);
+
+    }
+
+
+
 
     private GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
@@ -150,7 +206,7 @@ public class ViewController {
 
         return player;
     }
-
+    @Override
     public GUI_Player[] getGUI_Players() {
         return gui_players;
     }
@@ -160,10 +216,6 @@ public class ViewController {
         String[] languageChoices = languageStringCollection.getDirectories();
         String userChoice = gui.getUserSelection("Choose a language", languageChoices);
         return userChoice;
-    }
-
-    public void setFilepath(String languageFilepath) {
-        this.languageFilepath = languageFilepath;
     }
 
     public int getPLayerAmount() {
@@ -185,50 +237,41 @@ public class ViewController {
         return age;
     }
 
-    private void setUpColors(){
+    public void setUpColors(){
         for (int i = 0; i < colorChoices.length; i++) {
             this.colorChoices[i] = languageStringCollection.getMenu()[i+5];
         }
     }
 
     public Color getUserColor(String name) {
-        // TODO: SKRALDE METODE
-        // Den her metode er lige til skraldespanden - men virker.............
-        // Gerne omskriv den og muligvis skal farve beskeder have en fil får sig, så de ikke skal hardcodes
         if (colorChoices[0] == null)
             setUpColors();
 
         String message = languageStringCollection.getMenu()[4] + " " + name;
         String colorString = gui.getUserSelection(message, colorChoices);
+        Color colorChosen = Color.BLACK;
+        int number =0;
 
-        String cyan = languageStringCollection.getMenu()[5];
-        String red = languageStringCollection.getMenu()[6];
-        String orange = languageStringCollection.getMenu()[7];
-        String green = languageStringCollection.getMenu()[8];
-        String blue = languageStringCollection.getMenu()[9];
-        String pink = languageStringCollection.getMenu()[10];
-
-        Color colorChosen;
-        if (colorString.equals(cyan))
-            colorChosen = Color.cyan;
-        else if (colorString.equals(red))
-            colorChosen = Color.red;
-        else if (colorString.equals(orange))
-            colorChosen = Color.orange;
-        else if (colorString.equals(green))
-            colorChosen = Color.green;
-        else if (colorString.equals(blue))
-            colorChosen = Color.blue;
-        else if (colorString.equals(pink))
-            colorChosen = Color.pink;
-        else {
-            colorChosen = Color.BLACK;
+        for (int i = 5; i <languageStringCollection.getMenu().length ; i++) {
+            if (colorString.equals(languageStringCollection.getMenu()[i]))
+                number = i;
         }
+
+        switch(number){
+            case 5: colorChosen = Color.cyan;break;
+            case 6: colorChosen = Color.red;break;
+            case 7: colorChosen = Color.orange;break;
+            case 8: colorChosen = Color.green;break;
+            case 9: colorChosen = Color.blue;break;
+            case 10: colorChosen = Color.pink;break;
+            case 11: colorChosen = Color.BLACK;break;
+        }
+
         this.colorChoices = removeColor(colorString, colorChoices);
         return  colorChosen;
     }
 
-    private String[] removeColor(String colorChosen, String[] colorChoices){
+    public String[] removeColor(String colorChosen, String[] colorChoices){
         String[] updatedColorChoices = new String[colorChoices.length-1];
         int idx = 0;
         for (String colorChoice : colorChoices) {
@@ -247,4 +290,35 @@ public class ViewController {
     public void showFieldMessage(String name, String fieldMessasge) {
         gui.showMessage(name + " " + fieldMessasge);
     }
+
+    public void addBuilding(PropertyField field){
+        if(field.getBuildingCount()==5){
+
+            ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHotel(true);
+        }
+        else{
+            ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHouses(field.getBuildingCount());
+
+        }
+
+
+    }
+
+    public GUI_Player getGui_playerByName(String name){
+        GUI_Player player = null;
+        for (GUI_Player p:getGUI_Players()) {
+            if(p.getName()==name){
+                player = p;
+            }
+
+        }
+        return player;
+    }
+
+
+    public String getUserSelection(String message, String[]choiceOptions) {
+
+        return gui.getUserSelection(message, choiceOptions);
+    }
+
 }

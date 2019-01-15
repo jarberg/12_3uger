@@ -14,11 +14,11 @@ public class Board {
     //TODO: make board setup board on creation
 
     public void setupBoard(int[][] fieldsLogic, String[][] fieldsInfo){
-        for (int i = 0; i < fieldsLogic[0].length-1; i++) {
-            int[] fieldLogic = fieldsLogic[i];
-            Color fieldColor = decideFieldColor(fieldLogic);
-            String[] fieldInfo = fieldsInfo[i];
-            this.fields[i] = makeField(fieldLogic, fieldColor, fieldInfo);
+        for (int i = 0; i < fields.length; i++) {
+            int[] fieldLogic     = fieldsLogic[i];
+            Color fieldColor     = decideFieldColor(fieldLogic);
+            String[] fieldInfo   = fieldsInfo[i];
+            this.fields[i]       = makeField(fieldLogic, fieldColor, fieldInfo);
         }
     }
 
@@ -70,12 +70,12 @@ public class Board {
     }
 
     private Field makeField(int[] fieldLogic , Color color, String[] fieldInfo) {
-        String ID = Integer.toString(fieldLogic[0]);
-        String name = fieldInfo[1];
+        String ID       = Integer.toString(fieldLogic[0]);
+        String name     = fieldInfo[1];
         String subtitle = fieldInfo[2];
-        String message = fieldInfo[3];
-        int fieldType = fieldLogic[1];
-        Field field = null;
+        String message  = fieldInfo[3];
+        int fieldType   = fieldLogic[1];
+        Field field     = null;
         switch (fieldType){
             case 1:
                 field = new StartField(ID, name, subtitle, message, color, fieldLogic[3]);
@@ -113,7 +113,7 @@ public class Board {
                 field = new ParkingField(ID, name, subtitle, message, color);
                 break;
             case 8:
-                field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5], fieldLogic[3]);
+                field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5]);
                 break;
         }
         return field;
@@ -121,9 +121,5 @@ public class Board {
 
     public Field[] getFields() {
         return fields;
-    }
-
-    public Field getField(int index){
-        return fields[index];
     }
 }

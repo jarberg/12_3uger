@@ -12,6 +12,7 @@ public class Player {
     private boolean broke;
     private boolean hasGetOutOfJailCard;
     private boolean doubleTurn;
+    private boolean inJail=false;
 
     //constructor
     public Player(String name){
@@ -55,4 +56,12 @@ public class Player {
     public void setBrokeStatus(boolean status){ this.broke = status; }
 
     public void setDoubleTurnStatus(boolean status){ this.doubleTurn = status; }
+
+    public boolean isInJail() {
+        return inJail;
+    }
+
+    public void setInJail(boolean inJail) {
+        this.inJail = inJail;
+    }
 }

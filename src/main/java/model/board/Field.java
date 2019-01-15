@@ -3,6 +3,7 @@ package model.board;
 import java.awt.*;
 
 public abstract class Field implements Visitable {
+
     private String ID;
     private String title;
     private String subtitle;
@@ -16,7 +17,7 @@ public abstract class Field implements Visitable {
         this.subtitle = subtitle;
         this.message = message;
         this.fillColor = fieldColor;
-        this.borderColor = fieldColor;
+        this.borderColor = Color.white;
     }
 
     public Color getFillColor() {
@@ -42,4 +43,6 @@ public abstract class Field implements Visitable {
     public String getMessage() {
         return message;
     }
+
+
 }

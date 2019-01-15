@@ -12,5 +12,7 @@ public interface ViewControllerType {
     void changePlayerBalance(String playerName, int amount);
     void spawnPlayers();
     void movePlayer(String playerName, int position, int amount);
+    void teleportPlayer(String playerName, int oldposition, int newposition);
     GUI_Player[] getGUI_Players();
+
 }
