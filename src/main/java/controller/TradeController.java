@@ -33,12 +33,33 @@ public class TradeController {
     }
 
     private boolean raiseMoney(Player player) {
-        /*Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
+        int amount;
+        Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
         Field[] fieldsWithoutHouses = bank.getFieldsWithoutHousesByPlayer(player);
 
-        String sellHouseOption = languageStringCollection.getMenu()[19]
-        String choice = viewController.getUserButtonSelection();
-        */
+        String sellHouseOption = languageStringCollection.getMenu()[19];
+        String sellFieldOption = languageStringCollection.getMenu()[20];
+
+
+        if (fieldsWithHouses.length > 0 && fieldsWithoutHouses.length > 0){
+            String choice1 = viewController.getUserButtonSelection(sellHouseOption, fieldsWithHouses);
+            String choice2 = viewController.getUserButtonSelection(sellFieldOption, fieldsWithoutHouses);
+
+            amount = (choice1 != null) ? choice1 : choice2;
+            transferAssets(player, amount);
+
+        } else if (fieldsWithHouses.length > 0){
+            String choice1 = viewController.getUserButtonSelection(sellHouseOption, fieldsWithHouses);
+
+
+        } else if (fieldsWithoutHouses.length > 0){
+            String choice2 = viewController.getUserButtonSelection(sellFieldOption, fieldsWithoutHouses);
+
+
+        }
+
+
+
         return false;
     }
 
