@@ -120,10 +120,10 @@ public class Bank {
         }
 
         for (int i = 0; i < boardLength; i++) {
-            if(board.getField(i) instanceof PropertyField){
-                currentTestField = board.getField(i);
+            if(board.getFields()[i] instanceof PropertyField){
+                currentTestField = board.getFields()[i];
                 for (int j = 0; j < playerListLength; j++) {
-                    if(playerList.getPlayer(j).equals(getOwner(board.getField(i).getID()))){
+                    if(playerList.getPlayer(j).equals(getOwner(board.getFields()[i].getID()))){
                         ownerOfField = playerList.getPlayer(j).getName();
                     }
 
@@ -149,14 +149,16 @@ public class Bank {
 
         for (int i = 0; i <fieldOwnerArray.length ; i++) {
             if(fieldOwnerArray[i][0]== p.getName()){
-                for (int j = 0; j < fieldOwnerArray[i].length; j++) {
-                    Field field = getFieldById(fieldOwnerArray[i][j]);
-                    if(field instanceof PropertyField){
-                        netWorth += ((PropertyField) field).getBuildingCount()*((PropertyField) field).getBuildingPrice();
-                        netWorth +=  ((PropertyField) field).getPrice();
-                    }
-                    else if(field instanceof BreweryField){
-                        ((BreweryField) field).getPrice();
+                for (int j = 1; j < fieldOwnerArray[i].length; j++) {
+                    if(fieldOwnerArray[i][j]==null){}
+                    else {
+                        Field field = getFieldById(fieldOwnerArray[i][j]);
+                        if (field instanceof PropertyField) {
+                            netWorth += ((PropertyField) field).getBuildingCount() * ((PropertyField) field).getBuildingPrice();
+                            netWorth += ((PropertyField) field).getPrice();
+                        } else if (field instanceof BreweryField) {
+                            ((BreweryField) field).getPrice();
+                        }
                     }
                 }
             }
@@ -168,10 +170,19 @@ public class Bank {
     public Field getFieldById(String fieldID){
         Field field = null;
 
-        field =board.getField(Integer.parseInt(fieldID));
+        field =board.getFields()[Integer.parseInt(fieldID)];
 
         return field;
 
     }
+
+    public void getFieldsWithHousesByPlayer(){
+
+    }
+
+    public void getFieldsWithNoHousesByPlayer(){
+
+    }
+
 
 }

@@ -66,8 +66,8 @@ public class BankTest {
 
     @Test
     public void shouldAddFieldToPlayer() {
-        Field testField = board.getField(1);
-        bank.addFieldToPlayer(playerList.getPlayer(1),board.getField(1));
+        Field testField = board.getFields()[1];
+        bank.addFieldToPlayer(playerList.getPlayer(1),board.getFields()[1]);
 
         assertEquals(bank.getInfo(1,1),testField.getID());
     }

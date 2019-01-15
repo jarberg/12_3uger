@@ -290,7 +290,7 @@ public class GameController {
 
 
         }
-        if(field instanceof  BreweryField && !((BreweryField) field).isOwned() ){
+        if(field instanceof  BreweryField  ){
             choiceList.add("Buy Field,4");
         }
         if(playerInJail)
@@ -393,7 +393,6 @@ public class GameController {
             player.addToBalance(-150);
             viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
 
-            ((BreweryField) field).setOwned(true);
         }
     }
 }
