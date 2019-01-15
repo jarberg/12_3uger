@@ -147,21 +147,18 @@ public class Bank {
         int netWorth =0;
         netWorth += p.getBalance();
 
-        for (int i = 0; i <fieldOwnerArray.length ; i++) {
-            if(fieldOwnerArray[i][0]== p.getName()){
-                for (int j = 1; j < fieldOwnerArray[i].length; j++) {
-                    if(fieldOwnerArray[i][j]==null){}
-                    else {
-                        Field field = getFieldById(fieldOwnerArray[i][j]);
-                        if (field instanceof PropertyField) {
-                            netWorth += ((PropertyField) field).getBuildingCount() * ((PropertyField) field).getBuildingPrice();
-                            netWorth += ((PropertyField) field).getPrice();
-                        } else if (field instanceof BreweryField) {
-                            ((BreweryField) field).getPrice();
-                        }
-                    }
-                }
+        Field[] ownedfields = getPlayerFields(p);
+
+        for (int i = 0; i <getPlayerFields(p).length ; i++) {
+            if (ownedfields[i] instanceof PropertyField) {
+                netWorth += ((PropertyField) ownedfields[i]).getBuildingCount() * ((PropertyField) ownedfields[i]).getBuildingPrice();
+                netWorth += ((PropertyField) ownedfields[i]).getPrice();
             }
+            else if (ownedfields[i] instanceof BreweryField) {
+                ((BreweryField) ownedfields[i]).getPrice();
+            }
+
+
         }
 
         return netWorth;
@@ -176,13 +173,81 @@ public class Bank {
 
     }
 
-    public void getFieldsWithHousesByPlayer(){
+    public Field[] getPlayerFields(Player p){
 
+        Field[] ownedFields = new Field[0];
+
+        for (int i = 0; i <fieldOwnerArray.length ; i++) {
+
+            for (int j = 1; j < fieldOwnerArray[i].length ; j++) {
+
+                if(null==fieldOwnerArray[i][j]){
+                    break;
+                }
+                else{
+                    if(p.getName()==fieldOwnerArray[i][0]){
+                        Field[] temp = new Field[ownedFields.length+1];
+                        for (int k = 0; k <ownedFields.length ; k++) {
+                            temp[k] = ownedFields[k];
+                        }
+                        temp[j-1]=board.getFields()[Integer.parseInt(fieldOwnerArray[i][j])];
+                        ownedFields = temp;
+                    }
+                }
+            }
+        }
+        return ownedFields;
     }
 
-    public void getFieldsWithNoHousesByPlayer(){
+    public Field[] getFieldsWithHousesByPlayer(Player p){
 
+
+        Field[] playerFieldList = getPlayerFields(p);
+        int length = playerFieldList.length;
+        Field[] ownedFields = new Field[0];
+
+        for (Field aPlayerFieldList : playerFieldList) {
+
+            if (((PropertyField) aPlayerFieldList).getBuildingCount() > 0) {
+
+                Field[] temp = new Field[ownedFields.length + 1];
+
+                for (int j = 0; j < ownedFields.length; j++) {
+                    temp[j] = ownedFields[j];
+                }
+                temp[temp.length - 1] = aPlayerFieldList;
+
+                ownedFields = temp;
+
+            }
+
+        }
+        return ownedFields;
     }
 
 
+    public Field[] getFieldsWithNoHousesByPlayer(Player p){
+
+        Field[] playerFieldList = getPlayerFields(p);
+        int length = playerFieldList.length;
+        Field[] ownedFields = new Field[0];
+
+        for (Field aPlayerFieldList : playerFieldList) {
+
+            if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
+
+                Field[] temp = new Field[ownedFields.length + 1];
+
+                for (int j = 0; j < ownedFields.length; j++) {
+                    temp[j] = ownedFields[j];
+                }
+                temp[temp.length - 1] = aPlayerFieldList;
+
+                ownedFields = temp;
+
+            }
+
+        }
+        return ownedFields;
+    }
 }
