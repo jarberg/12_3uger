@@ -19,20 +19,48 @@ public class TradeController {
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
-        if(sourcePlayer.getBalance() > amount){
+        while(sourcePlayer.getBalance() < amount){
+            raiseMoney(sourcePlayer);
+            if(sourcePlayer.getBrokeStatus())
+                break;
+        }
+        if(sourcePlayer.getBalance() >= amount){
             sourcePlayer.addToBalance(-amount);
             targetPlayer.addToBalance(amount);
             String message = String.format(languageStringCollection.getMenu()[18],sourcePlayer.getName(), String.valueOf(amount), targetPlayer);
             viewController.showMessage(message);
         }
-        if(raiseMoney()){
-            sourcePlayer.addToBalance(-amount);
-            targetPlayer.addToBalance(amount);
-        }
     }
 
-    private boolean raiseMoney() {
-        return true;
+    private boolean raiseMoney(Player player) {
+        int amount;
+        Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
+        Field[] fieldsWithoutHouses = bank.getFieldsWithoutHousesByPlayer(player);
+
+        String sellHouseOption = languageStringCollection.getMenu()[19];
+        String sellFieldOption = languageStringCollection.getMenu()[20];
+
+
+        if (fieldsWithHouses.length > 0 && fieldsWithoutHouses.length > 0){
+            String choice1 = viewController.getUserButtonSelection(sellHouseOption, fieldsWithHouses);
+            String choice2 = viewController.getUserButtonSelection(sellFieldOption, fieldsWithoutHouses);
+
+            amount = (choice1 != null) ? choice1 : choice2;
+            transferAssets(player, amount);
+
+        } else if (fieldsWithHouses.length > 0){
+            String choice1 = viewController.getUserButtonSelection(sellHouseOption, fieldsWithHouses);
+
+
+        } else if (fieldsWithoutHouses.length > 0){
+            String choice2 = viewController.getUserButtonSelection(sellFieldOption, fieldsWithoutHouses);
+
+
+        }
+
+
+
+        return false;
     }
 
     public void transferAssets(Player targetPlayer, int amount){

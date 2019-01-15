@@ -17,3 +17,5 @@ Vil De købe dette felt?
 Ja
 Nej
 %s har betalt %s til %s
+Sælg Bygning
+Sælg Grund

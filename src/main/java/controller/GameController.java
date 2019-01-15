@@ -41,12 +41,15 @@ public class GameController {
     }
 
     public void playGame(){
+
         setupGame();
         viewController.showFieldMessage(playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
+
         while(!checkIfAllBroke()){
             playTurn();
         }
         checkForWinner();
+
     }
 
     public void createBoard(int[][] fieldLogic, String[][] fieldInfo){
