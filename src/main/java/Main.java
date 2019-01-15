@@ -20,15 +20,15 @@ public class Main {
         playerlist.addPlayer(2,new Player("Test3"));
         playerlist.addPlayer(3,new Player("Test4"));
 
-        Bank Bank = new Bank(playerlist,board);
+        controller.Bank controller.Bank = new controller.Bank(playerlist,board);
 
 
-        Bank.addFieldToPlayer(playerlist.getPlayer(2),board.getField(1));
+        controller.Bank.addFieldToPlayer(playerlist.getPlayer(2),board.getField(1));
 
-        System.out.println(Bank.getInfo(1,0));
-        System.out.println(Bank.getOwner(board.getField(1).getID()).getName());
-        System.out.println(Bank.hasOwner(board.getField(1).getID()));
-        System.out.println(Bank.isOwnerOfAllFieldsOfType(playerlist.getPlayer(1),board.getField(1).getID()));
+        System.out.println(controller.Bank.getInfo(1,0));
+        System.out.println(controller.Bank.getOwner(board.getField(1).getID()).getName());
+        System.out.println(controller.Bank.hasOwner(board.getField(1).getID()));
+        System.out.println(controller.Bank.isOwnerOfAllFieldsOfType(playerlist.getPlayer(1),board.getField(1).getID()));
         */
 
     }

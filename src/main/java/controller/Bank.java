@@ -1,3 +1,5 @@
+package controller;
+
 import model.board.Board;
 import model.board.BreweryField;
 import model.board.Field;
@@ -56,7 +58,7 @@ public class Bank {
         Player player = null;
 
         for (int i = 0; i <playerListLength ; i++) {
-            if(name==playerList.getPlayer(i).getName()){
+            if(name.equals(playerList.getPlayer(i).getName())){
                 player = playerList.getPlayer(i);
             }
         }
@@ -78,9 +80,15 @@ public class Bank {
     }
 
     public boolean hasOwner(String fieldID){
-        boolean haveOwner = true;
-        if(getOwner(fieldID).equals("free"));{
-            haveOwner = false;
+        boolean haveOwner = false;
+        for (int i = 0; i < fieldOwnerArray.length; i++) {
+            for(String stringID : fieldOwnerArray[i]){
+                if(stringID != null){
+                    if(stringID.equals(fieldID))
+                        haveOwner = true;
+                }
+
+            }
         }
         return haveOwner;
     }

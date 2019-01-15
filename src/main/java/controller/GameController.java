@@ -25,7 +25,7 @@ public class GameController {
     private Player currentPlayer;
     private PlayerList playerlist;
     private Board board;
-
+    private Bank bank;
 
     private GameController(){
         this.fileReader = FileReader.getSingleInstance();
@@ -111,10 +111,11 @@ public class GameController {
         FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer));
         currentField.accept(fieldVisitor);
 
+        /*
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
-
+        */
         setNextPlayer();
 
     }
@@ -132,6 +133,9 @@ public class GameController {
         createPlayers();
         makePlayerChooseCar();
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
+        this.bank = new Bank(playerlist, board);
+        TradeController.setBank(bank);
+        FieldVisitor.setBank(bank);
         showGameBoard();
         addPlayersToGUI();
     }

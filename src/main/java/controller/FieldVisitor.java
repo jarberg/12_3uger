@@ -17,10 +17,15 @@ public class FieldVisitor implements Visitor  {
     private ViewController viewController = ViewController.getSingleInstance();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
+    private static Bank bank;
 
     public FieldVisitor(Player currentPlayer, Player[] otherPlayers) {
         this.otherPlayers = otherPlayers;
         this.player = currentPlayer;
+    }
+
+    public static void setBank(Bank banko){
+        bank = banko;
     }
 
     @Override
@@ -50,15 +55,15 @@ public class FieldVisitor implements Visitor  {
 
     @Override
     public void visit(PropertyField field) {
-        /*viewController.showMessage(field.getMessage());
+        viewController.showMessage(field.getMessage());
 
         boolean playerIsOwner = bank.isOwner(player, field);
         if(!playerIsOwner){
 
-            boolean ownedByAnotherPlayer = bank.hasOwner(field);
+            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
             if(ownedByAnotherPlayer){
-                Player owner = bank.getOwner(field);
-                boolean ownerOwnsAllOfType = bank.ownerOfAKind(owner, field);
+                Player owner = bank.getOwner(field.getID());
+                boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field.getID());
                 if(ownerOwnsAllOfType)
                     tradeController.transferAssets(player, owner, field.getRent() * PROPERTY_MULTIPLIER);
                 else
@@ -72,14 +77,12 @@ public class FieldVisitor implements Visitor  {
                 if(choice.equals(yes)){
                     tradeController.transferAssets(player, field);
                 } else if (choice.equals(no)){
-                    tradeController.auctionField(field);
+                    //tradeController.auctionField(field);
                 }
                 }
             }
         }
 
-        */
-    }
 
     @Override
     public void visit(TaxField field) {
@@ -91,9 +94,9 @@ public class FieldVisitor implements Visitor  {
         if(choice.equals(flatAmount)){
             tradeController.transferAssets(player, -field.getFlatAmount());
         } else if (choice.equals(percentage)){
-            //int netWorth = fieldOwnerBank.getNetWorth(player);
-            //int amount = (int)(netWorth * (field.getPercentage()/100.00));
-            //tradeController.transferAssets(player, -amount);
+            int netWorth = bank.getNetWorth(player);
+            int amount = (int)(netWorth * (field.getPercentage()/100.00));
+            tradeController.transferAssets(player, -amount);
         }
     }
 
@@ -104,17 +107,17 @@ public class FieldVisitor implements Visitor  {
 
     @Override
     public void visit(BreweryField field) {
-        /*viewController.showMessage(field.getMessage());
+        viewController.showMessage(field.getMessage());
 
-        //boolean playerIsOwner = bank.isOwner(player, field);
+        boolean playerIsOwner = bank.isOwner(player, field);
         if(!playerIsOwner){
             int diceRoll = player.getPosition() - player.getLastPosition();
 
-            boolean ownedByAnotherPlayer = bank.hasOwner(field);
+            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
             if(ownedByAnotherPlayer){
 
-                Player owner = bank.getOwner(field);
-                boolean ownerOwnsBoth = bank.ownerOfAKind(owner, field);
+                Player owner = bank.getOwner(field.getID());
+                boolean ownerOwnsBoth = bank.isOwnerOfAllFieldsOfType(owner, field.getID());
                 if(ownerOwnsBoth)
                     tradeController.transferAssets(player,owner, diceRoll * field.getMultiplier2());
                 else
@@ -127,12 +130,11 @@ public class FieldVisitor implements Visitor  {
                 if(choice.equals(yes)){
                     tradeController.transferAssets(player, field);
                 } else if (choice.equals(no)){
-                    tradeController.auctionField(field);
+                    //tradeController.auctionField(field);
                 }
                 }
             }
         }
 
-        */
+
     }
-}

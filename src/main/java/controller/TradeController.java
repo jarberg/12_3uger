@@ -11,6 +11,7 @@ public class TradeController {
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private ViewController viewController = ViewController.getSingleInstance();
+    private static Bank bank;
 
     private TradeController(){
 
@@ -18,6 +19,10 @@ public class TradeController {
 
     public static TradeController getSingleInstance(){
         return singleInstance;
+    }
+
+    public static void setBank(Bank newBank){
+        bank = newBank;
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
@@ -32,11 +37,13 @@ public class TradeController {
             String message = String.format(languageStringCollection.getMenu()[18],sourcePlayer.getName(), String.valueOf(amount), targetPlayer);
             viewController.showMessage(message);
         }
+        viewController.setGUI_PlayerBalance(sourcePlayer.getName(), sourcePlayer.getBalance());
+        viewController.setGUI_PlayerBalance(targetPlayer.getName(), targetPlayer.getBalance());
     }
 
     private void raiseMoney(Player player) {
         Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
-        Field[] fieldsWithoutHouses = bank.getFieldsWithoutHousesByPlayer(player);
+        Field[] fieldsWithoutHouses = bank.getFieldsWithNoHousesByPlayer(player);
 
         String sellHouseOption = languageStringCollection.getMenu()[19];
         String sellFieldOption = languageStringCollection.getMenu()[20];
@@ -102,6 +109,7 @@ public class TradeController {
             viewController.showMessage(brokeMessage);
             player.setBrokeStatus(true);
         }
+        viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
     }
 
     public void transferAssets(Player targetPlayer, int amount){
@@ -111,6 +119,7 @@ public class TradeController {
             if(targetPlayer.getBrokeStatus())
                 break;
         }
+        viewController.setGUI_PlayerBalance(targetPlayer.getName(), targetPlayer.getBalance());
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, Field field){
@@ -118,6 +127,13 @@ public class TradeController {
     }
 
     public void transferAssets(Player targetPlayer, Field field){
-
+        bank.addFieldToPlayer(targetPlayer, field);
+        viewController.showOwner(field.getTitle(), targetPlayer.getName(), targetPlayer.getPlayerColor());
+        if(field instanceof PropertyField){
+            transferAssets(targetPlayer, -((PropertyField)field).getPrice());
+        }
+        if(field instanceof BreweryField){
+            transferAssets(targetPlayer, -((BreweryField)field).getPrice());
+        }
     }
 }
