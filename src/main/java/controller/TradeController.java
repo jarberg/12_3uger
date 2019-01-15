@@ -19,20 +19,27 @@ public class TradeController {
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
-        if(sourcePlayer.getBalance() > amount){
+        while(sourcePlayer.getBalance() < amount){
+            raiseMoney(sourcePlayer);
+            if(sourcePlayer.getBrokeStatus())
+                break;
+        }
+        if(sourcePlayer.getBalance() >= amount){
             sourcePlayer.addToBalance(-amount);
             targetPlayer.addToBalance(amount);
             String message = String.format(languageStringCollection.getMenu()[18],sourcePlayer.getName(), String.valueOf(amount), targetPlayer);
             viewController.showMessage(message);
         }
-        if(raiseMoney()){
-            sourcePlayer.addToBalance(-amount);
-            targetPlayer.addToBalance(amount);
-        }
     }
 
-    private boolean raiseMoney() {
-        return true;
+    private boolean raiseMoney(Player player) {
+        /*Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
+        Field[] fieldsWithoutHouses = bank.getFieldsWithoutHousesByPlayer(player);
+
+        String sellHouseOption = languageStringCollection.getMenu()[19]
+        String choice = viewController.getUserButtonSelection();
+        */
+        return false;
     }
 
     public void transferAssets(Player targetPlayer, int amount){

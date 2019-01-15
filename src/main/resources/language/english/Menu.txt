@@ -17,3 +17,5 @@ Would You like to buy this field?
 Yes
 No
 %s has paid %s to %s
+Sell house
+Sell field
