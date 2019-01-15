@@ -63,7 +63,7 @@ public class FileReader {
 
     private int[][] twoDIntArray(String fileName, String directory){
 
-        String[] stringArray = read1DFromFile(fileName, directory);
+        String[] stringArray = read1DFromFile(language+fileName, directory);
         int[][] finalStringArray = new int[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {

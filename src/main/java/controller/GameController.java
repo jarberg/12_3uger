@@ -79,6 +79,20 @@ public class GameController {
         playerlist = new PlayerList(amount);
     }
 
+    public Player[] getPlayersButPlayer(Player notThisOneToo){
+        Player[] playersInGame = playerlist.getAllPlayers();
+        int length = playersInGame.length;
+        Player[] otherPlayers = new Player[length - 1];
+        int counter = 0;
+        for (Player aPlayersInGame : playersInGame) {
+            if (aPlayersInGame != notThisOneToo) {
+                otherPlayers[counter] = aPlayersInGame;
+                counter++;
+            }
+        }
+        return otherPlayers;
+    }
+
     private void playTurn(){
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
@@ -90,6 +104,9 @@ public class GameController {
         movePlayer(currentPlayer, lastField, sumOfDice);
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
+
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer));
+        currentField.accept(fieldVisitor);
 
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);

@@ -10,7 +10,7 @@ public class FieldVisitor implements Visitor  {
 
     private Player player;
     private Player[] otherPlayers;
-    Deck deck = new Deck(LogicStringCollection.getInstance().getChanceCard());
+    Deck deck = new Deck(LogicStringCollection.getSingleInstance().getChanceCard());
     ViewController viewController = ViewController.getSingleInstance();
 
     public FieldVisitor(Player currentPlayer, Player[] otherPlayers) {
