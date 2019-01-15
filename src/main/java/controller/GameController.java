@@ -22,7 +22,7 @@ public class GameController {
     private Player currentPlayer;
 
     private int boardLength = 40;
-
+    FieldVisitor Fieldvisitor;
 
     public static GameController getInstance(){
 
@@ -49,7 +49,7 @@ public class GameController {
     private void playTurn(){
         endTurn = false;
         currentPlayer = gameLogic.getCurrentPlayer();
-
+        Fieldvisitor = new FieldVisitor(currentPlayer,gameLogic.getAllPlayers());
 
         rollAndShowDice(currentPlayer);
         int lastField = currentPlayer.getPosition();
@@ -58,6 +58,7 @@ public class GameController {
         int position = currentPlayer.getPosition();
         currentField = gameLogic.getBoard().getFields()[position];
 
+        currentField.accept(Fieldvisitor);
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }

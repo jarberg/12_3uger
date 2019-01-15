@@ -11,7 +11,7 @@ import model.text.LanguageStringCollection;
 
 import java.awt.*;
 
-public class ViewController implements ViewControllerType {
+public class ViewController {
 
 
     private final LanguageStringCollection languageStringCollection;
@@ -56,21 +56,21 @@ public class ViewController implements ViewControllerType {
         this.gui_board = gui_street;
         showGUI();
     }
-    @Override
+
     public void showEmptyGUI(){
         this.gui = new GUI(new GUI_Field[0]);
     }
-    @Override
+
     public void closeGUI(){
         this.gui.close();
     }
 
-    @Override
+
     public void createBoard() {
 
     }
 
-    @Override
+
     public void addPlayer(String name, int balance) {
 
     }
@@ -120,19 +120,19 @@ public class ViewController implements ViewControllerType {
 
         return playerCar;
     }
-    @Override
+
     public void showPlayerScores(){
         for(GUI_Player player : gui_players){
             this.gui.addPlayer(player);
         }
     }
-    @Override
+
     public void changePlayerBalance(String playerName, int amount){
         GUI_Player player = getPlayerByName(playerName);
         int currentBalance = player.getBalance();
         player.setBalance(currentBalance + amount);
     }
-    @Override
+
     public void spawnPlayers(){
         if(gui_board[0] != null){
             for(GUI_Player player : gui_players){
@@ -140,7 +140,7 @@ public class ViewController implements ViewControllerType {
             }
         }
     }
-    @Override
+
     public void movePlayer(String playerName, int position, int amount){
         GUI_Player movingPlayer = getPlayerByName(playerName);
         for (int i = 0; i < amount; i++) {
@@ -157,19 +157,6 @@ public class ViewController implements ViewControllerType {
     }
 
     public GUI_Player getPlayerByName(String playerName){
-
-
-    public void teleportPlayer (String playerName, int oldposition, int newposition){
-        GUI_Player teleportPlayer = getPlayerByName(playerName);
-             gui_board[oldposition].setCar(teleportPlayer,false);
-             gui_board[newposition].setCar(teleportPlayer, true);
-
-        }
-
-
-
-
-    private GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
         for(GUI_Player p : gui_players){
             if(p.getName().equals(playerName))
@@ -178,7 +165,7 @@ public class ViewController implements ViewControllerType {
 
         return player;
     }
-    @Override
+
     public GUI_Player[] getGUI_Players() {
         return gui_players;
     }
@@ -292,5 +279,8 @@ public class ViewController implements ViewControllerType {
     public String getUserSelection(String message, String[]choiceOptions) {
 
         return gui.getUserSelection(message, choiceOptions);
+    }
+
+    public void teleportPlayer(String name, int oldPosition, int newPosition) {
     }
 }
