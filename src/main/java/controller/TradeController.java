@@ -36,7 +36,7 @@ public class TradeController {
     private boolean raiseMoney(Player player) {
         int amount;
         Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
-        Field[] fieldsWithoutHouses = bank.getFieldsWithoutHousesByPlayer(player);
+        Field[] fieldsWithoutHouses = bank.getFieldsWithNoHousesByPlayer(player);
 
         String sellHouseOption = languageStringCollection.getMenu()[19];
         String sellFieldOption = languageStringCollection.getMenu()[20];
