@@ -12,6 +12,7 @@ public class GameControllerTest {
 
     int playerAmount =4;
     private GameController gamecontroller = GameController.getInstance();
+    //TODO: Realise this is an integration test
     private GameLogic gamelogic = gamecontroller.getGameLogic();
 /*
     @Before

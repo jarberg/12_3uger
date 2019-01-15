@@ -54,7 +54,7 @@ public class GameController {
         rollAndShowDice(currentPlayer);
         int lastField = currentPlayer.getPosition();
         viewController.movePlayer(currentPlayer.getName(), lastField, gameLogic.getSumOfDice());
-        gameLogic.movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice(),boardLength);
+        gameLogic.movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice());
         int position = currentPlayer.getPosition();
         currentField = gameLogic.getBoard().getFields()[position];
 
@@ -93,10 +93,12 @@ public class GameController {
 
     private void setFilepathLanguage(String language) {
         this.language = language;
+        //TODO: Filereader changes language, is shared singleton
         viewController.setFilepath(this.language);
     }
 
     private void createPlayers() {
+        //TODO: playerAmount redundancy
         this.gameLogic = new GameLogic(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
             String name = viewController.getPlayerName();
@@ -113,6 +115,7 @@ public class GameController {
 
     private void makePlayerChooseCar() {
         for (Player player : gameLogic.getAllPlayers()){
+            //TODO:
             Color chosenColor = viewController.getUserColor(player.getName());
             player.setPlayerColor(chosenColor);
         }
@@ -123,13 +126,10 @@ public class GameController {
     }
 
     private void addPlayersToGUI() {
-        int startAmout = 1500;
         for (Player player : gameLogic.getAllPlayers()){
-            player.addToBalance(startAmout);
-            viewController.addPlayer(player.getName(), player.getPlayerColor(), startAmout);
+            viewController.addPlayer(player.getName(), player.getPlayerColor(), player.getBalance());
             viewController.spawnPlayers();
             viewController.showPlayerScores();
-
         }
     }
 
@@ -145,20 +145,22 @@ public class GameController {
     private int getPlayerAmount() {
         if (playerAmount == 0)
             playerAmount = viewController.getPLayerAmount();
+            //TODO: Getplayerchoice, no hardcoded options
         return playerAmount;
     }
 
     public void GodMode(boolean mode){
+        //TODO: Enable easy testmode, wait until viewController nearly done
         this.test = mode;
     }
 
-    GameLogic getGameLogic(){
+    public GameLogic getGameLogic(){
         return gameLogic;
     }
 
     private void buyBuilding(Player player, Field field){
 
-
+        //TODO: FieldVisitor
         if (field instanceof PropertyField) {
             if(((PropertyField) field).getBuildingCount()==5) {
 
@@ -187,7 +189,6 @@ public class GameController {
 
     public String[][] getChoices(Player player){
         List choiceList = new List();
-
         boolean playerInJail = player.isInJail();
 
         Field field = gameLogic.getBoard().getFields()[player.getPosition()];

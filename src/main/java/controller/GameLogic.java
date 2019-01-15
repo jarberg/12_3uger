@@ -36,8 +36,8 @@ public class GameLogic {
 
     public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
 
-    public void movePlayer(Player player, int position, int amount, int length){
-        player.setPosition((position+amount)%length);
+    public void movePlayer(Player player, int position, int amount){
+        player.setPosition((position+amount)%board.getFields().length);
     }
 
     public boolean checkIfAllBroke(){
