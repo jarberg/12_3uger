@@ -143,16 +143,51 @@ public class ViewController {
 
     public void movePlayer(String playerName, int position, int amount){
         GUI_Player movingPlayer = getPlayerByName(playerName);
-        for (int i = 0; i < amount; i++) {
-            gui_board[position].setCar(movingPlayer, false);
-            position++;
-            position = position % gui_board.length;
-            gui_board[position].setCar(movingPlayer, true);
-            try {
-                Thread.sleep(150);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if(amount > 0){
+            for (int i = 0; i < amount; i++) {
+                gui_board[position].setCar(movingPlayer, false);
+                position++;
+                position = position % gui_board.length;
+                gui_board[position].setCar(movingPlayer, true);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+
+        else{
+            if(amount>0){
+            for (int i = 0; i > amount; i++) {
+                if(amount>0) {
+                    gui_board[position].setCar(movingPlayer, false);
+                    position--;
+                    position = position % gui_board.length;
+                    gui_board[position].setCar(movingPlayer, true);
+                }
+                }
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                for (int i = 0; i >= amount; i--) {
+                    gui_board[position].setCar(movingPlayer, false);
+                    position--;
+                    position = (position + 40)%40;
+                    System.out.println(position);
+                    gui_board[position].setCar(movingPlayer, true);
+                }
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 
@@ -282,5 +317,9 @@ public class ViewController {
     }
 
     public void teleportPlayer(String name, int oldPosition, int newPosition) {
+        GUI_Player player = getGui_playerByName(name);
+
+        gui_board[oldPosition].setCar(player,false);
+        gui_board[newPosition].setCar(player,true);
     }
 }

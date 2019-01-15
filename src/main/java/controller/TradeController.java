@@ -16,10 +16,12 @@ public class TradeController {
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
-
+        sourcePlayer.addToBalance(-amount);
+        targetPlayer.addToBalance(amount);
     }
 
     public void transferAssets(Player targetPlayer, int amount){
+        targetPlayer.addToBalance(amount);
 
     }
 

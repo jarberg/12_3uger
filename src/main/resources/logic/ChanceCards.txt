@@ -1,32 +1,32 @@
-8~Get 50~50
-2~Get 2000 kr if your total assets dont equate to above 750 kr~2000~750
-6~Go to rådhuspladsen~40
-3~Move to grønningen, get 200 if you pass start~25
-3~Take the øresund ferry, get 200 if you pass start~6
-6~Go to jail, no get 200~31
-8~Pay 20 kr~20
-6~Go to jail, no get 200~31
-3~Move 3 back~-3
-3~Move 3 back~-3
-6~Go to jail, no get 200~31
-3~Move to start~1
-4~Pay 25 pr house and 125 pr hotel~25~125
-4~Pay 50 pr house and 125 pr hotel~50~125
-7~Get 25 kr from each other player~25
-8~Get 200~200
-5~Move to closest ferry, pay double normal price or get opportunity to buy~~2
-8~Pay 100~-100
-8~Pay 100~-100
-8~Pay 10~-10
-8~Pay 20~-20
-8~Pay 20~-20
-8~Get 25~25
-1~Get out of jail card
-8~Pay 10~-10
-1~Get out of jail card
-5~Move to closest ferry, pay double normal price or get opportunity to buy~~2
-8~Get 20~20
-8~Get 1~1
-8~Get 50~50
-8~Get 108~108
-8~Get 100~100
+8~Get 50~50~0~0
+2~Get 2000 kr if your total assets dont equate to above 750 kr~2000~750~0
+6~Go to rådhuspladsen~40~0~0
+3~Move to grønningen, get 200 if you pass start~25~0~0
+3~Take the øresund ferry, get 200 if you pass start~6~0~0
+6~Go to jail, no get 200~10~0~0
+8~Pay 20 kr~20~0~0
+6~Go to jail, no get 200~10~0~0
+3~Move 3 back~-3~0~0
+3~Move 3 back~-3~0~0
+6~Go to jail, no get 200~11~0~0
+3~Move to start~1~0~0
+4~Pay 25 pr house and 125 pr hotel~25~125~0
+4~Pay 50 pr house and 125 pr hotel~50~125~0
+7~Get 25 kr from each other player~25~0~0
+8~Get 200~200~0~0
+5~Move to closest ferry, pay double normal price or get opportunity to buy~2~0~0
+8~Pay 100~-100~0~0
+8~Pay 100~-100~0~0
+8~Pay 10~-10~0~0
+8~Pay 20~-20~0~0
+8~Pay 20~-20~0~0
+8~Get 25~25~0~0
+1~Get out of jail card~0~0~0
+8~Pay 10~-10~0~0
+1~Get out of jail card~0~0~0
+5~Move to closest ferry, pay double normal price or get opportunity to buy~2~0~0
+8~Get 20~20~0~0
+8~Get 1~1~0~0
+8~Get 50~50~0~0
+8~Get 108~108~0~0
+8~Get 100~100~0~0

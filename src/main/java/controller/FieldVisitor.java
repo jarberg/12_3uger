@@ -28,9 +28,12 @@ public class FieldVisitor implements Visitor  {
 
     @Override
     public void visit(GoToJailField field) {
-        player.setPosition(10);
+
         viewController.showMessage(player.getName()+": Oooops");
+        player.setPosition(30);
         viewController.movePlayer(player.getName(),player.getPosition(),20);
+        player.setPosition(10);
+
     }
 
     @Override
