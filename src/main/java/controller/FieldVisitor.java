@@ -70,7 +70,7 @@ public class FieldVisitor implements Visitor  {
                 String no = languageStringCollection.getMenu()[17];
                 String choice = viewController.getUserSelection(message, yes, no);
                 if(choice.equals(yes)){
-                    tradeController.buyField(player, field);
+                    tradeController.transferAssets(player, field);
                 } else if (choice.equals(no)){
                     tradeController.auctionField(field);
                 }
@@ -125,7 +125,7 @@ public class FieldVisitor implements Visitor  {
                 String no = languageStringCollection.getMenu()[17];
                 String choice = viewController.getUserSelection(message, yes, no);
                 if(choice.equals(yes)){
-                    tradeController.buyField(player, field);
+                    tradeController.transferAssets(player, field);
                 } else if (choice.equals(no)){
                     tradeController.auctionField(field);
                 }

@@ -16,3 +16,4 @@ Pay 10% of your net worth.
 Would You like to buy this field?
 Yes
 No
+%s has paid %s to %s
