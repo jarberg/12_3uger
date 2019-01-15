@@ -19,3 +19,5 @@ Nej
 %s har betalt %s til %s
 Sælg Bygning
 Sælg Grund
+Hvad sælger De?
+%s er gået fallit

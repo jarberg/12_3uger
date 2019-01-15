@@ -10,7 +10,7 @@ public class Main {
 
         GameController gameController = GameController.getSingleInstance();
         gameController.playGame();
-
+        /*
         Board board = new Board();
         board.setupBoard(LogicStringCollection.getInstance().getFieldsText(), LanguageStringCollection.getInstance("danish").getFieldsText());
         System.out.println(board.getField(1).getTitle());
@@ -29,7 +29,7 @@ public class Main {
         System.out.println(Bank.getOwner(board.getField(1).getID()).getName());
         System.out.println(Bank.hasOwner(board.getField(1).getID()));
         System.out.println(Bank.isOwnerOfAllFieldsOfType(playerlist.getPlayer(1),board.getField(1).getID()));
-
+        */
 
     }
 }
