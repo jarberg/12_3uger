@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameControllerTest {
-
+/*
     int playerAmount =4;
     private GameController gamecontroller = GameController.getInstance();
     //TODO: Realise this is an integration test

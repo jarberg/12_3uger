@@ -1,7 +1,9 @@
 package controller;
 
 import model.board.*;
+import model.misc.DieSet;
 import model.player.Player;
+import model.player.PlayerList;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 
@@ -11,8 +13,9 @@ public class GameController {
 
     private static final int LENGTH_OF_BOARD = 40;
 
+
+    private DieSet dice = new DieSet();
     ViewController viewController;
-    private GameLogic gameLogic;
     private LogicStringCollection logicCollection;
     private LanguageStringCollection languageCollection;
     private String language;
@@ -22,6 +25,9 @@ public class GameController {
     private boolean endTurn= false;
     private Field currentField;
     private Player currentPlayer;
+    private PlayerList playerlist;
+    private Board board;
+
 
     public static GameController getSingleInstance(){
         return singletonInstance;
@@ -33,37 +39,67 @@ public class GameController {
 
     public void playGame(){
         setupGame();
-        viewController.showFieldMessage(gameLogic.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
-        while(!gameLogic.checkIfAllBroke()){
+        viewController.showFieldMessage(playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
+        while(!checkIfAllBroke()){
             playTurn();
         }
         checkForWinner();
     }
 
+    public void createBoard(int[][] fieldLogic, String[][] fieldInfo){
+        this.board = new Board();
+        this.board.setupBoard(fieldLogic, fieldInfo);
+    }
+
+    public boolean checkIfAllBroke(){
+        boolean foundWinner=false;
+        int counter=0;
+
+        for (Player player : playerlist.getAllPlayers()){
+            if (player.getBrokeStatus())
+                counter++;
+        }
+
+        if(counter >= playerlist.getAllPlayers().length-1){
+            foundWinner=true;
+        }
+        return foundWinner;
+    }
+
+    public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
+
+    public void movePlayer(Player player, int position, int amount){
+        player.setPosition((position+amount)%board.getFields().length);
+    }
+
+    private void createPlayerList(int amount){
+        playerlist = new PlayerList(amount);
+    }
+
     private void playTurn(){
         endTurn = false;
-        currentPlayer = gameLogic.getCurrentPlayer();
-
+        currentPlayer = playerlist.getCurrentPlayer();
 
         rollAndShowDice(currentPlayer);
         int lastField = currentPlayer.getPosition();
-        viewController.movePlayer(currentPlayer.getName(), lastField, gameLogic.getSumOfDice());
-        gameLogic.movePlayer(currentPlayer, lastField, gameLogic.getSumOfDice());
+        int sumOfDice = dice.getDieOneValue() + dice.getDieTwoValue();
+        viewController.movePlayer(currentPlayer.getName(), lastField, sumOfDice);
+        movePlayer(currentPlayer, lastField, sumOfDice);
         int position = currentPlayer.getPosition();
-        currentField = gameLogic.getBoard().getFields()[position];
+        currentField = board.getFields()[position];
 
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
 
-        gameLogic.setNextPlayer();
+        setNextPlayer();
 
     }
 
     private void rollAndShowDice(Player curPlayer){
-        gameLogic.rollDice(curPlayer);
-        int dieOneValue = gameLogic.getDieOneValue();
-        int dieTwoValue = gameLogic.getDieTwoValue();
+        rollDice(curPlayer);
+        int dieOneValue = dice.getDieOneValue();
+        int dieTwoValue = dice.getDieTwoValue();
         viewController.showDice(dieOneValue, dieTwoValue);
     }
 
@@ -72,9 +108,37 @@ public class GameController {
         this.playerAmount = getPlayerAmount();
         createPlayers();
         makePlayerChooseCar();
-        gameLogic.createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
+        createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
         showGameBoard();
         addPlayersToGUI();
+    }
+
+
+    private Player getPlayerByName(String playerName){
+        Player player = null;
+        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+            if(getPlayer(i).getName().equals(playerName)){
+                player =getPlayer(i);
+            }
+        }
+        return player;
+    }
+
+    public Player getPlayer(int index) {
+        return playerlist.getPlayer(index);
+    }
+
+    public void addPlayer(int index, Player player) {
+        playerlist.addPlayer(index, player);
+    }
+
+    public void setNextPlayer(){
+        playerlist.setNextPlayer();
+    }
+
+
+    public void Auktion(Player player, Field field){
+
     }
 
     private void setupLanguage(){
@@ -85,6 +149,19 @@ public class GameController {
         this.languageCollection = LanguageStringCollection.getInstance(language);
     }
 
+    public boolean hasPlayerWithName(String name){
+        for (Player player : playerlist.getAllPlayers()){
+            if (player != null && player.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
+
+    public void rollDice(Player player){
+        dice.roll();
+        player.setDoubleTurnStatus(checkdiceForDoubleRoll());
+    }
+
     private void setFilepathLanguage(String language) {
         this.language = language;
         //TODO: Filereader changes language, is shared singleton
@@ -93,22 +170,22 @@ public class GameController {
 
     private void createPlayers() {
         //TODO: playerAmount redundancy
-        this.gameLogic = new GameLogic(playerAmount);
+        createPlayerList(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
             String name = viewController.getPlayerName();
             //String name = "name"; // gider ikke skrive navne ind hver gang programmet skal køres
             String playerName = name;
             int playerIdentifier = 2;
-            while(this.gameLogic.hasPlayerWithName(playerName)){
+            while(hasPlayerWithName(playerName)){
                 playerName = name + "#" + playerIdentifier;
                 playerIdentifier++;
             }
-            gameLogic.addPlayer(i, new Player(playerName));
+            addPlayer(i, new Player(playerName));
         }
     }
 
     private void makePlayerChooseCar() {
-        for (Player player : gameLogic.getAllPlayers()){
+        for (Player player : playerlist.getAllPlayers()){
             //TODO:
             Color chosenColor = viewController.getUserColor(player.getName());
             player.setPlayerColor(chosenColor);
@@ -116,11 +193,11 @@ public class GameController {
     }
 
     private void showGameBoard(){
-        viewController.showGameGUI(gameLogic.getBoard().getFields());
+        viewController.showGameGUI(board.getFields());
     }
 
     private void addPlayersToGUI() {
-        for (Player player : gameLogic.getAllPlayers()){
+        for (Player player : playerlist.getAllPlayers()){
             viewController.addPlayer(player.getName(), player.getPlayerColor(), player.getBalance());
             viewController.spawnPlayers();
             viewController.showPlayerScores();
@@ -129,9 +206,9 @@ public class GameController {
 
     private void checkForWinner(){
         String winner="";
-        for (int i = 0; i <gameLogic.getAllPlayers().length ; i++) {
-            if (!gameLogic.getPlayer(i).getBrokeStatus())
-                winner = gameLogic.getAllPlayers()[i].getName();
+        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+            if (!getPlayer(i).getBrokeStatus())
+                winner = playerlist.getAllPlayers()[i].getName();
         }
         System.out.println(winner+" is the winner!");
     }
@@ -146,10 +223,6 @@ public class GameController {
     public void GodMode(boolean mode){
         //TODO: Enable easy testmode, wait until viewController nearly done
         this.test = mode;
-    }
-
-    public GameLogic getGameLogic(){
-        return gameLogic;
     }
 
     private void buyBuilding(Player player, Field field){
@@ -185,7 +258,7 @@ public class GameController {
         List choiceList = new List();
         boolean playerInJail = player.isInJail();
 
-        Field field = gameLogic.getBoard().getFields()[player.getPosition()];
+        Field field = board.getFields()[player.getPosition()];
 
         if(field instanceof  PropertyField){
             if(!((PropertyField) field).isOwned()) {
