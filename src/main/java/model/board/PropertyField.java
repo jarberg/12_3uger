@@ -51,12 +51,8 @@ public class PropertyField extends Field {
         return type;
     }
 
-    public int getRent() throws RentNotSpecifiedException {
-        try{
+    public int getRent(){
             return rents[buildingCount];
-        } catch (ArrayIndexOutOfBoundsException e){
-            throw new RentNotSpecifiedException("Rent for this amount of buildings is not specified.");
-        }
     }
 
     public boolean isOwned() {

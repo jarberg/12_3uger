@@ -10,3 +10,10 @@ Den grønne bil
 Den blå UFO
 Den pinke racerbil
 starter
+Hvilken vælger De?
+Betal de faste 200 kr.
+Betal 10% af din totale værdi.
+Vil De købe dette felt?
+Ja
+Nej
+%s har betalt %s til %s

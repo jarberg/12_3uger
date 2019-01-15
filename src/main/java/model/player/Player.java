@@ -8,7 +8,8 @@ public class Player {
 
     private String name;
     private Color playerColor;
-    private int position;
+    private int position = 0;
+    private int lastPosition;
     private boolean broke;
     private boolean hasGetOutOfJailCard;
     private boolean doubleTurn;
@@ -41,6 +42,9 @@ public class Player {
 
     public boolean getDoubleTurnStatus(){ return this.doubleTurn; }
 
+    public int getLastPosition(){
+        return lastPosition;
+    }
 
     //Setters
 
@@ -51,7 +55,10 @@ public class Player {
 
     public void setPlayerColor(Color setColor){ this.playerColor = setColor;}
 
-    public void setPosition(int setPosition){ this.position = setPosition; }
+    public void setPosition(int setPosition){
+        this.lastPosition = this.position;
+        this.position = setPosition;
+    }
 
     public void setBrokeStatus(boolean status){ this.broke = status; }
 

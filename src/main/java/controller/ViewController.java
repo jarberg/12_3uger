@@ -316,7 +316,7 @@ public class ViewController implements ViewControllerType {
     }
 
 
-    public String getUserSelection(String message, String[]choiceOptions) {
+    public String getUserSelection(String message, String... choiceOptions) {
 
         return gui.getUserSelection(message, choiceOptions);
     }

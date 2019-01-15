@@ -10,3 +10,10 @@ The green car
 The blue UFO
 The pink race car
 starts
+Which one do You choose?
+Pay the flat 200 kr.
+Pay 10% of your net worth.
+Would You like to buy this field?
+Yes
+No
+%s has paid %s to %s
