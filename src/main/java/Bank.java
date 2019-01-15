@@ -174,12 +174,11 @@ public class Bank {
     }
 
     public Field getFieldByName(String fieldName){
-        Field fieldWithName = null;
         for (Field field : board.getFields()){
             if (field.getTitle().equals(fieldName))
-                fieldWithName = field;
+                return field;
         }
-        return fieldWithName;
+        return null;
     }
 
     public Field[] getPlayerFields(Player p){
