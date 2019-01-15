@@ -26,6 +26,32 @@ public class Bank {
         }
     }
 
+    public void removeFieldOwner(Field field){
+
+        int idxOfRow = 0;
+        int idxOfFieldToRemove = 0;
+        for (int i = 0; i < fieldOwnerArray.length; i++) {
+            for (int j = 0; j < fieldOwnerArray[i].length; j++) {
+                if (field.getID().equals(fieldOwnerArray[i][j])) {
+                    idxOfRow = i;
+                    idxOfFieldToRemove = j;
+                }
+            }
+        }
+        int length = fieldOwnerArray[idxOfRow].length;
+
+        String[] ownedFields = new String[length-1];
+        int counter = 0;
+        for (int i = 0; i < fieldOwnerArray.length; i++) {
+            if (i != idxOfFieldToRemove){
+                ownedFields[counter] = fieldOwnerArray[idxOfRow][i];
+                counter++;
+            }
+        }
+
+        fieldOwnerArray[idxOfRow] = ownedFields;
+    }
+
     public Player getPlayerByName(String name){
         Player player = null;
 
@@ -76,7 +102,7 @@ public class Bank {
         }
         return getPlayerByName(owner);
     }
-    
+
     public boolean isOwner(Player player, Field field){
         Player owner = getOwner(field.getID());
         boolean trueOwner = false;
