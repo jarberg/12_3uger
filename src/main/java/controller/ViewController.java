@@ -203,7 +203,7 @@ public class ViewController implements ViewControllerType {
     }
 
     public Color getUserColor(String name) {
-        // TODO: SKRALDE METODE
+        // TODO: RENOVATIONS METODE
         // Den her metode er lige til skraldespanden - men virker.............
         // Gerne omskriv den og muligvis skal farve beskeder have en fil får sig, så de ikke skal hardcodes
         if (colorChoices[0] == null)
