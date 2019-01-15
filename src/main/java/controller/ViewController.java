@@ -77,6 +77,7 @@ public class ViewController implements ViewControllerType {
         this.gui = new GUI(gui_board);
     }
 
+
     public void addPlayer(String name, Color color, int balance){
         int length;
         try{
@@ -137,16 +138,51 @@ public class ViewController implements ViewControllerType {
     @Override
     public void movePlayer(String playerName, int position, int amount){
         GUI_Player movingPlayer = getPlayerByName(playerName);
-        for (int i = 0; i < amount; i++) {
-            gui_board[position].setCar(movingPlayer, false);
-            position++;
-            position = position % gui_board.length;
-            gui_board[position].setCar(movingPlayer, true);
-            try {
-                Thread.sleep(150);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if(amount > 0){
+            for (int i = 0; i < amount; i++) {
+                gui_board[position].setCar(movingPlayer, false);
+                position++;
+                position = position % gui_board.length;
+                gui_board[position].setCar(movingPlayer, true);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+
+        else{
+            if(amount>0){
+            for (int i = 0; i > amount; i++) {
+                if(amount>0) {
+                    gui_board[position].setCar(movingPlayer, false);
+                    position--;
+                    position = position % gui_board.length;
+                    gui_board[position].setCar(movingPlayer, true);
+                }
+                }
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                for (int i = 0; i >= amount; i--) {
+                    gui_board[position].setCar(movingPlayer, false);
+                    position--;
+                    position = (position + 40)%40;
+                    System.out.println(position);
+                    gui_board[position].setCar(movingPlayer, true);
+                }
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 
@@ -208,38 +244,29 @@ public class ViewController implements ViewControllerType {
     }
 
     public Color getUserColor(String name) {
-        // TODO: RENOVATIONS METODE
-        // Den her metode er lige til skraldespanden - men virker.............
-        // Gerne omskriv den og muligvis skal farve beskeder have en fil får sig, så de ikke skal hardcodes
         if (colorChoices[0] == null)
             setUpColors();
 
         String message = languageStringCollection.getMenu()[4] + " " + name;
         String colorString = gui.getUserSelection(message, colorChoices);
+        Color colorChosen = Color.BLACK;
+        int number =0;
 
-        String cyan = languageStringCollection.getMenu()[5];
-        String red = languageStringCollection.getMenu()[6];
-        String orange = languageStringCollection.getMenu()[7];
-        String green = languageStringCollection.getMenu()[8];
-        String blue = languageStringCollection.getMenu()[9];
-        String pink = languageStringCollection.getMenu()[10];
-
-        Color colorChosen;
-        if (colorString.equals(cyan))
-            colorChosen = Color.cyan;
-        else if (colorString.equals(red))
-            colorChosen = Color.red;
-        else if (colorString.equals(orange))
-            colorChosen = Color.orange;
-        else if (colorString.equals(green))
-            colorChosen = Color.green;
-        else if (colorString.equals(blue))
-            colorChosen = Color.blue;
-        else if (colorString.equals(pink))
-            colorChosen = Color.pink;
-        else {
-            colorChosen = Color.BLACK;
+        for (int i = 5; i <languageStringCollection.getMenu().length ; i++) {
+            if (colorString.equals(languageStringCollection.getMenu()[i]))
+                number = i;
         }
+
+        switch(number){
+            case 5: colorChosen = Color.cyan;break;
+            case 6: colorChosen = Color.red;break;
+            case 7: colorChosen = Color.orange;break;
+            case 8: colorChosen = Color.green;break;
+            case 9: colorChosen = Color.blue;break;
+            case 10: colorChosen = Color.pink;break;
+            case 11: colorChosen = Color.BLACK;break;
+        }
+
         this.colorChoices = removeColor(colorString, colorChoices);
         return  colorChosen;
     }
@@ -293,4 +320,5 @@ public class ViewController implements ViewControllerType {
 
         return gui.getUserSelection(message, choiceOptions);
     }
+
 }

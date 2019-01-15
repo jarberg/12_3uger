@@ -15,10 +15,10 @@ public class Board {
 
     public void setupBoard(int[][] fieldsLogic, String[][] fieldsInfo){
         for (int i = 0; i < fields.length; i++) {
-            int[] fieldLogic = fieldsLogic[i];
-            Color fieldColor = decideFieldColor(fieldLogic);
-            String[] fieldInfo = fieldsInfo[i];
-            this.fields[i] = makeField(fieldLogic, fieldColor, fieldInfo);
+            int[] fieldLogic     = fieldsLogic[i];
+            Color fieldColor     = decideFieldColor(fieldLogic);
+            String[] fieldInfo   = fieldsInfo[i];
+            this.fields[i]       = makeField(fieldLogic, fieldColor, fieldInfo);
         }
     }
 
@@ -70,12 +70,12 @@ public class Board {
     }
 
     private Field makeField(int[] fieldLogic , Color color, String[] fieldInfo) {
-        String ID = Integer.toString(fieldLogic[0]);
-        String name = fieldInfo[1];
+        String ID       = Integer.toString(fieldLogic[0]);
+        String name     = fieldInfo[1];
         String subtitle = fieldInfo[2];
-        String message = fieldInfo[3];
-        int fieldType = fieldLogic[1];
-        Field field = null;
+        String message  = fieldInfo[3];
+        int fieldType   = fieldLogic[1];
+        Field field     = null;
         switch (fieldType){
             case 1:
                 field = new StartField(ID, name, subtitle, message, color, fieldLogic[3]);

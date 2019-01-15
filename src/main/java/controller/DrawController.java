@@ -1,6 +1,6 @@
 package controller;
 
-import model.board.Field;
+
 import model.deck.*;
 import model.player.Player;
 
@@ -10,7 +10,7 @@ public class DrawController implements Drawer {
     private Player[] otherPlayers;
     private ViewController viewController;
     private TradeController tradeController;
-    private FieldOwnerBank fieldOwnerBank;
+    //private FieldOwnerBank fieldOwnerBank;
 
 
 
@@ -74,9 +74,15 @@ public class DrawController implements Drawer {
         int position = player.getPosition();
         int amount = card.getAmount();
 
+        if(!(position < 7)){
+            player.addToBalance(200);
+        }
 
-        player.setPosition(position);
+        player.setPosition(amount
+        );
+
         viewController.movePlayer(player.getName(),position, amount);
+
 
     }
 
@@ -93,7 +99,7 @@ public class DrawController implements Drawer {
 
         String message = card.getDescription();
         viewController.showMessage(message); //(message) = parameter
-
+/*
         int house = player.getHouse();
         int hotel = player.getHotel();
 
@@ -101,7 +107,7 @@ public class DrawController implements Drawer {
         player.addToBalance(amount);
         fieldOwnerBank.getOwner(getHotel);
         player.addToBalance(amount);
-
+*/
         //TODO: metode til at finde ownerable på house og hotel
         //player.addToBalance();
 
@@ -198,6 +204,7 @@ public class DrawController implements Drawer {
         int amount = card.getAmount();
 
         tradeController.transferAssets(player,amount);
+        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
 
 
     }
