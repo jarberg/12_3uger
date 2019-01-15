@@ -78,10 +78,14 @@ public class DrawController implements Drawer {
             player.addToBalance(200);
         }
 
-        player.setPosition(amount
-        );
+        player.setPosition(amount);
 
-        viewController.movePlayer(player.getName(),position, amount);
+
+
+        int newAmount=40-player.getPosition()+amount;
+
+
+        viewController.movePlayer(player.getName(),position, newAmount);
 
 
     }
