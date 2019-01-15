@@ -9,6 +9,7 @@ public class TradeController {
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private ViewController viewController = ViewController.getSingleInstance();
+    Bank bank = Bank.getSingleInstance();
 
     private TradeController(){
 

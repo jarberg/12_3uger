@@ -25,7 +25,7 @@ public class GameController {
     private Player currentPlayer;
     private PlayerList playerlist;
     private Board board;
-
+    Bank bank = Bank.getSingleInstance();
 
     private GameController(){
         this.fileReader = FileReader.getSingleInstance();
@@ -134,6 +134,9 @@ public class GameController {
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
         showGameBoard();
         addPlayersToGUI();
+        bank.setBoard(board);
+        bank.setPlayerList(playerlist);
+
     }
 
 
