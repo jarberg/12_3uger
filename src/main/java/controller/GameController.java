@@ -9,6 +9,8 @@ import java.awt.*;
 
 public class GameController {
 
+    private static final int LENGTH_OF_BOARD = 40;
+
     ViewController viewController;
     private GameLogic gameLogic;
     private LogicStringCollection logicCollection;
@@ -16,21 +18,13 @@ public class GameController {
     private String language;
     private int playerAmount;
     private boolean test = false;
-    private static GameController singletonInstance = null;
+    private static GameController singletonInstance = new GameController();
     private boolean endTurn= false;
     private Field currentField;
     private Player currentPlayer;
 
-    private int boardLength = 40;
-
-
-    public static GameController getInstance(){
-
-        if(singletonInstance ==null){
-            singletonInstance = new GameController();
-        }
+    public static GameController getSingleInstance(){
         return singletonInstance;
-
     }
 
     private GameController(){
