@@ -6,33 +6,29 @@ import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 import model.board.Field;
+import model.board.PropertyField;
 import model.text.LanguageStringCollection;
 
 import java.awt.*;
 
-public class ViewController {
+public class ViewController implements ViewControllerType {
 
 
-    private final LanguageStringCollection languageStringCollection;
+    private final LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
 
     private String[] colorChoices;
 
-    private static ViewController singleInstance = null;
-    private String languageFilepath;
+    private static ViewController singleInstance = new ViewController();
 
     public static ViewController getSingleInstance(){
-        if(singleInstance == null)
-            singleInstance = new ViewController();
-
         return singleInstance;
     }
 
     private ViewController() {
         this.gui_board = new GUI_Field[40];
-        this.languageStringCollection = LanguageStringCollection.getInstance("");
         this.colorChoices = new String[6];
     }
 
@@ -51,22 +47,31 @@ public class ViewController {
         this.gui_board = gui_street;
         showGUI();
     }
-
+    @Override
     public void showEmptyGUI(){
         this.gui = new GUI(new GUI_Field[0]);
     }
-
+    @Override
     public void closeGUI(){
         this.gui.close();
     }
 
-    private void showGUI(){
+    @Override
+    public void createBoard() {
+
+    }
+
+    @Override
+    public void addPlayer(String name, int balance) {
+
+    }
+
+    public void showGUI(){
         if(this.gui != null)
             gui.close();
 
         this.gui = new GUI(gui_board);
     }
-
 
     public void addPlayer(String name, Color color, int balance){
         int length;
@@ -88,7 +93,7 @@ public class ViewController {
         gui_players[length] = newPlayer;
     }
 
-    private GUI_Car makePlayerCar(Color color) {
+    public GUI_Car makePlayerCar(Color color) {
         GUI_Car playerCar = new GUI_Car();
         if (color == Color.cyan)
             playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
@@ -105,19 +110,19 @@ public class ViewController {
 
         return playerCar;
     }
-
+    @Override
     public void showPlayerScores(){
         for(GUI_Player player : gui_players){
             this.gui.addPlayer(player);
         }
     }
-
+    @Override
     public void changePlayerBalance(String playerName, int amount){
         GUI_Player player = getPlayerByName(playerName);
         int currentBalance = player.getBalance();
         player.setBalance(currentBalance + amount);
     }
-
+    @Override
     public void spawnPlayers(){
         if(gui_board[0] != null){
             for(GUI_Player player : gui_players){
@@ -125,7 +130,7 @@ public class ViewController {
             }
         }
     }
-
+    @Override
     public void movePlayer(String playerName, int position, int amount){
         GUI_Player movingPlayer = getPlayerByName(playerName);
         for (int i = 0; i < amount; i++) {
@@ -141,7 +146,7 @@ public class ViewController {
         }
     }
 
-    private GUI_Player getPlayerByName(String playerName){
+    public GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
         for(GUI_Player p : gui_players){
             if(p.getName().equals(playerName))
@@ -150,7 +155,7 @@ public class ViewController {
 
         return player;
     }
-
+    @Override
     public GUI_Player[] getGUI_Players() {
         return gui_players;
     }
@@ -160,10 +165,6 @@ public class ViewController {
         String[] languageChoices = languageStringCollection.getDirectories();
         String userChoice = gui.getUserSelection("Choose a language", languageChoices);
         return userChoice;
-    }
-
-    public void setFilepath(String languageFilepath) {
-        this.languageFilepath = languageFilepath;
     }
 
     public int getPLayerAmount() {
@@ -185,14 +186,14 @@ public class ViewController {
         return age;
     }
 
-    private void setUpColors(){
+    public void setUpColors(){
         for (int i = 0; i < colorChoices.length; i++) {
             this.colorChoices[i] = languageStringCollection.getMenu()[i+5];
         }
     }
 
     public Color getUserColor(String name) {
-        // TODO: SKRALDE METODE
+        // TODO: RENOVATIONS METODE
         // Den her metode er lige til skraldespanden - men virker.............
         // Gerne omskriv den og muligvis skal farve beskeder have en fil får sig, så de ikke skal hardcodes
         if (colorChoices[0] == null)
@@ -228,7 +229,7 @@ public class ViewController {
         return  colorChosen;
     }
 
-    private String[] removeColor(String colorChosen, String[] colorChoices){
+    public String[] removeColor(String colorChosen, String[] colorChoices){
         String[] updatedColorChoices = new String[colorChoices.length-1];
         int idx = 0;
         for (String colorChoice : colorChoices) {
@@ -246,5 +247,35 @@ public class ViewController {
 
     public void showFieldMessage(String name, String fieldMessasge) {
         gui.showMessage(name + " " + fieldMessasge);
+    }
+
+    public void addBuilding(PropertyField field){
+        if(field.getBuildingCount()==5){
+
+            ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHotel(true);
+        }
+        else{
+            ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHouses(field.getBuildingCount());
+
+        }
+
+
+    }
+
+    public GUI_Player getGui_playerByName(String name){
+        GUI_Player player = null;
+        for (GUI_Player p:getGUI_Players()) {
+            if(p.getName()==name){
+                player = p;
+            }
+
+        }
+        return player;
+    }
+
+
+    public String getUserSelection(String message, String[]choiceOptions) {
+
+        return gui.getUserSelection(message, choiceOptions);
     }
 }

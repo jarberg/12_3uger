@@ -11,6 +11,7 @@ public class PropertyField extends Field {
     private int buildingPrice;
     private int buildingCount;
     private int[] rents;
+    private boolean owned=false ;
 
     public PropertyField(String ID, String title, String subtitle, String message, Color fieldColor, String type, int price, int buildingPrice, int... rents){
         super(ID, title, subtitle, message, fieldColor);
@@ -58,4 +59,11 @@ public class PropertyField extends Field {
         }
     }
 
+    public boolean isOwned() {
+        return owned;
+    }
+
+    public void setOwned(boolean owned) {
+        this.owned = owned;
+    }
 }

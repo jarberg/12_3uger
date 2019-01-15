@@ -7,32 +7,35 @@ import java.util.Scanner;
 
 public class FileReader {
 
-    private static FileReader singletonInstance = null;
+    private static final String LANGUAGE_DIRECTORY_PATH = "language/";
+    private static final String LOGIC_DIRECTORY_PATH = "logic/";
+    private static final String CHANCECARD_FILENAME = "/ChanceCards.txt";
+    private static final String MENU_FILENAME = "/Menu.txt";
+    private static final String FIELDS_FILENAME ="/Fields.txt";
+    private static final String EMPTY_STRING = "";
 
-    private static String Filepath;
+    private static FileReader singletonInstance = new FileReader();
 
-    public static FileReader getInstance(String filepath){
+    private static final String DEFAULT_LANGUAGE = "english";
+    private static String language = DEFAULT_LANGUAGE;
 
-        if(singletonInstance ==null){
-            Filepath = filepath;
-            singletonInstance = new FileReader();
-        }
+    public static FileReader getSingleInstance(){
         return singletonInstance;
-
     }
 
-    public FileReader(){
-
-
+    private FileReader(){
     }
 
+    public static void setLanguage(String newLanguage){
+        language = newLanguage;
+    }
     //reads from given filepath
 
-    private String[] read1DFromFile(String filePath){
+    private String[] read1DFromFile(String filePath, String directory){
 
         //TODO:convert to array
 
-        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath);
+        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(directory + filePath);
         Scanner scanner = new Scanner(resourceAsStream);
         List<String> stringList = new ArrayList<>();
 
@@ -44,12 +47,12 @@ public class FileReader {
 
     //Uses reader method to build a 2d stringArray from a given filepath+filename
 
-    private String[][] twoDStringArray(String filePath, String fileName){
+    private String[][] twoDStringArray(String fileName, String directory){
 
         //TODO: split at ~ instead of :
 
-        String newFilepath = filePath+fileName;
-        String[] stringArray = read1DFromFile(newFilepath);
+        String newFilepath = language+fileName;
+        String[] stringArray = read1DFromFile(newFilepath, directory);
         String[][] finalStringArray = new String[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
@@ -58,10 +61,9 @@ public class FileReader {
         return finalStringArray;
     }
 
-    private int[][] twoDIntArray(String filePath, String fileName){
+    private int[][] twoDIntArray(String fileName, String directory){
 
-        String newFilepath = filePath+fileName;
-        String[] stringArray = read1DFromFile(newFilepath);
+        String[] stringArray = read1DFromFile(fileName, directory);
         int[][] finalStringArray = new int[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
@@ -77,30 +79,28 @@ public class FileReader {
 
     //Uses reader method to build a stringArray from a given filepath+filename
 
-    private String[] oneDStringArray(String filePath, String fileName){
-        String newFilepath = filePath+fileName;
-        String[] fields = read1DFromFile(newFilepath);
+    private String[] oneDStringArray(String fileName, String directory){
+        String newFilepath = language+fileName;
         //String[] finalFields = new String[fields.length];
         //System.arraycopy(fields, 0, finalFields, 0, finalFields.length);
-
-        return fields;
+        return read1DFromFile(newFilepath, directory);
     }
 
     // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
 
     //TODO: make filename final static variables
 
-    public String[][] getChanceCards(String filePath){ return twoDStringArray(filePath,"/ChanceCards.txt"); }
+    public String[][] getChanceCards(){ return twoDStringArray(CHANCECARD_FILENAME, LOGIC_DIRECTORY_PATH); }
 
-    public String[] getMenuText(String filePath){return oneDStringArray(filePath,"/Menu.txt"); }
+    public String[] getMenuText(){return oneDStringArray(MENU_FILENAME, LANGUAGE_DIRECTORY_PATH); }
 
-    public String[] getDirectoriesStringArray(){ return read1DFromFile("language"); }
+    public String[] getDirectoriesStringArray(){ return read1DFromFile(EMPTY_STRING, LANGUAGE_DIRECTORY_PATH);}
 
-    public String[][] getFieldInfo(String filepath) {
-        return twoDStringArray(filepath,"/Fields.txt");
+    public String[][] getFieldInfo() {
+        return twoDStringArray(FIELDS_FILENAME, LANGUAGE_DIRECTORY_PATH);
     }
 
-    public int[][] getFieldsInt(String filepath) {
-        return twoDIntArray(filepath,"/Fields.txt");
+    public int[][] getFieldsInt() {
+        return twoDIntArray(FIELDS_FILENAME, LOGIC_DIRECTORY_PATH);
     }
 }

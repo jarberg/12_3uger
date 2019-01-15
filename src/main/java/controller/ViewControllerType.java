@@ -13,4 +13,5 @@ public interface ViewControllerType {
     void spawnPlayers();
     void movePlayer(String playerName, int position, int amount);
     GUI_Player[] getGUI_Players();
+
 }
