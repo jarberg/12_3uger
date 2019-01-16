@@ -5,7 +5,6 @@ import model.deck.Card;
 import model.deck.Deck;
 import model.player.Player;
 import model.text.LanguageStringCollection;
-import model.text.LogicStringCollection;
 
 public class FieldVisitor implements Visitor  {
 
@@ -79,7 +78,6 @@ public class FieldVisitor implements Visitor  {
             }
         }
 
-
     @Override
     public void visit(TaxField field) {
         viewController.showMessage(field.getMessage());
@@ -140,5 +138,11 @@ public class FieldVisitor implements Visitor  {
             }
         }
 
+    @Override
+    public void visit(FerryField ferryField) {
+
 
     }
+
+
+}

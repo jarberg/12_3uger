@@ -23,3 +23,4 @@ Hvad sælger De?
 %s er gået fallit
 Betal de faste 100 kr.
 De passerer start og modtager 200 kr.
+%s har vundet!

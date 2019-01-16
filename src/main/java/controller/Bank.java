@@ -340,4 +340,20 @@ public class Bank {
         }
         return ownedFields;
     }
+
+    public Field[] getSameTypeFields(Player player){
+        Field[] fields = getPlayerFields(player);
+
+        Field[] typeFields = new Field[0];
+
+        for (Field afield:fields) {
+            if(isOwnerOfAllFieldsOfType(player, afield)){
+
+            }
+        }
+
+        return typeFields;
+    }
 }
+
+

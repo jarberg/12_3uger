@@ -26,7 +26,7 @@
 26~Ø.K. dampskibe~Pris: 200 kr.~De er landet på Ø.K. dampskibe.
 27~Bredgade~Pris: 260 kr.~De er landet på Bredgade.
 28~Nytorv~Pris: 260 kr.~De er landet på Nytorvet.
-29~Carlsberg~Pris: 150 kr.~De er ankommet til Carlsberg. Drik nu ikke for mangle øl!
+29~Carlsberg~Pris: 150 kr.~De er ankommet til Carlsberg. Drik nu ikke for mange øl!
 30~Østergade~Pris: 280 kr.~De er ankommet til Østergade.
 31~Gå i fænglsel~Gå i fængsel~De er landet på gå i fængsel.
 32~Amagertorv~Pris: 300 kr.~De er ankommet til Amagertorvet.
@@ -38,3 +38,4 @@
 38~Frederiksberggade~Pris: 350 kr.~De er landet på Frederiksberggade.
 39~Extraordinær statsskat~Betal 100 kr.~De skal betale extraordinær statsskat.
 40~Rådhuspladsen~Pris: 400 kr.~De er landet på Rådhuspladsen.
+

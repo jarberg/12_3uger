@@ -77,7 +77,7 @@ public class TradeController {
             }
 
         } else if (fieldsWithHouses.length > 0){
-            String choice1 = viewController.getUserButtonSelection(sellMessage, sellHouseOption);
+            viewController.getUserButtonSelection(sellMessage, sellHouseOption);
             String[] fieldNames = new String[fieldsWithHouses.length];
             for (int i = 0; i < fieldNames.length; i++) {
                 fieldNames[i] = fieldsWithHouses[i].getTitle();
@@ -89,7 +89,7 @@ public class TradeController {
             player.addToBalance(field.getBuildingPrice()/2);
 
         } else if (fieldsWithoutHouses.length > 0){
-            String choice2 = viewController.getUserButtonSelection(sellMessage, sellFieldOption);
+            viewController.getUserButtonSelection(sellMessage, sellFieldOption);
             String[] fieldNames = new String[fieldsWithoutHouses.length];
             for (int i = 0; i < fieldNames.length; i++) {
                 fieldNames[i] = fieldsWithoutHouses[i].getTitle();
