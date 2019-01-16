@@ -13,21 +13,23 @@ public class FieldVisitor implements Visitor  {
     private Player player;
     private Player[] otherPlayers;
     private Deck deck;
+    private Board board;
     private ViewController viewController = ViewController.getSingleInstance();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
     private static Bank bank = Bank.getSingleInstance();
 
-    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck) {
+    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck, Board board) {
         this.otherPlayers = otherPlayers;
         this.player = currentPlayer;
         this.deck = deck;
+        this.board = board;
     }
     @Override
     public void visit(ChanceField field) {
         Card card = deck.getTopCard();
         deck.putTopCardToBottom();
-        DrawController drawer = new DrawController(player, otherPlayers, bank);
+        DrawController drawer = new DrawController(player, otherPlayers, bank, board);
         card.accept(drawer);
     }
 

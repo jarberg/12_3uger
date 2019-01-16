@@ -121,7 +121,7 @@ public class GameController {
         currentField = board.getFields()[position];
 
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck);
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board);
         currentField.accept(fieldVisitor);
 
 

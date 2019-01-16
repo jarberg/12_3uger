@@ -12,11 +12,8 @@ public class DrawController implements Drawer {
     private TradeController tradeController;
     private Bank bank;
     private Board board;
-    //private FieldOwnerBank fieldOwnerBank;
 
-
-
-    DrawController(Player player, Player[] otherPlayers,  Bank bank){
+    DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board){
         this.player = player;
         this.otherPlayers = otherPlayers;
 
@@ -27,7 +24,6 @@ public class DrawController implements Drawer {
         this.board = board;
     }
 
-
     @Override //CARD: 24 - 26
     public void draw(GetOutOfJailCard card) {
 
@@ -36,8 +32,6 @@ public class DrawController implements Drawer {
 
         player.setJailCardStatus(true);
     }
-
-
 
     @Override //CARD: 2
     public void draw(MonopolyJackpotCard card) {
@@ -52,7 +46,6 @@ public class DrawController implements Drawer {
         }
     }
 
-
     @Override //CARD: 4 - 5 - 12
     public void draw(MoveToFieldCard card) {
 
@@ -62,12 +55,13 @@ public class DrawController implements Drawer {
         int position = player.getPosition(); //spillers position
         int destination = card.getDestination(); //Det felt nummer man skal rykke frem til
         player.setPosition(destination);
+        //TODO: Create new FieldVisitor with player, other players and deck. Then have field with position destination accept visitor.
 
+        //TODO: Refactor 40 to board length.
         int amount = (destination - position + 40) % 40;
         viewController.movePlayer(player.getName(),position,amount);
     }
     //felt 8, felt 5
-
 
     @Override //CARD: 13 - 14 -
     public void draw(PayForBuildingsCard card) {
@@ -100,7 +94,7 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        //TODO: coupling to board?
+        //TODO: Use board? Maybe not.
         int amount = 25*card.getMultiplier();
 
         int oldPosition = player.getPosition();
@@ -136,6 +130,7 @@ public class DrawController implements Drawer {
 
     @Override //CARD: 3 - 6 - 8 - 11
     public void draw(TeleportCard card) {
+        //TODO: Isolate this as goToJail by moving Town Square card to other type - I think.
         String message = card.getDescription();
         viewController.showMessage(message);
 
@@ -183,8 +178,10 @@ public class DrawController implements Drawer {
         int position = player.getPosition(); //spillers position
         int amount = card.getAmount(); //antal ryk der står på kortet
 
+        //TODO: Refactor 40 to board length.
         int x =  (40 + position + amount) % 40;
         //TODO: Rename x and set player position to x ~~ should fix double car issue
+        //TODO: Create new FieldVisitor with player, other players and deck. Then have field with position x accept visitor.
         viewController.teleportPlayer(player.getName(), position, x);
     }
 
