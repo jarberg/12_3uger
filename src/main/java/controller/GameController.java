@@ -136,11 +136,17 @@ public class GameController {
         makePlayerChooseCar();
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
         this.bank = new Bank(playerlist, board);
-        this.deck  = new Deck(LogicStringCollection.getSingleInstance().getChanceCard());
+        createDeck();
         TradeController.setBank(bank);
         FieldVisitor.setBank(bank);
         showGameBoard();
         addPlayersToGUI();
+    }
+
+    private void createDeck(){
+        String[][] deckLogic = logicCollection.getChanceCard();
+        String[][] deckText = languageCollection.getChanceCard();
+        this.deck  = new Deck(deckLogic, deckText);
     }
 
 
