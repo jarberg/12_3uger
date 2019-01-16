@@ -83,13 +83,14 @@ public class FieldVisitor implements Visitor  {
     @Override
     public void visit(TaxField field) {
         viewController.showMessage(field.getMessage());
-        String message = languageStringCollection.getMenu()[12];
-        String flatAmount = languageStringCollection.getMenu()[13];
 
         if (field.getPercentage() == 0) {
-            viewController.getUserSelection(message, flatAmount);
+            String flatAmount = languageStringCollection.getMenu()[23];
+            viewController.getUserSelection("", flatAmount);
             tradeController.transferAssets(player, -field.getFlatAmount());
         } else {
+            String message = languageStringCollection.getMenu()[12];
+            String flatAmount = languageStringCollection.getMenu()[13];
             String percentage = languageStringCollection.getMenu()[14];
             String choice = viewController.getUserSelection(message, flatAmount, percentage);
             if(choice.equals(flatAmount)){
