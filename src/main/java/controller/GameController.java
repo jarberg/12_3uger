@@ -251,12 +251,14 @@ public class GameController {
     }
 
     private void checkForWinner(){
-        String winner="";
+        Player winner = null;
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
             if (!getPlayer(i).getBrokeStatus())
-                winner = playerlist.getAllPlayers()[i].getName();
+                winner = playerlist.getAllPlayers()[i];
+
         }
-        System.out.println(winner+" is the winner!");
+        String winnerMessage = String.format(languageCollection.getMenu()[25], winner.getName());
+        viewController.showMessage(winnerMessage);
     }
 
     private int getPlayerAmount() {
