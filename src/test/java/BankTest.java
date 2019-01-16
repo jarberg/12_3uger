@@ -14,7 +14,7 @@ public class BankTest {
     PlayerList playerList;
 
     Bank bank;
-
+/*
     @Before
     public void setUp(){
 
@@ -79,5 +79,5 @@ public class BankTest {
 
     @Test
     public void shouldReturnIfPlayerIsOwnerOfAllFieldsOfType() {
-    }
+    }*/
 }

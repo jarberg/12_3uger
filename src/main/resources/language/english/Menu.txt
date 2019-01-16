@@ -19,3 +19,6 @@ No
 %s has paid %s to %s
 Sell house
 Sell field
+What to sell
+%s is broke
+Pay the flat 100 kr.

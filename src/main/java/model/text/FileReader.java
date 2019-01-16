@@ -61,9 +61,22 @@ public class FileReader {
         return finalStringArray;
     }
 
+    private String[][] twoDStringArrayLogic(String fileName, String directory){
+
+        //TODO: split at ~ instead of :
+
+        String[] stringArray = read1DFromFile(fileName, directory);
+        String[][] finalStringArray = new String[stringArray.length][];
+
+        for (int i = 0; i < finalStringArray.length; i++) {
+            finalStringArray[i] = stringArray[i].split("~");
+        }
+        return finalStringArray;
+    }
+
     private int[][] twoDIntArray(String fileName, String directory){
 
-        String[] stringArray = read1DFromFile(language+fileName, directory);
+        String[] stringArray = read1DFromFile(fileName, directory);
         int[][] finalStringArray = new int[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
@@ -91,6 +104,8 @@ public class FileReader {
     //TODO: make filename final static variables
 
     public String[][] getChanceCards(){ return twoDStringArray(CHANCECARD_FILENAME, LOGIC_DIRECTORY_PATH); }
+    public String[][] getChanceCardsText(){ return twoDStringArray(CHANCECARD_FILENAME, LANGUAGE_DIRECTORY_PATH); }
+    public String[][] getChanceCardsLogic(){ return twoDStringArrayLogic(CHANCECARD_FILENAME, LOGIC_DIRECTORY_PATH); }
 
     public String[] getMenuText(){return oneDStringArray(MENU_FILENAME, LANGUAGE_DIRECTORY_PATH); }
 

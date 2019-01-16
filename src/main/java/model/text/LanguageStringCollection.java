@@ -24,7 +24,7 @@ public class LanguageStringCollection {
     }
 
     public String[][] getChanceCard() {
-        return fileReader.getChanceCards();
+        return fileReader.getChanceCardsText();
     }
 
     public String[] getMenu(){

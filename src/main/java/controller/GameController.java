@@ -1,6 +1,7 @@
 package controller;
 
 import model.board.*;
+import model.deck.Deck;
 import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
@@ -25,7 +26,8 @@ public class GameController {
     private Player currentPlayer;
     private PlayerList playerlist;
     private Board board;
-    Bank bank = Bank.getSingleInstance();
+    private Bank bank = Bank.getSingleInstance();
+    private Deck deck;
 
     private GameController(){
         this.fileReader = FileReader.getSingleInstance();
@@ -112,13 +114,14 @@ public class GameController {
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer));
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck);
         currentField.accept(fieldVisitor);
 
+        /*
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
-
+        */
         setNextPlayer();
 
     }
@@ -136,11 +139,22 @@ public class GameController {
         createPlayers();
         makePlayerChooseCar();
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
+        createDeck();
+        setupBank();
         showGameBoard();
         addPlayersToGUI();
-        bank.setBoard(board);
-        bank.setPlayerList(playerlist);
+    }
 
+    private void setupBank(){
+        bank.setBankNoCrashy(playerlist.getAllPlayers().length);
+        bank.setPlayerList(playerlist);
+        bank.setBoard(board);
+    }
+
+    private void createDeck(){
+        String[][] deckLogic = logicCollection.getChanceCard();
+        String[][] deckText = languageCollection.getChanceCard();
+        this.deck  = new Deck(deckLogic, deckText);
     }
 
 

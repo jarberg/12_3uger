@@ -5,23 +5,23 @@ import java.util.Random;
 public class Deck {
     private Card[] cardArray;
 
-    public Deck(String[][] deckData) {
-        cardArray = new Card[deckData.length];
-        makeDeck(deckData);
+    public Deck(String[][] deckLogic, String[][] deckText) {
+        cardArray = new Card[deckLogic.length];
+        makeDeck(deckLogic, deckText);
         shuffleDeck();
     }
 
-    private void makeDeck(String[][] deckData) {
+    private void makeDeck(String[][] deckLogic, String[][] deckText) {
         for (int i = 0; i < cardArray.length; i++) {
-            String desc = deckData[i][1];
-            String info1 = deckData[i][2];
-            String info2 = deckData[i][3];
-            String info3 = deckData[i][4];
+            String desc = deckText[i][1];
+            String info1 = deckLogic[i][2];
+            String info2 = deckLogic[i][3];
+            String info3 = deckLogic[i][4];
             int info1int = Integer.parseInt(info1);
             int info2int = Integer.parseInt(info2);
             int info3int = Integer.parseInt(info3);
 
-            switch (deckData[i][0]){
+            switch (deckLogic[i][0]){
                 case "1":
                     cardArray[i] = new GetOutOfJailCard(desc);
                     break;

@@ -324,4 +324,34 @@ public class ViewController implements ViewControllerType {
     public String getUserButtonSelection(String message, String... options) {
         return gui.getUserButtonPressed(message, options);
     }
+
+    public void showOwner(String fieldName, String name, Color playerColor) {
+        GUI_Field field = getGUIFieldByName(fieldName);
+        field.setDescription(name);
+        ((GUI_Street) field).setBorder(playerColor);
+    }
+
+    public void updateFieldBuildings(String fieldName, int buildingCount) {
+        GUI_Street field = (GUI_Street)getGUIFieldByName(fieldName);
+        field.setHotel(false);
+        if(buildingCount == 5){
+            field.setHotel(true);
+        }
+        else
+            field.setHouses(buildingCount);
+    }
+
+    public void setGUI_PlayerBalance(String playerName, int amount){
+        GUI_Player player = getGui_playerByName(playerName);
+        player.setBalance(amount);
+    }
+
+    private GUI_Field getGUIFieldByName(String fieldName){
+        for(GUI_Field field : gui_board){
+            if(field.getTitle().equals(fieldName)){
+                return field;
+            }
+        }
+        return null;
+    }
 }

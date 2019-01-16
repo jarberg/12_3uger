@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
     Board board;
-
+/*
     @Before
     public void setUp() throws Exception {
         board = new Board();
@@ -17,6 +17,7 @@ public class BoardTest {
     public void tearDown() throws Exception {
         board = null;
     }
+    */
 /*
     @Test
     public void setupBoard() {

@@ -10,18 +10,19 @@ public class DrawController implements Drawer {
     private Player[] otherPlayers;
     private ViewController viewController;
     private TradeController tradeController;
+    private Bank bank = Bank.getSingleInstance();
     //private FieldOwnerBank fieldOwnerBank;
 
 
 
-    DrawController(Player player, Player[] otherPlayers){
+    DrawController(Player player, Player[] otherPlayers,  Bank bank){
         this.player = player;
         this.otherPlayers = otherPlayers;
 
         this.viewController = ViewController.getSingleInstance();
 
         this.tradeController = TradeController.getSingleInstance();
-
+        this.bank = bank;
     }
 
 
@@ -73,19 +74,6 @@ public class DrawController implements Drawer {
 
         int position = player.getPosition();
         int amount = card.getAmount();
-
-        if(!(position < 7)){
-            player.addToBalance(200);
-        }
-
-        player.setPosition(amount);
-
-
-
-        int newAmount=40-player.getPosition()+amount;
-
-
-        viewController.movePlayer(player.getName(),position, newAmount);
 
 
     }
