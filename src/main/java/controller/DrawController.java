@@ -62,7 +62,7 @@ public class DrawController implements Drawer {
         viewController.showMessage(message);
 
         int position = player.getPosition(); //spillers position
-        int amount = card.getAmount(); //antal ryk der står på kortet
+        int amount = card.getAmount(); //Det felt nummer man skal rykke frem til
 
         player.setPosition(amount);
         viewController.teleportPlayer(player.getName(),position,amount);
@@ -182,7 +182,7 @@ public class DrawController implements Drawer {
         int amount = card.getAmount(); //antal ryk der står på kortet
 
         int newAmount = ((board.getFields().length-1) + position) + amount;
-        viewController.movePlayer(player.getName(),position, newAmount);
+        viewController.movePlayer(player.getName(),position,newAmount);
     }
 
 }
