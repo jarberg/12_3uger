@@ -54,7 +54,7 @@ public class DrawController implements Drawer {
     }
 
 
-    @Override //CARD: 9 - 10
+    @Override //CARD: 4 - 5 - 12
 
     public void draw(MoveToFieldCard card) {
 
@@ -173,7 +173,7 @@ public class DrawController implements Drawer {
 
     }
 
-    @Override //CARD: 4 - 5 - 12
+    @Override //CARD: 9 - 10
     public void draw(MoveAmountCard card) {
         String message = card.getDescription();
         viewController.showMessage(message);
