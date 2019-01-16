@@ -129,9 +129,11 @@ public class TradeController {
     public void transferAssets(Player targetPlayer, Field field){
         bank.addFieldToPlayer(targetPlayer, field);
         viewController.showOwner(field.getTitle(), targetPlayer.getName(), targetPlayer.getPlayerColor());
+
         if(field instanceof PropertyField){
             transferAssets(targetPlayer, -((PropertyField)field).getPrice());
         }
+
         if(field instanceof BreweryField){
             transferAssets(targetPlayer, -((BreweryField)field).getPrice());
         }
