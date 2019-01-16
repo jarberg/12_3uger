@@ -111,6 +111,7 @@ public class GameController {
             currentPlayer.addToBalance(200);
             currentPlayer.setPassedStartStatus(false);
         }
+        viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 

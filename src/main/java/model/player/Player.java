@@ -70,6 +70,11 @@ public class Player {
 
     }
 
+    public void setPositionWithoutStartMoney(int setPosition){
+        this.lastPosition = this.position;
+        this.position = setPosition;
+    }
+
     public void setPassedStartStatus(boolean status){
         hasPassedStart = status;
     }
