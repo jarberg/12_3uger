@@ -47,28 +47,24 @@ public class DrawController implements Drawer {
         int jackpot = card.getJackpot();
         int amount = card.getAmount();
 
-        if (player.getBalance() < amount) {
-            player.addToBalance(jackpot);
-
+        if (player.getBalance() <= amount) {
             tradeController.transferAssets(player,jackpot);
-            viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
         }
     }
 
 
     @Override //CARD: 4 - 5 - 12
-
     public void draw(MoveToFieldCard card) {
 
         String message = card.getDescription();
         viewController.showMessage(message);
 
         int position = player.getPosition(); //spillers position
-        int amount = card.getAmount(); //Det felt nummer man skal rykke frem til
+        int destination = card.getDestination(); //Det felt nummer man skal rykke frem til
+        player.setPosition(destination);
 
-        player.setPosition(amount);
-        viewController.teleportPlayer(player.getName(),position,amount);
-
+        int amount = (destination - position + 40) % 40;
+        viewController.movePlayer(player.getName(),position,amount);
     }
     //felt 8, felt 5
 
@@ -80,25 +76,22 @@ public class DrawController implements Drawer {
 
         Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
 
-        int housesLength = fieldsWithHouses.length;
+        int amountOfHouses = 0;
+        int amountOfHotels = 0;
 
-        int amount = 0;
+        for (Field field : fieldsWithHouses){
+            PropertyField currentField = (PropertyField) field;
+            if(currentField.getBuildingCount() == 5)
+                amountOfHotels++;
+            else
+                amountOfHouses += currentField.getBuildingCount();
+        }
 
         int multiplierHotel =  card.getHotel();
         int multiplierHouse =  card.getHouse();
 
-
-        for (Field fieldsWithHouse : fieldsWithHouses) {
-
-            int buildingcount = ((PropertyField) fieldsWithHouse).getBuildingCount();
-
-            if (buildingcount > 0 && buildingcount < 5) {
-                amount += ((PropertyField) fieldsWithHouse).getBuildingPrice() * multiplierHouse;
-            } else if (buildingcount == 5) {
-                amount += ((PropertyField) fieldsWithHouse).getBuildingPrice() * multiplierHotel;
-            }
-        }
-        player.addToBalance(amount);
+        tradeController.transferAssets(player, -(amountOfHotels * multiplierHotel));
+        tradeController.transferAssets(player, -(amountOfHouses * multiplierHouse));
         viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
     }
 
@@ -107,47 +100,37 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message);
 
+        //TODO: coupling to board?
+        int amount = 25*card.getMultiplier();
+
         int oldPosition = player.getPosition();
-        int amount = card.getAmount()*2;
 
         int firFerry = 5;
         int secFerry = 15;
         int thiFerry = 25;
         int fouFerry = 35;
-        int newPosition = 0;
 
-        if (player.getPosition() < 5 && player.getPosition() > 35) {
+        if (player.getPosition() < 5 || player.getPosition() > 35) {
             player.setPosition(firFerry);
-            newPosition = firFerry;
         } else if (player.getPosition() > 5 && player.getPosition() < 15) {
             player.setPosition(secFerry);
-            newPosition = secFerry;
         } else if (player.getPosition() > 15 && player.getPosition() < 25) {
             player.setPosition(thiFerry);
-            newPosition = thiFerry;
         } else if (player.getPosition() > 25 && player.getPosition() < 35) {
             player.setPosition(fouFerry);
-            newPosition = fouFerry;
         }
 
-        viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
+        int newPosition = player.getPosition();
+        String positionAsString = String.valueOf(newPosition);
+        Field disbutedField = bank.getFieldById(positionAsString);
 
-        Player otherPlayer =  bank.getPlayerByName(String.valueOf(bank.getOwner(String.valueOf(player.getPosition()))));
-        Field disbutedField = bank.getFieldById(String.valueOf(player.getPosition()));
+        viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
 
-
-        if(bank.hasOwner(String.valueOf(player.getPosition()))){
-
-            if (bank.isOwner(player, disbutedField)){//owned
-            }
-            else{
-                player.addToBalance(-amount);
-                tradeController.transferAssets(otherPlayer,player,amount);
-            }
-        }
-        else{
-            tradeController.transferAssets(player,amount);
-            tradeController.transferAssets(player, disbutedField);
+        if(bank.hasOwner(disbutedField.getID())){
+            Player otherPlayer =  bank.getOwner(positionAsString);
+            tradeController.transferAssets(player, otherPlayer, amount);
+        } else{
+            tradeController.askIfWantToBuy(player, disbutedField);
         }
     }
 

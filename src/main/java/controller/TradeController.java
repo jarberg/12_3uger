@@ -140,4 +140,16 @@ public class TradeController {
             transferAssets(targetPlayer, -((BreweryField)field).getPrice());
         }
     }
+
+    public void askIfWantToBuy(Player player, Field field) {
+        String message = languageStringCollection.getMenu()[15];
+        String yes = languageStringCollection.getMenu()[16];
+        String no = languageStringCollection.getMenu()[17];
+        String choice = viewController.getUserSelection(message, yes, no);
+        if(choice.equals(yes)){
+            transferAssets(player, field);
+        } else if (choice.equals(no)){
+            //tradeController.auctionField(field);
+        }
+    }
 }

@@ -5,6 +5,7 @@ import model.deck.Card;
 import model.deck.Deck;
 import model.player.Player;
 import model.text.LanguageStringCollection;
+import model.text.LogicStringCollection;
 
 public class FieldVisitor implements Visitor  {
 
@@ -65,18 +66,11 @@ public class FieldVisitor implements Visitor  {
                     tradeController.transferAssets(player, owner, field.getRent());
 
             } else{
-                String message = languageStringCollection.getMenu()[15];
-                String yes = languageStringCollection.getMenu()[16];
-                String no = languageStringCollection.getMenu()[17];
-                String choice = viewController.getUserSelection(message, yes, no);
-                if(choice.equals(yes)){
-                    tradeController.transferAssets(player, field);
-                } else if (choice.equals(no)){
-                    //tradeController.auctionField(field);
-                }
-                }
+                tradeController.askIfWantToBuy(player, field);
             }
         }
+    }
+
 
     @Override
     public void visit(TaxField field) {
@@ -125,24 +119,14 @@ public class FieldVisitor implements Visitor  {
                 else
                     tradeController.transferAssets(player, owner, diceRoll * field.getMultiplier1());
             } else{
-                String message = languageStringCollection.getMenu()[15];
-                String yes = languageStringCollection.getMenu()[16];
-                String no = languageStringCollection.getMenu()[17];
-                String choice = viewController.getUserSelection(message, yes, no);
-                if(choice.equals(yes)){
-                    tradeController.transferAssets(player, field);
-                } else if (choice.equals(no)){
-                    //tradeController.auctionField(field);
-                }
-                }
+                tradeController.askIfWantToBuy(player, field);
             }
         }
+    }
 
     @Override
     public void visit(FerryField ferryField) {
 
-
     }
-
 
 }
