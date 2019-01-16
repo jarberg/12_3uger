@@ -29,7 +29,7 @@ public class Deck {
                     cardArray[i] = new MonopolyJackpotCard(desc,info1int,info2int);
                     break;
                 case "3":
-                    cardArray[i] = new MoveCard(desc,info1int);
+                    cardArray[i] = new MoveToFieldCard(desc,info1int);
                     break;
                 case "4":
                     cardArray[i] = new PayForBuildingsCard(desc,info1int,info2int);
@@ -45,6 +45,9 @@ public class Deck {
                     break;
                 case "8":
                     cardArray[i] = new MoneyCard(desc,info1int);
+                    break;
+                case "9":
+                    cardArray[i] = new MoveAmountCard(desc,info1int);
                     break;
 
             }
