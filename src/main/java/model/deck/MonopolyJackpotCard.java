@@ -5,13 +5,13 @@ import controller.Drawer;
 public class MonopolyJackpotCard extends Card {
 
     private int amount;
-    private int ifOver;
+    private int jackpot;
 
-    public MonopolyJackpotCard(String description, int amount, int ifOver) {
+    public MonopolyJackpotCard(String description, int amount, int jackpot) {
         super(description);
 
         this.amount = amount;
-        this.ifOver = ifOver;
+        this.jackpot = jackpot;
 
     }
 
@@ -25,7 +25,7 @@ public class MonopolyJackpotCard extends Card {
         return amount;
     }
 
-    public int getIfOver() {
-        return ifOver;
+    public int getJackpot() {
+        return jackpot;
     }
 }

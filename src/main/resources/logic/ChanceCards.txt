@@ -8,7 +8,7 @@
 6~Go to jail, no get 200~10~0~0
 9~Move 3 back~-3~0~0
 9~Move 3 back~-3~0~0
-6~Go to jail, no get 200~11~0~0
+6~Go to jail, no get 200~10~0~0
 3~Move to start~0~0~0
 4~Pay 25 pr house and 125 pr hotel~25~125~0
 4~Pay 50 pr house and 125 pr hotel~50~125~0
