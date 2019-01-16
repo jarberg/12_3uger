@@ -9,6 +9,7 @@ public class BreweryField extends Field {
     private int multiplier1;
     private int multiplier2;
     private int price;
+    private boolean pawned;
 
     public BreweryField(String ID, String title, String subtitle, String message, Color fieldColor, int multiplier1, int multiplier2, int price){
         super(ID, title, subtitle, message, fieldColor);
@@ -33,6 +34,14 @@ public class BreweryField extends Field {
 
     public int getPrice(){
         return price;
+    }
+
+    public boolean getPawnedStatus(){
+        return this.pawned;
+    }
+
+    public void setPawnedStatus(boolean status){
+        this.pawned = status;
     }
 
 }
