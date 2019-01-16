@@ -90,15 +90,22 @@ public class FieldVisitor implements Visitor  {
         viewController.showMessage(field.getMessage());
         String message = languageStringCollection.getMenu()[12];
         String flatAmount = languageStringCollection.getMenu()[13];
-        String percentage = languageStringCollection.getMenu()[14];
-        String choice = viewController.getUserSelection(message, flatAmount, percentage);
-        if(choice.equals(flatAmount)){
+
+        if (field.getPercentage() == 0) {
+            viewController.getUserSelection(message, flatAmount);
             tradeController.transferAssets(player, -field.getFlatAmount());
-        } else if (choice.equals(percentage)){
-            int netWorth = bank.getNetWorth(player);
-            int amount = (int)(netWorth * (field.getPercentage()/100.00));
-            tradeController.transferAssets(player, -amount);
+        } else {
+            String percentage = languageStringCollection.getMenu()[14];
+            String choice = viewController.getUserSelection(message, flatAmount, percentage);
+            if(choice.equals(flatAmount)){
+                tradeController.transferAssets(player, -field.getFlatAmount());
+            } else if (choice.equals(percentage)){
+                int netWorth = bank.getNetWorth(player);
+                int amount = (int)(netWorth * (field.getPercentage()/100.00));
+                tradeController.transferAssets(player, -amount);
+            }
         }
+
     }
 
     @Override
