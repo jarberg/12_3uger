@@ -371,7 +371,7 @@ public class GameController {
 
             case 1: useJailCard();    break;
 
-            case 2: tradecontroller.transferAssets(currentPlayer,((JailField) field).getBailAmount());
+            case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
                     viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
                     this.endTurn = true;
                     break;
