@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BoardTest {
-    Board board;
+  /*  Board board;
 
     @Before
     public void setUp() throws Exception {
@@ -18,7 +18,7 @@ public class BoardTest {
     @After
     public void tearDown() throws Exception {
         board = null;
-    }
+    }*/
 /*
     @Test
     public void setupBoard() {

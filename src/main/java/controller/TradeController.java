@@ -11,7 +11,7 @@ public class TradeController {
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private ViewController viewController = ViewController.getSingleInstance();
-    private static Bank bank;
+    private static Bank bank = Bank.getSingleInstance();
 
     private TradeController(){
 
@@ -19,10 +19,6 @@ public class TradeController {
 
     public static TradeController getSingleInstance(){
         return singleInstance;
-    }
-
-    public static void setBank(Bank newBank){
-        bank = newBank;
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){

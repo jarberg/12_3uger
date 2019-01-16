@@ -10,7 +10,7 @@ public class DrawController implements Drawer {
     private Player[] otherPlayers;
     private ViewController viewController;
     private TradeController tradeController;
-    private Bank bank;
+    private Bank bank = Bank.getSingleInstance();
     //private FieldOwnerBank fieldOwnerBank;
 
 

@@ -6,20 +6,22 @@ public class Board {
     private Field[] fields;
     private int[] fieldLogic;
     private String[] fieldInfo;
-
+    private int[][] logic;
+    private String[][] info;
 
     public Board(int[][] fieldsLogic, String[][] fieldsInfo) {
+        this.logic = fieldsLogic;
+        this.info = fieldsInfo;
 
         fields = new Field[fieldsLogic.length];
-        for (int i = 0; i < fields.length; i++) {
-            fieldLogic = fieldsLogic[i];
-            fieldInfo = fieldsInfo[i];
-        }
+
     }
 
 
     public void setupBoard(){
         for (int i = 0; i < fields.length; i++) {
+            fieldLogic = logic[i];
+            fieldInfo = info[i];
             Color fieldColor     = decideFieldColor(fieldLogic);
             this.fields[i]       = makeField(fieldLogic, fieldColor, fieldInfo);
         }
