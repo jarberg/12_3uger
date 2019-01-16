@@ -13,7 +13,7 @@ public class Bank {
     private int playerListLength;
     private PlayerList playerList;
     private Board board;
-    private int boardLength = 40;
+
 
 
     private static Bank singletonInstance = new Bank();
@@ -121,58 +121,80 @@ public class Bank {
         return trueOwner;
     }
 
-    public boolean isOwnerOfAllFieldsOfType(Player player, PropertyField field){
 
-        String fieldTypeID = field.getType();
+
+    public boolean isOwnerOfAllFieldsOfType(Player player, Field field){
+
+        String fieldTypeID;
+
         int amountOfFields = 0;
         int count = 0;
         Field currentTestField;
         String ownerOfField = null;
 
+        if(field instanceof PropertyField) {
+            fieldTypeID = ((PropertyField) field).getType();
 
-        switch(fieldTypeID){
-            case "1":
-                amountOfFields = 2;
-                break;
-            case "2":
-                amountOfFields = 3;
-                break;
-            case "3":
-                amountOfFields = 3;
-                break;
-            case "4":
-                amountOfFields = 3;
-                break;
-            case "5":
-                amountOfFields = 3;
-                break;
-            case "6":
-                amountOfFields = 3;
-                break;
-            case "7":
-                amountOfFields = 3;
-                break;
-            case "8":
-                amountOfFields = 2;
-                break;
+
+            switch (fieldTypeID) {
+                case "1":
+                    amountOfFields = 2;
+                    break;
+                case "2":
+                    amountOfFields = 3;
+                    break;
+                case "3":
+                    amountOfFields = 3;
+                    break;
+                case "4":
+                    amountOfFields = 3;
+                    break;
+                case "5":
+                    amountOfFields = 3;
+                    break;
+                case "6":
+                    amountOfFields = 3;
+                    break;
+                case "7":
+                    amountOfFields = 3;
+                    break;
+                case "8":
+                    amountOfFields = 2;
+                    break;
+            }
+
+
+            for (int i = 0; i < board.getBoardSize(); i++) {
+                if (board.getFields()[i] instanceof PropertyField) {
+                    currentTestField = board.getFields()[i];
+                    for (int j = 0; j < playerListLength; j++) {
+                        if (playerList.getPlayer(j).equals(getOwner(board.getFields()[i].getID()))) {
+                            ownerOfField = playerList.getPlayer(j).getName();
+                        }
+
+                    }
+                    if (((PropertyField) currentTestField).getType().equals(fieldTypeID) && player.getName().equals((ownerOfField))) {
+                        count++;
+                    }
+                }
+            }
+
+
         }
-
-        for (int i = 0; i < board.getBoardSize(); i++) {
-            if(board.getFields()[i] instanceof PropertyField){
-                currentTestField = board.getFields()[i];
-                for (int j = 0; j < playerListLength; j++) {
-                    if(playerList.getPlayer(j).equals(getOwner(board.getFields()[i].getID()))){
-                        ownerOfField = playerList.getPlayer(j).getName();
+        if(field instanceof BreweryField){
+            amountOfFields = 4;
+            for (int i = 0; i < board.getBoardSize(); i++) {
+                if (board.getFields()[i] instanceof BreweryField) {
+                    if(getOwner(field.getID()).equals(player)){
+                        count++;
                     }
 
-                }
-                if(((PropertyField) currentTestField).getType().equals(fieldTypeID) && player.getName().equals((ownerOfField))){
-                    count++;
+
+
                 }
             }
         }
-
-        return(count == amountOfFields);
+        return (count == amountOfFields);
     }
 
     public String getInfo(int index1,int index2){
