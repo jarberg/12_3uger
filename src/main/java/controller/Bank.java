@@ -13,7 +13,7 @@ public class Bank {
     private int playerListLength;
     private PlayerList playerList;
     private Board board;
-    private int boardLength = 40;
+
 
 
     private static Bank singletonInstance = new Bank();
@@ -39,7 +39,7 @@ public class Bank {
         Player player = null;
 
         for (int i = 0; i <playerListLength ; i++) {
-            if(name==playerList.getPlayer(i).getName()){
+            if(name.equals(playerList.getPlayer(i).getName())){
                 player = playerList.getPlayer(i);
             }
         }
@@ -62,7 +62,7 @@ public class Bank {
 
     public boolean hasOwner(String fieldID){
         boolean haveOwner = true;
-        if(getOwner(fieldID).equals("free"));{
+        if(getOwner(fieldID).getName().equals("free")){
             haveOwner = false;
         }
         return haveOwner;
@@ -73,8 +73,9 @@ public class Bank {
         String owner = "free";
 
         for (int i = 0; i < playerListLength; i++) {
-            for (int j = 0; j < boardLength; j++) {
+            for (int j = 0; j < board.getBoardSize(); j++) {
                 if (fieldOwnerArray[i][j] == null) {
+                    owner = "free";
                     break;
                 }
                 if (fieldOwnerArray[i][j].equals(fieldID)) {
@@ -94,12 +95,16 @@ public class Bank {
         return trueOwner;
     }
 
-    public boolean isOwnerOfAllFieldsOfType(Player player, String fieldTypeID){
 
+
+    public boolean isOwnerOfAllFieldsOfType(Player player, PropertyField field){
+
+        String fieldTypeID = field.getType();
         int amountOfFields = 0;
         int count = 0;
         Field currentTestField;
         String ownerOfField = null;
+
 
         switch(fieldTypeID){
             case "1":
@@ -128,7 +133,7 @@ public class Bank {
                 break;
         }
 
-        for (int i = 0; i < boardLength; i++) {
+        for (int i = 0; i < board.getBoardSize(); i++) {
             if(board.getFields()[i] instanceof PropertyField){
                 currentTestField = board.getFields()[i];
                 for (int j = 0; j < playerListLength; j++) {
@@ -150,19 +155,19 @@ public class Bank {
         return fieldOwnerArray[index1][index2];
     }
 
-    public int getNetWorth(Player p){
+    public int getNetWorth(Player player){
         int netWorth =0;
-        netWorth += p.getBalance();
+        netWorth += player.getBalance();
 
-        Field[] ownedfields = getPlayerFields(p);
+        Field[] ownedfields = getPlayerFields(player);
 
-        for (int i = 0; i <getPlayerFields(p).length ; i++) {
+        for (int i = 0; i <getPlayerFields(player).length ; i++) {
             if (ownedfields[i] instanceof PropertyField) {
                 netWorth += ((PropertyField) ownedfields[i]).getBuildingCount() * ((PropertyField) ownedfields[i]).getBuildingPrice();
                 netWorth += ((PropertyField) ownedfields[i]).getPrice();
             }
             else if (ownedfields[i] instanceof BreweryField) {
-                ((BreweryField) ownedfields[i]).getPrice();
+                netWorth += ((BreweryField) ownedfields[i]).getPrice();
             }
 
 
@@ -180,7 +185,7 @@ public class Bank {
 
     }
 
-    public Field[] getPlayerFields(Player p){
+    public Field[] getPlayerFields(Player player){
 
         Field[] ownedFields = new Field[0];
 
@@ -192,7 +197,7 @@ public class Bank {
                     break;
                 }
                 else{
-                    if(p.getName()==fieldOwnerArray[i][0]){
+                    if(player.getName().equals(fieldOwnerArray[i][0])){
                         Field[] temp = new Field[ownedFields.length+1];
                         for (int k = 0; k <ownedFields.length ; k++) {
                             temp[k] = ownedFields[k];
@@ -206,41 +211,56 @@ public class Bank {
         return ownedFields;
     }
 
-    public Field[] getFieldsWithHousesByPlayer(Player p){
+    public Field[] getFieldsWithHousesByPlayer(Player player){
 
 
-        Field[] playerFieldList = getPlayerFields(p);
-        int length = playerFieldList.length;
+        Field[] playerFieldList = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
 
         for (Field aPlayerFieldList : playerFieldList) {
+            if(aPlayerFieldList instanceof PropertyField) {
+                if (((PropertyField) aPlayerFieldList).getBuildingCount() > 0) {
 
-            if (((PropertyField) aPlayerFieldList).getBuildingCount() > 0) {
+                    Field[] temp = new Field[ownedFields.length + 1];
 
-                Field[] temp = new Field[ownedFields.length + 1];
+                    for (int j = 0; j < ownedFields.length; j++) {
+                        temp[j] = ownedFields[j];
+                    }
+                    temp[temp.length - 1] = aPlayerFieldList;
 
-                for (int j = 0; j < ownedFields.length; j++) {
-                    temp[j] = ownedFields[j];
+                    ownedFields = temp;
+
                 }
-                temp[temp.length - 1] = aPlayerFieldList;
-
-                ownedFields = temp;
-
             }
 
         }
         return ownedFields;
     }
 
-    public Field[] getFieldsWithNoHousesByPlayer(Player p){
+    public Field[] getFieldsWithNoHousesByPlayer(Player player){
 
-        Field[] playerFieldList = getPlayerFields(p);
+        Field[] playerFieldList = getPlayerFields(player);
         int length = playerFieldList.length;
         Field[] ownedFields = new Field[0];
 
-        for (Field aPlayerFieldList : playerFieldList) {
 
-            if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
+        for (Field aPlayerFieldList : playerFieldList) {
+            if(aPlayerFieldList instanceof PropertyField) {
+                if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
+
+                    Field[] temp = new Field[ownedFields.length + 1];
+
+                    for (int j = 0; j < ownedFields.length; j++) {
+                        temp[j] = ownedFields[j];
+                    }
+                    temp[temp.length - 1] = aPlayerFieldList;
+
+                    ownedFields = temp;
+
+                }
+
+            }
+            else{
 
                 Field[] temp = new Field[ownedFields.length + 1];
 
@@ -250,7 +270,6 @@ public class Bank {
                 temp[temp.length - 1] = aPlayerFieldList;
 
                 ownedFields = temp;
-
             }
 
         }
