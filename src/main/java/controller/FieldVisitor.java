@@ -9,19 +9,19 @@ import model.text.LogicStringCollection;
 
 public class FieldVisitor implements Visitor  {
 
-    private static final int JAIL_MOVEMENT = 20;
     private static final int PROPERTY_MULTIPLIER = 2;
     private Player player;
     private Player[] otherPlayers;
-    private Deck deck = new Deck(LogicStringCollection.getSingleInstance().getChanceCard());
+    private Deck deck;
     private ViewController viewController = ViewController.getSingleInstance();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
     private static Bank bank;
 
-    public FieldVisitor(Player currentPlayer, Player[] otherPlayers) {
+    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck) {
         this.otherPlayers = otherPlayers;
         this.player = currentPlayer;
+        this.deck = deck;
     }
 
     public static void setBank(Bank banko){
@@ -32,7 +32,7 @@ public class FieldVisitor implements Visitor  {
     public void visit(ChanceField field) {
         Card card = deck.getTopCard();
         deck.putTopCardToBottom();
-        DrawController drawer = new DrawController(player, otherPlayers);
+        DrawController drawer = new DrawController(player, otherPlayers, bank);
         card.accept(drawer);
     }
 

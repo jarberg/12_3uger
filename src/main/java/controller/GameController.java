@@ -1,6 +1,7 @@
 package controller;
 
 import model.board.*;
+import model.deck.Deck;
 import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
@@ -26,6 +27,7 @@ public class GameController {
     private PlayerList playerlist;
     private Board board;
     private Bank bank;
+    private Deck deck;
 
     private GameController(){
         this.fileReader = FileReader.getSingleInstance();
@@ -108,7 +110,7 @@ public class GameController {
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer));
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck);
         currentField.accept(fieldVisitor);
 
         /*
@@ -134,6 +136,7 @@ public class GameController {
         makePlayerChooseCar();
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
         this.bank = new Bank(playerlist, board);
+        this.deck  = new Deck(LogicStringCollection.getSingleInstance().getChanceCard());
         TradeController.setBank(bank);
         FieldVisitor.setBank(bank);
         showGameBoard();
