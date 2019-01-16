@@ -38,6 +38,7 @@ public class DrawController implements Drawer {
     }
 
 
+
     @Override //CARD: 2
     public void draw(MonopolyJackpotCard card) {
 
