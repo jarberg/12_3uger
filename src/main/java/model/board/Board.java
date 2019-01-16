@@ -99,12 +99,7 @@ public class Board {
                         Integer.toString(fieldLogic[2]),
                         fieldLogic[3],
                         fieldLogic[4],
-                        fieldLogic[5],
-                        fieldLogic[6],
-                        fieldLogic[7],
-                        fieldLogic[8],
-                        fieldLogic[9],
-                        fieldLogic[10]);
+                        fieldLogic[5], fieldLogic[6], fieldLogic[7], fieldLogic[8], fieldLogic[9], fieldLogic[10]);
                 break;
             case 3:
                 field = new ChanceField(ID, name, subtitle, message, color);
@@ -123,6 +118,17 @@ public class Board {
                 break;
             case 8:
                 field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5], fieldLogic[3]);
+                break;
+            case 9:
+                field = new FerryField(
+                        ID,
+                        name,
+                        subtitle,
+                        message,
+                        color,
+                        Integer.toString(fieldLogic[2]),
+                        fieldLogic[3],
+                        fieldLogic[4], fieldLogic[5], fieldLogic[6], fieldLogic[7]);
                 break;
         }
         return field;

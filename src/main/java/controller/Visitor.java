@@ -12,5 +12,5 @@ public interface Visitor {
     void visit(TaxField field);
     void visit(StartField field);
     void visit(BreweryField field);
-
+    void visit(FerryField ferryField);
 }
