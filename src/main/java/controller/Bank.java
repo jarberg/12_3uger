@@ -58,7 +58,7 @@ public class Bank {
 
         String[] ownedFields = new String[length-1];
         int counter = 0;
-        for (int i = 0; i < fieldOwnerArray.length; i++) {
+        for (int i = 0; i < fieldOwnerArray[idxOfRow].length; i++) {
             if (i != idxOfFieldToRemove){
                 ownedFields[counter] = fieldOwnerArray[idxOfRow][i];
                 counter++;

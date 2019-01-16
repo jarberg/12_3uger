@@ -327,7 +327,9 @@ public class ViewController implements ViewControllerType {
 
     public void showOwner(String fieldName, String name, Color playerColor) {
         GUI_Field field = getGUIFieldByName(fieldName);
-        field.setDescription(name);
+        while(!field.getDescription().equals(name)){
+            field.setDescription(name);
+        }
         ((GUI_Street) field).setBorder(playerColor);
     }
 
@@ -353,5 +355,10 @@ public class ViewController implements ViewControllerType {
             }
         }
         return null;
+    }
+
+    public void vanishPlayer(String name, int positon) {
+        GUI_Player player = getGui_playerByName(name);
+        gui_board[positon].setCar(player, false);
     }
 }

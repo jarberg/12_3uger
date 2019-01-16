@@ -54,7 +54,7 @@ public class TradeController {
                 for (int i = 0; i < fieldNames.length; i++) {
                     fieldNames[i] = fieldsWithoutHouses[i].getTitle();
                 }
-                String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
+                String sellingField = viewController.getUserSelection(sellFieldOption, fieldNames);
                 Field field = bank.getFieldByName(sellingField);
                 bank.removeFieldOwner(field);
                 viewController.showOwner(field.getTitle(), " ", Color.BLACK);
@@ -63,7 +63,7 @@ public class TradeController {
                 } else if (field instanceof BreweryField){
                     player.addToBalance(((BreweryField) field).getPrice()/2);
                 }
-                viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
+                //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
             } else if(choice.equals(sellHouseOption)){
                 String[] fieldNames = new String[fieldsWithHouses.length];
                 for (int i = 0; i < fieldNames.length; i++) {
@@ -94,20 +94,22 @@ public class TradeController {
             for (int i = 0; i < fieldNames.length; i++) {
                 fieldNames[i] = fieldsWithoutHouses[i].getTitle();
             }
-            String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
+            String sellingField = viewController.getUserSelection(sellFieldOption, fieldNames);
             Field field = bank.getFieldByName(sellingField);
             bank.removeFieldOwner(field);
             viewController.showOwner(field.getTitle(), " ", Color.BLACK);
+
             if(field instanceof PropertyField){
                 player.addToBalance(((PropertyField) field).getPrice() / 2);
             } else if (field instanceof BreweryField){
                 player.addToBalance(((BreweryField) field).getPrice()/2);
             }
-            viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
+            //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
         } else {
             String brokeMessage = String.format(languageStringCollection.getMenu()[22], player.getName());
             viewController.showMessage(brokeMessage);
             player.setBrokeStatus(true);
+            viewController.vanishPlayer(player.getName(), player.getPosition());
         }
         viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
     }
