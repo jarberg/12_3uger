@@ -181,8 +181,9 @@ public class DrawController implements Drawer {
         int position = player.getPosition(); //spillers position
         int amount = card.getAmount(); //antal ryk der står på kortet
 
-        int newAmount = ((board.getFields().length-1) + position) + amount;
-        viewController.movePlayer(player.getName(),position, newAmount);
+        int x =  (board.getFields().length + position + amount) % board.getFields().length;
+
+        viewController.movePlayer(player.getName(),position, x);
     }
 
 }
