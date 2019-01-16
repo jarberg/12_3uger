@@ -190,7 +190,7 @@ public class ViewController implements ViewControllerType {
     public void teleportPlayer (String playerName, int oldposition, int newposition){
         GUI_Player teleportPlayer = getPlayerByName(playerName);
              gui_board[oldposition].setCar(teleportPlayer,false);
-             gui_board[newposition].setCar(teleportPlayer, true);
+             gui_board[newposition%40].setCar(teleportPlayer, true);
 
     }
 
