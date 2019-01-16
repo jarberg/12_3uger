@@ -44,12 +44,13 @@ public class DrawController implements Drawer {
 
         String message = card.getDescription();
         viewController.showMessage(message);
-        int ifOver = card.getAmount();
+        int jackpot = card.getJackpot();
+        int amount = card.getAmount();
 
-        if (player.getBalance() < 750) {
-            player.addToBalance(2000);
+        if (player.getBalance() < amount) {
+            player.addToBalance(jackpot);
 
-            tradeController.transferAssets(player,ifOver);
+            tradeController.transferAssets(player,jackpot);
             viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
         }
     }
@@ -107,10 +108,28 @@ public class DrawController implements Drawer {
         viewController.showMessage(message);
 
         int oldPosition = player.getPosition();
-        int newPosition = card.getPosition();
         int amount = card.getAmount()*2;
 
-        player.setPosition(newPosition);
+        int firFerry = 5;
+        int secFerry = 15;
+        int thiFerry = 25;
+        int fouFerry = 35;
+        int newPosition = 0;
+
+        if (player.getPosition() < 5 && player.getPosition() > 35) {
+            player.setPosition(firFerry);
+            newPosition = firFerry;
+        } else if (player.getPosition() > 5 && player.getPosition() < 15) {
+            player.setPosition(secFerry);
+            newPosition = secFerry;
+        } else if (player.getPosition() > 15 && player.getPosition() < 25) {
+            player.setPosition(thiFerry);
+            newPosition = thiFerry;
+        } else if (player.getPosition() > 25 && player.getPosition() < 35) {
+            player.setPosition(fouFerry);
+            newPosition = fouFerry;
+        }
+
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
 
         Player otherPlayer =  bank.getPlayerByName(String.valueOf(bank.getOwner(String.valueOf(player.getPosition()))));
@@ -157,7 +176,6 @@ public class DrawController implements Drawer {
             tradeController.transferAssets(otherPlayers[i],player,amount);
 
         }
-
     }
 
     @Override //CARD: 1 - 7 - 16 - 18 - 19 - 20 - 21 - 22 - 23 - 25 - 28 - 29 - 30 - 31 - 32
