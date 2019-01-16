@@ -110,6 +110,7 @@ public class GameController {
         movePlayer(currentPlayer, lastField, sumOfDice);
         }
         if(currentPlayer.getPassedStartStatus()){
+            //TODO: Currently gives money from goToJail. And possibly for moving backwards with chancecard?
             currentPlayer.addToBalance(200);
             currentPlayer.setPassedStartStatus(false);
             viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
