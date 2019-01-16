@@ -54,7 +54,7 @@ public class DrawController implements Drawer {
     }
 
 
-    @Override //CARD: 9 - 10
+    @Override //CARD: 4 - 5 - 12
 
     public void draw(MoveToFieldCard card) {
 
@@ -62,7 +62,7 @@ public class DrawController implements Drawer {
         viewController.showMessage(message);
 
         int position = player.getPosition(); //spillers position
-        int amount = card.getAmount(); //antal ryk der står på kortet
+        int amount = card.getAmount(); //Det felt nummer man skal rykke frem til
 
         player.setPosition(amount);
         viewController.teleportPlayer(player.getName(),position,amount);
@@ -173,7 +173,7 @@ public class DrawController implements Drawer {
 
     }
 
-    @Override //CARD: 4 - 5 - 12
+    @Override //CARD: 9 - 10
     public void draw(MoveAmountCard card) {
         String message = card.getDescription();
         viewController.showMessage(message);
