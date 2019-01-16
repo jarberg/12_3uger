@@ -13,7 +13,8 @@ public class Player {
     private boolean broke;
     private boolean hasGetOutOfJailCard;
     private boolean doubleTurn;
-    private boolean inJail=false;
+    private boolean inJail = false;
+    private boolean hasPassedStart = false;
 
     //constructor
     public Player(String name){
@@ -46,6 +47,10 @@ public class Player {
         return lastPosition;
     }
 
+    public boolean getPassedStartStatus(){
+        return hasPassedStart;
+    }
+
     //Setters
 
 
@@ -56,9 +61,24 @@ public class Player {
     public void setPlayerColor(Color setColor){ this.playerColor = setColor;}
 
     public void setPosition(int setPosition){
+        int beforePosition = position;
+        this.lastPosition = this.position;
+        this.position = setPosition;
+        if(position < beforePosition){
+            hasPassedStart = true;
+        }
+
+    }
+
+    public void setPositionWithoutStartMoney(int setPosition){
         this.lastPosition = this.position;
         this.position = setPosition;
     }
+
+    public void setPassedStartStatus(boolean status){
+        hasPassedStart = status;
+    }
+
 
     public void setBrokeStatus(boolean status){ this.broke = status; }
 

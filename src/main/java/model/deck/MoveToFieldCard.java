@@ -2,11 +2,11 @@ package model.deck;
 
 import controller.Drawer;
 
-public class MoveCard extends Card{
+public class MoveToFieldCard extends Card{
 
     private int amount;
 
-    public MoveCard(String description,int amount) {
+    public MoveToFieldCard(String description, int amount) {
         super(description);
 
         this.amount = amount;

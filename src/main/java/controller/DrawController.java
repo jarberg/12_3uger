@@ -1,6 +1,6 @@
 package controller;
 
-
+import model.board.*;
 import model.deck.*;
 import model.player.Player;
 
@@ -10,7 +10,8 @@ public class DrawController implements Drawer {
     private Player[] otherPlayers;
     private ViewController viewController;
     private TradeController tradeController;
-    private Bank bank = Bank.getSingleInstance();
+    private Bank bank;
+    private Board board;
     //private FieldOwnerBank fieldOwnerBank;
 
 
@@ -23,6 +24,7 @@ public class DrawController implements Drawer {
 
         this.tradeController = TradeController.getSingleInstance();
         this.bank = bank;
+        this.board = board;
     }
 
 
@@ -33,7 +35,6 @@ public class DrawController implements Drawer {
         viewController.showMessage(message);
 
         player.setJailCardStatus(true);
-
     }
 
 
@@ -42,133 +43,104 @@ public class DrawController implements Drawer {
 
         String message = card.getDescription();
         viewController.showMessage(message);
+        int ifOver = card.getAmount();
 
         if (player.getBalance() > 750) {
             player.addToBalance(2000);
-        }
 
+            tradeController.transferAssets(player,ifOver);
+            viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
+        }
     }
 
 
-    @Override //CARD: 4 - 5 - 9 - 10 - 12
-    public void draw(MoveCard card) {
-        //viewController.showFieldMessage(playerName);
+    @Override //CARD: 4 - 5 - 12
 
-        /* MOVE TIL ØNSKET FELT METODE
-        @param ønsketFieldID
-
-        Field[] fields = get fields                 // få fat i alle fields
-        int position = player.getPosition           // få fat i spillerens current position
-        String fieldID = fields[position].getID     // få fat i spillerens current position på board
-        while(!(fieldID.equals ØnsketFieldID)){     // bliv ved med at rykke spilleren indtil ønsket felt er fundet
-            position = position++ % fields.length;
-            fieldID = fields[position].getID
-            viewContoller movePlayer 1 step
-            set spillerens position på board
-        }
-
-         */
+    public void draw(MoveToFieldCard card) {
 
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        int position = player.getPosition();
-        int amount = card.getAmount();
+        int position = player.getPosition(); //spillers position
+        int amount = card.getAmount(); //Det felt nummer man skal rykke frem til
 
+        player.setPosition(amount);
+        viewController.teleportPlayer(player.getName(),position,amount);
 
     }
+    //felt 8, felt 5
+
 
     @Override //CARD: 13 - 14 -
     public void draw(PayForBuildingsCard card) {
-        //viewController.showFieldMessage(playerName);
-        /*
-        Få fat i spillerens buildings
-        int bøde = multiply buildings med faktor fra kort
-        anvend transaction metoden med argumentet bøde
-
-
-         */
-
         String message = card.getDescription();
         viewController.showMessage(message); //(message) = parameter
-/*
-        int house = player.getHouse();
-        int hotel = player.getHotel();
 
-        fieldOwnerBank.getOwner(getHouse);
+        Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
+
+        int housesLength = fieldsWithHouses.length;
+
+        int amount = 0;
+
+        int multiplierHotel =  card.getHotel();
+        int multiplierHouse =  card.getHouse();
+
+
+        for (Field fieldsWithHouse : fieldsWithHouses) {
+
+            int buildingcount = ((PropertyField) fieldsWithHouse).getBuildingCount();
+
+            if (buildingcount > 0 && buildingcount < 5) {
+                amount += ((PropertyField) fieldsWithHouse).getBuildingPrice() * multiplierHouse;
+            } else if (buildingcount == 5) {
+                amount += ((PropertyField) fieldsWithHouse).getBuildingPrice() * multiplierHotel;
+            }
+        }
         player.addToBalance(amount);
-        fieldOwnerBank.getOwner(getHotel);
-        player.addToBalance(amount);
-*/
-        //TODO: metode til at finde ownerable på house og hotel
-        //player.addToBalance();
-
-
+        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
     }
 
     @Override //CARD: 17 - 27
     public void draw(TeleportAndPayDoubleCard card) {
-        //viewController.showFieldMessage(playerName);
-
-        /*
-
         String message = card.getDescription();
         viewController.showMessage(message);
 
         int oldPosition = player.getPosition();
         int newPosition = card.getPosition();
+        int amount = card.getAmount()*2;
 
         player.setPosition(newPosition);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
 
-        fieldOwnerBank.getOwner(newPosition)
-
-        //TODO owner funktion
-
-        if (field.getOwner = true) owned
-            player.addBalance(amount).getMultiplier
-        tradeController.transferAssets(otherPlayer,player,amount);
-
-        } else if ( field.getOwner = false) {
-
-        int amount = card.getAmount();
-
-        tradeController.transferAssets(player,amount);
-        tradeController.transferAssets(player,field);
+        Player otherPlayer =  bank.getPlayerByName(String.valueOf(bank.getOwner(String.valueOf(player.getPosition()))));
+        Field disbutedField = bank.getFieldById(String.valueOf(player.getPosition()));
 
 
+        if(bank.hasOwner(String.valueOf(player.getPosition()))){
+
+            if (bank.isOwner(player, disbutedField)){//owned
+            }
+            else{
+                player.addToBalance(-amount);
+                tradeController.transferAssets(otherPlayer,player,amount);
+            }
         }
-        */
-
+        else{
+            tradeController.transferAssets(player,amount);
+            tradeController.transferAssets(player, disbutedField);
+        }
     }
 
     @Override //CARD: 3 - 6 - 8 - 11
     public void draw(TeleportCard card) {
-
-        /* FLYT TIL FÆNGSEL METODE
-        Field[] fields = get fields
-        int position = player.getPosition
-        Field curfield = fields[position]
-        while(!(field instanceOf JailField)){
-            position = position++ % fields.length();
-            curfield = fields[position]
-            viewController.movePlayer 1 felt
-            set spillerens position på board
-        }
-        set spillerens fængsels boolean til true.
-        */
-
-
         String message = card.getDescription();
         viewController.showMessage(message);
 
         int oldPosition = player.getPosition();
         int newPosition = card.getPosition();
 
-
         player.setPosition(newPosition);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
-
     }
 
     @Override //CARD: 15
@@ -199,6 +171,18 @@ public class DrawController implements Drawer {
         viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
 
 
+    }
+
+    @Override //CARD: 9 - 10
+    public void draw(MoveAmountCard card) {
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        int position = player.getPosition(); //spillers position
+        int amount = card.getAmount(); //antal ryk der står på kortet
+
+        int newAmount = ((board.getFields().length-1) + position) + amount;
+        viewController.movePlayer(player.getName(),position,newAmount);
     }
 
 }
