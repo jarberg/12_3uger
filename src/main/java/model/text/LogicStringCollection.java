@@ -22,6 +22,6 @@ public class LogicStringCollection{
     }
 
     public String[][] getChanceCard() {
-        return filereader.getChanceCards();
+        return filereader.getChanceCardsLogic();
     }
 }

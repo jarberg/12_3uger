@@ -1,32 +1,32 @@
-CARD_1:::Modtag udbytte af Deres aktier: kr. 50,00.
-CARD_2:::De modtager "Matador-legatet for værdig trængende", stort kr. 2000. Ved værdig trængende forstås, at Deres formue, d.v.s. Deres konstante penge + skøder + bygninger, ikke overskrider kr. 750.
-CARD_3:::Tag ind på Rådhuspladsen.
-CARD_4:::Ryk frem til Grønningen. Hvis De passerer "Start", indkassér da kr. 200,00.
-CARD_5:::Tag med Øresundsbåden - Flyt brikken frem, og hvis De passerer "Start", indkassér kr. 200,00.
-CARD_6:::Gå i fængsel. Ryk direkte til fængslet. Selv om de passerer "Start", indkasserer De ikke kr. 200,00.
-CARD_7:::De har måttet vedtage en parkeringsbøde. Betal kr. 20,00 til banken.
-CARD_8:::Gå i fængsel. Ryk direkte til fængslet. Selv om De passerer "Start", indkasserer De ikke kr. 200,00.
-CARD_9:::Ryk tre felter tilbage.
-CARD_10:::Ryk tre felter tilbage.
-CARD_11:::Gå i fængsel. Ryk direkte til fængslet. Selv om de passerer "Start", indkasserer De ikke kr. 200,00.
-CARD_12:::Ryk frem til "Start".
-CARD_13:::Kul- og kokspriserne er steget, og De skal betale: kr. 25,00 pr. hus og kr. 125,00 pr. hotel.
-CARD_14:::Ejendomsskatterne er steget, ekstraudgifterne er: kr. 50,00 pr. hus, kr. 125,00 pr. hotel.
-CARD_15:::De har lagt penge ud til sammenskudsgilde. Mærkværdigvis betaler alle straks. Modtag fra hver medspiller kr. 25,00.
-CARD_16:::Værdien af egen avl fra nyttehaven udgør kr. 200,00, som De modtager af banken.
-CARD_17:::Ryk brikken frem til det nærmeste dampskibsselskab og betal ejeren to gange den leje, han ellers er berettiget til. Hvis selskabet ikke ejes af nogen, kan De købe det af banken.
-CARD_18:::De har anskaffet et nyt dæk til Deres vogn. Indbetal kr. 100,00.
-CARD_19:::De har kørt frem for "Fuld Stop". Betal kr. 100,00 i bøde.
-CARD_20:::Betal for vognvask og smøring kr. 10,00.
-CARD_21:::De har været en tur i udlanget og haft for mange cigaretter med hjem - Betal told kr. 20,00.
-CARD_22:::De har måttet vedtage en parkeringsbøde. Betal kr. 20,00 til banken.
-CARD_23:::Grundet på dyrtiden har De fået gageforhøjelse. Modtag kr. 25,00.
-CARD_24:::I anledning af Kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares, indtil De får brug for det, eller De kan sælge det.
-CARD_25:::Betal for vognvask og smøring kr. 10,00.
-CARD_26:::I anledning af Kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares, indtil De får brug for det, eller De kan sælge det.
-CARD_27:::Ryk brikken frem til det nærmeste dampskibsselskab og betal ejeren to gange den leje, han ellers er berettiget til. Hvis selskabet ikke ejes af nogen, kan De købe det af banken.
-CARD_28:::De har solgt Deres gamle klude. Modtag kr. 20,00.
-CARD_29:::De har rettidigt afleveret Deres abonnementskort. Depositum kr. 1,00 udbetales Dem af banken.
-CARD_30:::Manufakturvarerne er blevet billigere og bedre, herved sparer De kr. 50,00. som De modtager af banken.
-CARD_31:::Efter auktionen på Assistenshuset, hvor De havde pantsat Deres tøj, modtager De ekstra kr. 108,00.
-CARD_32:::Deres præmieobligation er kommet ud. De modtager kr. 100,00 af banken.
+CARD_1~Modtag udbytte af Deres aktier: kr. 50,00.
+CARD_2~De modtager "Matador-legatet for værdig trængende", stort kr. 2000. Ved værdig trængende forstås, at Deres formue, d.v.s. Deres konstante penge + skøder + bygninger, ikke overskrider kr. 750.
+CARD_3~Tag ind på Rådhuspladsen.
+CARD_4~Ryk frem til Grønningen. Hvis De passerer "Start", indkassér da kr. 200,00.
+CARD_5~Tag med Øresundsbåden - Flyt brikken frem, og hvis De passerer "Start", indkassér kr. 200,00.
+CARD_6~Gå i fængsel. Ryk direkte til fængslet. Selv om de passerer "Start", indkasserer De ikke kr. 200,00.
+CARD_7~De har måttet vedtage en parkeringsbøde. Betal kr. 20,00 til banken.
+CARD_8~Gå i fængsel. Ryk direkte til fængslet. Selv om De passerer "Start", indkasserer De ikke kr. 200,00.
+CARD_9~Ryk tre felter tilbage.
+CARD_10~Ryk tre felter tilbage.
+CARD_11~Gå i fængsel. Ryk direkte til fængslet. Selv om de passerer "Start", indkasserer De ikke kr. 200,00.
+CARD_12~Ryk frem til "Start".
+CARD_13~Kul- og kokspriserne er steget, og De skal betale: kr. 25,00 pr. hus og kr. 125,00 pr. hotel.
+CARD_14~Ejendomsskatterne er steget, ekstraudgifterne er: kr. 50,00 pr. hus, kr. 125,00 pr. hotel.
+CARD_15~De har lagt penge ud til sammenskudsgilde. Mærkværdigvis betaler alle straks. Modtag fra hver medspiller kr. 25,00.
+CARD_16~Værdien af egen avl fra nyttehaven udgør kr. 200,00, som De modtager af banken.
+CARD_17~Ryk brikken frem til det nærmeste dampskibsselskab og betal ejeren to gange den leje, han ellers er berettiget til. Hvis selskabet ikke ejes af nogen, kan De købe det af banken.
+CARD_18~De har anskaffet et nyt dæk til Deres vogn. Indbetal kr. 100,00.
+CARD_19~De har kørt frem for "Fuld Stop". Betal kr. 100,00 i bøde.
+CARD_20~Betal for vognvask og smøring kr. 10,00.
+CARD_21~De har været en tur i udlanget og haft for mange cigaretter med hjem - Betal told kr. 20,00.
+CARD_22~De har måttet vedtage en parkeringsbøde. Betal kr. 20,00 til banken.
+CARD_23~Grundet på dyrtiden har De fået gageforhøjelse. Modtag kr. 25,00.
+CARD_24~I anledning af Kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares, indtil De får brug for det, eller De kan sælge det.
+CARD_25~Betal for vognvask og smøring kr. 10,00.
+CARD_26~I anledning af Kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares, indtil De får brug for det, eller De kan sælge det.
+CARD_27~Ryk brikken frem til det nærmeste dampskibsselskab og betal ejeren to gange den leje, han ellers er berettiget til. Hvis selskabet ikke ejes af nogen, kan De købe det af banken.
+CARD_28~De har solgt Deres gamle klude. Modtag kr. 20,00.
+CARD_29~De har rettidigt afleveret Deres abonnementskort. Depositum kr. 1,00 udbetales Dem af banken.
+CARD_30~Manufakturvarerne er blevet billigere og bedre, herved sparer De kr. 50,00. som De modtager af banken.
+CARD_31~Efter auktionen på Assistenshuset, hvor De havde pantsat Deres tøj, modtager De ekstra kr. 108,00.
+CARD_32~Deres præmieobligation er kommet ud. De modtager kr. 100,00 af banke~
