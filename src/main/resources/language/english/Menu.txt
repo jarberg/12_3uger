@@ -22,3 +22,4 @@ Sell field
 What to sell
 %s is broke
 Pay the flat 100 kr.
+You passed start and receive 200 kr.
