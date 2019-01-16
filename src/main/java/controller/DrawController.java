@@ -185,7 +185,7 @@ public class DrawController implements Drawer {
 
         int x =  (40 + position + amount) % 40;
 
-        viewController.movePlayer(player.getName(),position, x);
+        viewController.teleportPlayer(player.getName(), position, x);
     }
 
 }
