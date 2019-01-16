@@ -41,6 +41,7 @@ public class DrawController implements Drawer {
         int jackpot = card.getJackpot();
         int amount = card.getAmount();
 
+        //TODO: Switch from player's balance to player's net worth (spoiler: bank)
         if (player.getBalance() <= amount) {
             tradeController.transferAssets(player,jackpot);
         }

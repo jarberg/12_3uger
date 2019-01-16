@@ -25,3 +25,4 @@ Betal de faste 100 kr.
 De passerer start og modtager 200 kr.
 %s har vundet!
 %s har pantsat dette felt, og kan derfor ikke modtage rente.
+Pantsæt grund
