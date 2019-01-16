@@ -97,10 +97,11 @@ public class Bank {
         boolean haveOwner = false;
 
         for (int i = 0; i < fieldOwnerArray.length; i++) {
-            for(String stringID : fieldOwnerArray[i]){
-                if(stringID != null){
-                    if(stringID.equals(fieldID))
+            for (int j = 1; j < fieldOwnerArray[i].length; j++) {
+                if(fieldOwnerArray[i][j] != null){
+                    if(fieldOwnerArray[i][j].equals(fieldID)){
                         haveOwner = true;
+                    }
                 }
             }
         }

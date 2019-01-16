@@ -110,8 +110,10 @@ public class GameController {
         if(currentPlayer.getPassedStartStatus()){
             currentPlayer.addToBalance(200);
             currentPlayer.setPassedStartStatus(false);
+            viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
+            viewController.showMessage(languageCollection.getMenu()[24]);
         }
-        viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
+
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
