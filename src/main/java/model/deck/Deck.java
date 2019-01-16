@@ -46,7 +46,6 @@ public class Deck {
                 case "8":
                     cardArray[i] = new MoneyCard(desc,info1int);
                     break;
-
             }
         }
     }

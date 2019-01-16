@@ -4,6 +4,8 @@ import controller.Drawer;
 
 public class GetOutOfJailCard extends Card{
 
+
+
     public GetOutOfJailCard(String description) {
         super(description);
     }
