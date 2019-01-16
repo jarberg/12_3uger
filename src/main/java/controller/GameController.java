@@ -306,7 +306,8 @@ public class GameController {
         boolean playerInJail = player.isInJail();
 
         Field field = board.getFields()[player.getPosition()%40];
-
+        //TODO: Menu.txt
+        //TODO: Sell jail card (not end turn + work)
         if(playerInJail) {
             if (currentField instanceof  JailField) {
                 if (player.getJailCardStatus()) {
@@ -333,6 +334,7 @@ public class GameController {
         if(field instanceof TaxField){
 
         }
+        //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
         choiceList.add("End turn,0");
 
         String[][] finalChoiceList = new String[choiceList.getItemCount()][];

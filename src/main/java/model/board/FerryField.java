@@ -29,8 +29,8 @@ public class FerryField extends Field {
         return type;
     }
 
-    public int[] getRents() {
-        return rents;
+    public int getRent(int amountOwned) {
+        return rents[amountOwned-1];
     }
 
 }

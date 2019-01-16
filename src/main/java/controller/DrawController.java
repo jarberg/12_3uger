@@ -184,7 +184,7 @@ public class DrawController implements Drawer {
         int amount = card.getAmount(); //antal ryk der står på kortet
 
         int x =  (40 + position + amount) % 40;
-
+        //TODO: Rename x and set player position to x ~~ should fix double car issue
         viewController.teleportPlayer(player.getName(), position, x);
     }
 

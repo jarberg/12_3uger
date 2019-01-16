@@ -125,8 +125,20 @@ public class FieldVisitor implements Visitor  {
     }
 
     @Override
-    public void visit(FerryField ferryField) {
+    public void visit(FerryField field) {
+        viewController.showMessage(field.getMessage());
 
+        boolean playerIsOwner = bank.isOwner(player, field);
+        if(!playerIsOwner){
+            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            if(ownedByAnotherPlayer){
+                Player owner = bank.getOwner(field.getID());
+                int amountOwned = bank.getAmountOfTypeOwned(owner, field);
+                tradeController.transferAssets(player, owner, field.getRent(amountOwned));
+            } else{
+                tradeController.askIfWantToBuy(player, field);
+            }
+        }
     }
 
 }
