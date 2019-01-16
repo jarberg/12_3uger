@@ -9,7 +9,7 @@ public class DieSet {
     private int dieTwoValue;
 
     public DieSet(){
-        this.SIDES = 6;
+        this.SIDES = 2;
     }
 
     public void roll(){
