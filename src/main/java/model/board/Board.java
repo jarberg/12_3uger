@@ -4,22 +4,31 @@ import java.awt.*;
 
 public class Board {
     private Field[] fields;
+    private int[] fieldLogic;
+    private String[] fieldInfo;
+    private int[][] logic;
+    private String[][] info;
 
+    public Board(int[][] fieldsLogic, String[][] fieldsInfo) {
+        this.logic = fieldsLogic;
+        this.info = fieldsInfo;
 
-    public Board(){
-        fields = new Field[40];
+        fields = new Field[fieldsLogic.length];
 
     }
 
-    //TODO: make board setup board on creation
 
-    public void setupBoard(int[][] fieldsLogic, String[][] fieldsInfo){
+    public void setupBoard(){
         for (int i = 0; i < fields.length; i++) {
-            int[] fieldLogic     = fieldsLogic[i];
+            fieldLogic = logic[i];
+            fieldInfo = info[i];
             Color fieldColor     = decideFieldColor(fieldLogic);
-            String[] fieldInfo   = fieldsInfo[i];
             this.fields[i]       = makeField(fieldLogic, fieldColor, fieldInfo);
         }
+    }
+
+    public int getBoardSize(){
+        return fields.length;
     }
 
     private Color decideFieldColor(int[] fieldLogic) {

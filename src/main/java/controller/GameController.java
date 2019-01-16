@@ -26,7 +26,7 @@ public class GameController {
     private Player currentPlayer;
     private PlayerList playerlist;
     private Board board;
-    private Bank bank;
+    private Bank bank = Bank.getSingleInstance();
     private Deck deck;
 
     private GameController(){
@@ -55,8 +55,8 @@ public class GameController {
     }
 
     public void createBoard(int[][] fieldLogic, String[][] fieldInfo){
-        this.board = new Board();
-        this.board.setupBoard(fieldLogic, fieldInfo);
+        this.board = new Board(fieldLogic, fieldInfo);
+        this.board.setupBoard();
     }
 
     public boolean checkIfAllBroke(){
@@ -135,12 +135,16 @@ public class GameController {
         createPlayers();
         makePlayerChooseCar();
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
-        this.bank = new Bank(playerlist, board);
         createDeck();
-        TradeController.setBank(bank);
-        FieldVisitor.setBank(bank);
+        setupBank();
         showGameBoard();
         addPlayersToGUI();
+    }
+
+    private void setupBank(){
+        bank.setBankNoCrashy(playerlist.getAllPlayers().length);
+        bank.setPlayerList(playerlist);
+        bank.setBoard(board);
     }
 
     private void createDeck(){

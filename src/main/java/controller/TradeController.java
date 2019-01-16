@@ -6,12 +6,14 @@ import model.board.PropertyField;
 import model.player.Player;
 import model.text.LanguageStringCollection;
 
+import java.awt.*;
+
 public class TradeController {
 
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private ViewController viewController = ViewController.getSingleInstance();
-    private static Bank bank;
+    private static Bank bank = Bank.getSingleInstance();
 
     private TradeController(){
 
@@ -19,10 +21,6 @@ public class TradeController {
 
     public static TradeController getSingleInstance(){
         return singleInstance;
-    }
-
-    public static void setBank(Bank newBank){
-        bank = newBank;
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
@@ -59,6 +57,7 @@ public class TradeController {
                 String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
                 Field field = bank.getFieldByName(sellingField);
                 bank.removeFieldOwner(field);
+                viewController.showOwner(field.getTitle(), " ", Color.BLACK);
                 if(field instanceof PropertyField){
                     player.addToBalance(((PropertyField) field).getPrice() / 2);
                 } else if (field instanceof BreweryField){
@@ -98,6 +97,7 @@ public class TradeController {
             String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
             Field field = bank.getFieldByName(sellingField);
             bank.removeFieldOwner(field);
+            viewController.showOwner(field.getTitle(), " ", Color.BLACK);
             if(field instanceof PropertyField){
                 player.addToBalance(((PropertyField) field).getPrice() / 2);
             } else if (field instanceof BreweryField){
@@ -129,9 +129,11 @@ public class TradeController {
     public void transferAssets(Player targetPlayer, Field field){
         bank.addFieldToPlayer(targetPlayer, field);
         viewController.showOwner(field.getTitle(), targetPlayer.getName(), targetPlayer.getPlayerColor());
+
         if(field instanceof PropertyField){
             transferAssets(targetPlayer, -((PropertyField)field).getPrice());
         }
+
         if(field instanceof BreweryField){
             transferAssets(targetPlayer, -((BreweryField)field).getPrice());
         }

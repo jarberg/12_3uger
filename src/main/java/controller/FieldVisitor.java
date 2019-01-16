@@ -16,18 +16,13 @@ public class FieldVisitor implements Visitor  {
     private ViewController viewController = ViewController.getSingleInstance();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
-    private static Bank bank;
+    private static Bank bank = Bank.getSingleInstance();
 
     public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck) {
         this.otherPlayers = otherPlayers;
         this.player = currentPlayer;
         this.deck = deck;
     }
-
-    public static void setBank(Bank banko){
-        bank = banko;
-    }
-
     @Override
     public void visit(ChanceField field) {
         Card card = deck.getTopCard();
@@ -64,7 +59,7 @@ public class FieldVisitor implements Visitor  {
             boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 Player owner = bank.getOwner(field.getID());
-                boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field.getID());
+                boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field);
                 if(ownerOwnsAllOfType)
                     tradeController.transferAssets(player, owner, field.getRent() * PROPERTY_MULTIPLIER);
                 else
@@ -88,13 +83,14 @@ public class FieldVisitor implements Visitor  {
     @Override
     public void visit(TaxField field) {
         viewController.showMessage(field.getMessage());
-        String message = languageStringCollection.getMenu()[12];
-        String flatAmount = languageStringCollection.getMenu()[13];
 
         if (field.getPercentage() == 0) {
-            viewController.getUserSelection(message, flatAmount);
+            String flatAmount = languageStringCollection.getMenu()[23];
+            viewController.getUserSelection("", flatAmount);
             tradeController.transferAssets(player, -field.getFlatAmount());
         } else {
+            String message = languageStringCollection.getMenu()[12];
+            String flatAmount = languageStringCollection.getMenu()[13];
             String percentage = languageStringCollection.getMenu()[14];
             String choice = viewController.getUserSelection(message, flatAmount, percentage);
             if(choice.equals(flatAmount)){
@@ -125,7 +121,7 @@ public class FieldVisitor implements Visitor  {
             if(ownedByAnotherPlayer){
 
                 Player owner = bank.getOwner(field.getID());
-                boolean ownerOwnsBoth = bank.isOwnerOfAllFieldsOfType(owner, field.getID());
+                boolean ownerOwnsBoth = bank.isOwnerOfAllFieldsOfType(owner, field);
                 if(ownerOwnsBoth)
                     tradeController.transferAssets(player,owner, diceRoll * field.getMultiplier2());
                 else

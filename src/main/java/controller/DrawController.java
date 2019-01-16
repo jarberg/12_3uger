@@ -43,15 +43,20 @@ public class DrawController implements Drawer {
 
         String message = card.getDescription();
         viewController.showMessage(message);
+        int ifOver = card.getAmount();
 
         if (player.getBalance() > 750) {
             player.addToBalance(2000);
+
+            tradeController.transferAssets(player,ifOver);
+            viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
         }
     }
 
 
-    @Override //CARD: 4 - 5 - 9 - 10 - 12
-    public void draw(MoveCard card) {
+    @Override //CARD: 9 - 10
+
+    public void draw(MoveToFieldCard card) {
 
         String message = card.getDescription();
         viewController.showMessage(message);
@@ -59,16 +64,12 @@ public class DrawController implements Drawer {
         int position = player.getPosition(); //spillers position
         int amount = card.getAmount(); //antal ryk der står på kortet
 
-        if (amount > 0) {
-            player.setPosition(amount);
-            viewController.teleportPlayer(player.getName(),position,amount);
-        } else {
-            int newAmount = ((board.getFields().length-1) + position) + amount;
-            viewController.movePlayer(player.getName(),position, newAmount);
-        }
-        //felt 8, felt 5
+        player.setPosition(amount);
+        viewController.teleportPlayer(player.getName(),position,amount);
 
     }
+    //felt 8, felt 5
+
 
     @Override //CARD: 13 - 14 -
     public void draw(PayForBuildingsCard card) {
@@ -170,6 +171,18 @@ public class DrawController implements Drawer {
         viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
 
 
+    }
+
+    @Override //CARD: 4 - 5 - 12
+    public void draw(MoveAmountCard card) {
+        String message = card.getDescription();
+        viewController.showMessage(message);
+
+        int position = player.getPosition(); //spillers position
+        int amount = card.getAmount(); //antal ryk der står på kortet
+
+        int newAmount = ((board.getFields().length-1) + position) + amount;
+        viewController.movePlayer(player.getName(),position, newAmount);
     }
 
 }
