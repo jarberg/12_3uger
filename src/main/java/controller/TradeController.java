@@ -34,7 +34,7 @@ public class TradeController {
         if(sourcePlayer.getBalance() >= amount){
             sourcePlayer.addToBalance(-amount);
             targetPlayer.addToBalance(amount);
-            String message = String.format(languageStringCollection.getMenu()[18],sourcePlayer.getName(), String.valueOf(amount), targetPlayer);
+            String message = String.format(languageStringCollection.getMenu()[18],sourcePlayer.getName(), String.valueOf(amount), targetPlayer.getName());
             viewController.showMessage(message);
         }
         viewController.setGUI_PlayerBalance(sourcePlayer.getName(), sourcePlayer.getBalance());
