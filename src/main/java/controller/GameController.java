@@ -53,8 +53,8 @@ public class GameController {
     }
 
     public void createBoard(int[][] fieldLogic, String[][] fieldInfo){
-        this.board = new Board();
-        this.board.setupBoard(fieldLogic, fieldInfo);
+        this.board = new Board(fieldLogic, fieldInfo);
+        this.board.setupBoard();
     }
 
     public boolean checkIfAllBroke(){
@@ -105,6 +105,10 @@ public class GameController {
         int sumOfDice = dice.getDieOneValue() + dice.getDieTwoValue();
         viewController.movePlayer(currentPlayer.getName(), lastField, sumOfDice);
         movePlayer(currentPlayer, lastField, sumOfDice);
+        if(currentPlayer.getPassedStartStatus()){
+            currentPlayer.addToBalance(200);
+            currentPlayer.setPassedStartStatus(false);
+        }
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
