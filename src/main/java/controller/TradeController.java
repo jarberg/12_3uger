@@ -6,6 +6,8 @@ import model.board.PropertyField;
 import model.player.Player;
 import model.text.LanguageStringCollection;
 
+import java.awt.*;
+
 public class TradeController {
 
     private static TradeController singleInstance = new TradeController();
@@ -55,6 +57,7 @@ public class TradeController {
                 String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
                 Field field = bank.getFieldByName(sellingField);
                 bank.removeFieldOwner(field);
+                viewController.showOwner(field.getTitle(), " ", Color.BLACK);
                 if(field instanceof PropertyField){
                     player.addToBalance(((PropertyField) field).getPrice() / 2);
                 } else if (field instanceof BreweryField){
@@ -94,6 +97,7 @@ public class TradeController {
             String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
             Field field = bank.getFieldByName(sellingField);
             bank.removeFieldOwner(field);
+            viewController.showOwner(field.getTitle(), " ", Color.BLACK);
             if(field instanceof PropertyField){
                 player.addToBalance(((PropertyField) field).getPrice() / 2);
             } else if (field instanceof BreweryField){
