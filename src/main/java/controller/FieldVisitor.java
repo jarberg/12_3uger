@@ -41,6 +41,7 @@ public class FieldVisitor implements Visitor  {
         viewController.showMessage(field.getMessage());
         viewController.movePlayer(player.getName(),player.getPosition(),20);
         player.setPosition(10);
+        player.setInJail(true);
     }
 
     @Override
