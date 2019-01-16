@@ -45,7 +45,7 @@ public class DrawController implements Drawer {
         viewController.showMessage(message);
         int ifOver = card.getAmount();
 
-        if (player.getBalance() > 750) {
+        if (player.getBalance() < 750) {
             player.addToBalance(2000);
 
             tradeController.transferAssets(player,ifOver);
