@@ -9,7 +9,7 @@ public interface Drawer {
     void draw (MoveToFieldCard card);
     void draw (PayForBuildingsCard card);
     void draw (TeleportAndPayDoubleCard card);
-    void draw (TeleportCard card);
+    void draw (GoToJail card);
     void draw (BirthdayCard card);
     void draw (MoneyCard card);
     void draw (MoveAmountCard card);

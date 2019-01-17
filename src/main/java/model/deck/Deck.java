@@ -16,10 +16,8 @@ public class Deck {
             String desc = deckText[i][1];
             String info1 = deckLogic[i][2];
             String info2 = deckLogic[i][3];
-            String info3 = deckLogic[i][4];
             int info1int = Integer.parseInt(info1);
             int info2int = Integer.parseInt(info2);
-            int info3int = Integer.parseInt(info3);
 
             switch (deckLogic[i][0]){
                 case "1":
@@ -38,7 +36,7 @@ public class Deck {
                     cardArray[i] = new TeleportAndPayDoubleCard(desc,info1int);
                     break;
                 case "6":
-                    cardArray[i] = new TeleportCard(desc,info1int);
+                    cardArray[i] = new GoToJail(desc,info1int);
                     break;
                 case "7":
                     cardArray[i] = new BirthdayCard(desc,info1int);

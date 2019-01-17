@@ -6,22 +6,23 @@ import model.player.Player;
 
 public class DrawController implements Drawer {
 
+
     private Player player;
     private Player[] otherPlayers;
     private ViewController viewController;
     private TradeController tradeController;
     private Bank bank;
     private Board board;
+    private Deck deck;
 
-    DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board){
+    DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board, Deck deck){
         this.player = player;
         this.otherPlayers = otherPlayers;
-
         this.viewController = ViewController.getSingleInstance();
-
         this.tradeController = TradeController.getSingleInstance();
         this.bank = bank;
         this.board = board;
+        this.deck = deck;
     }
 
     @Override //CARD: 24 - 26
@@ -41,13 +42,12 @@ public class DrawController implements Drawer {
         int jackpot = card.getJackpot();
         int amount = card.getAmount();
 
-        //TODO: Switch from player's balance to player's net worth (spoiler: bank)
-        if (player.getBalance() <= amount) {
+        if (bank.getNetWorth(player) <= amount) {
             tradeController.transferAssets(player,jackpot);
         }
     }
 
-    @Override //CARD: 4 - 5 - 12
+    @Override //CARD: 3 - 4 - 5 - 12
     public void draw(MoveToFieldCard card) {
 
         String message = card.getDescription();
@@ -56,15 +56,20 @@ public class DrawController implements Drawer {
         int position = player.getPosition(); //spillers position
         int destination = card.getDestination(); //Det felt nummer man skal rykke frem til
         player.setPosition(destination);
-        //TODO: Create new FieldVisitor with player, other players and deck. Then have field with position destination accept visitor.
 
-        //TODO: Refactor 40 to board length.
-        int amount = (destination - position + 40) % 40;
+        int amount = (destination - position + board.getFields().length) % board.getFields().length;
         viewController.movePlayer(player.getName(),position,amount);
+
+        String newFieldId = String.valueOf(destination);
+        Field newField = bank.getFieldById(newFieldId);
+
+        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board);
+        newField.accept(fieldVisitor);
+
     }
     //felt 8, felt 5
 
-    @Override //CARD: 13 - 14 -
+    @Override //CARD: 13 - 14
     public void draw(PayForBuildingsCard card) {
         String message = card.getDescription();
         viewController.showMessage(message); //(message) = parameter
@@ -99,6 +104,7 @@ public class DrawController implements Drawer {
         int amount = 25*card.getMultiplier();
 
         int oldPosition = player.getPosition();
+        int newPosition = player.getPosition();
 
         int firFerry = 5;
         int secFerry = 15;
@@ -115,7 +121,6 @@ public class DrawController implements Drawer {
             player.setPosition(fouFerry);
         }
 
-        int newPosition = player.getPosition();
         String positionAsString = String.valueOf(newPosition);
         Field disbutedField = bank.getFieldById(positionAsString);
 
@@ -129,14 +134,16 @@ public class DrawController implements Drawer {
         }
     }
 
-    @Override //CARD: 3 - 6 - 8 - 11
-    public void draw(TeleportCard card) {
-        //TODO: Isolate this as goToJail by moving Town Square card to other type - I think.
+    @Override //CARD: 6 - 8 - 11
+    public void draw(GoToJail card) {
+
         String message = card.getDescription();
         viewController.showMessage(message);
 
         int oldPosition = player.getPosition();
         int newPosition = card.getPosition();
+
+        player.setInJail(true);
 
         player.setPosition(newPosition);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
@@ -176,14 +183,19 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        int position = player.getPosition(); //spillers position
+        int oldPosition = player.getPosition(); //spillers position
         int amount = card.getAmount(); //antal ryk der står på kortet
 
-        //TODO: Refactor 40 to board length.
-        int x =  (40 + position + amount) % 40;
-        //TODO: Rename x and set player position to x ~~ should fix double car issue
-        //TODO: Create new FieldVisitor with player, other players and deck. Then have field with position x accept visitor.
-        viewController.teleportPlayer(player.getName(), position, x);
+        int newPosition =  (board.getFields().length + oldPosition + amount) % board.getFields().length;
+
+        player.setPosition(newPosition);
+        viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
+
+        String newField = String.valueOf(newPosition);
+        Field newFieldId = bank.getFieldById(newField);
+
+        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board);
+        newFieldId.accept(fieldVisitor);
     }
 
 }

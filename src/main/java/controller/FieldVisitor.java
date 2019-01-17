@@ -29,7 +29,7 @@ public class FieldVisitor implements Visitor  {
     public void visit(ChanceField field) {
         Card card = deck.getTopCard();
         deck.putTopCardToBottom();
-        DrawController drawer = new DrawController(player, otherPlayers, bank, board);
+        DrawController drawer = new DrawController(player, otherPlayers, bank, board, deck);
         card.accept(drawer);
     }
 

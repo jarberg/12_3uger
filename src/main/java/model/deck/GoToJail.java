@@ -2,11 +2,11 @@ package model.deck;
 
 import controller.Drawer;
 
-public class TeleportCard extends Card {
+public class GoToJail extends Card {
 
     private int position;
 
-    public TeleportCard(String description, int position) {
+    public GoToJail(String description, int position) {
         super(description);
 
         this.position = position;
@@ -21,3 +21,5 @@ public class TeleportCard extends Card {
         return position;
     }
 }
+
+
