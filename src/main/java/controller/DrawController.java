@@ -39,6 +39,7 @@ public class DrawController implements Drawer {
 
         String message = card.getDescription();
         viewController.showMessage(message);
+
         int jackpot = card.getJackpot();
         int amount = card.getAmount();
 

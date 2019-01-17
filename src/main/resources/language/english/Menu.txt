@@ -35,3 +35,8 @@ Use get outa jail card
 Throw dice
 Buy building
 End turn
+Which player would You like to trade property with?
+%s selects one of their properties to trade away
+Which property would you like in exhange?
+Does %s accept to trade %s in exchange for %s ?
+Trade property
