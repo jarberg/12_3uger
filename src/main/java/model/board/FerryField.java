@@ -34,9 +34,7 @@ public class FerryField extends Field {
         return rents[amountOwned-1];
     }
 
-    public boolean getPawnedStatus(){
-        return this.pawned;
-    }
+    public boolean getPawnedStatus(){ return this.pawned; }
 
     public void setPawnedStatus(boolean status){
         this.pawned = status;

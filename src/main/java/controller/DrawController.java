@@ -39,6 +39,7 @@ public class DrawController implements Drawer {
 
         String message = card.getDescription();
         viewController.showMessage(message);
+
         int jackpot = card.getJackpot();
         int amount = card.getAmount();
 
@@ -100,11 +101,9 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        //TODO: Use board? Maybe not.
         int amount = 25*card.getMultiplier();
 
         int oldPosition = player.getPosition();
-        int newPosition = player.getPosition();
 
         int firFerry = 5;
         int secFerry = 15;
@@ -120,6 +119,8 @@ public class DrawController implements Drawer {
         } else if (player.getPosition() > 25 && player.getPosition() < 35) {
             player.setPosition(fouFerry);
         }
+
+        int newPosition = player.getPosition();
 
         String positionAsString = String.valueOf(newPosition);
         Field disbutedField = bank.getFieldById(positionAsString);

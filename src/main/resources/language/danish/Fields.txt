@@ -38,4 +38,3 @@
 38~Frederiksberggade~Pris: 350 kr.~De er landet på Frederiksberggade.
 39~Extraordinær statsskat~Betal 100 kr.~De skal betale extraordinær statsskat.
 40~Rådhuspladsen~Pris: 400 kr.~De er landet på Rådhuspladsen.
-
