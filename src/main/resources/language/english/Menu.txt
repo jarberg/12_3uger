@@ -30,8 +30,8 @@ Which field will You build on?
 Do a thing
 Pay
 Sell
-Sell get outa jail card
-Use get outa jail card
+Sell get outta jail card
+Use get outta jail card
 Throw dice
 Buy building
 End turn
