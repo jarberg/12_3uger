@@ -15,7 +15,7 @@ public class Player {
     private boolean doubleTurn;
     private boolean inJail = false;
     private boolean hasPassedStart = false;
-    private int doublethrownum =2;
+    private int doublethrownum =0;
 
     //constructor
     public Player(String name){

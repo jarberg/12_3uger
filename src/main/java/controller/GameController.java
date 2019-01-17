@@ -102,6 +102,7 @@ public class GameController {
     }
 
     private void playTurn(){
+
         currentTurn++;
 
 
