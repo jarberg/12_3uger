@@ -1,40 +1,41 @@
-1~Start~Modtag 200 kr.~Hvad løber og løber men lander alligevel tilbage på start? Dig!
-2~Rødovrevej~Pris: 60 kr.~De er ankommet til Rødovrevej.
-3~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+1~Start~Modtag 200 kr.~Hvad lober og lober men lander alligevel tilbage på start? Dig!
+2~Rodovrevej~Pris: 60 kr.~De er ankommet til Rodovrevej.
+3~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
 4~Hvidovre~Pris: 60 kr.~De er ankommet til Hvidovrevej.
 5~Indkomstskat~Betal indkomstskat 10% eller 200 kr.~De skal betale indkomstskat på 10% eller 200 kr.
-6~Øresund A/S~Pris: 200 kr.~De er ankommet til Øresundsfærgen.
+6~Oresund A/S~Pris: 200 kr.~De er ankommet til Øresundsfaergen.
 7~Roskildevej~Pris: 100 kr.~De er ankommet til Roskildevej.
-8~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+8~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
 9~Valby Langgade~Pris: 100 kr.~De er ankommet til Valby Langgade.
-10~Allégade~Pris: 120 kr.~De er ankommet til Allégade.
-11~Fængsel~Her bor de frihedsbesværede~De er på besøg ved fængslet.
-12~Frederiksberg Allé~Pris: 140 kr.~De er ankommet til Frederiksberg Allé.
+10~Allegade~Pris: 120 kr.~De er ankommet til Allégade.
+11~Faengsel~Her bor de frihedsbesvaerede~De er på besog ved faengslet.
+12~Frederiksberg Alle~Pris: 140 kr.~De er ankommet til Frederiksberg Allé.
 13~Tuborg Bryggeri~Pris: 150 kr.~De er ankommet til Tuborg Bryggeri.
-14~Bülowsvej~Pris: 140 kr.~De er ankommet til Bülowsvej.
+14~Bylowsvej~Pris: 140 kr.~De er ankommet til Bülowsvej.
 15~Gamle Kongevej~Pris: 160 kr.~De er ankommet til Gamle Kongevej.
 16~D.F.D.S. A/S~Pris: 200 kr.~De er ankommet til D.F.D.S.
 17~Bernstorffsvej~Pris: 180 kr.~De er ankommet til Bernstorffsvej.
-18~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+18~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
 19~Hellerupvej~Pris: 180 kr.~De er ankommet til Hellerupvej.
 20~Strandvej~Pris: 200 kr.~De er ankommet til Strandvejen.
 21~Helle~Et sikkert sted~De er i helle.
 22~Trianglen~Pris: 220 kr.~De er landet på trianglen.
-23~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
-24~Østerbrogade~Pris: 220 kr.~De er ankommet til Østerbrogade.
-25~Grønningen~Pris: 240 kr.~De er ankommet til Grønningen.
-26~Ø.K. dampskibe~Pris: 200 kr.~De er landet på Ø.K. dampskibe.
+23~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
+24~Osterbrogade~Pris: 220 kr.~De er ankommet til Osterbrogade.
+25~Gronningen~Pris: 240 kr.~De er ankommet til Gronningen.
+26~O.K. dampskibe~Pris: 200 kr.~De er landet på O.K. dampskibe.
 27~Bredgade~Pris: 260 kr.~De er landet på Bredgade.
 28~Nytorv~Pris: 260 kr.~De er landet på Nytorvet.
-29~Carlsberg~Pris: 150 kr.~De er ankommet til Carlsberg. Drik nu ikke for mange øl!
-30~Østergade~Pris: 280 kr.~De er ankommet til Østergade.
-31~Gå i fænglsel~Gå i fængsel~De er landet på gå i fængsel.
+29~Carlsberg~Pris: 150 kr.~De er ankommet til Carlsberg. Drik nu ikke for mange ol!
+30~Ostergade~Pris: 280 kr.~De er ankommet til Ostergade.
+31~Gaa i faenglsel~Gaa i faengsel~De er landet på gaa i faengsel.
 32~Amagertorv~Pris: 300 kr.~De er ankommet til Amagertorvet.
 33~Vimmelskaftet~Pris: 300 kr.~De er landet på Vimmelkaftet.
-34~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+34~Prov Lykken~Traek et chancekort~De prøver lykken. Traek et chancekort.
 35~Nygade~Pris: 320 kr.~De er landet på Nygade.
-36~D/S Bornholm 1866~Pris: 200 kr.~De er ankommet til Bornholmerfærgen.
-37~Prøv Lykken~Træk et chancekort~De prøver lykken. Træk et chancekort.
+36~D/S Bornholm 1866~Pris: 200 kr.~De er ankommet til Bornholmerfaergen.
+37~Prøv Lykken~Traek et chancekort~De prøver lykken. Traek et chancekort.
 38~Frederiksberggade~Pris: 350 kr.~De er landet på Frederiksberggade.
-39~Extraordinær statsskat~Betal 100 kr.~De skal betale extraordinær statsskat.
-40~Rådhuspladsen~Pris: 400 kr.~De er landet på Rådhuspladsen.
+39~Extraordinaer statsskat~Betal 100 kr.~De skal betale extraordinaer statsskat.
+40~Raadhuspladsen~Pris: 400 kr.~De er landet på Raadhuspladsen.
+
