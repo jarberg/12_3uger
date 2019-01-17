@@ -5,7 +5,7 @@
 5~Indkomstskat~Betal indkomstskat 10% eller 200 kr.~De skal betale indkomstskat på 10% eller 200 kr.
 6~Oeresund A/S~Pris: 200 kr.~De er ankommet til Oeresundsfaergen.
 7~Roskildevej~Pris: 100 kr.~De er ankommet til Roskildevej.
-8~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
+8~Proev Lykken~Traek et chancekort~De proever lykken. Traek et chancekort.
 9~Valby Langgade~Pris: 100 kr.~De er ankommet til Valby Langgade.
 10~Alleegade~Pris: 120 kr.~De er ankommet til Alleegade.
 11~Faengsel~Her bor de frihedsbesvaerede~De er på besog ved faengslet.
@@ -15,14 +15,14 @@
 15~Gamle Kongevej~Pris: 160 kr.~De er ankommet til Gamle Kongevej.
 16~D.F.D.S. A/S~Pris: 200 kr.~De er ankommet til D.F.D.S.
 17~Bernstorffsvej~Pris: 180 kr.~De er ankommet til Bernstorffsvej.
-18~Proev Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
+18~Proev Lykken~Traek et chancekort~De proever lykken. Traek et chancekort.
 19~Hellerupvej~Pris: 180 kr.~De er ankommet til Hellerupvej.
 20~Strandvej~Pris: 200 kr.~De er ankommet til Strandvejen.
 21~Helle~Et sikkert sted~De er i helle.
 22~Trianglen~Pris: 220 kr.~De er landet på trianglen.
-23~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
+23~Proev Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
 24~Oesterbrogade~Pris: 220 kr.~De er ankommet til Oesterbrogade.
-25~Groenningen~Pris: 240 kr.~De er ankommet til Groe?nningen.
+25~Groenningen~Pris: 240 kr.~De er ankommet til Groenningen.
 26~O.K. dampskibe~Pris: 200 kr.~De er landet på O.K. dampskibe.
 27~Bredgade~Pris: 260 kr.~De er landet på Bredgade.
 28~Nytorv~Pris: 260 kr.~De er landet på Nytorvet.
@@ -31,7 +31,7 @@
 31~Gaa i faenglsel~Gaa i faengsel~De er landet på gaa i faengsel.
 32~Amagertorv~Pris: 300 kr.~De er ankommet til Amagertorvet.
 33~Vimmelskaftet~Pris: 300 kr.~De er landet på Vimmelkaftet.
-34~Prov Lykken~Traek et chancekort~De proever lykken. Traek et chancekort.
+34~Proev Lykken~Traek et chancekort~De proever lykken. Traek et chancekort.
 35~Nygade~Pris: 320 kr.~De er landet på Nygade.
 36~D/S Bornholm 1866~Pris: 200 kr.~De er ankommet til Bornholmerfaergen.
 37~Proev Lykken~Traek et chancekort~De proever lykken. Traek et chancekort.
