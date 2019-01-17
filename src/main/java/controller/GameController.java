@@ -49,10 +49,6 @@ public class GameController {
 
     public void playGame(){
         setupGame();
-        for(Field field : board.getFields()){
-            if(field instanceof PropertyField)
-                bank.addFieldToPlayer(playerlist.getAllPlayers()[1], field);
-        }
         viewController.showFieldMessage(playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
         while(!checkIfAllBroke()){
             playTurn();
@@ -352,6 +348,9 @@ public class GameController {
         if(field instanceof TaxField){
 
         }
+        if (bank.getPlayerNamesWithNoHouses().length > 1){
+            choiceList.add("TradeProperty,9");
+        }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
         choiceList.add(String.format(languageCollection.getMenu()[36]+",0"));
 
@@ -379,7 +378,7 @@ public class GameController {
 
         choiceOptions = reverseStringArray(choiceOptions);
         choices = reverse2DStringArray(choices);
-        String choiceList = viewController.getUserSelection(LanguageStringCollection.getSingleInstance().getMenu()[28], choiceOptions);
+        String choiceList = viewController.getUserSelection(LanguageStringCollection.getSingleInstance().getMenu()[29], choiceOptions);
 
         for (int i = 0; i < choiceOptions.length ; i++) {
             if(choiceOptions[i].equals(choiceList)){
@@ -426,7 +425,7 @@ public class GameController {
                         {endTurn =true;}
                     break;
 
-            case 9: ;
+            case 9: tradecontroller.tradePropertyWithPlayer(player);
                     break;
         }
    }

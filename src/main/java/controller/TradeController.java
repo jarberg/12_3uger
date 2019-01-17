@@ -169,4 +169,53 @@ public class TradeController {
         viewController.addBuilding(field);
     }
 
+    public void tradePropertyWithPlayer(Player sourcePlayer){
+        String message = "Which player would you like to trade property with?";
+        String[] names = bank.getPlayerNamesWithNoHouses();
+
+        // update names so it doenst include the sourcePlayer
+        String[] temp = new String[names.length-1];
+        int counter = 0;
+        for (String name : names) {
+            if (!name.equals(sourcePlayer.getName())) {
+                temp[counter] = name;
+                counter++;
+            }
+        }
+        names = temp;
+
+        String playerChoice = viewController.getUserSelection(message, names);
+        Player targetPlayer = bank.getPlayerByName(playerChoice);
+
+        String message3 = sourcePlayer.getName() + " properties of source Player?";
+        String sourceProperty = viewController.getUserSelection(message3, bank.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
+        Field sField = bank.getFieldByName(sourceProperty);
+
+
+        String message4 = sourcePlayer.getName() + " properties of selected player?";
+        String targetProperty = viewController.getUserSelection(message4, bank.getPropertyNamesWithNoHousesByPlayer(targetPlayer));
+        Field tField = bank.getFieldByName(targetProperty);
+
+
+        String message2 = "Does targetPlayerName accept to trade tcfield for scfield ";
+        String yes = languageStringCollection.getMenu()[16];
+        String no = languageStringCollection.getMenu()[17];
+        String[] yesNo = {yes, no};
+        String answer = viewController.getUserButtonSelection(message2, yesNo);
+
+        if (answer.equals(yes)){
+            bank.removeFieldOwner(tField);
+            bank.removeFieldOwner(sField);
+
+            bank.addFieldToPlayer(sourcePlayer, tField);
+            bank.addFieldToPlayer(targetPlayer, sField);
+
+            viewController.showOwner(sourceProperty, targetPlayer.getName(), targetPlayer.getPlayerColor());
+            viewController.showOwner(targetProperty, sourcePlayer.getName(), sourcePlayer.getPlayerColor());
+        }
+
+
+
+    }
+
 }
