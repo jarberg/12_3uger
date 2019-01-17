@@ -309,7 +309,7 @@ public class GameController {
     }
 
     private String[][] getChoices(Player player){
-        List choiceList = new List();
+        String[] choiceList = new String[0];
         boolean playerInJail = player.isInJail();
 
         Field field = board.getFields()[player.getPosition()%40];
@@ -320,33 +320,38 @@ public class GameController {
             if (currentField instanceof  JailField) {
 
                 if (currentTurn>lastTurn) {
-                    choiceList.add(String.format(languageCollection.getMenu()[34]+",9"));
+                    String option = String.format(languageCollection.getMenu()[34]+",9");
+                    choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getJailCardStatus()) {
-                    choiceList.add(String.format(languageCollection.getMenu()[33]+",1"));
+                    String option = String.format(languageCollection.getMenu()[33]+",1");
+                    choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getBalance() > ((JailField) field).getBailAmount()) {
-                    choiceList.add(String.format(languageCollection.getMenu()[30]+" "+((JailField) field).getBailAmount()+ ",2"));
+                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) field).getBailAmount()+ ",2");
+                    choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getBalance() < ((JailField) field).getBailAmount()) {
-                    choiceList.add(languageCollection.getMenu()[31]+ ", 2");
+                    String option = languageCollection.getMenu()[31]+ ", 2";
+                    choiceList = addToStringArray(choiceList, option);
                 }
             }
         }
         if(player.getJailCardStatus()==true){
-            choiceList.add(String.format(languageCollection.getMenu()[32]+",4"));
+            String option = String.format(languageCollection.getMenu()[32]+",4");
+            choiceList = addToStringArray(choiceList, option);
         }
         PropertyField[] buildableProperty = bank.getPlayerBuildableFields(currentPlayer);
         boolean playerCanBuild = (buildableProperty.length > 0);
         if(playerCanBuild){
-            choiceList.add(languageCollection.getMenu()[35
-                    ]+",5");
+            String option = languageCollection.getMenu()[35]+",5";
+            choiceList = addToStringArray(choiceList, option);
         }
         if(bank.getFieldsWithNoHousesByPlayer(player).length>0){
             String pawnString = languageCollection.getMenu()[27];
             String number = "6";
             String choiceString = String.format("%s,%s", pawnString, number);
-            choiceList.add(choiceString);
+            choiceList = addToStringArray(choiceList, choiceString);
         }
 
         if(field instanceof TaxField){
@@ -354,18 +359,28 @@ public class GameController {
         }
         if (bank.getPlayerNamesWithNoHouses().length > 1){
             String message = languageCollection.getMenu()[41];
-            choiceList.add(message+",9");
+            choiceList = addToStringArray(choiceList, message+",9");
         }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
-        choiceList.add(String.format(languageCollection.getMenu()[36]+",0"));
+        String option = String.format(languageCollection.getMenu()[36]+",0");
+        choiceList = addToStringArray(choiceList, option);
 
-        String[][] finalChoiceList = new String[choiceList.getItemCount()][];
+        String[][] finalChoiceList = new String[choiceList.length][];
 
-        for (int i = 0; i <choiceList.getItemCount() ; i++) {
-            finalChoiceList[i] = choiceList.getItem(i).split(",");
+        for (int i = 0; i < choiceList.length ; i++) {
+            finalChoiceList[i] = choiceList[i].split(",");
         }
 
         return finalChoiceList;
+    }
+
+    private String[] addToStringArray(String[] array, String newString){
+        String[] newArray = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++) {
+            newArray[i] = array[i];
+        }
+        newArray[array.length] = newString;
+        return newArray;
     }
 
     private void playerOptions(String[][] choices, Player player) {
