@@ -16,7 +16,7 @@ public class GameController {
     private static GameController singletonInstance = new GameController();
     private LanguageStringCollection languageCollection;
     private LogicStringCollection logicCollection;
-    private ViewController viewController;
+    private ViewControllerInterface viewController;
     private FileReader fileReader;
 
     private DieSet dice;
@@ -45,6 +45,10 @@ public class GameController {
 
     public static GameController getSingleInstance(){
         return singletonInstance;
+    }
+
+    public void setViewController(ViewControllerInterface viewController){
+        this.viewController = viewController;
     }
 
     public void playGame(){
@@ -469,7 +473,14 @@ public class GameController {
     }
 
     private void pawnProperty(Player player){
-        //TODO: Thursday morning  (:
+        String message = languageCollection.getMenu()[22222];
+        viewController.showMessage(message);
+        Field[] fields = bank.getFieldsWithNoHousesByPlayer(player);
+        String[] options = new String[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            options[i] = fields[i].getTitle();
+        }
+        String choice = viewController.getUserSelection(message, options);
    }
 
     private void useJailCard(){
