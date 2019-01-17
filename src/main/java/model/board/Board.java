@@ -36,16 +36,16 @@ public class Board {
                 fieldColor = Color.getHSBColor(60, 5, 100);
                 break;
             case 1: // Rødovre, Hvidovre
-                fieldColor = Color.blue;
+                fieldColor = new Color(115, 175, 228);
                 break;
             case 2: // Roskildevej, ValbyLanggade, Allégade
-                fieldColor = Color.pink;
+                fieldColor = new Color(249, 123, 95);
                 break;
             case 3: //FrederiksbergAllé, Bülowsvej, GamleKongevej
-                fieldColor = Color.green.darker();
+                fieldColor = new Color(155, 254, 146);
                 break;
             case 4: // Bernstrffsvej, Hellerupvej, Strandvej
-                fieldColor = Color.LIGHT_GRAY;
+                fieldColor = new Color(182, 151, 249);
                 break;
             case 5: // Trianglen, Isterbrogade, Grønningen
                 fieldColor = new Color(222, 102, 21);
@@ -54,10 +54,10 @@ public class Board {
                 fieldColor = Color.white;
                 break;
             case 7: // Amagertorv, VimmelSkaft, Nygade
-                fieldColor = Color.yellow.darker();
+                fieldColor = new Color(196, 142, 88);
                 break;
             case 8: // Frederiksberg, Rådhuspladsen
-                fieldColor = Color.magenta;
+                fieldColor = new Color(255, 111, 212);
                 break;
             case 9: // Dampskib
                 fieldColor = Color.cyan;
