@@ -28,7 +28,7 @@
 28~Nytorv~Pris: 260 kr.~De er landet paa Nytorvet.
 29~Carlsberg~Pris: 150 kr.~De er ankommet til Carlsberg. Drik nu ikke for mange oel!
 30~Oestergade~Pris: 280 kr.~De er ankommet til Oestergade.
-31~Gaa i faenglsel~Gaa i faengsel~De er landet paa gaa i faengsel.
+31~Gaa i faengsel~Gaa i faengsel~De er landet paa gaa i faengsel.
 32~Amagertorv~Pris: 300 kr.~De er ankommet til Amagertorvet.
 33~Vimmelskaftet~Pris: 300 kr.~De er landet paa Vimmelkaftet.
 34~Proev Lykken~Traek et chancekort~De proever lykken. Traek et chancekort.
