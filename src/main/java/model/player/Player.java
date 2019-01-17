@@ -65,7 +65,6 @@ public class Player {
         if(position < beforePosition){
             hasPassedStart = true;
         }
-
     }
 
     public void setPositionWithoutStartMoney(int setPosition){

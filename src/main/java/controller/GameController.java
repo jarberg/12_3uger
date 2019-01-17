@@ -52,12 +52,12 @@ public class GameController {
         checkForWinner();
     }
 
-    public void createBoard(int[][] fieldLogic, String[][] fieldInfo){
+    private void createBoard(int[][] fieldLogic, String[][] fieldInfo){
         this.board = new Board(fieldLogic, fieldInfo);
         this.board.setupBoard();
     }
 
-    public boolean checkIfAllBroke(){
+    private boolean checkIfAllBroke(){
         boolean foundWinner = false;
         int counter         = 0;
 
@@ -72,9 +72,9 @@ public class GameController {
         return foundWinner;
     }
 
-    public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
+    private boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
 
-    public void movePlayer(Player player, int position, int amount){
+    private void movePlayer(Player player, int position, int amount){
         player.setPosition((position+amount)%board.getFields().length);
         viewController.movePlayer(currentPlayer.getName(), position, amount);
 
@@ -104,15 +104,8 @@ public class GameController {
         currentPlayer = playerlist.getCurrentPlayer();
 
         checkIfinJailBeforeMoving();
-
         checkIfPassedStart();
-
-
-        int position = currentPlayer.getPosition();
-        currentField = board.getFields()[position];
-
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board);
-        currentField.accept(fieldVisitor);
+        resolveField();
 
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
@@ -122,6 +115,13 @@ public class GameController {
 
     }
 
+    private void resolveField(){
+        int position = currentPlayer.getPosition();
+        currentField = board.getFields()[position];
+
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board);
+        currentField.accept(fieldVisitor);
+    }
 
     private void checkIfinJailBeforeMoving(){
         if(!currentPlayer.isInJail()) {
@@ -141,12 +141,9 @@ public class GameController {
     private void checkIfPassedStart(){
         if(currentPlayer.getPassedStartStatus() && !currentPlayer.isInJail()){
 
-            //TODO: Currently gives money from goToJail. And possibly for moving backwards with chancecard?
             viewController.showMessage(languageCollection.getMenu()[24]);
-
             tradecontroller.transferAssets(currentPlayer, 200);
             currentPlayer.setPassedStartStatus(false);
-
         }
     }
 
@@ -191,7 +188,7 @@ public class GameController {
         return player;
     }
 
-    public Player getPlayer(int index) {
+    private Player getPlayer(int index) {
         return playerlist.getPlayer(index);
     }
 
@@ -199,7 +196,7 @@ public class GameController {
         playerlist.addPlayer(index, player);
     }
 
-    public void setNextPlayer(){
+    private void setNextPlayer(){
         playerlist.setNextPlayer();
     }
 
@@ -215,7 +212,7 @@ public class GameController {
         this.languageCollection = LanguageStringCollection.getSingleInstance();
     }
 
-    public boolean hasPlayerWithName(String name){
+    private boolean hasPlayerWithName(String name){
         for (Player player : playerlist.getAllPlayers()){
             if (player != null && player.getName().equals(name))
                 return true;
@@ -223,7 +220,7 @@ public class GameController {
         return false;
     }
 
-    public void rollDice(Player player){
+    private void rollDice(Player player){
         dice.roll();
         player.setDoubleTurnStatus(checkdiceForDoubleRoll());
     }
@@ -314,7 +311,7 @@ public class GameController {
         tradecontroller.transferAssets(player, amount);
     }
 
-    public String[][] getChoices(Player player){
+    private String[][] getChoices(Player player){
         List choiceList = new List();
         boolean playerInJail = player.isInJail();
 
@@ -363,7 +360,7 @@ public class GameController {
         return finalChoiceList;
     }
 
-    public void playerOptions(String[][] choices,Player player) {
+    private void playerOptions(String[][] choices, Player player) {
         Field field = board.getFields()[player.getPosition()%40];
 
         String[] choiceOptions = new String[choices.length];
@@ -438,7 +435,7 @@ public class GameController {
         return reversed;
     }
 
-    public void getListOfBuildable(){
+    private void getListOfBuildable(){
 
        Field[] fields = bank.getPlayerFields(currentPlayer);
 
@@ -468,11 +465,11 @@ public class GameController {
        buyBuilding(currentPlayer, test);
    }
 
-    public void pawnProperty(Player player){
+    private void pawnProperty(Player player){
         //TODO: Thursday morning  (:
    }
 
-    public void useJailCard(){
+    private void useJailCard(){
         currentPlayer.setJailCardStatus(false);
         currentPlayer.setInJail(false);
    }
