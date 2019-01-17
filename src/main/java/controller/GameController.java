@@ -45,6 +45,10 @@ public class GameController {
 
     public void playGame(){
         setupGame();
+        for(Field field : board.getFields()){
+            if(field instanceof PropertyField)
+                bank.addFieldToPlayer(playerlist.getAllPlayers()[1], field);
+        }
         viewController.showFieldMessage(playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
         while(!checkIfAllBroke()){
             playTurn();

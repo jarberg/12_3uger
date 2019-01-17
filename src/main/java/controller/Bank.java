@@ -414,30 +414,34 @@ public class Bank {
             }
         }
 
-        PropertyField[] buildableFields = new PropertyField[buildableFieldsCandidates.length];
-        int counter2 = 0;
-        for (int i = 0; i < buildableFieldsCandidates.length; i++) {
-            PropertyField currentField = buildableFieldsCandidates[i];
-            PropertyField[] allOfType = getAllPropertyFieldsOfType(currentField);
-            for (int j = 0; j < allOfType.length; j++) {
-                for (int k = 0; k < allOfType.length; k++) {
-                    if(allOfType[k] != allOfType[j]){
-                        boolean buildingCountWithin1 = allOfType[k].getBuildingCount() <= allOfType[j].getBuildingCount()+1 && allOfType[k].getBuildingCount() >= allOfType[j].getBuildingCount()-1;
-                        if(buildingCountWithin1){
-                            boolean alreadyInArray = false;
-                            for(PropertyField propertyField : buildableFields){
-                                if(propertyField == allOfType[k])
-                                    alreadyInArray = true;
-                            }
-                            if(!alreadyInArray){
-                                buildableFields[counter2] = allOfType[k];
-                                counter2++;
-                            }
-                        }
-                    }
-                }
+        int counter3 = 0;
+        for (PropertyField field : buildableFieldsCandidates){
+            PropertyField[] allOfType = getAllPropertyFieldsOfType(field);
+            int lowestCount = 5;
+            for(PropertyField propertyField : allOfType){
+                if(propertyField.getBuildingCount() < lowestCount)
+                    lowestCount = propertyField.getBuildingCount();
+            }
+            if(field.getBuildingCount() == lowestCount){
+                counter3++;
             }
         }
+
+        PropertyField[] buildableFields = new PropertyField[counter3];
+        counter3 = 0;
+        for (PropertyField field : buildableFieldsCandidates){
+            PropertyField[] allOfType = getAllPropertyFieldsOfType(field);
+            int lowestCount = 5;
+            for(PropertyField propertyField : allOfType){
+                if(propertyField.getBuildingCount() < lowestCount)
+                    lowestCount = propertyField.getBuildingCount();
+            }
+            if(field.getBuildingCount() == lowestCount){
+                buildableFields[counter3] = field;
+                counter3++;
+            }
+        }
+
         return buildableFields;
     }
 
