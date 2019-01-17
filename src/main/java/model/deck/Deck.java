@@ -21,7 +21,7 @@ public class Deck {
 
             switch (deckLogic[i][0]){
                 case "1":
-                    cardArray[i] = new GetOutOfJailCard(desc);
+                    cardArray[i] = new GetOutOfJailCard(desc, info1int);
                     break;
                 case "2":
                     cardArray[i] = new MonopolyJackpotCard(desc,info1int,info2int);
