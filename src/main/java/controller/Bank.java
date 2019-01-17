@@ -307,7 +307,7 @@ public class Bank {
 
         for (Field aPlayerFieldList : playerFieldList) {
             if(aPlayerFieldList instanceof PropertyField) {
-                if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
+                if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0 && !((PropertyField) aPlayerFieldList).getPawnedStatus()) {
 
                     Field[] temp = new Field[ownedFields.length + 1];
 

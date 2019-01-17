@@ -1,15 +1,15 @@
 1~Start~Receive 200 kr.~You landed on Start.
-2~Rodovrevej~Price: 60 kr.~You landed on Rodovrevej.
+2~Roedovrevej~Price: 60 kr.~You landed on Roedovrevej.
 3~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
 4~Hvidovre~Price: 60 kr.~You landed on Hvidovre.
 5~Income tax~pay income tax 10% or 200 kr.~You have to pay income tax at 10% or 200 kr.
-6~Oresund A/S~Price: 200 kr.~You landed on Oresundsfaergen.
+6~Oeresund A/S~Price: 200 kr.~You landed on Oeresundsfaergen.
 7~Roskildevej~Price: 100 kr.~You landed on Roskildevej.
 8~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
 9~Valby Langgade~Price: 100 kr.~You landed on Valby Langgade.
-10~Allegade~Price: 120 kr.~You landed on Allegade.
+10~Alleegade~Price: 120 kr.~You landed on Alleegade.
 11~Jail~This is where people have no freedom~You visit the jail.
-12~Frederiksberg Alle~Price: 140 kr.~You landed on Frederiksberg Alle.
+12~Frederiksberg Allee~Price: 140 kr.~You landed on Frederiksberg Allee.
 13~Tuborg Brewery~Price: 150 kr.~You landed on Tuborg Brewery.
 14~Bylowsvej~Price: 140 kr.~You landed on Bylowsvej.
 15~Gamle Kongevej~Price: 160 kr.~You landed on Gamle Kongevej.
@@ -21,13 +21,13 @@
 21~Safe house~This is a safe place~You are safe.
 22~Trianglen~Price: 220 kr.~You landed on trianglen.
 23~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
-24~Osterbrogade~Price: 220 kr.~You landed on Osterbrogade.
-25~Gronningen~Price: 240 kr.~You landed on Gronningen.
+24~Oesterbrogade~Price: 220 kr.~You landed on Oesterbrogade.
+25~Groenningen~Price: 240 kr.~You landed on Groenningen.
 26~O.K. dampskibe~Price: 200 kr.~You landed on O.K. dampskibe.
 27~Bredgade~Price: 260 kr.~You landed on Bredgade.
 28~Nytorv~Price: 260 kr.~You landed on Nytorvet.
 29~Carlsberg~Price: 150 kr.~You landed on Carlsberg. Don't drink too much beer!
-30~Ostergade~Price: 280 kr.~You landed on Ostergade.
+30~Oestergade~Price: 280 kr.~You landed on Oestergade.
 31~Go to jail~Go to jail~You committed a crime and got caught. Go to jail.
 32~Amagertorv~Price: 300 kr.~You landed on Amagertorvet.
 33~Vimmelskaftet~Price: 300 kr.~You landed on Vimmelkaftet.

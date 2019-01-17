@@ -1,42 +1,44 @@
 Hvor mange spillere er i?
 Hvem er du?
 Hvor gammel er du?
-Så er det tid til at slå med terningerne. Det er din tur,
-Hvilken bil vælger du?
+Saa er det tid til at slaa med terningerne. Det er din tur,
+Hvilken bil vaelger du?
 Den cyan UFO
-Den røde racerbil
+Den roede racerbil
 Den orange traktor
-Den grønne bil
-Den blå UFO
+Den groenne bil
+Den blaa UFO
 Den pinke racerbil
 starter
-Hvilken vælger De?
+Hvilken vaelger De?
 Betal de faste 200 kr.
-Betal 10% af din totale værdi.
-Vil De købe dette felt?
+Betal 10% af din totale vaerdi.
+Vil De koebe dette felt?
 Ja
 Nej
 %s har betalt %s til %s
-Sælg Bygning
-Sælg Grund
-Hvad sælger De?
-%s er gået fallit
+Saelg Bygning
+Saelg Grund
+Hvad saelger De?
+%s er gaaet fallit
 Betal de faste 100 kr.
 De passerer start og modtager 200 kr.
 %s har vundet!
 %s har pantsat dette felt, og kan derfor ikke modtage rente.
-Pantsæt grund
-Hvilket felt bygger De på?
-Gør en ting
+Pantsaet grund
+Hvilket felt bygger De paa?
+Goer en ting
 Betal
-Sælg
-Sælg frihedskort
+Saelg
+Saelg frihedskort
 Brug frihedskort
 Kast terning
-Køb bygning
+Koeb bygning
 Afslut tur
 Hvilken spiller vil De gerne bytte grund med?
-%s vælger en af sine grunde at bytte med
+%s vaelger en af sine grunde at bytte med
 Hvilken grund vil de bytte grunden for?
 Accepterer %s at give %s i bytte for %s ?
 Byt grund
+Vaer venlig at skrive et nyt navn!
+Hvilken grund oensker du at pantsaette?
