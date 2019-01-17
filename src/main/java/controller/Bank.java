@@ -389,8 +389,8 @@ public class Bank {
         counter = 0;
         for(Field field : playerFields){
             if(field instanceof PropertyField){
-                counter++;
                 candidateFields[counter] = (PropertyField) field;
+                counter++;
             }
         }
 
@@ -421,16 +421,18 @@ public class Bank {
             PropertyField[] allOfType = getAllPropertyFieldsOfType(currentField);
             for (int j = 0; j < allOfType.length; j++) {
                 for (int k = 0; k < allOfType.length; k++) {
-                    boolean buildingCountWithin1 = allOfType[k].getBuildingCount() <= allOfType[j].getBuildingCount()+1 && allOfType[k].getBuildingCount() >= allOfType[j].getBuildingCount()-1;
-                    if(buildingCountWithin1){
-                        boolean alreadyInArray = false;
-                        for(PropertyField propertyField : buildableFields){
-                            if(propertyField == allOfType[k])
-                                alreadyInArray = true;
-                        }
-                        if(!alreadyInArray){
-                            buildableFields[counter2] = allOfType[k];
-                            counter2++;
+                    if(allOfType[k] != allOfType[j]){
+                        boolean buildingCountWithin1 = allOfType[k].getBuildingCount() <= allOfType[j].getBuildingCount()+1 && allOfType[k].getBuildingCount() >= allOfType[j].getBuildingCount()-1;
+                        if(buildingCountWithin1){
+                            boolean alreadyInArray = false;
+                            for(PropertyField propertyField : buildableFields){
+                                if(propertyField == allOfType[k])
+                                    alreadyInArray = true;
+                            }
+                            if(!alreadyInArray){
+                                buildableFields[counter2] = allOfType[k];
+                                counter2++;
+                            }
                         }
                     }
                 }

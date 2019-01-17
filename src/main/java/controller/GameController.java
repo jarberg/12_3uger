@@ -273,8 +273,8 @@ public class GameController {
     }
 
 
-    private void buyBuilding(Player player, Field aField){
-
+    private void buyBuilding(Player player, PropertyField field){
+        tradecontroller.buyBuilding(player, field);
     }
 
     //TODO: Use trade controller
@@ -419,7 +419,7 @@ public class GameController {
         String message = languageCollection.getMenu()[28];
         Field test= bank.getFieldByName(viewController.getUserSelection(message, options));
 
-        buyBuilding(currentPlayer, test);
+        buyBuilding(currentPlayer, (PropertyField) test);
     }
 
    public void pawnProperty(Player player){
