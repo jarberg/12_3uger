@@ -28,8 +28,11 @@ public class GameController {
     private Board board;
     private Bank bank = Bank.getSingleInstance();
     private Deck deck;
+    private int lastTurn;
+    int currentTurn;
     TradeController tradecontroller = TradeController.getSingleInstance();
 
+    //TODO: if time. split into usecase controllers
     private GameController(){
 
         this.fileReader         = FileReader.getSingleInstance();
@@ -99,6 +102,8 @@ public class GameController {
     }
 
     private void playTurn(){
+        currentTurn++;
+
 
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
@@ -112,6 +117,10 @@ public class GameController {
         }
 
         setNextPlayer();
+
+
+        lastTurn = currentTurn;
+
 
     }
 
@@ -321,6 +330,10 @@ public class GameController {
         if(playerInJail) {
             //TODO: Had a player stuck in jail forever
             if (currentField instanceof  JailField) {
+
+                if (currentTurn>lastTurn) {
+                    choiceList.add("throw,9");
+                }
                 if (player.getJailCardStatus()) {
                     choiceList.add("Use JailCard,1");
                 }
@@ -375,8 +388,7 @@ public class GameController {
 
         choiceOptions = reverseStringArray(choiceOptions);
         choices = reverse2DStringArray(choices);
-
-        String choiceList = viewController.getUserSelection("Do a thing", choiceOptions);
+        String choiceList = viewController.getUserSelection(LanguageStringCollection.getSingleInstance().getMenu()[28], choiceOptions);
 
         for (int i = 0; i < choiceOptions.length ; i++) {
             if(choiceOptions[i].equals(choiceList)){
@@ -386,36 +398,44 @@ public class GameController {
 
         switch(typeChoice){
 
-            case 0: this.endTurn = true;    break;
+            case 0: this.endTurn = true;
+                    break;
 
-            case 1: useJailCard();    break;
+            case 1: useJailCard();
+                    break;
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
                     viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
                     currentPlayer.setInJail(false);
                     break;
 
-            case 3: this.endTurn = true;    break;
+            case 3: this.endTurn = true;
+                    break;
 
             //TODO: Make sure this method isn't breaking anything
-            case 4: sellJailCard();    break;
+            case 4: sellJailCard();
+                    break;
 
-            case 5: getListOfBuildable();    break;
+            case 5: getListOfBuildable();
+                    break;
 
-            case 6: pawnProperty(player);    break;
+            case 6: pawnProperty(player);
+                    break;
 
-            case 7: this.endTurn = true;    break;
+            case 7: this.endTurn = true;
+                    break;
 
-            case 8: ;break;
+            case 8: ;
+                    break;
 
-            case 9: ;break;
+            case 9: ;
+                    break;
         }
    }
 
     private void sellJailCard() {
         currentPlayer.setJailCardStatus(false);
-        //TODO: Not hardcode this
-        int jailCardPrice = 50;
+        int jailCardPrice = Integer.parseInt(logicCollection.getChanceCard()[25][2]);
         tradecontroller.transferAssets(currentPlayer, jailCardPrice / 2);
     }
 
@@ -447,14 +467,11 @@ public class GameController {
                String[] temp = new String[usableFields.length + 1];
 
                for (int i = 0; i < usableFields.length; i++) {
-
                    temp[i] = usableFields[i];
-
                }
                temp[temp.length - 1] = aField.getTitle();
                usableFields = temp;
            }
-
        }
        if(usableFields.length == 0){
             usableFields = new String[]{"you have no viable options"};
@@ -473,8 +490,4 @@ public class GameController {
         currentPlayer.setJailCardStatus(false);
         currentPlayer.setInJail(false);
    }
-
-
-
-
 }
