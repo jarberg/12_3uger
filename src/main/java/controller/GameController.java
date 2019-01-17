@@ -31,11 +31,12 @@ public class GameController {
     TradeController tradecontroller = TradeController.getSingleInstance();
 
     private GameController(){
-        this.fileReader = FileReader.getSingleInstance();
-        this.viewController = ViewController.getSingleInstance();
-        this.logicCollection = LogicStringCollection.getSingleInstance();
+
+        this.fileReader         = FileReader.getSingleInstance();
+        this.viewController     = ViewController.getSingleInstance();
+        this.logicCollection    = LogicStringCollection.getSingleInstance();
         this.languageCollection = LanguageStringCollection.getSingleInstance();
-        dice = new DieSet();
+        dice                    = new DieSet();
     }
 
     public static GameController getSingleInstance(){
@@ -57,8 +58,8 @@ public class GameController {
     }
 
     public boolean checkIfAllBroke(){
-        boolean foundWinner=false;
-        int counter=0;
+        boolean foundWinner = false;
+        int counter         = 0;
 
         for (Player player : playerlist.getAllPlayers()){
             if (player.getBrokeStatus())
@@ -100,38 +101,53 @@ public class GameController {
     private void playTurn(){
 
         endTurn = false;
-
         currentPlayer = playerlist.getCurrentPlayer();
-        if(!currentPlayer.isInJail()) {
-            rollAndShowDice(currentPlayer);
-            int lastField = currentPlayer.getPosition();
-            int sumOfDice = dice.getDieOneValue() + dice.getDieTwoValue();
 
-        movePlayer(currentPlayer, lastField, sumOfDice);
-        }
-        if(currentPlayer.getPassedStartStatus()){
-            //TODO: Currently gives money from goToJail. And possibly for moving backwards with chancecard?
-            currentPlayer.addToBalance(200);
-            currentPlayer.setPassedStartStatus(false);
-            viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
-            viewController.showMessage(languageCollection.getMenu()[24]);
-        }
+        checkIfinJailBeforeMoving();
+
+        checkIfPassedStart();
+
 
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
-
         FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board);
         currentField.accept(fieldVisitor);
-
 
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
 
-
         setNextPlayer();
 
+    }
+
+
+    private void checkIfinJailBeforeMoving(){
+        if(!currentPlayer.isInJail()) {
+            rollAndShowDice(currentPlayer);
+            int lastField = currentPlayer.getPosition();
+            int sumOfDice = dice.getDieOneValue() + dice.getDieTwoValue();
+
+            if(currentPlayer.getDoubleThrowNum()>2){
+                currentPlayer.setInJail(true);
+                sumOfDice = (40-lastField+10)%40;
+                endTurn = true;
+            }
+            movePlayer(currentPlayer, lastField, sumOfDice);
+        }
+    }
+
+    private void checkIfPassedStart(){
+        if(currentPlayer.getPassedStartStatus() && !currentPlayer.isInJail()){
+
+            //TODO: Currently gives money from goToJail. And possibly for moving backwards with chancecard?
+            viewController.showMessage(languageCollection.getMenu()[24]);
+
+            tradecontroller.transferAssets(currentPlayer, 200);
+            currentPlayer.setPassedStartStatus(false);
+
+        }
     }
 
     private void rollAndShowDice(Player curPlayer){
@@ -165,7 +181,6 @@ public class GameController {
         this.deck  = new Deck(deckLogic, deckText);
     }
 
-
     private Player getPlayerByName(String playerName){
         Player player = null;
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
@@ -187,7 +202,6 @@ public class GameController {
     public void setNextPlayer(){
         playerlist.setNextPlayer();
     }
-
 
     public void Auktion(Player player, Field field){
 
@@ -272,35 +286,32 @@ public class GameController {
         return playerAmount;
     }
 
-
     private void buyBuilding(Player player, Field aField){
 
-            if (aField instanceof PropertyField) {
-                if (bank.isOwnerOfAllFieldsOfType(currentPlayer, aField)) {
-                    if (((PropertyField) aField).getBuildingCount() == 5) {
+        if (aField instanceof PropertyField) {
+            if (bank.isOwnerOfAllFieldsOfType(currentPlayer, aField)) {
+                if (((PropertyField) aField).getBuildingCount() == 5) {
+
+                } else {
+                    if (((PropertyField) aField).getBuildingCount() < 5) {
+                        ((PropertyField) aField).addBuilding();
+                        viewController.addBuilding(((PropertyField) aField));
+                        payment(player, -((PropertyField) aField).getBuildingPrice());
 
                     } else {
-                        if (((PropertyField) aField).getBuildingCount() < 5) {
-                            ((PropertyField) aField).addBuilding();
-                            viewController.addBuilding(((PropertyField) aField));
-                            payment(player, -((PropertyField) aField).getBuildingPrice());
 
-                        } else {
-
-                            ((PropertyField) aField).addBuilding();
-                            viewController.addBuilding(((PropertyField) aField));
-                            payment(player, -((PropertyField) aField).getBuildingPrice());
-                        }
+                        ((PropertyField) aField).addBuilding();
+                        viewController.addBuilding(((PropertyField) aField));
+                        payment(player, -((PropertyField) aField).getBuildingPrice());
                     }
                 }
             }
+        }
     }
 
-    //TODO: Use trade controller
     private void payment(Player player, int amount){
         player.addToBalance(amount);
-        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance()
-        );
+        tradecontroller.transferAssets(player, amount);
     }
 
     public String[][] getChoices(Player player){
@@ -398,7 +409,7 @@ public class GameController {
 
             case 7: this.endTurn = true;    break;
 
-            case 8: ;  break;
+            case 8: ;break;
 
             case 9: ;break;
         }
@@ -457,14 +468,15 @@ public class GameController {
        buyBuilding(currentPlayer, test);
    }
 
-   public void pawnProperty(Player player){
+    public void pawnProperty(Player player){
         //TODO: Thursday morning  (:
    }
 
-   public void useJailCard(){
+    public void useJailCard(){
         currentPlayer.setJailCardStatus(false);
         currentPlayer.setInJail(false);
    }
+
 
 
 

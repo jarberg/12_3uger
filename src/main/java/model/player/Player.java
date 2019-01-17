@@ -15,6 +15,7 @@ public class Player {
     private boolean doubleTurn;
     private boolean inJail = false;
     private boolean hasPassedStart = false;
+    private int doublethrownum =2;
 
     //constructor
     public Player(String name){
@@ -28,7 +29,6 @@ public class Player {
 
 
     //getters
-
     public String getName(){ return this.name;    }
 
     public boolean getJailCardStatus(){   return this.hasGetOutOfJailCard; }
@@ -52,8 +52,6 @@ public class Player {
     }
 
     //Setters
-
-
     public void setJailCardStatus(boolean status){   this.hasGetOutOfJailCard = status; }
 
     public void addToBalance(int amount){ this.account.addToBalance(amount); }
@@ -79,10 +77,18 @@ public class Player {
         hasPassedStart = status;
     }
 
-
     public void setBrokeStatus(boolean status){ this.broke = status; }
 
-    public void setDoubleTurnStatus(boolean status){ this.doubleTurn = status; }
+    public void setDoubleTurnStatus(boolean status){
+        this.doubleTurn = status;
+        if(status){
+            this.doublethrownum++;
+        }
+        else
+        {
+            this.doublethrownum =0;
+        }
+    }
 
     public boolean isInJail() {
         return inJail;
@@ -90,5 +96,9 @@ public class Player {
 
     public void setInJail(boolean inJail) {
         this.inJail = inJail;
+    }
+
+    public int getDoubleThrowNum(){
+        return this.doublethrownum;
     }
 }
