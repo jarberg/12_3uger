@@ -1,7 +1,7 @@
 Hvor mange spillere er i?
 Hvem er du?
 Hvor gammel er du?
-Så er det tid til at slaa med terningerne. Det er din tur,
+Saa er det tid til at slaa med terningerne. Det er din tur,
 Hvilken bil vaelger du?
 Den cyan UFO
 Den roede racerbil
@@ -26,7 +26,7 @@ De passerer start og modtager 200 kr.
 %s har vundet!
 %s har pantsat dette felt, og kan derfor ikke modtage rente.
 Pantsaet grund
-Hvilket felt bygger De på?
+Hvilket felt bygger De paa?
 Goer en ting
 Betal
 Saelg
@@ -40,5 +40,5 @@ Hvilken spiller vil De gerne bytte grund med?
 Hvilken grund vil de bytte grunden for?
 Accepterer %s at give %s i bytte for %s ?
 Byt grund
-Vær venlig at skrive et nyt navn!
-Hvilken grund ønsker du at pantsætte?
+Vaer venlig at skrive et nyt navn!
+Hvilken grund oensker du at pantsaette?
