@@ -1,8 +1,8 @@
 CARD_1~Receive dividends from your shares: kr. 50,00.
 CARD_2~You receive the "Monopoly-grant for the appropriately poor", an entire kr. 2000. By appropriately poor it is understood that your assets,  that is your cash + deeds + buildings, does not exceed kr. 750.
-CARD_3~Go to Rådhuspladsen.
-CARD_4~Move to Grønningen. If you pass "Start", receive kr. 200,00.
-CARD_5~Take the Øresund ferry - Move forward, and og if you pass "Start", receive kr. 200,00.
+CARD_3~Go to Raadhuspladsen.
+CARD_4~Move to Groenningen. If you pass "Start", receive kr. 200,00.
+CARD_5~Take the Oeresund ferry - Move forward, and og if you pass "Start", receive kr. 200,00.
 CARD_6~Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
 CARD_7~You have received a parking ticket. Pay the bank kr 20,00.
 CARD_8~Go to jail. Move directly to the jail. Even if you pass "Start", do not receive kr. 200,00.
