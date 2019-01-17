@@ -6,6 +6,7 @@ import model.player.Player;
 
 public class DrawController implements Drawer {
 
+
     private Player player;
     private Player[] otherPlayers;
     private ViewController viewController;
