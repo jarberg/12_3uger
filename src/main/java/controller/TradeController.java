@@ -1,6 +1,7 @@
 package controller;
 
 import model.board.BreweryField;
+import model.board.FerryField;
 import model.board.Field;
 import model.board.PropertyField;
 import model.player.Player;
@@ -138,6 +139,10 @@ public class TradeController {
 
         if(field instanceof BreweryField){
             transferAssets(targetPlayer, -((BreweryField)field).getPrice());
+        }
+
+        if(field instanceof FerryField){
+            transferAssets(targetPlayer, -((FerryField)field).getPrice());
         }
     }
 

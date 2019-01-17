@@ -8,6 +8,7 @@ public class FerryField extends Field {
     private String type;
     private int price;
     private int[] rents;
+    private boolean pawned;
 
     public FerryField(String ID, String title, String subtitle, String message, Color fieldColor, String type, int price, int... rents) {
         super(ID, title, subtitle, message, fieldColor);
@@ -29,8 +30,16 @@ public class FerryField extends Field {
         return type;
     }
 
-    public int[] getRents() {
-        return rents;
+    public int getRent(int amountOwned) {
+        return rents[amountOwned-1];
+    }
+
+    public boolean getPawnedStatus(){
+        return this.pawned;
+    }
+
+    public void setPawnedStatus(boolean status){
+        this.pawned = status;
     }
 
 }

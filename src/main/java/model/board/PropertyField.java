@@ -12,6 +12,7 @@ public class PropertyField extends Field {
     private int buildingCount;
     private int[] rents;
     private boolean owned=false ;
+    private boolean pawned;
 
     public PropertyField(String ID, String title, String subtitle, String message, Color fieldColor, String type, int price, int buildingPrice, int... rents){
         super(ID, title, subtitle, message, fieldColor);
@@ -61,5 +62,13 @@ public class PropertyField extends Field {
 
     public void setOwned(boolean owned) {
         this.owned = owned;
+    }
+
+    public boolean getPawnedStatus(){
+        return this.pawned;
+    }
+
+    public void setPawnedStatus(boolean status){
+        this.pawned = status;
     }
 }

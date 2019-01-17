@@ -13,21 +13,23 @@ public class FieldVisitor implements Visitor  {
     private Player player;
     private Player[] otherPlayers;
     private Deck deck;
+    private Board board;
     private ViewController viewController = ViewController.getSingleInstance();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
     private static Bank bank = Bank.getSingleInstance();
 
-    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck) {
+    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck, Board board) {
         this.otherPlayers = otherPlayers;
         this.player = currentPlayer;
         this.deck = deck;
+        this.board = board;
     }
     @Override
     public void visit(ChanceField field) {
         Card card = deck.getTopCard();
         deck.putTopCardToBottom();
-        DrawController drawer = new DrawController(player, otherPlayers, bank);
+        DrawController drawer = new DrawController(player, otherPlayers, bank, board);
         card.accept(drawer);
     }
 
@@ -58,13 +60,18 @@ public class FieldVisitor implements Visitor  {
 
             boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
             if(ownedByAnotherPlayer){
-                Player owner = bank.getOwner(field.getID());
-                boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field);
-                if(ownerOwnsAllOfType)
-                    tradeController.transferAssets(player, owner, field.getRent() * PROPERTY_MULTIPLIER);
-                else
-                    tradeController.transferAssets(player, owner, field.getRent());
-
+                boolean fieldIsPawned = field.getPawnedStatus();
+                if(fieldIsPawned){
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    viewController.showMessage(message);
+                } else{
+                    Player owner = bank.getOwner(field.getID());
+                    boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field);
+                    if(ownerOwnsAllOfType)
+                        tradeController.transferAssets(player, owner, field.getRent() * PROPERTY_MULTIPLIER);
+                    else
+                        tradeController.transferAssets(player, owner, field.getRent());
+                }
             } else{
                 tradeController.askIfWantToBuy(player, field);
             }
@@ -111,13 +118,18 @@ public class FieldVisitor implements Visitor  {
 
             boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
             if(ownedByAnotherPlayer){
-
-                Player owner = bank.getOwner(field.getID());
-                boolean ownerOwnsBoth = bank.isOwnerOfAllFieldsOfType(owner, field);
-                if(ownerOwnsBoth)
-                    tradeController.transferAssets(player,owner, diceRoll * field.getMultiplier2());
-                else
-                    tradeController.transferAssets(player, owner, diceRoll * field.getMultiplier1());
+                boolean fieldIsPawned = field.getPawnedStatus();
+                if(fieldIsPawned){
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    viewController.showMessage(message);
+                } else{
+                    Player owner = bank.getOwner(field.getID());
+                    boolean ownerOwnsBoth = bank.isOwnerOfAllFieldsOfType(owner, field);
+                    if(ownerOwnsBoth)
+                        tradeController.transferAssets(player,owner, diceRoll * field.getMultiplier2());
+                    else
+                        tradeController.transferAssets(player, owner, diceRoll * field.getMultiplier1());
+                }
             } else{
                 tradeController.askIfWantToBuy(player, field);
             }
@@ -125,8 +137,27 @@ public class FieldVisitor implements Visitor  {
     }
 
     @Override
-    public void visit(FerryField ferryField) {
+    public void visit(FerryField field) {
+        viewController.showMessage(field.getMessage());
 
+        boolean playerIsOwner = bank.isOwner(player, field);
+        if(!playerIsOwner){
+            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            if(ownedByAnotherPlayer){
+                boolean fieldIsPawned = field.getPawnedStatus();
+                if(fieldIsPawned){
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    viewController.showMessage(message);
+                } else{
+                    Player owner = bank.getOwner(field.getID());
+                    int amountOwned = bank.getAmountOfTypeOwned(owner, field);
+                    tradeController.transferAssets(player, owner, field.getRent(amountOwned));
+                }
+            }
+            else{
+                tradeController.askIfWantToBuy(player, field);
+            }
+        }
     }
 
 }

@@ -110,6 +110,7 @@ public class GameController {
         movePlayer(currentPlayer, lastField, sumOfDice);
         }
         if(currentPlayer.getPassedStartStatus()){
+            //TODO: Currently gives money from goToJail. And possibly for moving backwards with chancecard?
             currentPlayer.addToBalance(200);
             currentPlayer.setPassedStartStatus(false);
             viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
@@ -120,7 +121,7 @@ public class GameController {
         currentField = board.getFields()[position];
 
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck);
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board);
         currentField.accept(fieldVisitor);
 
 
@@ -295,6 +296,7 @@ public class GameController {
             }
     }
 
+    //TODO: Use trade controller
     private void payment(Player player, int amount){
         player.addToBalance(amount);
         viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance()
@@ -306,8 +308,10 @@ public class GameController {
         boolean playerInJail = player.isInJail();
 
         Field field = board.getFields()[player.getPosition()%40];
-
+        //TODO: Menu.txt
+        //TODO: Sell jail card (not end turn + work)
         if(playerInJail) {
+            //TODO: Had a player stuck in jail forever
             if (currentField instanceof  JailField) {
                 if (player.getJailCardStatus()) {
                     choiceList.add("Use JailCard,1");
@@ -326,13 +330,17 @@ public class GameController {
         if((bank.getPlayerFields(player).length >0&& bank.getSameTypeFields(currentPlayer).length>1)){
             choiceList.add("Buy House,5");
         }
-        //if(bank.getPlayerFields(player).length>0){
-        //    choiceList.add("Pantsæt,6");
+        if(bank.getFieldsWithNoHousesByPlayer(player).length>0){
+            String pawnString = languageCollection.getMenu()[27];
+            String number = "6";
+            String choiceString = String.format("%s,%s", pawnString, number);
+            choiceList.add(choiceString);
+        }
 
-       // }
         if(field instanceof TaxField){
 
         }
+        //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
         choiceList.add("End turn,0");
 
         String[][] finalChoiceList = new String[choiceList.getItemCount()][];
@@ -357,10 +365,13 @@ public class GameController {
 
         int typeChoice=0;
 
+        choiceOptions = reverseStringArray(choiceOptions);
+        choices = reverse2DStringArray(choices);
+
         String choiceList = viewController.getUserSelection("Do a thing", choiceOptions);
 
         for (int i = 0; i < choiceOptions.length ; i++) {
-            if( choiceOptions[i]== choiceList ){
+            if(choiceOptions[i].equals(choiceList)){
                 typeChoice = Integer.parseInt(choices[i][1]);
             }
         }
@@ -373,16 +384,17 @@ public class GameController {
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
                     viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
-                    this.endTurn = true;
+                    currentPlayer.setInJail(false);
                     break;
 
             case 3: this.endTurn = true;    break;
 
-            case 4: this.endTurn = true;    break;
+            //TODO: Make sure this method isn't breaking anything
+            case 4: sellJailCard();    break;
 
             case 5: getListOfBuildable();    break;
 
-            case 6: this.endTurn = true;    break;
+            case 6: pawnProperty(player);    break;
 
             case 7: this.endTurn = true;    break;
 
@@ -392,7 +404,30 @@ public class GameController {
         }
    }
 
-   public void getListOfBuildable(){
+    private void sellJailCard() {
+        currentPlayer.setJailCardStatus(false);
+        //TODO: Not hardcode this
+        int jailCardPrice = 50;
+        tradecontroller.transferAssets(currentPlayer, jailCardPrice / 2);
+    }
+
+    private String[][] reverse2DStringArray(String[][] array) {
+        String[][] reversed = new String[array.length][];
+        for (int i = 0; i < array.length; i++) {
+            reversed[i] = array[(array.length - i) - 1];
+        }
+        return reversed;
+    }
+
+    private String[] reverseStringArray(String[] array) {
+        String[] reversed = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            reversed[i] = array[(array.length - i) - 1];
+        }
+        return reversed;
+    }
+
+    public void getListOfBuildable(){
 
        Field[] fields = bank.getPlayerFields(currentPlayer);
 
@@ -420,6 +455,10 @@ public class GameController {
        Field test= bank.getFieldByName(viewController.getUserSelection("chose a field to buy", usableFields));
 
        buyBuilding(currentPlayer, test);
+   }
+
+   public void pawnProperty(Player player){
+        //TODO: Thursday morning  (:
    }
 
    public void useJailCard(){

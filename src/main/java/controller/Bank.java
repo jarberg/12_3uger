@@ -1,9 +1,6 @@
 package controller;
 
-import model.board.Board;
-import model.board.BreweryField;
-import model.board.Field;
-import model.board.PropertyField;
+import model.board.*;
 import model.player.Player;
 import model.player.PlayerList;
 
@@ -353,6 +350,30 @@ public class Bank {
         }
 
         return typeFields;
+    }
+
+    public int getAmountOfTypeOwned(Player owner, Field field) {
+        Field[] ownedFields = getPlayerFields(owner);
+        int counter = 0;
+        String fieldType = "";
+
+        if(field instanceof PropertyField){
+            fieldType = ((PropertyField)field).getType();
+        }
+        if(field instanceof FerryField){
+            fieldType = ((FerryField)field).getType();
+        }
+
+        for(Field f : ownedFields){
+            if(f instanceof PropertyField)
+                if(((PropertyField) f).getType().equals(fieldType))
+                    counter++;
+            if(f instanceof FerryField){
+                if(((FerryField) f).getType().equals(fieldType))
+                    counter++;
+            }
+        }
+        return counter;
     }
 }
 
