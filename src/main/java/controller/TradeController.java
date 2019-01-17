@@ -157,4 +157,16 @@ public class TradeController {
             //tradeController.auctionField(field);
         }
     }
+
+    public void buyBuilding(Player player, PropertyField field){
+        while(player.getBalance() < field.getBuildingPrice()){
+            raiseMoney(player);
+            if(player.getBrokeStatus())
+                break;
+        }
+        transferAssets(player, -field.getBuildingPrice());
+        field.addBuilding();
+        viewController.addBuilding(field);
+    }
+
 }

@@ -33,6 +33,8 @@ public class PropertyField extends Field {
     }
 
     public int getBuildingPrice(){
+        if(buildingCount == 4)
+            return buildingPrice * 5;
         return buildingPrice;
     }
 

@@ -26,4 +26,5 @@ De passerer start og modtager 200 kr.
 %s har vundet!
 %s har pantsat dette felt, og kan derfor ikke modtage rente.
 Pantsæt grund
+Hvilket felt bygger De på?
 Gør en ting
