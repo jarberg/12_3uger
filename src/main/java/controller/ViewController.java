@@ -1,5 +1,6 @@
 package controller;
 
+import gui_codebehind.GUI_Center;
 import gui_fields.*;
 import gui_main.GUI;
 import model.board.Field;
@@ -15,7 +16,6 @@ public class ViewController implements ViewControllerInterface {
     private GUI gui;
     private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
-
     private String[] colorChoices;
 
     private static ViewController singleInstance = new ViewController();
@@ -75,7 +75,8 @@ public class ViewController implements ViewControllerInterface {
         if(this.gui != null)
             gui.close();
 
-        this.gui = new GUI(gui_board);
+        this.gui = new GUI(gui_board,Color.white);
+        GUI_Center.getInstance().setBGColor(Color.red);
     }
 
 
