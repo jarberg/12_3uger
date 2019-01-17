@@ -275,25 +275,6 @@ public class GameController {
 
     private void buyBuilding(Player player, Field aField){
 
-            if (aField instanceof PropertyField) {
-                if (bank.isOwnerOfAllFieldsOfType(currentPlayer, aField)) {
-                    if (((PropertyField) aField).getBuildingCount() == 5) {
-
-                    } else {
-                        if (((PropertyField) aField).getBuildingCount() < 5) {
-                            ((PropertyField) aField).addBuilding();
-                            viewController.addBuilding(((PropertyField) aField));
-                            payment(player, -((PropertyField) aField).getBuildingPrice());
-
-                        } else {
-
-                            ((PropertyField) aField).addBuilding();
-                            viewController.addBuilding(((PropertyField) aField));
-                            payment(player, -((PropertyField) aField).getBuildingPrice());
-                        }
-                    }
-                }
-            }
     }
 
     //TODO: Use trade controller
@@ -327,7 +308,9 @@ public class GameController {
         if(player.getJailCardStatus()==true){
             choiceList.add("Sell Jail Card,4");
         }
-        if((bank.getPlayerFields(player).length >0&& bank.getSameTypeFields(currentPlayer).length>1)){
+        PropertyField[] buildableProperty = bank.getPlayerBuildableFields(currentPlayer);
+        boolean playerCanBuild = (buildableProperty.length > 0);
+        if(playerCanBuild){
             choiceList.add("Buy House,5");
         }
         if(bank.getFieldsWithNoHousesByPlayer(player).length>0){
@@ -428,34 +411,16 @@ public class GameController {
     }
 
     public void getListOfBuildable(){
+        PropertyField[] buildable = bank.getPlayerBuildableFields(currentPlayer);
+        String[] options = new String[buildable.length];
+        for (int i = 0; i < buildable.length; i++) {
+            options[i] = buildable[i].getTitle();
+        }
+        String message = languageCollection.getMenu()[28];
+        Field test= bank.getFieldByName(viewController.getUserSelection(message, options));
 
-       Field[] fields = bank.getPlayerFields(currentPlayer);
-
-       String[] usableFields = new String[0];
-
-       for (Field aField : fields) {
-
-           if(bank.isOwnerOfAllFieldsOfType(currentPlayer,aField)) {
-               String[] temp = new String[usableFields.length + 1];
-
-               for (int i = 0; i < usableFields.length; i++) {
-
-                   temp[i] = usableFields[i];
-
-               }
-               temp[temp.length - 1] = aField.getTitle();
-               usableFields = temp;
-           }
-
-       }
-       if(usableFields.length == 0){
-            usableFields = new String[]{"you have no viable options"};
-       }
-
-       Field test= bank.getFieldByName(viewController.getUserSelection("chose a field to buy", usableFields));
-
-       buyBuilding(currentPlayer, test);
-   }
+        buyBuilding(currentPlayer, test);
+    }
 
    public void pawnProperty(Player player){
         //TODO: Thursday morning  (:

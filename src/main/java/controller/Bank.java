@@ -375,6 +375,90 @@ public class Bank {
         }
         return counter;
     }
+
+    public PropertyField[] getPlayerBuildableFields(Player currentPlayer) {
+        Field[] playerFields = getPlayerFields(currentPlayer);
+        int counter = 0;
+        for(Field field : playerFields){
+            if(field instanceof PropertyField){
+                counter++;
+            }
+        }
+        PropertyField[] candidateFields = new PropertyField[counter];
+
+        counter = 0;
+        for(Field field : playerFields){
+            if(field instanceof PropertyField){
+                counter++;
+                candidateFields[counter] = (PropertyField) field;
+            }
+        }
+
+        counter = 0;
+        for(PropertyField field : candidateFields){
+            Player owner = getOwner(field.getID());
+            boolean isOwnerOfAllOfKind = isOwnerOfAllFieldsOfType(owner, field);
+            if(isOwnerOfAllOfKind){
+                counter++;
+            }
+        }
+
+        PropertyField[] buildableFieldsCandidates = new PropertyField[counter];
+        counter = 0;
+        for(PropertyField field : candidateFields){
+            Player owner = getOwner(field.getID());
+            boolean isOwnerOfAllOfKind = isOwnerOfAllFieldsOfType(owner, field);
+            if(isOwnerOfAllOfKind){
+                buildableFieldsCandidates[counter] = field;
+                counter++;
+            }
+        }
+
+        PropertyField[] buildableFields = new PropertyField[buildableFieldsCandidates.length];
+        int counter2 = 0;
+        for (int i = 0; i < buildableFieldsCandidates.length; i++) {
+            PropertyField currentField = buildableFieldsCandidates[i];
+            PropertyField[] allOfType = getAllPropertyFieldsOfType(currentField);
+            for (int j = 0; j < allOfType.length; j++) {
+                for (int k = 0; k < allOfType.length; k++) {
+                    boolean buildingCountWithin1 = allOfType[k].getBuildingCount() <= allOfType[j].getBuildingCount()+1 && allOfType[k].getBuildingCount() >= allOfType[j].getBuildingCount()-1;
+                    if(buildingCountWithin1){
+                        boolean alreadyInArray = false;
+                        for(PropertyField propertyField : buildableFields){
+                            if(propertyField == allOfType[k])
+                                alreadyInArray = true;
+                        }
+                        if(!alreadyInArray){
+                            buildableFields[counter2] = allOfType[k];
+                            counter2++;
+                        }
+                    }
+                }
+            }
+        }
+        return buildableFields;
+    }
+
+    private PropertyField[] getAllPropertyFieldsOfType(PropertyField field) {
+        int counter = 0;
+        for(Field otherField : board.getFields()){
+            if(otherField instanceof PropertyField){
+                if(((PropertyField) otherField).getType().equals(field.getType())){
+                    counter++;
+                }
+            }
+        }
+        PropertyField[] allFields = new PropertyField[counter];
+        for(Field otherField : board.getFields()){
+            if(otherField instanceof PropertyField){
+                if(((PropertyField) otherField).getType().equals(field.getType())){
+                    counter--;
+                    allFields[counter] = (PropertyField)otherField;
+                }
+            }
+        }
+        return allFields;
+    }
 }
 
 
