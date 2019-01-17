@@ -1,9 +1,6 @@
 package controller;
 
-import gui_fields.GUI_Car;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
+import gui_fields.*;
 import gui_main.GUI;
 import model.board.Field;
 import model.board.PropertyField;
@@ -55,6 +52,7 @@ public class ViewController implements ViewControllerType {
     public void showEmptyGUI(){
         this.gui = new GUI(new GUI_Field[0]);
     }
+
     @Override
     public void closeGUI(){
         this.gui.close();

@@ -1,6 +1,6 @@
 package model.board;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Board {
     private Field[] fields;
@@ -12,11 +12,8 @@ public class Board {
     public Board(int[][] fieldsLogic, String[][] fieldsInfo) {
         this.logic = fieldsLogic;
         this.info = fieldsInfo;
-
         fields = new Field[fieldsLogic.length];
-
     }
-
 
     public void setupBoard(){
         for (int i = 0; i < fields.length; i++) {
@@ -51,7 +48,7 @@ public class Board {
                 fieldColor = Color.LIGHT_GRAY;
                 break;
             case 5: // Trianglen, Isterbrogade, Grønningen
-                fieldColor = Color.red;
+                fieldColor = new Color(222, 102, 21);
                 break;
             case 6: //Bredgade, Nytorv, Østergade
                 fieldColor = Color.white;
@@ -74,6 +71,8 @@ public class Board {
             case 12: // Chance
                 fieldColor = Color.YELLOW;
                 break;
+            case 13: //Start
+                fieldColor = Color.red;
         }
         return fieldColor;
     }
