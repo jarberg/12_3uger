@@ -16,10 +16,8 @@ public class Deck {
             String desc = deckText[i][1];
             String info1 = deckLogic[i][2];
             String info2 = deckLogic[i][3];
-            String info3 = deckLogic[i][4];
             int info1int = Integer.parseInt(info1);
             int info2int = Integer.parseInt(info2);
-            int info3int = Integer.parseInt(info3);
 
             switch (deckLogic[i][0]){
                 case "1":
