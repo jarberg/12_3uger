@@ -11,11 +11,11 @@
 11~Faengsel~Her bor de frihedsbesvaerede~De er på besog ved faengslet.
 12~Frederiksberg Allé~Pris: 140 kr.~De er ankommet til Frederiksberg Allé.
 13~Tuborg Bryggeri~Pris: 150 kr.~De er ankommet til Tuborg Bryggeri.
-14~Bülowsvej~Pris: 140 kr.~De er ankommet til Bülowsvej.
+14~Bylowsvej~Pris: 140 kr.~De er ankommet til Bülowsvej.
 15~Gamle Kongevej~Pris: 160 kr.~De er ankommet til Gamle Kongevej.
 16~D.F.D.S. A/S~Pris: 200 kr.~De er ankommet til D.F.D.S.
 17~Bernstorffsvej~Pris: 180 kr.~De er ankommet til Bernstorffsvej.
-18~Prøv Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
+18~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
 19~Hellerupvej~Pris: 180 kr.~De er ankommet til Hellerupvej.
 20~Strandvej~Pris: 200 kr.~De er ankommet til Strandvejen.
 21~Helle~Et sikkert sted~De er i helle.
