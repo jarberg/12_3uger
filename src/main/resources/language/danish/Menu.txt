@@ -28,3 +28,10 @@ De passerer start og modtager 200 kr.
 Pantsæt grund
 Hvilket felt bygger De på?
 Gør en ting
+Betal
+Sælg
+Sælg frihedskort
+Brug frihedskort
+Kast terning
+Køb bygning
+Afslut tur

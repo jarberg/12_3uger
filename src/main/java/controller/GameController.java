@@ -31,6 +31,7 @@ public class GameController {
     private int lastTurn;
     int currentTurn;
     TradeController tradecontroller = TradeController.getSingleInstance();
+    boolean threwDice =false;
 
     //TODO: if time. split into usecase controllers
     private GameController(){
@@ -315,26 +316,27 @@ public class GameController {
             if (currentField instanceof  JailField) {
 
                 if (currentTurn>lastTurn) {
-                    choiceList.add("throw,9");
+                    choiceList.add(String.format(languageCollection.getMenu()[34]+",9"));
                 }
                 if (player.getJailCardStatus()) {
-                    choiceList.add("Use JailCard,1");
+                    choiceList.add(String.format(languageCollection.getMenu()[33]+",1"));
                 }
                 if (player.getBalance() > ((JailField) field).getBailAmount()) {
-                    choiceList.add("Pay " + ((JailField) field).getBailAmount() + ",2");
+                    choiceList.add(String.format(languageCollection.getMenu()[30]+" "+((JailField) field).getBailAmount()+ ",2"));
                 }
                 if (player.getBalance() < ((JailField) field).getBailAmount()) {
-                    choiceList.add("Sell,3");
+                    choiceList.add(languageCollection.getMenu()[31]+ ", 2");
                 }
             }
         }
         if(player.getJailCardStatus()==true){
-            choiceList.add("Sell Jail Card,4");
+            choiceList.add(String.format(languageCollection.getMenu()[32]+",4"));
         }
         PropertyField[] buildableProperty = bank.getPlayerBuildableFields(currentPlayer);
         boolean playerCanBuild = (buildableProperty.length > 0);
         if(playerCanBuild){
-            choiceList.add("Buy House,5");
+            choiceList.add(languageCollection.getMenu()[35
+                    ]+",5");
         }
         if(bank.getFieldsWithNoHousesByPlayer(player).length>0){
             String pawnString = languageCollection.getMenu()[27];
@@ -347,7 +349,7 @@ public class GameController {
 
         }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
-        choiceList.add("End turn,0");
+        choiceList.add(String.format(languageCollection.getMenu()[36]+",0"));
 
         String[][] finalChoiceList = new String[choiceList.getItemCount()][];
 
@@ -387,11 +389,13 @@ public class GameController {
                     break;
 
             case 1: useJailCard();
+                    checkIfinJailBeforeMoving();
                     break;
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
                     viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
                     currentPlayer.setInJail(false);
+                    checkIfinJailBeforeMoving();
                     break;
 
             case 3: this.endTurn = true;
@@ -410,7 +414,12 @@ public class GameController {
             case 7: this.endTurn = true;
                     break;
 
-            case 8: ;
+            case 8: rollAndShowDice(currentPlayer);
+                    threwDice = true;
+                    if(currentPlayer.getDoubleTurnStatus())
+                        {movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());}
+                    else
+                        {endTurn =true;}
                     break;
 
             case 9: ;
