@@ -23,7 +23,7 @@
 8~Get 25~25~0~0
 1~Get out of jail card~0~0~0
 8~Pay 10~-10~0~0
-1~Get out of jail card~0~0~0
+1~Get out of jail card~50~0~0
 5~Move to closest ferry, pay double normal price or get opportunity to buy~2~0~0
 8~Get 20~20~0~0
 8~Get 1~1~0~0
