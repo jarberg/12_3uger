@@ -329,6 +329,14 @@ public class ViewController implements ViewControllerInterface {
     }
 
     @Override
+    public void pawn(String fieldName, String name, Color playerColor) {
+        GUI_Field field = getGUIFieldByName(fieldName);
+        while(!field.getDescription().equals(name)){
+            field.setDescription(name);
+        }
+        ((GUI_Street) field).setBorder(playerColor, playerColor.darker());
+    }
+    @Override
     public void updateFieldBuildings(String fieldName, int buildingCount) {
         GUI_Street field = (GUI_Street)getGUIFieldByName(fieldName);
         field.setHotel(false);

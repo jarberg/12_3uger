@@ -41,3 +41,4 @@ Hvilken grund vil de bytte grunden for?
 Accepterer %s at give %s i bytte for %s ?
 Byt grund
 Vær venlig at skrive et nyt navn!
+Hvilken grund ønsker du at pantsætte?

@@ -71,4 +71,6 @@ public interface ViewControllerInterface {
     void setGUI_PlayerBalance(String playerName, int amount);
 
     void vanishPlayer(String name, int positon);
+
+    void pawn(String fieldName, String name, Color playerColor);
 }
