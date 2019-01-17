@@ -2,7 +2,7 @@ CARD_1~Modtag udbytte af Deres aktier: kr. 50,00.
 CARD_2~De modtager "Matador-legatet for vaerdig traengende", stort kr. 2000. Ved vaerdig traegende forstaes, at Deres formue, d.v.s. Deres konstante penge + skoeder + bygninger, ikke overskrider kr. 750.
 CARD_3~Tag ind paa Raadhuspladsen.
 CARD_4~Ryk frem til Groenningen. Hvis De passerer "Start", indkasser da kr. 200,00.
-CARD_5~Tag med Oeresundsbaaden - Flyt brikken frem, og hvis De passerer "Start", indkassér kr. 200,00.
+CARD_5~Tag med Oeresundsbaaden - Flyt brikken frem, og hvis De passerer "Start", indkasser kr. 200,00.
 CARD_6~Gaa i faengsel. Ryk direkte til faengslet. Selv om de passerer "Start", indkasserer De ikke kr. 200,00.
 CARD_7~De har maettet vedtage en parkeringsboede. Betal kr. 20,00 til banken.
 CARD_8~Gaa i faengsel. Ryk direkte til faengslet. Selv om De passerer "Start", indkasserer De ikke kr. 200,00.
