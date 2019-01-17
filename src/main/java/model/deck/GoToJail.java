@@ -21,3 +21,4 @@ public class GoToJail extends Card {
         return position;
     }
 }
+
