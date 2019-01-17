@@ -35,3 +35,8 @@ Brug frihedskort
 Kast terning
 Køb bygning
 Afslut tur
+Hvilken spiller vil De gerne bytte grund med?
+%s vælger en af sine grunde at bytte med
+Hvilken grund vil de bytte grunden for?
+Accepterer %s at give %s i bytte for %s ?
+Byt grund

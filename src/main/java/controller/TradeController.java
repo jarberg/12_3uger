@@ -170,7 +170,7 @@ public class TradeController {
     }
 
     public void tradePropertyWithPlayer(Player sourcePlayer){
-        String message = "Which player would you like to trade property with?";
+        String message = languageStringCollection.getMenu()[37];
         String[] names = bank.getPlayerNamesWithNoHouses();
 
         // update names so it doenst include the sourcePlayer
@@ -187,17 +187,17 @@ public class TradeController {
         String playerChoice = viewController.getUserSelection(message, names);
         Player targetPlayer = bank.getPlayerByName(playerChoice);
 
-        String message3 = sourcePlayer.getName() + " properties of source Player?";
+        String message3 = String.format(languageStringCollection.getMenu()[38], sourcePlayer.getName());
         String sourceProperty = viewController.getUserSelection(message3, bank.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
         Field sField = bank.getFieldByName(sourceProperty);
 
 
-        String message4 = sourcePlayer.getName() + " properties of selected player?";
+        String message4 = languageStringCollection.getMenu()[39];
         String targetProperty = viewController.getUserSelection(message4, bank.getPropertyNamesWithNoHousesByPlayer(targetPlayer));
         Field tField = bank.getFieldByName(targetProperty);
 
 
-        String message2 = "Does targetPlayerName accept to trade tcfield for scfield ";
+        String message2 = String.format(languageStringCollection.getMenu()[40], targetPlayer.getName(), tField.getTitle(), sField.getTitle());
         String yes = languageStringCollection.getMenu()[16];
         String no = languageStringCollection.getMenu()[17];
         String[] yesNo = {yes, no};

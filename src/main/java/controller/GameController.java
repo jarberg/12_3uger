@@ -349,7 +349,8 @@ public class GameController {
 
         }
         if (bank.getPlayerNamesWithNoHouses().length > 1){
-            choiceList.add("TradeProperty,9");
+            String message = languageCollection.getMenu()[41];
+            choiceList.add(message+",9");
         }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
         choiceList.add(String.format(languageCollection.getMenu()[36]+",0"));
@@ -436,6 +437,7 @@ public class GameController {
         currentPlayer.setJailCardStatus(false);
         int jailCardPrice = Integer.parseInt(logicCollection.getChanceCard()[25][2]);
         tradecontroller.transferAssets(currentPlayer, jailCardPrice / 2);
+
     }
 
     private String[][] reverse2DStringArray(String[][] array) {
