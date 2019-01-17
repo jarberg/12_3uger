@@ -151,39 +151,6 @@ public class ViewController implements ViewControllerType {
                 }
             }
         }
-
-        else{
-            if(amount>0){
-            for (int i = 0; i > amount; i++) {
-                if(amount>0) {
-                    gui_board[position].setCar(movingPlayer, false);
-                    position--;
-                    position = position % gui_board.length;
-                    gui_board[position].setCar(movingPlayer, true);
-                }
-                }
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            else{
-                for (int i = 0; i >= amount; i--) {
-                    gui_board[position].setCar(movingPlayer, false);
-                    position--;
-                    position = (position + 40)%40;
-                    System.out.println(position);
-                    gui_board[position].setCar(movingPlayer, true);
-                }
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
     }
 
 
@@ -227,7 +194,15 @@ public class ViewController implements ViewControllerType {
 
     public String getPlayerName() {
         String message = languageStringCollection.getMenu()[1];
-        String name = gui.getUserString(message);
+        String name = "";
+        while (true){
+            name = gui.getUserString(message);
+            if (name.length() < 1)
+                showMessage(languageStringCollection.getMenu()[42]);
+            else{
+                break;
+            }
+        }
         return name;
     }
 

@@ -40,3 +40,4 @@ Which player would You like to trade property with?
 Which property would you like in exhange?
 Does %s accept to trade %s in exchange for %s ?
 Trade property
+Please write a new name!
