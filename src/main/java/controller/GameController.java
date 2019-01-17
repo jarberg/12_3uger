@@ -473,14 +473,15 @@ public class GameController {
     }
 
     private void pawnProperty(Player player){
-        String message = languageCollection.getMenu()[22222];
-        viewController.showMessage(message);
-        Field[] fields = bank.getFieldsWithNoHousesByPlayer(player);
-        String[] options = new String[fields.length];
-        for (int i = 0; i < fields.length; i++) {
-            options[i] = fields[i].getTitle();
-        }
+        String message = languageCollection.getMenu()[43];
+        String[] options = bank.getPropertyNamesWithNoHousesByPlayer(player);
         String choice = viewController.getUserSelection(message, options);
+        Field field = bank.getFieldByName(choice);
+        if (field instanceof PropertyField){
+            ((PropertyField) field).setPawnedStatus(true);
+            tradecontroller.transferAssets(player,((PropertyField) field).getPrice()/2);
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor());
+        }
    }
 
     private void useJailCard(){

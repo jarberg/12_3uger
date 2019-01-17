@@ -179,4 +179,9 @@ public class ViewControllerStub implements ViewControllerInterface {
     public void vanishPlayer(String name, int positon) {
 
     }
+
+    @Override
+    public void pawn(String fieldName, String name, Color playerColor) {
+
+    }
 }

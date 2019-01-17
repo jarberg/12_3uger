@@ -41,3 +41,4 @@ Which property would you like in exhange?
 Does %s accept to trade %s in exchange for %s ?
 Trade property
 Please write a new name!
+Which property would you like to pawn?
