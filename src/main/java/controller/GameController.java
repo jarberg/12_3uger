@@ -378,7 +378,8 @@ public class GameController {
 
         choiceOptions = reverseStringArray(choiceOptions);
         choices = reverse2DStringArray(choices);
-        String choiceList = viewController.getUserSelection(LanguageStringCollection.getSingleInstance().getMenu()[29], choiceOptions);
+        String choiceList = viewController.getUserSelection(String.format(LanguageStringCollection.getSingleInstance().getMenu()[29]+" "+currentPlayer.getName()
+        ), choiceOptions);
 
         for (int i = 0; i < choiceOptions.length ; i++) {
             if(choiceOptions[i].equals(choiceList)){
@@ -392,7 +393,8 @@ public class GameController {
                     break;
 
             case 1: useJailCard();
-                    checkIfinJailBeforeMoving();
+                    currentPlayer.setDoubleTurnStatus(true);
+                    endTurn = true;
                     break;
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
