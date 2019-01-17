@@ -182,7 +182,6 @@ public class GameController {
     }
 
     private void setupBank(){
-        bank.setBankNoCrashy(playerlist.getAllPlayers().length);
         bank.setPlayerList(playerlist);
         bank.setBoard(board);
     }
@@ -357,9 +356,14 @@ public class GameController {
         if(field instanceof TaxField){
 
         }
-        if (bank.getPlayerNamesWithNoHouses().length > 1){
+        if (bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
             String message = languageCollection.getMenu()[41];
             choiceList = addToStringArray(choiceList, message+",9");
+        }
+        Field[] canBuybackFields = bank.getPawnedFieldsByPlayer(player);
+        if(canBuybackFields.length > 0){
+            String message = "buybackFieldField";
+            choiceList = addToStringArray(choiceList, message+",10");
         }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
         String option = String.format(languageCollection.getMenu()[36]+",0");
@@ -449,6 +453,9 @@ public class GameController {
 
             case 9: tradecontroller.tradePropertyWithPlayer(player);
                     break;
+
+            case 10: tradecontroller.buyBackPawnedProperty(currentPlayer);
+                    break;
         }
    }
 
@@ -495,7 +502,17 @@ public class GameController {
         if (field instanceof PropertyField){
             ((PropertyField) field).setPawnedStatus(true);
             tradecontroller.transferAssets(player,((PropertyField) field).getPrice()/2);
-            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor());
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+        }
+        if (field instanceof BreweryField){
+            ((BreweryField) field).setPawnedStatus(true);
+            tradecontroller.transferAssets(player,((BreweryField) field).getPrice()/2);
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+        }
+        if (field instanceof FerryField){
+            ((FerryField) field).setPawnedStatus(true);
+            tradecontroller.transferAssets(player,((FerryField) field).getPrice()/2);
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
         }
    }
 

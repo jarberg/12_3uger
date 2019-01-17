@@ -171,7 +171,7 @@ public class TradeController {
 
     public void tradePropertyWithPlayer(Player sourcePlayer){
         String message = languageStringCollection.getMenu()[37];
-        String[] names = bank.getPlayerNamesWithNoHouses();
+        String[] names = bank.getPlayerNamesWithFieldsWithNoHouses();
 
         // update names so it doenst include the sourcePlayer
         String[] temp = new String[names.length-1];
@@ -213,9 +213,50 @@ public class TradeController {
             viewController.showOwner(sourceProperty, targetPlayer.getName(), targetPlayer.getPlayerColor());
             viewController.showOwner(targetProperty, sourcePlayer.getName(), sourcePlayer.getPlayerColor());
         }
+    }
 
+    public void buyBackPawnedProperty(Player player){
+        String message = "buy pawned property";
+        Field[] pawnNames = bank.getPawnedFieldsByPlayer(player);
+        String[] fieldNames = new String[pawnNames.length];
+        for (int i = 0; i < fieldNames.length; i++) {
+            fieldNames[i] = pawnNames[i].getTitle();
+        }
+        String choice = viewController.getUserSelection(message, fieldNames);
+        Field field = bank.getFieldByName(choice);
 
+        if (field instanceof PropertyField){
+            int priceWithInterest = (int) (((PropertyField) field).getPrice() * 1.10);
+            transferAssets(player, -priceWithInterest);
+            if (!player.getBrokeStatus()) {
+                ((PropertyField) field).setPawnedStatus(false);
+                bank.removeFieldOwner(field);
+                bank.addFieldToPlayer(player, field);
+                viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());
+            }
+        }
+        if (field instanceof FerryField){
+            int priceWithInterest = (int) (((FerryField) field).getPrice() * 1.10);
+            transferAssets(player, -priceWithInterest);
+            if (!player.getBrokeStatus()) {
+                ((FerryField) field).setPawnedStatus(false);
+                bank.removeFieldOwner(field);
+                bank.addFieldToPlayer(player, field);
+                viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());
+            }
+        }
+        if (field instanceof BreweryField){
+            int priceWithInterest = (int) (((BreweryField) field).getPrice() * 1.10);
+            transferAssets(player, -priceWithInterest);
+            if (player.getBrokeStatus()) {
+                ((BreweryField) field).setPawnedStatus(false);
+                bank.removeFieldOwner(field);
+                bank.addFieldToPlayer(player, field);
+                viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());
+            }
+        }
 
     }
+
 
 }
