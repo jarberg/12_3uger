@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="12_3uger" target="1.10" />
+      <module name="12_3uger" target="1.8" />
       <module name="3ugers" target="1.10" />
     </bytecodeTargetLevel>
   </component>

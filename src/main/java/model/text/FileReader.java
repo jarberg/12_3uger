@@ -32,24 +32,26 @@ public class FileReader {
     //reads from given filepath
 
     private String[] read1DFromFile(String filePath, String directory){
-
-        //TODO:convert to array
-
         InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(directory + filePath);
         Scanner scanner = new Scanner(resourceAsStream);
-        List<String> stringList = new ArrayList<>();
 
-        while (scanner.hasNext()) {
-            stringList.add(scanner.nextLine());
+        String[] stringList = new String[0];
+        while (scanner.hasNext()){
+            String[] temp = new String[stringList.length+1];
+            for (int i = 0; i < stringList.length; i++) {
+                temp[i] = stringList[i];
+            }
+            String newLine = scanner.nextLine();
+            temp[stringList.length] = newLine;
+            stringList = temp;
         }
-        return stringList.toArray(new String[0]);
+
+        return stringList;
     }
 
     //Uses reader method to build a 2d stringArray from a given filepath+filename
 
     private String[][] twoDStringArray(String fileName, String directory){
-
-        //TODO: split at ~ instead of :
 
         String newFilepath = language+fileName;
         String[] stringArray = read1DFromFile(newFilepath, directory);
@@ -63,7 +65,6 @@ public class FileReader {
 
     private String[][] twoDStringArrayLogic(String fileName, String directory){
 
-        //TODO: split at ~ instead of :
 
         String[] stringArray = read1DFromFile(fileName, directory);
         String[][] finalStringArray = new String[stringArray.length][];
@@ -100,9 +101,6 @@ public class FileReader {
     }
 
     // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
-
-    //TODO: make filename final static variables
-
     public String[][] getChanceCards(){ return twoDStringArray(CHANCECARD_FILENAME, LOGIC_DIRECTORY_PATH); }
     public String[][] getChanceCardsText(){ return twoDStringArray(CHANCECARD_FILENAME, LANGUAGE_DIRECTORY_PATH); }
     public String[][] getChanceCardsLogic(){ return twoDStringArrayLogic(CHANCECARD_FILENAME, LOGIC_DIRECTORY_PATH); }

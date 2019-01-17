@@ -26,3 +26,4 @@ You passed start and receive 200 kr.
 %s has won!
 %s has pawned off this field, and thus can not receive rent.
 Pawn property
+Which field will You build on?
