@@ -465,6 +465,47 @@ public class Bank {
         }
         return allFields;
     }
+
+    public Player[] findPlayersWithFieldsWithNoHouses(){
+        Player[] players = new Player[0];
+        for (Player player : playerList.getAllPlayers()){
+            if (getFieldsWithNoHousesByPlayer(player).length > 0){
+                Player[] temp = new Player[players.length+1];
+                for (int i = 0; i < players.length; i++) {
+                    temp[i] = players[i];
+                }
+                temp[players.length] = player;
+                players = temp;
+            }
+        }
+        return players;
+    }
+
+    public String[] getPlayerNames(){
+        String[] playerNames = new String[playerListLength];
+        for (int i = 0; i < playerListLength; i++) {
+            playerNames[i] = playerList.getPlayer(i).getName();
+        }
+        return playerNames;
+    }
+
+    public String[] getPlayerNamesWithNoHouses(){
+        Player[] players = findPlayersWithFieldsWithNoHouses();
+        String[] names = new String[players.length];
+        for (int i = 0; i < players.length; i++) {
+            names[i] = players[i].getName();
+        }
+        return names;
+    }
+
+    public String[] getPropertyNamesWithNoHousesByPlayer(Player player){
+        Field[] fields = getFieldsWithNoHousesByPlayer(player);
+        String[] titles = new String[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            titles[i] = fields[i].getTitle();
+        }
+        return titles;
+    }
 }
 
 
