@@ -22,7 +22,7 @@
 22~Trianglen~Pris: 220 kr.~De er landet på trianglen.
 23~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
 24~Oesterbrogade~Pris: 220 kr.~De er ankommet til Oesterbrogade.
-25~Groenningen~Pris: 240 kr.~De er ankommet til Groenningen.
+25~Groenningen~Pris: 240 kr.~De er ankommet til Groe?nningen.
 26~O.K. dampskibe~Pris: 200 kr.~De er landet på O.K. dampskibe.
 27~Bredgade~Pris: 260 kr.~De er landet på Bredgade.
 28~Nytorv~Pris: 260 kr.~De er landet på Nytorvet.
