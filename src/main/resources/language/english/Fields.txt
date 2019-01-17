@@ -1,40 +1,40 @@
 1~Start~Receive 200 kr.~You landed on Start.
-2~Rødovrevej~Price: 60 kr.~You landed on Rødovrevej.
-3~Try your luck~Draw a chancecard~You try your luck. Draw a chancecard.
+2~Rodovrevej~Price: 60 kr.~You landed on Rodovrevej.
+3~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
 4~Hvidovre~Price: 60 kr.~You landed on Hvidovre.
 5~Income tax~pay income tax 10% or 200 kr.~You have to pay income tax at 10% or 200 kr.
-6~Øresund A/S~Price: 200 kr.~You landed on Øresundsfærgen.
+6~Oresund A/S~Price: 200 kr.~You landed on Oresundsfaergen.
 7~Roskildevej~Price: 100 kr.~You landed on Roskildevej.
-8~Try your luck~Draw a chancecard~You try your luck. Draw a chancecard.
+8~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
 9~Valby Langgade~Price: 100 kr.~You landed on Valby Langgade.
-10~Allégade~Price: 120 kr.~You landed on Allégade.
+10~Allegade~Price: 120 kr.~You landed on Allegade.
 11~Jail~This is where people have no freedom~You visit the jail.
-12~Frederiksberg Allé~Price: 140 kr.~You landed on Frederiksberg Allé.
+12~Frederiksberg Alle~Price: 140 kr.~You landed on Frederiksberg Alle.
 13~Tuborg Brewery~Price: 150 kr.~You landed on Tuborg Brewery.
-14~Bülowsvej~Price: 140 kr.~You landed on Bülowsvej.
+14~Bylowsvej~Price: 140 kr.~You landed on Bylowsvej.
 15~Gamle Kongevej~Price: 160 kr.~You landed on Gamle Kongevej.
 16~D.F.D.S. A/S~Price: 200 kr.~You landed on D.F.D.S.
 17~Bernstorffsvej~Price: 180 kr.~You landed on Bernstorffsvej.
-18~Try your luck~Draw a chancecard~You try your luck. Draw a chancecard.
+18~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
 19~Hellerupvej~Price: 180 kr.~You landed on Hellerupvej.
 20~Strandvej~Price: 200 kr.~You landed on Strandvejen.
 21~Safe house~This is a safe place~You are safe.
 22~Trianglen~Price: 220 kr.~You landed on trianglen.
-23~Try your luck~Draw a chancecard~You try your luck. Draw a chancecard.
-24~Østerbrogade~Price: 220 kr.~You landed on Østerbrogade.
-25~Grønningen~Price: 240 kr.~You landed on Grønningen.
-26~Ø.K. dampskibe~Price: 200 kr.~You landed on Ø.K. dampskibe.
+23~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
+24~Osterbrogade~Price: 220 kr.~You landed on Osterbrogade.
+25~Gronningen~Price: 240 kr.~You landed on Gronningen.
+26~O.K. dampskibe~Price: 200 kr.~You landed on O.K. dampskibe.
 27~Bredgade~Price: 260 kr.~You landed on Bredgade.
 28~Nytorv~Price: 260 kr.~You landed on Nytorvet.
 29~Carlsberg~Price: 150 kr.~You landed on Carlsberg. Don't drink too much beer!
-30~Østergade~Price: 280 kr.~You landed on Østergade.
+30~Ostergade~Price: 280 kr.~You landed on Ostergade.
 31~Go to jail~Go to jail~You committed a crime and got caught. Go to jail.
 32~Amagertorv~Price: 300 kr.~You landed on Amagertorvet.
 33~Vimmelskaftet~Price: 300 kr.~You landed on Vimmelkaftet.
-34~Try your luck~Draw a chancecard~You try your luck. Draw a chancecard.
+34~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
 35~Nygade~Price: 320 kr.~You landed on Nygade.
-36~D/S Bornholm 1866~Price: 200 kr.~You landed on Bornholmerfærgen.
-37~Try your luck~Draw a chancecard~You try your luck. Draw a chancecard.
+36~D/S Bornholm 1866~Price: 200 kr.~You landed on Bornholmerfaergen.
+37~Try your luck~Draw a chance card~You try your luck. Draw a chance card.
 38~Frederiksberggade~Price: 350 kr.~You landed on Frederiksberggade.
 39~Extraordinary taxes~pay 100 kr.~You have to pay extraordinary taxes.
-40~Rådhuspladsen~Price: 400 kr.~You landed on Rådhuspladsen.
+40~Raadhuspladsen~Price: 400 kr.~You landed on Raadhuspladsen.

@@ -7,9 +7,9 @@
 7~Roskildevej~Pris: 100 kr.~De er ankommet til Roskildevej.
 8~Prov Lykken~Traek et chancekort~De prover lykken. Traek et chancekort.
 9~Valby Langgade~Pris: 100 kr.~De er ankommet til Valby Langgade.
-10~Allégade~Pris: 120 kr.~De er ankommet til Allégade.
+10~Allegade~Pris: 120 kr.~De er ankommet til Allégade.
 11~Faengsel~Her bor de frihedsbesvaerede~De er på besog ved faengslet.
-12~Frederiksberg Allé~Pris: 140 kr.~De er ankommet til Frederiksberg Allé.
+12~Frederiksberg Alle~Pris: 140 kr.~De er ankommet til Frederiksberg Allé.
 13~Tuborg Bryggeri~Pris: 150 kr.~De er ankommet til Tuborg Bryggeri.
 14~Bylowsvej~Pris: 140 kr.~De er ankommet til Bülowsvej.
 15~Gamle Kongevej~Pris: 160 kr.~De er ankommet til Gamle Kongevej.
@@ -28,7 +28,7 @@
 28~Nytorv~Pris: 260 kr.~De er landet på Nytorvet.
 29~Carlsberg~Pris: 150 kr.~De er ankommet til Carlsberg. Drik nu ikke for mange ol!
 30~Ostergade~Pris: 280 kr.~De er ankommet til Ostergade.
-31~Gå i faenglsel~Gå i faengsel~De er landet på gå i faengsel.
+31~Gaa i faenglsel~Gaa i faengsel~De er landet på gaa i faengsel.
 32~Amagertorv~Pris: 300 kr.~De er ankommet til Amagertorvet.
 33~Vimmelskaftet~Pris: 300 kr.~De er landet på Vimmelkaftet.
 34~Prov Lykken~Traek et chancekort~De prøver lykken. Traek et chancekort.
