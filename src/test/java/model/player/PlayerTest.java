@@ -1,5 +1,7 @@
 package model.player;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
@@ -7,6 +9,17 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 public class PlayerTest {
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+
+
 
     Player player = new Player("Bob");
 
@@ -24,8 +37,6 @@ public class PlayerTest {
         player.setJailCardStatus(true);
         assertEquals(true,player.getJailCardStatus());
     }
-
-
 
     @Test
     public void setGetPlayerColor() {
@@ -76,4 +87,35 @@ public class PlayerTest {
         assertEquals(newbalance,player.getBalance());
     }
 
+
+
+
+    @Test
+    public void getLastPosition() {
+    }
+
+    @Test
+    public void getPassedStartStatus() {
+    }
+
+    @Test
+    public void setPassedStartStatus() {
+    }
+
+    @Test
+    public void setBrokeStatus() {
+    }
+
+
+    @Test
+    public void isInJail() {
+    }
+
+    @Test
+    public void setInJail() {
+    }
+
+    @Test
+    public void getDoubleThrowNum() {
+    }
 }

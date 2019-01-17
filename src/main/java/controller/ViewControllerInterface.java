@@ -71,4 +71,5 @@ public interface ViewControllerInterface {
     void setGUI_PlayerBalance(String playerName, int amount);
 
     void vanishPlayer(String name, int positon);
+
 }

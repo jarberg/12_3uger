@@ -1,6 +1,7 @@
 package controller;
 
 import model.player.Player;
+import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 import org.junit.After;
 import org.junit.Before;
@@ -9,17 +10,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameControllerTest {
-/*
-    int playerAmount =4;
-    private GameController gamecontroller = GameController.getInstance();
-    //TODO: Realise this is an integration test
-    private GameLogic gamelogic = gamecontroller.getGameLogic();
-/*
+
+
+    private GameController gamecontroller = GameController.getSingleInstance();
+    private ViewControllerInterface viewController = new ViewControllerStub();
+    private LogicStringCollection logicCollection = LogicStringCollection.getSingleInstance();
+    private LanguageStringCollection languageCollection = LanguageStringCollection.getSingleInstance();
+    private TradeController tradeController = TradeController.getSingleInstance();
+
     @Before
     public void before(){
-    gamecontroller.GodMode(true);
-    gamecontroller.setupLanguage();
-
+        gamecontroller.setViewController( viewController);
+        tradeController.setViewController(viewController);
+        setupGame();
     }
 
     @After
@@ -29,104 +32,127 @@ public class GameControllerTest {
 
     @Test
     public void createPlayers() {
-        gamecontroller.setPlayerAmount(playerAmount);
+
+    }
+
+    @Test
+    public void setupLanguage(){
+
+        viewController.showEmptyGUI();
+        gamecontroller.setFilepathLanguage(viewController.getUserLanguage());
+        this.logicCollection = LogicStringCollection.getSingleInstance();
+        this.languageCollection = LanguageStringCollection.getSingleInstance();
+
+    }
+
+    @Test
+    public void setupGame(){
+
+        gamecontroller.playerAmount = gamecontroller.getPlayerAmount();
+        gamecontroller.setFilepathLanguage("danish");
         gamecontroller.createPlayers();
-        this.gamelogic = gamecontroller.getGameLogic();
-        assertEquals(4, gamelogic.getAllPlayers().length);
-        for (int i = 0; i < gamelogic.getAllPlayers().length; i++) {
-            assertEquals(("test"+i), gamelogic.getAllPlayers()[i].getName());
+        gamecontroller.createDeck();
+        setupLanguage();
+        gamecontroller.makePlayerChooseCar();
+        gamecontroller.createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
+
+        assertEquals("Start",gamecontroller.board.getFields()[0].getTitle());
+        assertEquals("Raadhuspladsen",gamecontroller.board.getFields()[39].getTitle());
+
+        gamecontroller.createDeck();
+        gamecontroller.setupBank();
+        gamecontroller.showGameBoard();
+        gamecontroller.addPlayersToGUI();
+
+        assertEquals(viewController.getPLayerAmount(),gamecontroller.playerAmount);
+
+        for (int i = 1; i ==gamecontroller.playerAmount ; i++) {
+            if(i==1) {
+                assertEquals("Test", gamecontroller.getPlayer(i).getName());
+            }
+            if(i>1) {
+                assertEquals("Test#"+i, gamecontroller.getPlayer(i).getName());
+            }
         }
-    }
 
-
-    @Test
-    public void addPlayer() {
-
-        createPlayers();
-
-        String[] names = new String[]{"Bob","Dylan","Chump","Bro"};
-        for (int i = 0; i < gamelogic.getAllPlayers().length; i++) {
-            gamecontroller.addPlayer(names[i],i);
+        for (int i = 0; i <gamecontroller.playerAmount ; i++) {
+            assertEquals(0,gamecontroller.getPlayer(i).getPosition());
         }
-        for (int i = 0; i < gamelogic.getAllPlayers().length ; i++) {
-            assertEquals(names[i], gamelogic.getAllPlayers()[i].getName());
-        }
-    }
-
-    @Test
-    public void changePlayerBalance() {
-
-        addPlayer();
-        assertEquals(0, gamelogic.getAllPlayers()[2].getBalance());
-        gamelogic.getAllPlayers()[2].addToBalance(55);
-        assertEquals(55, gamelogic.getAllPlayers()[2].getBalance());
-        gamelogic.getAllPlayers()[2].addToBalance(-255);
-        assertEquals(0, gamelogic.getAllPlayers()[2].getBalance());
-    }
-
-    @Test
-    public void movePlayer() {
-
-        addPlayer();
-        for (int i = 0; i < gamelogic.getAllPlayers().length ; i++) {
-            assertEquals(0, gamelogic.getAllPlayers()[i].getPosition());
-        }
-        for (int i = 0; i < gamelogic.getAllPlayers().length ; i++) {
-            gamelogic.getAllPlayers()[i].setPosition(i+1*2);
-        }
-        for (int i = 0; i < gamelogic.getAllPlayers().length ; i++) {
-            assertEquals((i+1*2),gamelogic.getAllPlayers()[i].getPosition());
+        for (int i = 0; i <gamecontroller.playerAmount ; i++) {
+            assertEquals(1500,gamecontroller.getPlayer(i).getBalance());
         }
     }
 
     @Test
-    public void checkdiceForDoubleRollTest(){
+    public void playTurn(){
+
+        gamecontroller.currentTurn++;
+
+
+
+        gamecontroller.endTurn = false;
+        gamecontroller.currentPlayer = gamecontroller.playerlist.getCurrentPlayer();
+
+        gamecontroller.checkIfinJailBeforeMoving();
+        gamecontroller.checkIfPassedStart();
+        resolveField();
+
+        while(!gamecontroller.endTurn) {
+            gamecontroller.playerOptions(gamecontroller.getChoices(gamecontroller.currentPlayer),gamecontroller.currentPlayer);
+        }
+
+        gamecontroller.setNextPlayer();
+
+
+        gamecontroller.lastTurn = gamecontroller.currentTurn;
+
+        //gamecontroller.currentPlayer.setBrokeStatus(true);
+
+
     }
 
     @Test
-    public void getCurrentPlayerTurn(){
-
-        addPlayer();
-
-        Player currentPlayer = gamelogic.getAllPlayers()[0];
-        Player nextCurrentPlayer = gamelogic.getAllPlayers()[1];
-        Player next2CurrentPlayer = gamelogic.getAllPlayers()[2];
-        Player next3CurrentPlayer = gamelogic.getAllPlayers()[3];
-
-        assertEquals(currentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
-
-        gamelogic.setNextPlayer();
-
-        assertEquals(nextCurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
-
-        gamelogic.setNextPlayer();
-
-        assertEquals(next2CurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
-
-        gamelogic.setNextPlayer();
-
-        assertEquals(next3CurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
-
-        gamelogic.setNextPlayer();
+    public void playGame(){
 
 
-
-        assertEquals(currentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
-        gamelogic.getCurrentPlayer().setDoubleTurnStatus(true);
-        gamelogic.setNextPlayer();
-        assertNotEquals(nextCurrentPlayer.getName(),gamelogic.getCurrentPlayer());
-        assertEquals(currentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
-
-
-        gamelogic.setNextPlayer();
-
-        assertEquals(nextCurrentPlayer.getName(),gamelogic.getCurrentPlayer().getName());
+        setupGame();
+        viewController.showFieldMessage(gamecontroller.playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
+        while(!gamecontroller.checkIfAllBroke()){
+            playTurn();
+        }
+        gamecontroller.checkForWinner();
 
     }
+
     @Test
-    public void nextPlayerTurn(){
-
+    public void testCase01(){
+        setupGame();
     }
-    */
 
+    @Test
+    public void resolveField(){
+        gamecontroller.currentPlayer= gamecontroller.playerlist.getCurrentPlayer();
+        int position = gamecontroller.currentPlayer.getPosition();
+        gamecontroller.currentField = gamecontroller.board.getFields()[position];
+
+        FieldVisitor fieldVisitor = new FieldVisitor(gamecontroller.currentPlayer, gamecontroller.getPlayersButPlayer(gamecontroller.currentPlayer), gamecontroller.deck, gamecontroller.board, viewController);
+        gamecontroller.currentField.accept(fieldVisitor);
+    }
+
+    @Test
+    public void checkIfinJailBeforeMoving(){
+        gamecontroller.currentPlayer= gamecontroller.playerlist.getCurrentPlayer();
+        if(!gamecontroller.currentPlayer.isInJail()) {
+            gamecontroller.rollAndShowDice(gamecontroller.currentPlayer);
+            int lastField = gamecontroller.currentPlayer.getPosition();
+            int sumOfDice = gamecontroller.dice.getDieOneValue() + gamecontroller.dice.getDieTwoValue();
+
+            if(gamecontroller.currentPlayer.getDoubleThrowNum()>2){
+                gamecontroller.currentPlayer.setInJail(true);
+                sumOfDice = (40-lastField+10)%40;
+                gamecontroller.endTurn = true;
+            }
+            gamecontroller.movePlayer(gamecontroller.currentPlayer, lastField, sumOfDice);
+        }
+    }
 }

@@ -13,7 +13,7 @@ public class TradeController {
 
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
-    private ViewController viewController = ViewController.getSingleInstance();
+    private ViewControllerInterface viewController = ViewController.getSingleInstance();
     private static Bank bank = Bank.getSingleInstance();
 
     private TradeController(){
@@ -23,6 +23,11 @@ public class TradeController {
     public static TradeController getSingleInstance(){
         return singleInstance;
     }
+
+    public void setViewController(ViewControllerInterface viewController){
+        this.viewController = viewController;
+    }
+
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
         while(sourcePlayer.getBalance() < amount){

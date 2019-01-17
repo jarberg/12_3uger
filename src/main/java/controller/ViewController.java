@@ -21,14 +21,14 @@ public class ViewController implements ViewControllerInterface {
 
     private String[] colorChoices;
 
-    private static ViewController singleInstance = new ViewController();
+    private static ViewControllerInterface singleInstance = new ViewController();
 
     private ViewController() {
         this.gui_board = new GUI_Field[40];
         this.colorChoices = new String[6];
     }
 
-    public static ViewController getSingleInstance(){
+    public static ViewControllerInterface getSingleInstance(){
         return singleInstance;
     }
 

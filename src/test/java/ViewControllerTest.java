@@ -1,4 +1,5 @@
 import controller.ViewController;
+import controller.ViewControllerInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ViewControllerTest {
 
-    private ViewController viewController = ViewController.getSingleInstance();
+    private ViewControllerInterface viewController = ViewController.getSingleInstance();
 
     @Before
     public void setUp(){
