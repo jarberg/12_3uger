@@ -422,7 +422,7 @@ public class Bank {
                 if(propertyField.getBuildingCount() < lowestCount)
                     lowestCount = propertyField.getBuildingCount();
             }
-            if(field.getBuildingCount() == lowestCount){
+            if(field.getBuildingCount() == lowestCount && lowestCount != 5){
                 counter3++;
             }
         }
@@ -436,7 +436,7 @@ public class Bank {
                 if(propertyField.getBuildingCount() < lowestCount)
                     lowestCount = propertyField.getBuildingCount();
             }
-            if(field.getBuildingCount() == lowestCount){
+            if(field.getBuildingCount() == lowestCount && lowestCount != 5){
                 buildableFields[counter3] = field;
                 counter3++;
             }
