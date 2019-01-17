@@ -36,7 +36,7 @@ public class Deck {
                     cardArray[i] = new TeleportAndPayDoubleCard(desc,info1int);
                     break;
                 case "6":
-                    cardArray[i] = new TeleportCard(desc,info1int);
+                    cardArray[i] = new GoToJail(desc,info1int);
                     break;
                 case "7":
                     cardArray[i] = new BirthdayCard(desc,info1int);

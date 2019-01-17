@@ -1,6 +1,6 @@
 8~Get 50~50~0
-2~Get 2000 kr if your total assets dont equate to above 750 kr~750~2000
-6~Go to rådhuspladsen~39~0
+2~Get 2000 kr if your total assets do not equate to above 750 kr~750~2000
+3~Go to rådhuspladsen~39~0
 3~Move to grønningen, get 200 if you pass start~24~0
 3~Take the øresund ferry, get 200 if you pass start~5~0
 6~Go to jail, no get 200~10~0
