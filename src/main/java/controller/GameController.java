@@ -434,6 +434,7 @@ public class GameController {
         currentPlayer.setJailCardStatus(false);
         int jailCardPrice = Integer.parseInt(logicCollection.getChanceCard()[25][2]);
         tradecontroller.transferAssets(currentPlayer, jailCardPrice / 2);
+
     }
 
     private String[][] reverse2DStringArray(String[][] array) {
