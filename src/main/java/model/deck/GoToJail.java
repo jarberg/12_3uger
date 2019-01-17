@@ -22,3 +22,4 @@ public class GoToJail extends Card {
     }
 }
 
+
