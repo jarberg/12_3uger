@@ -107,6 +107,7 @@ public class GameController {
         checkIfinJailBeforeMoving();
         checkIfPassedStart();
         resolveField();
+        checkIfPassedStart();
 
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
