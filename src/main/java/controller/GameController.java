@@ -19,7 +19,8 @@ public class GameController {
     private ViewControllerInterface viewController;
     private FileReader fileReader;
 
-    private DieSet dice;
+    private DieSet
+            dice;
     private int playerAmount;
     private boolean endTurn = false;
     private Field currentField;
@@ -172,6 +173,13 @@ public class GameController {
         rollDice(curPlayer);
         int dieOneValue = dice.getDieOneValue();
         int dieTwoValue = dice.getDieTwoValue();
+        if(dice.getIdenticalRolls()) {
+
+            currentPlayer.addDoubleThrowTimes();
+        }
+        else{
+            currentPlayer.resetDoubleThrowTimes();
+        }
         viewController.showDice(dieOneValue, dieTwoValue);
     }
 
@@ -241,7 +249,7 @@ public class GameController {
 
     private void rollDice(Player player){
         dice.roll();
-        player.setDoubleTurnStatus(checkdiceForDoubleRoll());
+        player.setDoubleTurnStatus(dice.getIdenticalRolls());
     }
 
     private void setFilepathLanguage(String language) {
@@ -331,12 +339,12 @@ public class GameController {
                     String option = String.format(languageCollection.getMenu()[33]+",1");
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() > ((JailField) field).getBailAmount()) {
-                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) field).getBailAmount()+ ",2");
+                if (player.getBalance() > ((JailField) currentField).getBailAmount()) {
+                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() < ((JailField) field).getBailAmount()) {
-                    String option = languageCollection.getMenu()[31]+ ", 2";
+                if (player.getBalance() < ((JailField) currentField).getBailAmount()) {
+                    String option = languageCollection.getMenu()[31]+ ", 7";
                     choiceList = addToStringArray(choiceList, option);
                 }
             }
@@ -444,7 +452,7 @@ public class GameController {
             case 6: pawnProperty(player);
                     break;
 
-            case 7: this.endTurn = true;
+            case 7: tradecontroller.raiseMoney(currentPlayer);
                     break;
 
             case 8: rollAndShowDice(currentPlayer);
