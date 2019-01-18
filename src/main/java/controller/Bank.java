@@ -203,7 +203,6 @@ public class Bank {
     }
 
     public Field[] getPlayerFields(Player player){
-
         Field[] ownedFields = new Field[0];
 
         for (String[] playerOwnedFields : fieldOwnerArray) {
@@ -225,73 +224,54 @@ public class Bank {
     }
 
     public Field[] getFieldsWithHousesByPlayer(Player player){
-
         Field[] playerFieldList = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
 
         for (Field aPlayerFieldList : playerFieldList) {
             if(aPlayerFieldList instanceof PropertyField) {
                 if (((PropertyField) aPlayerFieldList).getBuildingCount() > 0) {
-
                     Field[] temp = new Field[ownedFields.length + 1];
-
                     for (int j = 0; j < ownedFields.length; j++) {
                         temp[j] = ownedFields[j];
                     }
                     temp[temp.length - 1] = aPlayerFieldList;
-
                     ownedFields = temp;
-
                 }
             }
-
         }
         return ownedFields;
     }
 
     public Field[] getFieldsWithNoHousesByPlayerAndCheckPawnStatus(Player player){
-
         Field[] playerFieldArray = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
-
         for (Field field : playerFieldArray) {
             if(field instanceof PropertyField) {
                 if (((PropertyField) field).getBuildingCount() == 0 && !((PropertyField) field).getPawnedStatus()) {
-
                     Field[] temp = new Field[ownedFields.length + 1];
-
                     for (int j = 0; j < ownedFields.length; j++) {
                         temp[j] = ownedFields[j];
                     }
-
                     temp[temp.length - 1] = field;
-
                     ownedFields = temp;
-
                 }
-
             }
             else if(field instanceof BreweryField){
-
                 if(!((BreweryField) field).getPawnedStatus()){
                     Field[] temp = new Field[ownedFields.length + 1];
-
                     for (int j = 0; j < ownedFields.length; j++) {
                         temp[j] = ownedFields[j];
                     }
                     temp[temp.length - 1] = field;
-
                     ownedFields = temp;
                 }
             } else if(field instanceof FerryField){
                 if(!((FerryField) field).getPawnedStatus()){
                     Field[] temp = new Field[ownedFields.length + 1];
-
                     for (int j = 0; j < ownedFields.length; j++) {
                         temp[j] = ownedFields[j];
                     }
                     temp[temp.length - 1] = field;
-
                     ownedFields = temp;
                 }
             }
@@ -300,39 +280,28 @@ public class Bank {
     }
 
     public Field[] getFieldsWithNoHousesByPlayer(Player player){
-
         Field[] playerFieldArray = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
 
         for (Field aPlayerFieldList : playerFieldArray) {
             if(aPlayerFieldList instanceof PropertyField) {
                 if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
-
                     Field[] temp = new Field[ownedFields.length + 1];
-
                     for (int j = 0; j < ownedFields.length; j++) {
                         temp[j] = ownedFields[j];
                     }
                     temp[temp.length - 1] = aPlayerFieldList;
-
                     ownedFields = temp;
-
                 }
-
             }
             else{
-
                 Field[] temp = new Field[ownedFields.length + 1];
-
                 for (int j = 0; j < ownedFields.length; j++) {
                     temp[j] = ownedFields[j];
                 }
                 temp[temp.length - 1] = aPlayerFieldList;
-
                 ownedFields = temp;
-
             }
-
         }
         return ownedFields;
     }
