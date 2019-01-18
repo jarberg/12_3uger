@@ -158,8 +158,8 @@ public class GameController {
 
             viewController.showMessage(languageCollection.getMenu()[24]);
             tradecontroller.transferAssets(currentPlayer, 200);
-            currentPlayer.setPassedStartStatus(false);
         }
+        currentPlayer.setPassedStartStatus(false);
     }
 
     private void rollAndShowDice(Player curPlayer){
