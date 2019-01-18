@@ -4,6 +4,7 @@ import model.board.Board;
 import model.board.Field;
 import model.deck.*;
 import model.player.Player;
+import model.player.PlayerList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,43 +13,43 @@ import static org.junit.Assert.*;
 
 public class DrawControllerTest {
 
-    private GameController gamecontroller = GameController.getSingleInstance();
-    private ViewControllerInterface viewcontroller = new ViewControllerStub();
-    private Player player = new Player(viewcontroller.getPlayerName());
-    private Player[] otherplayerList;
-    private Bank bank = new BankStub();
+    private GameController gamecontroller;
+    private ViewControllerInterface viewcontroller;
+    private Bank bank;
     private Board board;
     private Deck deck;
-    private TradeController tradecontroller = TradeController.getSingleInstance();
-    private DrawController drawcontroller;
+    private PlayerList playerList;
+    private TradeController tradecontroller;
 
     @Before
     public void setUp() {
+        gamecontroller = GameController.getSingleInstance();
+        viewcontroller = new ViewControllerStub();
         gamecontroller.setViewController(viewcontroller);
-        gamecontroller.setupGame();
-        gamecontroller.createPlayers();
 
-        player = gamecontroller.getPlayer(0);
-
-        for (int i = 1; i == viewcontroller.getPLayerAmount(); i++) {
-            otherplayerList[i] = gamecontroller.getPlayer(i);
-        }
-
+        tradecontroller = TradeController.getSingleInstance();
         tradecontroller.setViewController(viewcontroller);
-
-        otherplayerList = new Player[viewcontroller.getPLayerAmount() - 1];
+        bank = Bank.getSingleInstance();
 
         gamecontroller.setupGame();
-        drawcontroller = new DrawController(player, otherplayerList, bank, gamecontroller.board, gamecontroller.deck, viewcontroller);
-
-
+        board = gamecontroller.getBoard();
+        deck = gamecontroller.getDeck();
+        playerList = gamecontroller.getPlayerlist();
     }
 
     @After
     public void tearDown() {
-        drawcontroller = null;
+        gamecontroller = null;
+        viewcontroller = null;
+        tradecontroller = null;
+        board = null;
+        deck = null;
+        bank = null;
+        playerList = null;
     }
 
+
+    /*
 
     @Test
     public void GetOutOfJailCard() {
@@ -61,6 +62,7 @@ public class DrawControllerTest {
 
         assertTrue("have getoutofjail card", player.getJailCardStatus());
     }
+
 
     @Test
     public void MonopolyJackpotCard () {
@@ -88,7 +90,7 @@ public class DrawControllerTest {
     public void PayForBuildingsCard() {
     }
 
-*/
+/*
 
     @Test
     public void TeleportAndPayDoubleCard() {
@@ -97,7 +99,7 @@ public class DrawControllerTest {
 
 
         drawcontroller.draw(card);
-/*
+
         assertEquals();
 
         int amount = 25*card.getMultiplier();
@@ -144,10 +146,12 @@ public class DrawControllerTest {
     }
 
 */
+
+    /*
     }
 
     @Test
-    public void GoToJail() {
+    public void GoToJailCard() {
 
     GoToJail card = new GoToJail("desc",10);
 
@@ -160,9 +164,45 @@ public class DrawControllerTest {
 
     /*
 
+
+    */
+
     @Test
-    public void BirthdayCard() {
+    public void ShouldGiveBirthdayMonies() {
+        int amount = 25;
+
+        BirthdayCard card = new BirthdayCard("desc", amount);
+
+        Player playerOne = playerList.getAllPlayers()[0];
+        int playerOneStartBalance = playerOne.getBalance();
+
+        Player playerTwo = playerList.getAllPlayers()[1];
+        int playerTwoStartBalance = playerTwo.getBalance();
+
+        Player playerThree = playerList.getAllPlayers()[2];
+        int playerThreeStartBalance = playerThree.getBalance();
+
+        Player[] players = new Player[2];
+
+        players [0] = playerTwo;
+        players [1] = playerThree;
+
+        DrawController drawController = new DrawController(playerOne, players, bank, board, deck, viewcontroller);
+
+
+        drawController.draw(card);
+
+        assertEquals(amount*2 + playerOneStartBalance, playerOne.getBalance());
+
+        assertEquals(playerTwoStartBalance-amount, playerTwo.getBalance());
+
+        assertEquals(playerThreeStartBalance-amount, playerThree.getBalance());
+
+
     }
+
+
+    /*
 
     @Test
     public void MoneyCard() {

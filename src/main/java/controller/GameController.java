@@ -61,6 +61,18 @@ public class GameController {
         checkForWinner();
     }
 
+    public Board getBoard(){
+        return board;
+    }
+
+    public Deck getDeck(){
+        return deck;
+    }
+
+    public PlayerList getPlayerlist(){
+        return playerlist;
+    }
+
     void createBoard(int[][] fieldLogic, String[][] fieldInfo){
         this.board = new Board(fieldLogic, fieldInfo);
         this.board.setupBoard();
@@ -94,6 +106,7 @@ public class GameController {
     }
 
     Player[] getPlayersButPlayer(Player notThisOneToo){
+
         Player[] playersInGame = playerlist.getAllPlayers();
         int length = playersInGame.length;
         Player[] otherPlayers = new Player[length - 1];
@@ -104,6 +117,7 @@ public class GameController {
                 counter++;
             }
         }
+
         return otherPlayers;
     }
 
@@ -138,6 +152,8 @@ public class GameController {
         FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board, viewController);
         currentField.accept(fieldVisitor);
     }
+
+
 
     void checkIfinJailBeforeMoving(){
         if(!currentPlayer.isInJail()) {
