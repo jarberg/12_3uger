@@ -319,7 +319,7 @@ public class GameController {
             if (currentField instanceof  JailField) {
 
                 if (currentTurn>lastTurn) {
-                    String option = String.format(languageCollection.getMenu()[34]+",9");
+                    String option = String.format(languageCollection.getMenu()[34]+",8");
                     choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getJailCardStatus()) {
@@ -456,6 +456,8 @@ public class GameController {
 
             case 10: tradecontroller.buyBackPawnedProperty(currentPlayer);
                     break;
+
+
         }
    }
 
