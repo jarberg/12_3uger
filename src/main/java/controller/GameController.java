@@ -33,6 +33,7 @@ public class GameController {
     private int currentTurn;
     private TradeController tradecontroller = TradeController.getSingleInstance();
     private boolean threwDice = false;
+    private int playerCount = 1;
 
     //TODO: if time. split into use case controllers
     private GameController(){
@@ -257,10 +258,15 @@ public class GameController {
         FileReader.setLanguage(language);
     }
 
+    public String getPlayerCount(){
+        return String.valueOf(playerCount);
+    }
+
     private void createPlayers() {
         //TODO: playerAmount redundancy
         createPlayerList(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
+
             String name = viewController.getPlayerName();
             String playerName = name;
             int playerIdentifier = 2;
@@ -269,6 +275,7 @@ public class GameController {
                 playerIdentifier++;
             }
             addPlayer(i, new Player(playerName));
+            playerCount++;
         }
     }
 

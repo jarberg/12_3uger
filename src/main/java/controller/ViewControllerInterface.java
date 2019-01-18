@@ -16,10 +16,6 @@ public interface ViewControllerInterface {
 
     void closeGUI();
 
-    void createBoard();
-
-    void addPlayer(String name, int balance);
-
     void showGUI();
 
     void addPlayer(String name, Color color, int balance);
