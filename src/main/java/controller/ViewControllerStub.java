@@ -85,10 +85,6 @@ public class ViewControllerStub implements ViewControllerInterface {
     }
 
 
-    public int getPlayerAmount() {
-        return 0;
-    }
-
     @Override
     public String getPlayerName() {
         return null;

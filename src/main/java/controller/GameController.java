@@ -19,8 +19,7 @@ public class GameController {
     private ViewControllerInterface viewController;
     private FileReader fileReader;
 
-    private DieSet
-            dice;
+    private DieSet dice;
     private int playerAmount;
     private boolean endTurn = false;
     private Field currentField;
