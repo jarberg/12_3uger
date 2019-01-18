@@ -18,7 +18,6 @@ public class PlayerList {
 
     //getters
 
-    //TODO: check if needed
     public Player getPlayer(int index){ return playerList[index]; }
 
     public Player[] getAllPlayers(){ return playerList; }

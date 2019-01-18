@@ -16,7 +16,7 @@ public class TradeController {
     private static final int PRICE_INCREMENT = 50;
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
-    private ViewController viewController = ViewController.getSingleInstance();
+    private ViewControllerInterface viewController = ViewController.getSingleInstance();
     private static Bank bank = Bank.getSingleInstance();
 
     private TradeController(){
@@ -338,4 +338,7 @@ public class TradeController {
         return price;
     }
 
+    public void setViewController(ViewControllerInterface viewController) {
+        this.viewController = viewController;
+    }
 }

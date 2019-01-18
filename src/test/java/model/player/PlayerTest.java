@@ -17,8 +17,6 @@ public class PlayerTest {
         assertEquals(true,player.getJailCardStatus());
     }
 
-
-
     @Test
     public void setGetPlayerColor() {
 
@@ -33,10 +31,10 @@ public class PlayerTest {
     @Test
     public void setGetPosition() {
 
-        int testPosition =5;
-        int boardsize =40;
+        int testPosition = 5;
+        int boardsize = 40;
         assertEquals(0,player.getPosition()%boardsize);
-        player.setPosition(testPosition);
+        player.setPositionWithStartMoney(testPosition);
         assertEquals(testPosition,player.getPosition()%boardsize);
 
         assertEquals(testPosition,(player.getPosition()+boardsize)%boardsize);
@@ -67,4 +65,44 @@ public class PlayerTest {
         assertEquals(oldBalance + amount, player.getBalance());
     }
 
+
+    @Test
+    public void shouldAddToBalance() {
+        int beforeBalance = player.getBalance();
+        player.addToBalance(100);
+        assertEquals(beforeBalance,player.getBalance()-100);
+    }
+
+    @Test
+    public void shouldAddDoubleThrowTimes() {
+        int beforeDoubleThrowNum = player.getDoubleThrowNum();
+        player.addDoubleThrowTimes();
+        assertEquals(beforeDoubleThrowNum,player.getDoubleThrowNum()-1);
+    }
+
+    @Test
+    public void shouldResetDoubleThrowTimes() {
+        assertEquals(player.getDoubleThrowNum(),0);
+    }
+
+    @Test
+    public void shouldSetInJail() {
+        player.setInJail(true);
+        assertTrue(player.isInJail());
+        player.setInJail(false);
+        assertTrue(!player.isInJail());
+    }
+
+    @Test
+    public void shouldSetJailTurn() {
+        player.setJailTurn();
+        assertEquals(player.getJailTurn(),player.getCurrentTurn());
+    }
+
+    @Test
+    public void addCurrentTurn() {
+        int beforeTurn = player.getCurrentTurn();
+        player.addCurrentTurn();
+        assertEquals(beforeTurn,player.getCurrentTurn()-1);
+    }
 }
