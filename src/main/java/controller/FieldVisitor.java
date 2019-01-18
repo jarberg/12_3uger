@@ -44,7 +44,11 @@ public class FieldVisitor implements Visitor  {
 
     @Override
     public void visit(JailField field) {
-        viewController.showMessage(field.getMessage());
+        if(player.isInJail()) {
+            viewController.showMessage(String.format(languageStringCollection.getMenu()[49],player.getName()));
+        }else{
+            viewController.showMessage(field.getMessage());
+        }
     }
 
     @Override

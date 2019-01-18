@@ -46,3 +46,5 @@ Hvilken grund oensker du at pantsaette?
 %s, vil De deltage i auktionen?
 Prisen paa %s er %s
 %s har slaaet %s og rykker frem.
+Skaf penge
+De er i faengsel, %s

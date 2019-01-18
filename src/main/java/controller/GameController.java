@@ -113,7 +113,6 @@ public class GameController {
 
         currentTurn++;
 
-
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
         currentPlayer.addCurrentTurn();
@@ -131,9 +130,7 @@ public class GameController {
 
         setNextPlayer();
 
-
         lastTurn = currentTurn;
-
 
     }
 
