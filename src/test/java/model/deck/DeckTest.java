@@ -497,5 +497,9 @@ public class DeckTest {
         assertSame(topCard,cardArray[0]);
     }
 
+    @Test
+    public void shouldMakeDeck(){
+
+    }
 }
 
