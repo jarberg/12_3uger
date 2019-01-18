@@ -1,6 +1,7 @@
 package controller;
 
 import model.board.Board;
+import model.board.FerryField;
 import model.board.Field;
 import model.board.PropertyField;
 import model.deck.*;
@@ -61,7 +62,7 @@ public class DrawControllerTest {
 
 
     @Test
-    public void GetOutOfJailCard() {
+    public void shouldGetOutOfJail() {
 
         GetOutOfJailCard card = new GetOutOfJailCard("desc", 50);
 
@@ -76,7 +77,7 @@ public class DrawControllerTest {
 
 
     @Test
-    public void MonopolyJackpotCard () {
+    public void shouldGetMonopolyJackpot () {
 
         MonopolyJackpotCard card = new MonopolyJackpotCard("desc", 750, 2000);
 
@@ -92,7 +93,7 @@ public class DrawControllerTest {
 
 
     @Test
-    public void MoveToFieldCard() {
+    public void shouldMoveToField() {
 
         int destinationField = 25;
 
@@ -108,7 +109,7 @@ public class DrawControllerTest {
 
 
     @Test
-    public void PayForBuildingsCard() {
+    public void shouldPayForBuildings() {
         Player player = playerList.getCurrentPlayer();
         setPlayerOwnAllFields(player);
 
@@ -148,43 +149,41 @@ public class DrawControllerTest {
         }
     }
 
-/*
+
     @Test
-    public void TeleportAndPayDoubleCard() {
+    public void shouldTeleportAndPayDouble() {
 
         int destinationField = 5;
-        int multiplied = 2;
-        int amount = 25;
+        Field field = bank.getFieldById(String.valueOf(destinationField));
+        assertTrue(field instanceof FerryField);
+        int amount = ((FerryField)field).getRent(1);
 
         TeleportAndPayDoubleCard card = new TeleportAndPayDoubleCard("desc", 2);
+
+        int multiplied = card.getMultiplier();
 
         Player player = playerList.getCurrentPlayer();
         int playerStartBalance = player.getBalance();
 
-        Player player2
+        Player playerTwo = playerList.getAllPlayers()[1];
+        int playerTwoBalance = playerTwo.getBalance();
 
-        Field field = bank.getFieldById(String.valueOf(5));
-
-        Player owner = bank.getOwner(field.getID());
-
-        bank.addFieldToPlayer(owner,field);
+        bank.addFieldToPlayer(playerTwo,field);
 
         drawController.draw(card);
 
         assertEquals(destinationField, player.getPosition());
 
-        int ownerStartBalance = owner.getBalance();
-
         assertEquals(playerStartBalance-(amount*multiplied),player.getBalance());
 
-        assertEquals(ownerStartBalance+(amount*multiplied),owner.getBalance());
+        assertEquals(playerTwoBalance+(amount*multiplied),playerTwo.getBalance());
 
     }
-*/
+
 
 
     @Test
-    public void GoToJailCard() {
+    public void shouldGoToJail() {
 
     GoToJail card = new GoToJail("desc",10);
 
@@ -199,7 +198,7 @@ public class DrawControllerTest {
 
 
     @Test
-    public void ShouldGiveBirthdayMonies() {
+    public void shouldGiveBirthdayMonies() {
         int amount = 25;
 
         BirthdayCard card = new BirthdayCard("desc", amount);
@@ -226,7 +225,7 @@ public class DrawControllerTest {
 
 
     @Test
-    public void ShouldGiveAndTakeMonies() {
+    public void shouldGiveAndTakeMonies() {
 
         int amount = 10;
         MoneyCard card = new MoneyCard("desc", amount);
@@ -242,7 +241,7 @@ public class DrawControllerTest {
     }
 
     @Test
-    public void MoveAmountCard() {
+    public void shouldMoveAmount() {
 
         int moveAmount = 5;
         MoveAmountCard card = new MoveAmountCard("desc", moveAmount);
