@@ -244,92 +244,112 @@ public class BankTest {
 
     @Test
     public void getAmountOfTypeOwned() {
+        shouldSetupFieldOwnerArrayWithPlayerNames();
+        Player player = playerList.getPlayer(1);
+        Field valby = board.getFields()[8];
+        int amountOfTypeOwned = bank.getAmountOfTypeOwned(player, valby);
+        assertEquals(0, amountOfTypeOwned);
+        Field rodovrevej = board.getFields()[1];
+        Field hvidovrevej = board.getFields()[3];
+        bank.addFieldToPlayer(player, rodovrevej);
+        bank.addFieldToPlayer(player, hvidovrevej);
+        amountOfTypeOwned = bank.getAmountOfTypeOwned(player, rodovrevej);
+        assertEquals(2, amountOfTypeOwned);
     }
 
     @Test
-    public void getPlayerBuildableFields() {
+    public void shouldGetPlayerBuildableFields() {
+        shouldSetupFieldOwnerArrayWithPlayerNames();
+        Player player = playerList.getPlayer(1);
+        int numOfBuildableFields = bank.getPlayerBuildableFields(player).length;
+        assertEquals(0, numOfBuildableFields);
+
+        Field rodovrevej = board.getFields()[1];
+        Field hvidovrevej = board.getFields()[3];
+        bank.addFieldToPlayer(player, rodovrevej);
+        bank.addFieldToPlayer(player, hvidovrevej);
+        numOfBuildableFields = bank.getPlayerBuildableFields(player).length;
+        assertEquals(2, numOfBuildableFields);
     }
 
     @Test
-    public void findPlayersWithFieldsWithNoHouses() {
+    public void shouldFindPlayersWithFieldsWithNoHouses() {
+        shouldSetupFieldOwnerArrayWithPlayerNames();
+        Player player = playerList.getPlayer(1);
+        Field rodovrevej = board.getFields()[1];
+        Field hvidovrevej = board.getFields()[3];
+        bank.addFieldToPlayer(player, rodovrevej);
+        bank.addFieldToPlayer(player, hvidovrevej);
+
+        Player player2 = playerList.getPlayer(2);
+        Field valby = board.getFields()[8];
+        Field allegade = board.getFields()[9];
+        bank.addFieldToPlayer(player2, valby);
+        bank.addFieldToPlayer(player2, allegade);
+        int numOfPlayers = bank.findPlayersWithFieldsWithNoHouses().length;
+        assertEquals(2, numOfPlayers);
+
+        ((PropertyField) valby).addBuilding();
+        ((PropertyField) allegade).addBuilding();
+        numOfPlayers = bank.findPlayersWithFieldsWithNoHouses().length;
+        assertEquals(1, numOfPlayers);
     }
 
     @Test
-    public void getPlayerNamesWithFieldsWithNoHouses() {
+    public void shouldGetPlayerNamesWithFieldsWithNoHouses() {
+        shouldSetupFieldOwnerArrayWithPlayerNames();
+        Player player = playerList.getPlayer(1);
+        Field rodovrevej = board.getFields()[1];
+        Field hvidovrevej = board.getFields()[3];
+        bank.addFieldToPlayer(player, rodovrevej);
+        bank.addFieldToPlayer(player, hvidovrevej);
+
+        Player player2 = playerList.getPlayer(2);
+        Field valby = board.getFields()[8];
+        Field allegade = board.getFields()[9];
+        bank.addFieldToPlayer(player2, valby);
+        bank.addFieldToPlayer(player2, allegade);
+        int numOfPlayerNames = bank.getPlayerNamesWithFieldsWithNoHouses().length;
+        assertEquals(2, numOfPlayerNames);
+
+        ((PropertyField) valby).addBuilding();
+        ((PropertyField) allegade).addBuilding();
+        numOfPlayerNames = bank.getPlayerNamesWithFieldsWithNoHouses().length;
+        assertEquals(1, numOfPlayerNames);
     }
 
     @Test
     public void getPropertyNamesWithNoHousesByPlayer() {
+        shouldSetupFieldOwnerArrayWithPlayerNames();
+        Player player = playerList.getPlayer(1);
+        Field rodovrevej = board.getFields()[1];
+        Field hvidovrevej = board.getFields()[3];
+        bank.addFieldToPlayer(player, rodovrevej);
+        bank.addFieldToPlayer(player, hvidovrevej);
+
+        String[] propertyNames = bank.getPropertyNamesWithNoHousesByPlayer(player);
+        assertEquals("Roedovrevej", propertyNames[0]);
+        assertEquals("Hvidovre", propertyNames[1]);
+
+        ((PropertyField) rodovrevej).addBuilding();
+        propertyNames = bank.getPropertyNamesWithNoHousesByPlayer(player);
+        assertEquals("Hvidovre", propertyNames[0]);
     }
 
     @Test
     public void getPawnedFieldsByPlayer() {
+        shouldSetupFieldOwnerArrayWithPlayerNames();
+        Player player = playerList.getPlayer(1);
+        Field rodovrevej = board.getFields()[1];
+        Field hvidovrevej = board.getFields()[3];
+        bank.addFieldToPlayer(player, rodovrevej);
+        bank.addFieldToPlayer(player, hvidovrevej);
+        int fieldsLength = bank.getPawnedFieldsByPlayer(player).length;
+        assertEquals(0, fieldsLength);
+
+        ((PropertyField) rodovrevej).setPawnedStatus(true);
+        ((PropertyField) hvidovrevej).setPawnedStatus(true);
+        fieldsLength = bank.getPawnedFieldsByPlayer(player).length;
+        assertEquals(2, fieldsLength);
     }
-
-/*
-    @Before
-    public void setUp(){
-
-        Player player1 = new Player("Bob");
-        Player player2 = new Player("Dylan");
-        Player player3 = new Player("Bae");
-
-        int[][] fieldLogic = {
-                {1,2,1,1,1,1,1,1,1,1,1},
-                {2,2,1,1,1,1,1,1,1,1,1},
-                {3,2,2,1,1,1,1,1,1,1,1},
-                {4,2,2,1,1,1,1,1,1,1,1},
-                {5,2,2,1,1,1,1,1,1,1,1},
-                {6,2,3,1,1,1,1,1,1,1,1},
-                {7,2,3,1,1,1,1,1,1,1,1},
-                {8,2,3,1,1,1,1,1,1,1,1},
-                {9,2,8,1,1,1,1,1,1,1,1},
-                {10,2,8,1,1,1,1,1,1,1,1}
-        };
-
-        String[][] fieldInfo = {
-            {"1","2","1","1"},
-            {"2","2","1","1"},
-            {"3","2","2","1"},
-            {"4","2","2","1"},
-            {"5","2","2","1"},
-            {"6","2","3","1"},
-            {"7","2","3","1"},
-            {"8","2","3","1"},
-            {"9","2","8","1"},
-            {"10","2","8","1"}
-        };
-
-        board = new Board();
-        board.setupBoard(fieldLogic,fieldInfo);
-
-        playerList = new PlayerList(3);
-        playerList.addPlayer(0,player1);
-        playerList.addPlayer(1,player2);
-        playerList.addPlayer(2,player3);
-        bank = new Bank(playerList,board);
-    }
-
-    @After
-    public void tearDown(){
-        playerList = null;
-        board = null;
-        bank = null;
-    }
-
-    @Test
-    public void shouldAddFieldToPlayer() {
-        Field testField = board.getFields()[1];
-        bank.addFieldToPlayer(playerList.getPlayer(1),board.getFields()[1]);
-
-        assertEquals(bank.getInfo(1,1),testField.getID());
-    }
-
-    @Test
-    public void shouldGetOwner() {
-    }
-
-    @Test
-    public void shouldReturnIfPlayerIsOwnerOfAllFieldsOfType() {
-    }*/
 }
