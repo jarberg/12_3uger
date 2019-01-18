@@ -172,7 +172,7 @@ public class GameController {
         viewController.showDice(dieOneValue, dieTwoValue);
     }
 
-    private void setupGame(){
+    public void setupGame(){
         setupLanguage();
         this.playerAmount = getPlayerAmount();
         createPlayers();
@@ -537,4 +537,8 @@ public class GameController {
         currentPlayer.setJailCardStatus(false);
         currentPlayer.setInJail(false);
    }
+
+    public PlayerList getPlayerList() {
+        return playerlist;
+    }
 }

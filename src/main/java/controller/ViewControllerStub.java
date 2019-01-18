@@ -76,7 +76,7 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     @Override
     public String getUserLanguage() {
-        return null;
+        return "danish";
     }
 
     @Override
