@@ -29,11 +29,11 @@ public class GameController {
     private Bank bank = Bank.getSingleInstance();
     private Deck deck;
     private int lastTurn;
-    int currentTurn;
-    TradeController tradecontroller = TradeController.getSingleInstance();
-    boolean threwDice =false;
+    private int currentTurn;
+    private TradeController tradecontroller = TradeController.getSingleInstance();
+    private boolean threwDice = false;
 
-    //TODO: if time. split into usecase controllers
+    //TODO: if time. split into use case controllers
     private GameController(){
 
         this.fileReader         = FileReader.getSingleInstance();
@@ -337,7 +337,7 @@ public class GameController {
                 }
             }
         }
-        if(player.getJailCardStatus()==true){
+        if(player.getJailCardStatus()){
             String option = String.format(languageCollection.getMenu()[32]+",4");
             choiceList = addToStringArray(choiceList, option);
         }
