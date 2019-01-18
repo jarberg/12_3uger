@@ -20,8 +20,8 @@ Nej
 Saelg Bygning
 Saelg Grund
 Hvad saelger De?
-%s er gaaet fallit
-Betal de faste 100 kr.
+%s er gaaet fallit, og er ude af spillet
+Betal 100 kr.
 De passerer start og modtager 200 kr.
 %s har vundet!
 %s har pantsat dette felt, og kan derfor ikke modtage rente.
@@ -45,4 +45,4 @@ Hvilken grund oensker du at pantsaette?
 %s er paa offentlig auktion fordi %s valgte ikke at koebe den!
 %s, vil De deltage i auktionen?
 Prisen paa %s er %s
-%s har slaaet %S og rykker frem.
+%s har slaaet %s og rykker frem.
