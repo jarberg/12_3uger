@@ -102,10 +102,10 @@ public class Bank {
     public Player getOwnerOfField(String fieldID) {
         String owner = null;
 
-        for (int i = 0; i <fieldOwnerArray.length ; i++) {
-            for (int j = 1; j <fieldOwnerArray[i].length ; j++) {
-                if(fieldOwnerArray[i][j] != null && fieldOwnerArray[i][j].equals(fieldID)){
-                    owner = fieldOwnerArray[i][0];
+        for (String[] playerOwnedFields : fieldOwnerArray) {
+            for (int j = 1; j < playerOwnedFields.length; j++) {
+                if (playerOwnedFields[j] != null && playerOwnedFields[j].equals(fieldID)) {
+                    owner = playerOwnedFields[0];
                     break;
                 }
             }
@@ -115,58 +115,34 @@ public class Bank {
 
     public boolean isPlayerOwner(Player player, Field field){
         Player owner = getOwnerOfField(field.getID());
-
-        boolean trueOwner = false;
-        if(owner == player)
-            trueOwner = true;
-
-        return trueOwner;
+        return (owner == player);
     }
 
     public boolean isOwnerOfAllFieldsOfType(Player player, Field field){
-
         String fieldTypeID;
-
         int amountOfFields = 0;
         int count = 0;
 
         if(field instanceof PropertyField) {
             fieldTypeID = ((PropertyField) field).getType();
-
             switch (fieldTypeID) {
-                case "1":
-                    amountOfFields = 2;
-                    break;
-                case "2":
-                    amountOfFields = 3;
-                    break;
-                case "3":
-                    amountOfFields = 3;
-                    break;
-                case "4":
-                    amountOfFields = 3;
-                    break;
-                case "5":
-                    amountOfFields = 3;
-                    break;
-                case "6":
-                    amountOfFields = 3;
-                    break;
-                case "7":
-                    amountOfFields = 3;
-                    break;
-                case "8":
-                    amountOfFields = 2;
-                    break;
+                case "1": amountOfFields = 2; break;
+                case "2": amountOfFields = 3; break;
+                case "3": amountOfFields = 3; break;
+                case "4": amountOfFields = 3; break;
+                case "5": amountOfFields = 3; break;
+                case "6": amountOfFields = 3; break;
+                case "7": amountOfFields = 3; break;
+                case "8": amountOfFields = 2; break;
             }
 
             //Checks if you own the correct amount of a type of field. Owning 3 "Allégade" will let you buy houses on it.
-            for (int i = 0; i <fieldOwnerArray.length ; i++) {
-                if(fieldOwnerArray[i][0].equals(player.getName())){
-                    Field[] temp = getPlayerFields(player);
-                    for (Field aTemp : temp) {
-                        if(aTemp instanceof PropertyField){
-                            if (((PropertyField) aTemp).getType().equals(((PropertyField) field).getType())) {
+            for (String[] playerOwnedFields : fieldOwnerArray) {
+                if (playerOwnedFields[0].equals(player.getName())) {
+                    Field[] playerField = getPlayerFields(player);
+                    for (Field f : playerField) {
+                        if (f instanceof PropertyField) {
+                            if (((PropertyField) f).getType().equals(((PropertyField) field).getType())) {
                                 count++;
                             }
                         }
@@ -178,12 +154,12 @@ public class Bank {
         //Checks if you own the correct amount of a type of field. Owning 3 "Allégade" will let you buy houses on it.
         if(field instanceof BreweryField){
             amountOfFields = 2;
-            for (int i = 0; i <fieldOwnerArray.length ; i++) {
-                if(fieldOwnerArray[i][0].equals(player.getName())){
-                    Field[] temp = getPlayerFields(player);
-                    for (Field aTemp : temp) {
-                        if(aTemp instanceof BreweryField){
-                                count++;
+            for (String[] playerOwnedFields : fieldOwnerArray) {
+                if (playerOwnedFields[0].equals(player.getName())) {
+                    Field[] playerFields = getPlayerFields(player);
+                    for (Field f : playerFields) {
+                        if (f instanceof BreweryField) {
+                            count++;
                         }
                     }
                 }
@@ -238,23 +214,18 @@ public class Bank {
 
         Field[] ownedFields = new Field[0];
 
-        for (int i = 0; i <fieldOwnerArray.length ; i++) {
-
-            for (int j = 1; j < fieldOwnerArray[i].length ; j++) {
-
-                if(null==fieldOwnerArray[i][j]){
-                    break;
-                }
-                else{
-                    if(player.getName().equals(fieldOwnerArray[i][0])){
-                        Field[] temp = new Field[ownedFields.length+1];
-                        for (int k = 0; k < ownedFields.length ; k++) {
-                            temp[k] = ownedFields[k];
-                        }
-                        temp[j-1] = board.getFields()[Integer.parseInt(fieldOwnerArray[i][j])];
-                        ownedFields = temp;
+        for (String[] playerOwnedFields : fieldOwnerArray) {
+            for (int j = 1; j < playerOwnedFields.length; j++) {
+                if (playerOwnedFields[j] != null && player.getName().equals(playerOwnedFields[0])) {
+                    Field[] temp = new Field[ownedFields.length + 1];
+                    for (int k = 0; k < ownedFields.length; k++) {
+                        temp[k] = ownedFields[k];
                     }
+                    temp[j - 1] = board.getFields()[Integer.parseInt(playerOwnedFields[j])];
+                    ownedFields = temp;
                 }
+
+
             }
         }
         return ownedFields;
