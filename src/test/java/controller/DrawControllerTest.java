@@ -202,11 +202,33 @@ public class DrawControllerTest {
     }
 
 
-    /*
+
 
     @Test
     public void MoneyCard() {
+
+    int amount = 10;
+    MoneyCard card = new MoneyCard("desc", amount );
+
+
+    /*
+
+
+    assertEquals(1510,playerList);
+
+    Player player = player.getBalance();
+
+    assertEquals(amount+player.getBalance(),player.getBalance());
+
+
+
     }
+
+        */
+
+
+
+    /*
 
     @Test
     public void MoveAmountCard() {
@@ -216,3 +238,4 @@ public class DrawControllerTest {
     */
 
     }
+ }
