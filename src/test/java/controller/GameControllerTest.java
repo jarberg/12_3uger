@@ -18,6 +18,8 @@ public class GameControllerTest {
     private LogicStringCollection logicCollection;
     private LanguageStringCollection languageCollection;
     private TradeController tradeController;
+    private FieldVisitor fieldVisitor;
+    private DrawController drawController;
 
     @Before
     public void setUp(){
@@ -39,19 +41,24 @@ public class GameControllerTest {
         tradeController = null;
         gameCon = null;
         viewController = null;
-    }
-
-    public void createFieldVisitor(){
-        PlayerList playerList = gameCon.getPlayerList();
-        Player currentPlayer = playerList.getAllPlayers()[0];
-        //Player[] otherPlayers = playerList.getAllPlayersButOne(playerOne);
-        //FieldVisitor visitor = new FieldVisitor(currentPlayer, otherPlayers, gameCon.getDeck(), gameCon.getBoard(), viewController);
-        //DrawController drawController = new DrawController(currentPlayer, otherPlayers, gameCon.getDeck(), gameCon.getBoard(), viewController);
+        fieldVisitor = null;
+        drawController = null;
     }
 
     @Test
     public void shouldCreateModelFromLanguage(){
 
+    }
+
+    //@Test
+    public void shouldCreateFieldVisitorAndDrawController(){
+        gameCon.setupGame();
+
+        PlayerList playerList = gameCon.getPlayerList();
+        Player currentPlayer = playerList.getAllPlayers()[0];
+        Player[] otherPlayers = playerList.getPlayersButPlayer(currentPlayer);
+        fieldVisitor = new FieldVisitor(currentPlayer, otherPlayers, gameCon.getDeck(), gameCon.getBoard(), viewController);
+        drawController = new DrawController(currentPlayer, otherPlayers, gameCon.getBank(), gameCon.getBoard(), gameCon.getDeck(), viewController);
     }
 
     @Test

@@ -126,7 +126,7 @@ public class GameController {
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, playerlist.getPlayersButPlayer(currentPlayer), deck, board);
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, playerlist.getPlayersButPlayer(currentPlayer), deck, board, viewController);
         currentField.accept(fieldVisitor);
     }
 
@@ -540,5 +540,17 @@ public class GameController {
 
     public PlayerList getPlayerList() {
         return playerlist;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

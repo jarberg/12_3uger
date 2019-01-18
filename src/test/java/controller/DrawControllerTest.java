@@ -21,7 +21,7 @@ public class DrawControllerTest {
 
     @Before
     public void setUp() {
-        drawcontroller = new DrawController(player,otherPLayers,bank,board,deck);
+        drawcontroller = new DrawController(player,otherPLayers,bank,board,deck,ViewController.getSingleInstance());
     }
 
     @After
