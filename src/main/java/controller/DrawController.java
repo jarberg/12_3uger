@@ -25,7 +25,7 @@ public class DrawController implements Drawer {
         this.deck = deck;
     }
 
-    @Override //CARD: 24 - 26
+    @Override//CARD: 24 - 26
     public void draw(GetOutOfJailCard card) {
 
         String message = card.getDescription();
