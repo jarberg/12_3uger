@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ViewControllerTest {
 
-    private ViewController viewController = ViewController.getSingleInstance();
+    private ViewControllerInterface viewController = ViewController.getSingleInstance();
 
     @Before
     public void setUp(){

@@ -9,7 +9,7 @@ public class DrawController implements Drawer {
 
     private Player player;
     private Player[] otherPlayers;
-    private ViewController viewController;
+    private ViewControllerInterface viewController;
     private TradeController tradeController;
     private Bank bank;
     private Board board;
@@ -26,6 +26,19 @@ public class DrawController implements Drawer {
     }
 
     @Override//CARD: 24 - 26
+    DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board, Deck deck, ViewControllerInterface viewController){
+        this.player = player;
+        this.otherPlayers = otherPlayers;
+        this.viewController = ViewController.getSingleInstance();
+        this.tradeController = TradeController.getSingleInstance();
+        this.bank = bank;
+        this.board = board;
+        this.deck = deck;
+        this.viewController = viewController;
+    }
+
+
+    @Override //CARD: 24 - 26
     public void draw(GetOutOfJailCard card) {
 
         String message = card.getDescription();
@@ -64,7 +77,7 @@ public class DrawController implements Drawer {
         String newFieldId = String.valueOf(destination);
         Field newField = bank.getFieldById(newFieldId);
 
-        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board);
+        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board, viewController);
         newField.accept(fieldVisitor);
 
     }
@@ -93,7 +106,7 @@ public class DrawController implements Drawer {
 
         tradeController.transferAssets(player, -(amountOfHotels * multiplierHotel));
         tradeController.transferAssets(player, -(amountOfHouses * multiplierHouse));
-        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
+        viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
     }
 
     @Override //CARD: 17 - 27
@@ -174,7 +187,7 @@ public class DrawController implements Drawer {
         int amount = card.getAmount();
 
         tradeController.transferAssets(player,amount);
-        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
+        viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
 
 
     }
@@ -195,7 +208,7 @@ public class DrawController implements Drawer {
         String newField = String.valueOf(newPosition);
         Field newFieldId = bank.getFieldById(newField);
 
-        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board);
+        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board,viewController);
         newFieldId.accept(fieldVisitor);
     }
 
