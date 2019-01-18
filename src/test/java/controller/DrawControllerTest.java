@@ -2,12 +2,15 @@ package controller;
 
 import model.board.Board;
 import model.board.Field;
+import model.board.PropertyField;
 import model.deck.*;
 import model.player.Player;
 import model.player.PlayerList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.security.acl.Owner;
 
 import static org.junit.Assert.*;
 
@@ -57,16 +60,16 @@ public class DrawControllerTest {
     }
 
 
-    /*
-
     @Test
     public void GetOutOfJailCard() {
 
         GetOutOfJailCard card = new GetOutOfJailCard("desc", 50);
 
+        Player player = playerList.getCurrentPlayer();
+
         assertFalse("dont have getoutofjail card", player.getJailCardStatus());
 
-        drawcontroller.draw(card);
+        drawController.draw(card);
 
         assertTrue("have getoutofjail card", player.getJailCardStatus());
     }
@@ -77,103 +80,123 @@ public class DrawControllerTest {
 
         MonopolyJackpotCard card = new MonopolyJackpotCard("desc", 750, 2000);
 
+        Player player = playerList.getCurrentPlayer();
+
         assertEquals(1500, player.getBalance());
 
         player.addToBalance(-1000);
-        drawcontroller.draw(card);
+        drawController.draw(card);
 
         assertEquals(2500, player.getBalance());
     }
 
 
-
-    /*
-
-
     @Test
     public void MoveToFieldCard() {
+
+        int destinationField = 25;
+
+        MoveToFieldCard card = new MoveToFieldCard("desc", destinationField);
+
+        Player player = playerList.getCurrentPlayer();
+
+        drawController.draw(card);
+
+        assertEquals(destinationField, player.getPosition());
+
     }
+
 
     @Test
     public void PayForBuildingsCard() {
+        Player player = playerList.getCurrentPlayer();
+        setPlayerOwnAllFields(player);
+
+        //Player has 2 hotels and 4 houses;
+        for (int i = 0; i < 5; i++) {
+            ((PropertyField)board.getFields()[6]).addBuilding();
+            ((PropertyField)board.getFields()[8]).addBuilding();
+            if(((PropertyField)board.getFields()[9]).getBuildingCount() != 4)
+                ((PropertyField)board.getFields()[9]).addBuilding();
+        }
+
+        int house = 4;
+        int hotel = 2;
+
+        int pricePrHouse = 25;
+        int pricePrHotel = 125;
+
+        PayForBuildingsCard card = new PayForBuildingsCard("desc",pricePrHouse,pricePrHotel);
+
+        int housePrice = card.getHouse();
+        int hotelPrice = card.getHotel();
+
+        int amount = housePrice * house + hotelPrice * hotel;
+
+        int playerStartBalance = player.getBalance();
+
+        drawController.draw(card);
+
+        assertEquals(playerStartBalance-amount,player.getBalance());
+    }
+
+    private void setPlayerOwnAllFields(Player player){
+        for(Field field : board.getFields()){
+            if(field instanceof PropertyField){
+                bank.addFieldToPlayer(player,field);
+            }
+        }
     }
 
 /*
-
     @Test
     public void TeleportAndPayDoubleCard() {
 
+        int destinationField = 5;
+        int multiplied = 2;
+        int amount = 25;
+
         TeleportAndPayDoubleCard card = new TeleportAndPayDoubleCard("desc", 2);
 
+        Player player = playerList.getCurrentPlayer();
+        int playerStartBalance = player.getBalance();
 
-        drawcontroller.draw(card);
+        Player player2
 
-        assertEquals();
+        Field field = bank.getFieldById(String.valueOf(5));
 
-        int amount = 25*card.getMultiplier();
+        Player owner = bank.getOwner(field.getID());
 
-        int oldPosition = player.getPosition();
+        bank.addFieldToPlayer(owner,field);
 
-        int firFerry = 5;
-        int secFerry = 15;
-        int thiFerry = 25;
-        int fouFerry = 35;
+        drawController.draw(card);
 
-        if (player.getPosition() < 5 || player.getPosition() > 35) {
-            player.setPosition(firFerry);
-        } else if (player.getPosition() > 5 && player.getPosition() < 15) {
-            player.setPosition(secFerry);
-        } else if (player.getPosition() > 15 && player.getPosition() < 25) {
-            player.setPosition(thiFerry);
-        } else if (player.getPosition() > 25 && player.getPosition() < 35) {
-            player.setPosition(fouFerry);
-        }
+        assertEquals(destinationField, player.getPosition());
 
-        int newPosition = player.getPosition();
+        int ownerStartBalance = owner.getBalance();
 
-        String positionAsString = String.valueOf(newPosition);
-        Field disbutedField = bank.getFieldById(positionAsString);
+        assertEquals(playerStartBalance-(amount*multiplied),player.getBalance());
 
-        viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
-
-        if(bank.hasOwner(disbutedField.getID())){
-            Player otherPlayer =  bank.getOwner(positionAsString);
-            tradeController.transferAssets(player, otherPlayer, amount);
-        } else{
-            tradeController.askIfWantToBuy(player, disbutedField);
-        }
-
-        //først at den er teleported
-
-        //så om den er ejet
-
-        //betaling
-
-        //købning
+        assertEquals(ownerStartBalance+(amount*multiplied),owner.getBalance());
 
     }
-
 */
 
-    /*
-    }
 
     @Test
     public void GoToJailCard() {
 
     GoToJail card = new GoToJail("desc",10);
 
+    Player player = playerList.getCurrentPlayer();
+
     assertFalse("is not in jail", player.isInJail());
 
-    drawcontroller.draw(card);
+    drawController.draw(card);
 
     assertTrue("Player is in jail",player.isInJail());
     }
 
-    /*
-
-
-    */
 
     @Test
     public void ShouldGiveBirthdayMonies() {
@@ -218,31 +241,21 @@ public class DrawControllerTest {
 
     }
 
-    /*
-
-
-    assertEquals(1510,playerList);
-
-    Player player = player.getBalance();
-
-    assertEquals(amount+player.getBalance(),player.getBalance());
-
-
-
-    }
-
-        */
-
-
-
-    /*
-
     @Test
     public void MoveAmountCard() {
+
+        int moveAmount = 5;
+        MoveAmountCard card = new MoveAmountCard("desc", moveAmount);
+
+        Player player = playerList.getCurrentPlayer();
+        int playerOldPosition = player.getPosition();
+
+        drawController.draw(card);
+
+        assertEquals(moveAmount+playerOldPosition, player.getPosition());
+
     }
 
-
-    */
 
     }
 
