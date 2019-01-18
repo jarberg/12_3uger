@@ -1,4 +1,5 @@
 import controller.GameController;
+import jdk.internal.jline.internal.TestAccessible;
 import model.board.Board;
 import model.deck.TeleportAndPayDoubleCard;
 import model.player.Player;
@@ -16,4 +17,11 @@ public class Main {
 
         //System.out.println(controller.DrawController,TeleportAndPayDoubleCard card);
         }
+
     }
+
+
+
+
+
+
