@@ -45,3 +45,5 @@ Which property would you like to pawn?
 %s is going up for auction after %s passed on buying it!
 %s, do You want to participate in the auction?
 The price of %s is currently %s
+ rolled
+ and moves forward.

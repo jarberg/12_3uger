@@ -122,6 +122,8 @@ public class GameController {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
 
+        currentPlayer.setPassedStartStatus(false);
+
         setNextPlayer();
 
 
@@ -149,6 +151,7 @@ public class GameController {
                 sumOfDice = (40-lastField+10)%40;
                 endTurn = true;
             }
+            viewController.showMessage(currentPlayer.getName()+languageCollection.getMenu()[44]+" "+sumOfDice+languageCollection.getMenu()[45]);
             movePlayer(currentPlayer, lastField, sumOfDice);
         }
     }
