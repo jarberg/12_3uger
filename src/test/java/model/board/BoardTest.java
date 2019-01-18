@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BoardTest {
-    Board board;
+    private Board board;
 
     @Before
     public void setUp(){
