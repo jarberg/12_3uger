@@ -19,22 +19,22 @@ public class GameController {
     private ViewControllerInterface viewController;
     private FileReader fileReader;
 
-    DieSet dice;
-    int playerAmount;
-    boolean endTurn = false;
-    Field currentField;
-    Player currentPlayer;
-    PlayerList playerlist;
-    Board board;
+    private DieSet dice;
+    private int playerAmount;
+    private boolean endTurn = false;
+    private Field currentField;
+    private Player currentPlayer;
+    private PlayerList playerlist;
+    private Board board;
     private Bank bank = Bank.getSingleInstance();
-    Deck deck;
-    int lastTurn;
-    int currentTurn;
-    TradeController tradecontroller = TradeController.getSingleInstance();
-    boolean threwDice =false;
+    private Deck deck;
+    private int lastTurn;
+    private int currentTurn;
+    private TradeController tradecontroller = TradeController.getSingleInstance();
+    private boolean threwDice = false;
+    private int playerCount = 1;
 
-
-    //TODO: if time. split into usecase controllers
+    //TODO: if time. split into use case controllers
     private GameController(){
 
         this.fileReader         = FileReader.getSingleInstance();
@@ -61,24 +61,12 @@ public class GameController {
         checkForWinner();
     }
 
-    public Board getBoard(){
-        return board;
-    }
-
-    public Deck getDeck(){
-        return deck;
-    }
-
-    public PlayerList getPlayerlist(){
-        return playerlist;
-    }
-
-    void createBoard(int[][] fieldLogic, String[][] fieldInfo){
+    private void createBoard(int[][] fieldLogic, String[][] fieldInfo){
         this.board = new Board(fieldLogic, fieldInfo);
         this.board.setupBoard();
     }
 
-    boolean checkIfAllBroke(){
+    public boolean checkIfAllBroke(){
         boolean foundWinner = false;
         int counter         = 0;
 
@@ -93,15 +81,15 @@ public class GameController {
         return foundWinner;
     }
 
-    boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
+    public boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
 
-    void movePlayer(Player player, int position, int amount){
-        player.setPosition((position+amount)%board.getFields().length);
+    private void movePlayer(Player player, int position, int amount){
+        player.setPositionWithStartMoney((position+amount)%board.getFields().length);
         viewController.movePlayer(currentPlayer.getName(), position, amount);
 
     }
 
-    void createPlayerList(int amount){
+    public void createPlayerList(int amount){
         playerlist = new PlayerList(amount);
     }
 
@@ -121,41 +109,40 @@ public class GameController {
         return otherPlayers;
     }
 
-    void playTurn(){
+    public void playTurn(){
 
         currentTurn++;
 
-
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
+        currentPlayer.addCurrentTurn();
 
         checkIfinJailBeforeMoving();
         checkIfPassedStart();
         resolveField();
+        checkIfPassedStart();
 
         while(!endTurn) {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
 
-        setNextPlayer();
+        currentPlayer.setPassedStartStatus(false);
 
+        setNextPlayer();
 
         lastTurn = currentTurn;
 
-
     }
 
-    void resolveField(){
+    public void resolveField(){
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board, viewController);
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, playerlist.getPlayersButPlayer(currentPlayer), deck, board, viewController);
         currentField.accept(fieldVisitor);
     }
 
-
-
-    void checkIfinJailBeforeMoving(){
+    public void checkIfinJailBeforeMoving(){
         if(!currentPlayer.isInJail()) {
             rollAndShowDice(currentPlayer);
             int lastField = currentPlayer.getPosition();
@@ -166,29 +153,40 @@ public class GameController {
                 sumOfDice = (40-lastField+10)%40;
                 endTurn = true;
             }
+            if(!currentPlayer.isInJail()) {
+                String message = String.format(languageCollection.getMenu()[47], currentPlayer.getName(), sumOfDice);
+                viewController.showMessage(message);
+            }
             movePlayer(currentPlayer, lastField, sumOfDice);
         }
     }
 
-    void checkIfPassedStart(){
+    public void checkIfPassedStart(){
         if(currentPlayer.getPassedStartStatus() && !currentPlayer.isInJail()){
 
             viewController.showMessage(languageCollection.getMenu()[24]);
             tradecontroller.transferAssets(currentPlayer, 200);
-            currentPlayer.setPassedStartStatus(false);
         }
+        currentPlayer.setPassedStartStatus(false);
     }
 
-    void rollAndShowDice(Player curPlayer){
+    public void rollAndShowDice(Player curPlayer){
         rollDice(curPlayer);
         int dieOneValue = dice.getDieOneValue();
         int dieTwoValue = dice.getDieTwoValue();
+        if(dice.getIdenticalRolls()) {
+
+            currentPlayer.addDoubleThrowTimes();
+        }
+        else{
+            currentPlayer.resetDoubleThrowTimes();
+        }
         viewController.showDice(dieOneValue, dieTwoValue);
     }
 
-    void setupGame(){
+    public void setupGame(){
         setupLanguage();
-        this.getPlayerAmount();
+        this.playerAmount = getPlayerAmount();
         createPlayers();
         makePlayerChooseCar();
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
@@ -198,19 +196,18 @@ public class GameController {
         addPlayersToGUI();
     }
 
-    void setupBank(){
-        bank.setBankNoCrashy(playerlist.getAllPlayers().length);
-        bank.setPlayerList(playerlist);
+    private void setupBank(){
+        bank.setupFieldOwnerArray(playerlist);
         bank.setBoard(board);
     }
 
-    void createDeck(){
+    public void createDeck(){
         String[][] deckLogic = logicCollection.getChanceCard();
         String[][] deckText = languageCollection.getChanceCard();
         this.deck  = new Deck(deckLogic, deckText);
     }
 
-    Player getPlayerByName(String playerName){
+    public Player getPlayerByName(String playerName){
         Player player = null;
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
             if(getPlayer(i).getName().equals(playerName)){
@@ -220,23 +217,22 @@ public class GameController {
         return player;
     }
 
-    Player getPlayer(int index) {
+    public Player getPlayer(int index) {
         return playerlist.getPlayer(index);
     }
 
-    void addPlayer(int index, Player player) {
+    public void addPlayer(int index, Player player) {
         playerlist.addPlayer(index, player);
     }
 
-    void setNextPlayer(){
+    public void setNextPlayer(){
         playerlist.setNextPlayer();
     }
 
-    void Auktion(Player player, Field field){
-
+    public void auction(Player player, Field field){
     }
 
-    void setupLanguage(){
+    public void setupLanguage(){
         viewController.showEmptyGUI();
         String userLanguage = viewController.getUserLanguage();
         setFilepathLanguage(userLanguage);
@@ -244,7 +240,7 @@ public class GameController {
         this.languageCollection = LanguageStringCollection.getSingleInstance();
     }
 
-    boolean hasPlayerWithName(String name){
+    public boolean hasPlayerWithName(String name){
         for (Player player : playerlist.getAllPlayers()){
             if (player != null && player.getName().equals(name))
                 return true;
@@ -252,20 +248,26 @@ public class GameController {
         return false;
     }
 
-    void rollDice(Player player){
+    public void rollDice(Player player){
         dice.roll();
-        player.setDoubleTurnStatus(checkdiceForDoubleRoll());
+        player.setDoubleTurnStatus(dice.getIdenticalRolls());
     }
 
-    void setFilepathLanguage(String language) {
+    public void setFilepathLanguage(String language) {
 
         FileReader.setLanguage(language);
     }
 
-    void createPlayers() {
+
+    public String getPlayerCount(){
+        return String.valueOf(playerCount);
+    }
+
+    public void createPlayers() {
         //TODO: playerAmount redundancy
         createPlayerList(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
+
             String name = viewController.getPlayerName();
             String playerName = name;
             int playerIdentifier = 2;
@@ -274,10 +276,11 @@ public class GameController {
                 playerIdentifier++;
             }
             addPlayer(i, new Player(playerName));
+            playerCount++;
         }
     }
 
-    void makePlayerChooseCar() {
+    public void makePlayerChooseCar() {
         for (Player player : playerlist.getAllPlayers()){
             //TODO:
             Color chosenColor = viewController.getUserColor(player.getName());
@@ -285,11 +288,11 @@ public class GameController {
         }
     }
 
-    void showGameBoard(){
+    public void showGameBoard(){
         viewController.showGameGUI(board.getFields());
     }
 
-    void addPlayersToGUI() {
+    public void addPlayersToGUI() {
         for (Player player : playerlist.getAllPlayers()){
             viewController.addPlayer(player.getName(), player.getPlayerColor(), player.getBalance());
             viewController.spawnPlayers();
@@ -297,9 +300,9 @@ public class GameController {
         }
     }
 
-    void checkForWinner(){
+    public void checkForWinner(){
         Player winner = null;
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+        for (int i = 0; i < playerlist.getAllPlayers().length ; i++) {
             if (!getPlayer(i).getBrokeStatus())
                 winner = playerlist.getAllPlayers()[i];
 
@@ -308,53 +311,56 @@ public class GameController {
         viewController.showMessage(winnerMessage);
     }
 
-    int getPlayerAmount() {
+    public int getPlayerAmount() {
         if (playerAmount == 0)
-            playerAmount = viewController.getPLayerAmount();
+            playerAmount = viewController.getPlayerAmount(logicCollection.getPlayerAmount());
             //TODO: Getplayerchoice, no hardcoded options
         return playerAmount;
     }
 
 
-    void buyBuilding(Player player, PropertyField field){
+    public void buyBuilding(Player player, PropertyField field){
         tradecontroller.buyBuilding(player, field);
     }
 
     //TODO: Use trade controller
-    void payment(Player player, int amount){
+    public void payment(Player player, int amount){
         tradecontroller.transferAssets(player, amount);
     }
 
-    String[][] getChoices(Player player){
+    public String[][] getChoices(Player player){
         String[] choiceList = new String[0];
         boolean playerInJail = player.isInJail();
 
         Field field = board.getFields()[player.getPosition()%40];
-        //TODO: Menu.txt
+
         //TODO: Sell jail card (not end turn + work)
         if(playerInJail) {
             //TODO: Had a player stuck in jail forever
             if (currentField instanceof  JailField) {
 
-                if (currentTurn>lastTurn) {
-                    String option = String.format(languageCollection.getMenu()[34]+",9");
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && !( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())) {
+                    String option = String.format(languageCollection.getMenu()[34]+",8");
                     choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getJailCardStatus()) {
                     String option = String.format(languageCollection.getMenu()[33]+",1");
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() > ((JailField) field).getBailAmount()) {
-                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) field).getBailAmount()+ ",2");
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && (currentPlayer.getBalance() > ((JailField) currentField).getBailAmount() || ( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn()))) {
+
+                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
                     choiceList = addToStringArray(choiceList, option);
+
                 }
-                if (player.getBalance() < ((JailField) field).getBailAmount()) {
-                    String option = languageCollection.getMenu()[31]+ ", 2";
+
+                if (currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()|| ((currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()&&( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())))) {
+                    String option = languageCollection.getMenu()[20]+ ",7";
                     choiceList = addToStringArray(choiceList, option);
                 }
             }
         }
-        if(player.getJailCardStatus()==true){
+        if(player.getJailCardStatus()){
             String option = String.format(languageCollection.getMenu()[32]+",4");
             choiceList = addToStringArray(choiceList, option);
         }
@@ -364,22 +370,28 @@ public class GameController {
             String option = languageCollection.getMenu()[35]+",5";
             choiceList = addToStringArray(choiceList, option);
         }
-        if(bank.getFieldsWithNoHousesByPlayer(player).length>0){
+        if(bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length>0){
             String pawnString = languageCollection.getMenu()[27];
             String number = "6";
             String choiceString = String.format("%s,%s", pawnString, number);
             choiceList = addToStringArray(choiceList, choiceString);
         }
-
         if(field instanceof TaxField){
 
         }
-        if (bank.getPlayerNamesWithNoHouses().length > 1){
+        if (bank.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
             String message = languageCollection.getMenu()[41];
             choiceList = addToStringArray(choiceList, message+",9");
         }
-        //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
-        String option = String.format(languageCollection.getMenu()[36]+",0");
+        Field[] canBuybackFields = bank.getPawnedFieldsByPlayer(player);
+        if(canBuybackFields.length > 0){
+            String message = "buybackFieldField";
+            choiceList = addToStringArray(choiceList, message+",10");
+        }
+
+
+        String option = String.format(languageCollection.getMenu()[36] + ",0");
+
         choiceList = addToStringArray(choiceList, option);
 
         String[][] finalChoiceList = new String[choiceList.length][];
@@ -400,7 +412,7 @@ public class GameController {
         return newArray;
     }
 
-    void playerOptions(String[][] choices, Player player) {
+    public void playerOptions(String[][] choices, Player player) {
         Field field = board.getFields()[player.getPosition()%40];
 
         String[] choiceOptions = new String[choices.length];
@@ -435,8 +447,10 @@ public class GameController {
                     break;
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
-                    viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
                     currentPlayer.setInJail(false);
+                    if(currentTurn>lastTurn){
+                        currentPlayer.setDoubleTurnStatus(false);
+                    }
                     checkIfinJailBeforeMoving();
                     break;
 
@@ -453,30 +467,35 @@ public class GameController {
             case 6: pawnProperty(player);
                     break;
 
-            case 7: this.endTurn = true;
+            case 7: tradecontroller.raiseMoney(currentPlayer);
                     break;
 
             case 8: rollAndShowDice(currentPlayer);
-                    threwDice = true;
-                    if(currentPlayer.getDoubleTurnStatus())
-                        {movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());}
-                    else
-                        {endTurn =true;}
+                    if(currentPlayer.getDoubleTurnStatus()) {
+                        movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
+                        resolveField();
+                        currentPlayer.setInJail(false);
+                        }
+
                     break;
 
-            case 9: tradecontroller.tradePropertyWithPlayer(player);
+            case 9: tradecontroller.transferAssets(player);
                     break;
+
+            case 10: tradecontroller.buyBackPawnedProperty(currentPlayer);
+                    break;
+
         }
    }
 
-    void sellJailCard() {
+    public void sellJailCard() {
         currentPlayer.setJailCardStatus(false);
         int jailCardPrice = Integer.parseInt(logicCollection.getChanceCard()[25][2]);
         tradecontroller.transferAssets(currentPlayer, jailCardPrice / 2);
 
     }
 
-    String[][] reverse2DStringArray(String[][] array) {
+    public String[][] reverse2DStringArray(String[][] array) {
         String[][] reversed = new String[array.length][];
         for (int i = 0; i < array.length; i++) {
             reversed[i] = array[(array.length - i) - 1];
@@ -484,7 +503,7 @@ public class GameController {
         return reversed;
     }
 
-    String[] reverseStringArray(String[] array) {
+    private String[] reverseStringArray(String[] array) {
         String[] reversed = new String[array.length];
         for (int i = 0; i < array.length; i++) {
             reversed[i] = array[(array.length - i) - 1];
@@ -492,7 +511,7 @@ public class GameController {
         return reversed;
     }
 
-    void getListOfBuildable(){
+    public void getListOfBuildable(){
         PropertyField[] buildable = bank.getPlayerBuildableFields(currentPlayer);
         String[] options = new String[buildable.length];
         for (int i = 0; i < buildable.length; i++) {
@@ -512,12 +531,38 @@ public class GameController {
         if (field instanceof PropertyField){
             ((PropertyField) field).setPawnedStatus(true);
             tradecontroller.transferAssets(player,((PropertyField) field).getPrice()/2);
-            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor());
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+        }
+        if (field instanceof BreweryField){
+            ((BreweryField) field).setPawnedStatus(true);
+            tradecontroller.transferAssets(player,((BreweryField) field).getPrice()/2);
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+        }
+        if (field instanceof FerryField){
+            ((FerryField) field).setPawnedStatus(true);
+            tradecontroller.transferAssets(player,((FerryField) field).getPrice()/2);
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
         }
    }
 
-    void useJailCard(){
+    private void useJailCard(){
         currentPlayer.setJailCardStatus(false);
         currentPlayer.setInJail(false);
    }
+
+    public PlayerList getPlayerList() {
+        return playerlist;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
 }

@@ -20,10 +20,6 @@ public class ViewControllerStub implements ViewControllerInterface {
     public void showGameGUI(Field[] fields) {
 
     }
-    @Override
-    public void pawn(String fieldName, String name, Color playerColor){
-        
-    }
 
     @Override
     public void showEmptyGUI() {
@@ -35,16 +31,6 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     }
 
-    @Override
-    public void createBoard() {
-
-    }
-
-    @Override
-    public void addPlayer(String name, int balance) {
-
-
-    }
 
     @Override
     public void showGUI() {
@@ -98,7 +84,7 @@ public class ViewControllerStub implements ViewControllerInterface {
     }
 
     @Override
-    public int getPLayerAmount() {
+    public int getPlayerAmount(String[] options) {
         return 3;
     }
 
@@ -151,7 +137,7 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     @Override
     public void addBuilding(PropertyField field) {
-        field.addBuilding();
+        //field.addBuilding();
     }
 
     @Override
@@ -194,4 +180,8 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     }
 
+    @Override
+    public void pawn(String fieldName, String name, Color playerColor, Color playerColor2) {
+
+    }
 }

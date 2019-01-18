@@ -15,30 +15,17 @@ public class DrawController implements Drawer {
     private Board board;
     private Deck deck;
 
-    DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board, Deck deck){
-        this.player = player;
-        this.otherPlayers = otherPlayers;
-        this.viewController = ViewController.getSingleInstance();
-        this.tradeController = TradeController.getSingleInstance();
-        this.bank = bank;
-        this.board = board;
-        this.deck = deck;
-    }
-
-    //CARD: 24 - 26
     DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board, Deck deck, ViewControllerInterface viewController){
         this.player = player;
         this.otherPlayers = otherPlayers;
-        this.viewController = ViewController.getSingleInstance();
+        this.viewController = viewController;
         this.tradeController = TradeController.getSingleInstance();
         this.bank = bank;
         this.board = board;
         this.deck = deck;
-        this.viewController = viewController;
     }
 
-
-    @Override //CARD: 24 - 26
+    @Override//CARD: 24 - 26
     public void draw(GetOutOfJailCard card) {
 
         String message = card.getDescription();
@@ -69,7 +56,7 @@ public class DrawController implements Drawer {
 
         int position = player.getPosition(); //spillers position
         int destination = card.getDestination(); //Det felt nummer man skal rykke frem til
-        player.setPosition(destination);
+        player.setPositionWithStartMoney(destination);
 
         int amount = (destination - position + board.getFields().length) % board.getFields().length;
         viewController.movePlayer(player.getName(),position,amount);
@@ -124,13 +111,13 @@ public class DrawController implements Drawer {
         int fouFerry = 35;
 
         if (player.getPosition() < 5 || player.getPosition() > 35) {
-            player.setPosition(firFerry);
+            player.setPositionWithoutStartMoney(firFerry);
         } else if (player.getPosition() > 5 && player.getPosition() < 15) {
-            player.setPosition(secFerry);
+            player.setPositionWithoutStartMoney(secFerry);
         } else if (player.getPosition() > 15 && player.getPosition() < 25) {
-            player.setPosition(thiFerry);
+            player.setPositionWithoutStartMoney(thiFerry);
         } else if (player.getPosition() > 25 && player.getPosition() < 35) {
-            player.setPosition(fouFerry);
+            player.setPositionWithoutStartMoney(fouFerry);
         }
 
         int newPosition = player.getPosition();
@@ -140,8 +127,8 @@ public class DrawController implements Drawer {
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
 
-        if(bank.hasOwner(disbutedField.getID())){
-            Player otherPlayer =  bank.getOwner(positionAsString);
+        if(bank.fieldHasOwner(disbutedField.getID())){
+            Player otherPlayer =  bank.getOwnerOfField(positionAsString);
             tradeController.transferAssets(player, otherPlayer, amount);
         } else{
             tradeController.askIfWantToBuy(player, disbutedField);
@@ -159,7 +146,7 @@ public class DrawController implements Drawer {
 
         player.setInJail(true);
 
-        player.setPosition(newPosition);
+        player.setPositionWithoutStartMoney(newPosition);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
     }
 
@@ -202,13 +189,16 @@ public class DrawController implements Drawer {
 
         int newPosition =  (board.getFields().length + oldPosition + amount) % board.getFields().length;
 
-        player.setPosition(newPosition);
+        player.setPositionWithStartMoney(newPosition);
+        if(amount<3){
+            player.setPassedStartStatus(false);
+        }
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
 
         String newField = String.valueOf(newPosition);
         Field newFieldId = bank.getFieldById(newField);
 
-        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board,viewController);
+        FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board, viewController);
         newFieldId.accept(fieldVisitor);
     }
 

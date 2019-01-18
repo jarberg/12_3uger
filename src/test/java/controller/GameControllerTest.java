@@ -1,6 +1,7 @@
 package controller;
 
 import model.player.Player;
+import model.player.PlayerList;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 import org.junit.After;
@@ -12,101 +13,137 @@ import static org.junit.Assert.*;
 public class GameControllerTest {
 
 
-    private GameController gamecontroller = GameController.getSingleInstance();
-    private ViewControllerInterface viewController = new ViewControllerStub();
-    private LogicStringCollection logicCollection = LogicStringCollection.getSingleInstance();
-    private LanguageStringCollection languageCollection = LanguageStringCollection.getSingleInstance();
-    private TradeController tradeController = TradeController.getSingleInstance();
+    private GameController gameCon;
+    private ViewControllerInterface viewController;
+    private LogicStringCollection logicCollection;
+    private LanguageStringCollection languageCollection;
+    private TradeController tradeController;
+    private FieldVisitor fieldVisitor;
+    private DrawController drawController;
 
     @Before
-    public void before(){
-        gamecontroller.setViewController( viewController);
+    public void setUp(){
+        gameCon = GameController.getSingleInstance();
+        viewController = new ViewControllerStub();
+
+        gameCon.setViewController(viewController);
+        tradeController = TradeController.getSingleInstance();
         tradeController.setViewController(viewController);
-        setupGame();
+
+        languageCollection = LanguageStringCollection.getSingleInstance();
+        logicCollection = LogicStringCollection.getSingleInstance();
     }
 
     @After
-    public void After(){
-        gamecontroller = null;
+    public void tearDown(){
+        languageCollection = null;
+        logicCollection = null;
+        tradeController = null;
+        gameCon = null;
+        viewController = null;
+        fieldVisitor = null;
+        drawController = null;
     }
 
     @Test
-    public void createPlayers() {
+    public void shouldCreateModelFromLanguage(){
 
     }
 
+    //@Test
+    public void shouldCreateFieldVisitorAndDrawController(){
+        gameCon.setupGame();
+
+        PlayerList playerList = gameCon.getPlayerList();
+        Player currentPlayer = playerList.getAllPlayers()[0];
+        Player[] otherPlayers = playerList.getPlayersButPlayer(currentPlayer);
+        fieldVisitor = new FieldVisitor(currentPlayer, otherPlayers, gameCon.getDeck(), gameCon.getBoard(), viewController);
+        drawController = new DrawController(currentPlayer, otherPlayers, gameCon.getBank(), gameCon.getBoard(), gameCon.getDeck(), viewController);
+    }
+
+    @Test
+    public void shouldChangeLanguage(){
+        String originalMenu = languageCollection.getMenu()[0];
+        String originalCard = languageCollection.getChanceCard()[0][1];
+        String originalField = languageCollection.getFieldsText()[7][1];
+        gameCon.setupGame();
+        String newMenu = languageCollection.getMenu()[0];
+        String newCard = languageCollection.getChanceCard()[0][1];
+        String newField = languageCollection.getFieldsText()[7][1];
+
+        //assertNotEquals(originalMenu, newMenu);
+        //assertNotEquals(originalCard, newCard);
+        //assertNotEquals(originalField, newField);
+    }
+/*
+    @Test
+    public void setupGameTest(){
+
+        gameCon.setFilepathLanguage("danish");
+        gameCon.createPlayers();
+        gameCon.createDeck();
+        setupLanguage();
+        gameCon.makePlayerChooseCar();
+        gameCon.createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
+
+        gameCon.createDeck();
+        gameCon.setupBank();
+        gameCon.showGameBoard();
+        gameCon.addPlayersToGUI();
+
+        for (int i = 1; i == gameCon.getPlayerAmount() ; i++) {
+            if(i==1) {
+                assertEquals("Test", gameCon.getPlayer(i).getName());
+            }
+            if(i>1) {
+                assertEquals("Test#"+i, gameCon.getPlayer(i).getName());
+            }
+        }
+
+        for (int i = 0; i < gameCon.playerAmount ; i++) {
+            assertEquals(0, gameCon.getPlayer(i).getPosition());
+        }
+        for (int i = 0; i < gameCon.playerAmount ; i++) {
+            assertEquals(1500, gameCon.getPlayer(i).getBalance());
+        }
+    }
+*/
+/*
     @Test
     public void setupLanguage(){
 
         viewController.showEmptyGUI();
-        gamecontroller.setFilepathLanguage(viewController.getUserLanguage());
+        gameCon.setFilepathLanguage(viewController.getUserLanguage());
         this.logicCollection = LogicStringCollection.getSingleInstance();
         this.languageCollection = LanguageStringCollection.getSingleInstance();
 
     }
-
-    @Test
-    public void setupGame(){
-
-        gamecontroller.playerAmount = gamecontroller.getPlayerAmount();
-        gamecontroller.setFilepathLanguage("danish");
-        gamecontroller.createPlayers();
-        gamecontroller.createDeck();
-        setupLanguage();
-        gamecontroller.makePlayerChooseCar();
-        gamecontroller.createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
-
-        assertEquals("Start",gamecontroller.board.getFields()[0].getTitle());
-        assertEquals("Raadhuspladsen",gamecontroller.board.getFields()[39].getTitle());
-
-        gamecontroller.createDeck();
-        gamecontroller.setupBank();
-        gamecontroller.showGameBoard();
-        gamecontroller.addPlayersToGUI();
-
-        assertEquals(viewController.getPLayerAmount(),gamecontroller.playerAmount);
-
-        for (int i = 1; i ==gamecontroller.playerAmount ; i++) {
-            if(i==1) {
-                assertEquals("Test", gamecontroller.getPlayer(i).getName());
-            }
-            if(i>1) {
-                assertEquals("Test#"+i, gamecontroller.getPlayer(i).getName());
-            }
-        }
-
-        for (int i = 0; i <gamecontroller.playerAmount ; i++) {
-            assertEquals(0,gamecontroller.getPlayer(i).getPosition());
-        }
-        for (int i = 0; i <gamecontroller.playerAmount ; i++) {
-            assertEquals(1500,gamecontroller.getPlayer(i).getBalance());
-        }
-    }
-
+    */
+/*
     @Test
     public void playTurn(){
 
-        gamecontroller.currentTurn++;
+        gameCon.currentTurn++;
 
 
 
-        gamecontroller.endTurn = false;
-        gamecontroller.currentPlayer = gamecontroller.playerlist.getCurrentPlayer();
+        gameCon.endTurn = false;
+        gameCon.currentPlayer = gameCon.playerlist.getCurrentPlayer();
 
-        gamecontroller.checkIfinJailBeforeMoving();
-        gamecontroller.checkIfPassedStart();
+        gameCon.checkIfinJailBeforeMoving();
+        gameCon.checkIfPassedStart();
         resolveField();
 
-        while(!gamecontroller.endTurn) {
-            gamecontroller.playerOptions(gamecontroller.getChoices(gamecontroller.currentPlayer),gamecontroller.currentPlayer);
+        while(!gameCon.endTurn) {
+            gameCon.playerOptions(gameCon.getChoices(gameCon.currentPlayer), gameCon.currentPlayer);
         }
 
-        gamecontroller.setNextPlayer();
+        gameCon.setNextPlayer();
 
 
-        gamecontroller.lastTurn = gamecontroller.currentTurn;
+        gameCon.lastTurn = gameCon.currentTurn;
 
-        //gamecontroller.currentPlayer.setBrokeStatus(true);
+        //gameCon.currentPlayer.setBrokeStatus(true);
 
 
     }
@@ -116,11 +153,11 @@ public class GameControllerTest {
 
 
         setupGame();
-        viewController.showFieldMessage(gamecontroller.playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
-        while(!gamecontroller.checkIfAllBroke()){
+        viewController.showFieldMessage(gameCon.playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
+        while(!gameCon.checkIfAllBroke()){
             playTurn();
         }
-        gamecontroller.checkForWinner();
+        gameCon.checkForWinner();
 
     }
 
@@ -131,28 +168,32 @@ public class GameControllerTest {
 
     @Test
     public void resolveField(){
-        gamecontroller.currentPlayer= gamecontroller.playerlist.getCurrentPlayer();
-        int position = gamecontroller.currentPlayer.getPosition();
-        gamecontroller.currentField = gamecontroller.board.getFields()[position];
+        gameCon.currentPlayer= gameCon.playerlist.getCurrentPlayer();
+        int position = gameCon.currentPlayer.getPosition();
+        gameCon.currentField = gameCon.board.getFields()[position];
 
-        FieldVisitor fieldVisitor = new FieldVisitor(gamecontroller.currentPlayer, gamecontroller.getPlayersButPlayer(gamecontroller.currentPlayer), gamecontroller.deck, gamecontroller.board, viewController);
-        gamecontroller.currentField.accept(fieldVisitor);
+        FieldVisitor fieldVisitor = new FieldVisitor(gameCon.currentPlayer, gameCon.getPlayersButPlayer(gameCon.currentPlayer), gameCon.deck, gameCon.board, viewController);
+        gameCon.currentField.accept(fieldVisitor);
     }
 
     @Test
     public void checkIfinJailBeforeMoving(){
-        gamecontroller.currentPlayer= gamecontroller.playerlist.getCurrentPlayer();
-        if(!gamecontroller.currentPlayer.isInJail()) {
-            gamecontroller.rollAndShowDice(gamecontroller.currentPlayer);
-            int lastField = gamecontroller.currentPlayer.getPosition();
-            int sumOfDice = gamecontroller.dice.getDieOneValue() + gamecontroller.dice.getDieTwoValue();
+        gameCon.currentPlayer= gameCon.playerlist.getCurrentPlayer();
+        if(!gameCon.currentPlayer.isInJail()) {
+            gameCon.rollAndShowDice(gameCon.currentPlayer);
+            int lastField = gameCon.currentPlayer.getPosition();
+            int sumOfDice = gameCon.dice.getDieOneValue() + gameCon.dice.getDieTwoValue();
 
-            if(gamecontroller.currentPlayer.getDoubleThrowNum()>2){
-                gamecontroller.currentPlayer.setInJail(true);
+            if(gameCon.currentPlayer.getDoubleThrowNum()>2){
+                gameCon.currentPlayer.setInJail(true);
                 sumOfDice = (40-lastField+10)%40;
-                gamecontroller.endTurn = true;
+                gameCon.endTurn = true;
             }
-            gamecontroller.movePlayer(gamecontroller.currentPlayer, lastField, sumOfDice);
+            gameCon.movePlayer(gameCon.currentPlayer, lastField, sumOfDice);
         }
     }
+
+    @Test
+    public void createPlayers() {
+    }*/
 }

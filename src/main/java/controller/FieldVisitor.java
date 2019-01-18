@@ -5,7 +5,6 @@ import model.deck.Card;
 import model.deck.Deck;
 import model.player.Player;
 import model.text.LanguageStringCollection;
-import model.text.LogicStringCollection;
 
 public class FieldVisitor implements Visitor  {
 
@@ -14,17 +13,10 @@ public class FieldVisitor implements Visitor  {
     private Player[] otherPlayers;
     private Deck deck;
     private Board board;
-    private ViewControllerInterface viewController = ViewController.getSingleInstance();
+    private ViewControllerInterface viewController;
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
     private static Bank bank = Bank.getSingleInstance();
-
-    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck, Board board) {
-        this.otherPlayers = otherPlayers;
-        this.player = currentPlayer;
-        this.deck = deck;
-        this.board = board;
-    }
 
     public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck, Board board, ViewControllerInterface viewController) {
         this.otherPlayers = otherPlayers;
@@ -33,7 +25,6 @@ public class FieldVisitor implements Visitor  {
         this.board = board;
         this.viewController = viewController;
     }
-
     @Override
     public void visit(ChanceField field) {
         Card card = deck.getTopCard();
@@ -46,13 +37,18 @@ public class FieldVisitor implements Visitor  {
     public void visit(GoToJailField field) {
         viewController.showMessage(field.getMessage());
         viewController.movePlayer(player.getName(),player.getPosition(),20);
-        player.setPosition(10);
+        player.setPositionWithoutStartMoney(10);
         player.setInJail(true);
+
     }
 
     @Override
     public void visit(JailField field) {
-        viewController.showMessage(field.getMessage());
+        if(player.isInJail()) {
+            viewController.showMessage(String.format(languageStringCollection.getMenu()[49],player.getName()));
+        }else{
+            viewController.showMessage(field.getMessage());
+        }
     }
 
     @Override
@@ -64,17 +60,17 @@ public class FieldVisitor implements Visitor  {
     public void visit(PropertyField field) {
         viewController.showMessage(field.getMessage());
 
-        boolean playerIsOwner = bank.isOwner(player, field);
+        boolean playerIsOwner = bank.isPlayerOwner(player, field);
         if(!playerIsOwner){
 
-            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            boolean ownedByAnotherPlayer = bank.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
-                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
-                    Player owner = bank.getOwner(field.getID());
+                    Player owner = bank.getOwnerOfField(field.getID());
                     boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field);
                     if(ownerOwnsAllOfType)
                         tradeController.transferAssets(player, owner, field.getRent() * PROPERTY_MULTIPLIER);
@@ -121,18 +117,18 @@ public class FieldVisitor implements Visitor  {
     public void visit(BreweryField field) {
         viewController.showMessage(field.getMessage());
 
-        boolean playerIsOwner = bank.isOwner(player, field);
+        boolean playerIsOwner = bank.isPlayerOwner(player, field);
         if(!playerIsOwner){
             int diceRoll = player.getPosition() - player.getLastPosition();
 
-            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            boolean ownedByAnotherPlayer = bank.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
-                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
-                    Player owner = bank.getOwner(field.getID());
+                    Player owner = bank.getOwnerOfField(field.getID());
                     boolean ownerOwnsBoth = bank.isOwnerOfAllFieldsOfType(owner, field);
                     if(ownerOwnsBoth)
                         tradeController.transferAssets(player,owner, diceRoll * field.getMultiplier2());
@@ -149,16 +145,16 @@ public class FieldVisitor implements Visitor  {
     public void visit(FerryField field) {
         viewController.showMessage(field.getMessage());
 
-        boolean playerIsOwner = bank.isOwner(player, field);
+        boolean playerIsOwner = bank.isPlayerOwner(player, field);
         if(!playerIsOwner){
-            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            boolean ownedByAnotherPlayer = bank.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
-                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
-                    Player owner = bank.getOwner(field.getID());
+                    Player owner = bank.getOwnerOfField(field.getID());
                     int amountOwned = bank.getAmountOfTypeOwned(owner, field);
                     tradeController.transferAssets(player, owner, field.getRent(amountOwned));
                 }

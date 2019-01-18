@@ -4,19 +4,19 @@ import controller.Visitor;
 
 import java.awt.*;
 
-public class BreweryField extends Field {
+public class BreweryField extends Ownable {
 
     private int multiplier1;
     private int multiplier2;
     private int price;
-    private boolean pawned;
 
-    public BreweryField(String ID, String title, String subtitle, String message, Color fieldColor, int multiplier1, int multiplier2, int price){
-        super(ID, title, subtitle, message, fieldColor);
+    public BreweryField(String ID, String title, String subtitle, String message, Color fieldColor, int multiplier1, int multiplier2, int price, String type){
+        super(ID, title, subtitle, message, fieldColor,type);
 
         this.multiplier1 = multiplier1;
         this.multiplier2 = multiplier2;
         this.price       = price;
+
     }
 
     @Override
@@ -36,12 +36,5 @@ public class BreweryField extends Field {
         return price;
     }
 
-    public boolean getPawnedStatus(){
-        return this.pawned;
-    }
-
-    public void setPawnedStatus(boolean status){
-        this.pawned = status;
-    }
 
 }

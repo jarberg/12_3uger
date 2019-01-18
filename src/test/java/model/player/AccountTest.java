@@ -1,33 +1,48 @@
 package model.player;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class AccountTest {
 
-    Account account = new Account();
+    private static final int STARTING_AMOUNT = 1500;
+    private Account account;
 
+    @Before
+    public void setUp(){
+        account = new Account();
+    }
 
-    @Test
-    public void getBalance() {
-        //check if account starts with 0 balance
-        assertEquals(account.getBalance(),0);
-
+    @After
+    public void tearDown(){
+        account = null;
     }
 
     @Test
-    public void addBalance() {
-        //check if adding to balance works
-        int newBalance = 5;
-
-        account.addToBalance(newBalance);
-        assertEquals(newBalance,account.getBalance());
-
-        account.addToBalance(-20);
-        assertEquals(0,account.getBalance());
-
+    public void shouldStartWithProperAmount() {
+        assertEquals(account.getBalance(), STARTING_AMOUNT);
     }
 
+    @Test
+    public void shouldAddToBalance() {
+        int amountAdded = 50;
 
+        int balanceBefore = account.getBalance();
+        account.addToBalance(amountAdded);
+
+        assertEquals(balanceBefore + amountAdded, account.getBalance());
+    }
+
+    @Test
+    public void shouldSubtract(){
+        int amountSubtracted = -20;
+
+        int balanceBefore = account.getBalance();
+        account.addToBalance(amountSubtracted);
+
+        assertEquals(balanceBefore + amountSubtracted,account.getBalance());
+    }
 }

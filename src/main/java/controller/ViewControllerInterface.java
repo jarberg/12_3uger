@@ -16,13 +16,7 @@ public interface ViewControllerInterface {
 
     void closeGUI();
 
-    void createBoard();
-
-    void addPlayer(String name, int balance);
-
     void showGUI();
-
-    void pawn(String fieldName, String name, Color playerColor);
 
     void addPlayer(String name, Color color, int balance);
 
@@ -42,7 +36,7 @@ public interface ViewControllerInterface {
 
     String getUserLanguage();
 
-    int getPLayerAmount();
+    int getPlayerAmount(String[] options);
 
     String getPlayerName();
 
@@ -74,4 +68,5 @@ public interface ViewControllerInterface {
 
     void vanishPlayer(String name, int positon);
 
+    void pawn(String fieldName, String name, Color playerColor, Color playerColor2);
 }

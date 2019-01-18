@@ -1,5 +1,5 @@
 CARD_1~Modtag udbytte af Deres aktier: kr. 50,00.
-CARD_2~De modtager "Matador-legatet for vaerdig traengende", stort kr. 2000. Ved vaerdig traegende forstaes, at Deres formue, d.v.s. Deres konstante penge + skoeder + bygninger, ikke overskrider kr. 750.
+CARD_2~De modtager "Matador-legatet for vaerdig traengende", på kr. 2000. Ved vaerdig traegende forstaes, at Deres formue, d.v.s. Deres konstante penge + skoeder + bygninger, ikke overskrider kr. 750.
 CARD_3~Tag ind paa Raadhuspladsen.
 CARD_4~Ryk frem til Groenningen. Hvis De passerer "Start", indkasser da kr. 200,00.
 CARD_5~Tag med Oeresundsbaaden - Flyt brikken frem, og hvis De passerer "Start", indkasser kr. 200,00.
@@ -18,7 +18,7 @@ CARD_17~Ryk brikken frem til det naermeste dampskibsselskab og betal ejeren to g
 CARD_18~De har anskaffet et nyt daek til Deres vogn. Indbetal kr. 100,00.
 CARD_19~De har koert frem for "Fuld Stop". Betal kr. 100,00 i boede.
 CARD_20~Betal for vognvask og smoering kr. 10,00.
-CARD_21~De har vaeret en tur i udlanget og haft for mange cigaretter med hjem - Betal told kr. 20,00.
+CARD_21~De har vaeret en tur i udlandet og haft for mange cigaretter med hjem - Betal told kr. 20,00.
 CARD_22~De har maattet vedtage en parkeringsboede. Betal kr. 20,00 til banken.
 CARD_23~Grundet paa dyrtiden har De faaet gageforhoejelse. Modtag kr. 25,00.
 CARD_24~I anledning af Kongens foedselsdag benaades De herved for faengsel. Dette kort kan opbevares, indtil De faar brug for det, eller De kan saelge det.

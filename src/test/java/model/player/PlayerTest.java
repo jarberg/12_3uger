@@ -1,7 +1,5 @@
 package model.player;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
@@ -10,26 +8,7 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
-
-
-
     Player player = new Player("Bob");
-
-
-    @Test
-    public void setGetName() {
-        assertEquals("Bob", player.getName());
-
-        assertEquals("Bob Dylan", player.getName());
-    }
 
     @Test
     public void setGetJailCardStatus() {
@@ -52,10 +31,10 @@ public class PlayerTest {
     @Test
     public void setGetPosition() {
 
-        int testPosition =5;
-        int boardsize =40;
+        int testPosition = 5;
+        int boardsize = 40;
         assertEquals(0,player.getPosition()%boardsize);
-        player.setPosition(testPosition);
+        player.setPositionWithStartMoney(testPosition);
         assertEquals(testPosition,player.getPosition()%boardsize);
 
         assertEquals(testPosition,(player.getPosition()+boardsize)%boardsize);
@@ -79,43 +58,51 @@ public class PlayerTest {
     //integrated tests
     @Test
     public void setGetBalance() {
-        int newbalance = 5;
+        int amount = 5;
+        int oldBalance = player.getBalance();
 
-        assertEquals(0,player.getBalance());
-
-        player.addToBalance(newbalance);
-        assertEquals(newbalance,player.getBalance());
-    }
-
-
-
-
-    @Test
-    public void getLastPosition() {
-    }
-
-    @Test
-    public void getPassedStartStatus() {
-    }
-
-    @Test
-    public void setPassedStartStatus() {
-    }
-
-    @Test
-    public void setBrokeStatus() {
+        player.addToBalance(amount);
+        assertEquals(oldBalance + amount, player.getBalance());
     }
 
 
     @Test
-    public void isInJail() {
+    public void shouldAddToBalance() {
+        int beforeBalance = player.getBalance();
+        player.addToBalance(100);
+        assertEquals(beforeBalance,player.getBalance()-100);
     }
 
     @Test
-    public void setInJail() {
+    public void shouldAddDoubleThrowTimes() {
+        int beforeDoubleThrowNum = player.getDoubleThrowNum();
+        player.addDoubleThrowTimes();
+        assertEquals(beforeDoubleThrowNum,player.getDoubleThrowNum()-1);
     }
 
     @Test
-    public void getDoubleThrowNum() {
+    public void shouldResetDoubleThrowTimes() {
+        assertEquals(player.getDoubleThrowNum(),0);
+    }
+
+    @Test
+    public void shouldSetInJail() {
+        player.setInJail(true);
+        assertTrue(player.isInJail());
+        player.setInJail(false);
+        assertTrue(!player.isInJail());
+    }
+
+    @Test
+    public void shouldSetJailTurn() {
+        player.setJailTurn();
+        assertEquals(player.getJailTurn(),player.getCurrentTurn());
+    }
+
+    @Test
+    public void addCurrentTurn() {
+        int beforeTurn = player.getCurrentTurn();
+        player.addCurrentTurn();
+        assertEquals(beforeTurn,player.getCurrentTurn()-1);
     }
 }

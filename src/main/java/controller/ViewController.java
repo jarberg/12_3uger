@@ -60,23 +60,13 @@ public class ViewController implements ViewControllerInterface {
         this.gui.close();
     }
 
-    @Override
-    public void createBoard() {
-
-    }
-
-    @Override
-    public void addPlayer(String name, int balance) {
-
-    }
 
     @Override
     public void showGUI(){
         if(this.gui != null)
             gui.close();
 
-        this.gui = new GUI(gui_board,Color.white);
-        GUI_Center.getInstance().setBGColor(Color.red);
+        this.gui = new GUI(gui_board,new Color(234, 234, 227));
     }
 
 
@@ -192,8 +182,8 @@ public class ViewController implements ViewControllerInterface {
     }
 
     @Override
-    public int getPLayerAmount() {
-        String[] playerOptions = {"3", "4", "5", "6"};
+    public int getPlayerAmount(String[] options) {
+        String[] playerOptions = options;
         String message = languageStringCollection.getMenu()[0];
         String userChoise = gui.getUserSelection(message, playerOptions);
         return Integer.parseInt(userChoise);
@@ -201,7 +191,9 @@ public class ViewController implements ViewControllerInterface {
 
     @Override
     public String getPlayerName() {
-        String message = languageStringCollection.getMenu()[1];
+        GameController gameController = GameController.getSingleInstance();
+        String playerCount = gameController.getPlayerCount();
+        String message = String.format(languageStringCollection.getMenu()[1],String.valueOf(playerCount));
         String name = "";
         while (true){
             name = gui.getUserString(message);
@@ -233,7 +225,7 @@ public class ViewController implements ViewControllerInterface {
         if (colorChoices[0] == null)
             setUpColors();
 
-        String message = languageStringCollection.getMenu()[4] + " " + name;
+        String message = String.format(languageStringCollection.getMenu()[4],name);
         String colorString = gui.getUserSelection(message, colorChoices);
         Color colorChosen = Color.BLACK;
         int number =0;
@@ -328,12 +320,12 @@ public class ViewController implements ViewControllerInterface {
     }
 
     @Override
-    public void pawn(String fieldName, String name, Color playerColor) {
+    public void pawn(String fieldName, String name, Color playerColor, Color playerColor2) {
         GUI_Field field = getGUIFieldByName(fieldName);
         while(!field.getDescription().equals(name)){
             field.setDescription(name);
         }
-        ((GUI_Street) field).setBorder(playerColor, playerColor.darker());
+        ((GUI_Street) field).setBorder(playerColor, playerColor2);
     }
     @Override
     public void updateFieldBuildings(String fieldName, int buildingCount) {
@@ -366,4 +358,5 @@ public class ViewController implements ViewControllerInterface {
         GUI_Player player = getGui_playerByName(name);
         gui_board[positon].setCar(player, false);
     }
+
 }

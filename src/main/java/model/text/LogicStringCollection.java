@@ -24,4 +24,6 @@ public class LogicStringCollection{
     public String[][] getChanceCard() {
         return filereader.getChanceCardsLogic();
     }
+
+    public String[] getPlayerAmount(){return filereader.getPlayerAmount()[0];}
 }

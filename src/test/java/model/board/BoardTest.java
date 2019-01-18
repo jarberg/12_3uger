@@ -1,6 +1,7 @@
 package model.board;
 
-import model.board.*;
+import model.text.LanguageStringCollection;
+import model.text.LogicStringCollection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,21 +9,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BoardTest {
-  /*  Board board;
+    private Board board;
 
     @Before
-    public void setUp() throws Exception {
-        board = new Board();
+    public void setUp(){
+        LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
+        LogicStringCollection logicStringCollection = LogicStringCollection.getSingleInstance();
+        board = new Board(logicStringCollection.getFieldsText(), languageStringCollection.getFieldsText());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         board = null;
-    }*/
-/*
+    }
+
     @Test
     public void setupBoard() {
-        int[] numOfFieldType = new int[8];
+        int[] numOfFieldType = new int[9];
 
         board.setupBoard();
 
@@ -35,17 +38,18 @@ public class BoardTest {
             else if (field instanceof ParkingField) numOfFieldType[5]++;
             else if (field instanceof JailField) numOfFieldType[6]++;
             else if (field instanceof GoToJailField) numOfFieldType[7]++;
+            else if (field instanceof FerryField) numOfFieldType[8]++;
         }
 
         assertEquals(1, numOfFieldType[0]);
-        assertEquals(26, numOfFieldType[1]); // including the Ferry fields
+        assertEquals(22, numOfFieldType[1]);
         assertEquals(2, numOfFieldType[2]);
         assertEquals(6, numOfFieldType[3]);
         assertEquals(2, numOfFieldType[4]);
         assertEquals(1, numOfFieldType[5]);
         assertEquals(1, numOfFieldType[6]);
         assertEquals(1, numOfFieldType[7]);
+        assertEquals(4, numOfFieldType[8]);
         assertEquals(40, board.getFields().length);
     }
-    */
 }

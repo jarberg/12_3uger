@@ -16,6 +16,8 @@ public class Player {
     private boolean inJail = false;
     private boolean hasPassedStart = false;
     private int doublethrownum =0;
+    private int jailTurn=0;
+    private int currentTurn;
 
     //constructor
     public Player(String name){
@@ -58,7 +60,7 @@ public class Player {
 
     public void setPlayerColor(Color setColor){ this.playerColor = setColor;}
 
-    public void setPosition(int setPosition){
+    public void setPositionWithStartMoney(int setPosition){
         int beforePosition = position;
         this.lastPosition = this.position;
         this.position = setPosition;
@@ -80,24 +82,51 @@ public class Player {
 
     public void setDoubleTurnStatus(boolean status){
         this.doubleTurn = status;
-        if(status){
+
+    }
+    public void addDoubleThrowTimes(){
             this.doublethrownum++;
+    }
+    public void resetDoubleThrowTimes(){
+        if(!inJail){
+            this.doublethrownum=0;
         }
-        else
-        {
-            this.doublethrownum =0;
-        }
+
     }
 
     public boolean isInJail() {
+
         return inJail;
     }
 
     public void setInJail(boolean inJail) {
-        this.inJail = inJail;
+        if(inJail){
+            this.inJail = inJail;
+            setJailTurn();
+        }
+        else{
+            this.inJail = inJail;
+            this.doublethrownum=0;
+        }
     }
 
     public int getDoubleThrowNum(){
         return this.doublethrownum;
+    }
+
+    public int getJailTurn() {
+        return jailTurn;
+    }
+
+    public void setJailTurn() {
+        this.jailTurn = currentTurn;
+    }
+
+
+    public void addCurrentTurn() {
+        this.currentTurn++;
+    }
+    public int getCurrentTurn() {
+        return this.currentTurn;
     }
 }
