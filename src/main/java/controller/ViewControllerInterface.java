@@ -72,5 +72,5 @@ public interface ViewControllerInterface {
 
     void vanishPlayer(String name, int positon);
 
-    void pawn(String fieldName, String name, Color playerColor);
+    void pawn(String fieldName, String name, Color playerColor, Color playerColor2);
 }

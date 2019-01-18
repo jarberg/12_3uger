@@ -22,14 +22,10 @@ public class Bank {
     private Bank(){
     }
 
-    public void setBankNoCrashy(int length){
-
-    }
-
     public void setPlayerList(PlayerList playerlist){
         this.playerList = playerlist;
         this.playerListLength = this.playerList.getAllPlayers().length;
-        fieldOwnerArray = new String[playerListLength][30];
+        this.fieldOwnerArray = new String[playerListLength][300];
         for (int i = 0; i < playerListLength; i++) {
             fieldOwnerArray[i][0] = playerlist.getPlayer(i).getName();
         }
@@ -40,7 +36,6 @@ public class Bank {
     }
 
     public void removeFieldOwner(Field field){
-
         int idxOfRow = 0;
         int idxOfFieldToRemove = 0;
         for (int i = 0; i < fieldOwnerArray.length; i++) {
@@ -61,24 +56,26 @@ public class Bank {
                 counter++;
             }
         }
-
         fieldOwnerArray[idxOfRow] = ownedFields;
     }
 
+    //TODO: Information Expert
     public Player getPlayerByName(String name){
         Player player = null;
 
         for (int i = 0; i <playerListLength ; i++) {
-            if(name.equals(playerList.getPlayer(i).getName())){
+            if(name != null && name.equals(playerList.getPlayer(i).getName())){
                 player = playerList.getPlayer(i);
             }
         }
         return player;
     }
 
+
     public void addFieldToPlayer(Player player, Field field){
         for (int j = 0; j < playerListLength; j++) {
             if(player.getName().equals(fieldOwnerArray[j][0])){
+
                 for (int k = 0; k < fieldOwnerArray[j].length; k++) {
                     if(fieldOwnerArray[j][k+1]==null){
                         fieldOwnerArray[j][k+1] = field.getID();
@@ -86,36 +83,34 @@ public class Bank {
                     }
                 }
                 break;
+
             }
         }
     }
 
     public boolean hasOwner(String fieldID){
-        boolean haveOwner = false;
+        boolean hasOwner = false;
 
-        for (int i = 0; i < fieldOwnerArray.length; i++) {
-            for (int j = 1; j < fieldOwnerArray[i].length; j++) {
-                if(fieldOwnerArray[i][j] != null){
-                    if(fieldOwnerArray[i][j].equals(fieldID)){
-                        haveOwner = true;
+        for (String[] playerOwnedFields : fieldOwnerArray) {
+            for (int j = 1; j < playerOwnedFields.length; j++) {
+                if (playerOwnedFields[j] != null) {
+                    if (playerOwnedFields[j].equals(fieldID)) {
+                        hasOwner = true;
                     }
                 }
             }
         }
 
-        return haveOwner;
+        return hasOwner;
     }
 
     public Player getOwner(String fieldID) {
 
-        String owner = "free";
+        String owner = null;
 
         for (int i = 0; i <fieldOwnerArray.length ; i++) {
             for (int j = 1; j <fieldOwnerArray[i].length ; j++) {
-                if(fieldOwnerArray[i][j]==null){
-                    break;
-                }
-                if(fieldOwnerArray[i][j].equals(fieldID)){
+                if(fieldOwnerArray[i][j] != null && fieldOwnerArray[i][j].equals(fieldID)){
                     owner = fieldOwnerArray[i][0];
                     break;
                 }
@@ -142,8 +137,6 @@ public class Bank {
 
         int amountOfFields = 0;
         int count = 0;
-        Field currentTestField;
-        String ownerOfField = null;
 
         if(field instanceof PropertyField) {
             fieldTypeID = ((PropertyField) field).getType();
@@ -175,6 +168,7 @@ public class Bank {
                     break;
             }
 
+            //Checks if you own the correct amount of a type of field. Owning 3 "Allégade" will let you buy houses on it.
             for (int i = 0; i <fieldOwnerArray.length ; i++) {
                 if(fieldOwnerArray[i][0].equals(player.getName())){
                     Field[] temp = getPlayerFields(player);
@@ -188,6 +182,8 @@ public class Bank {
                 }
             }
         }
+
+        //Checks if you own the correct amount of a type of field. Owning 3 "Allégade" will let you buy houses on it.
         if(field instanceof BreweryField){
             amountOfFields = 2;
             for (int i = 0; i <fieldOwnerArray.length ; i++) {
@@ -205,12 +201,8 @@ public class Bank {
         return (count == amountOfFields);
     }
 
-    public String getInfo(int index1,int index2){
-        return fieldOwnerArray[index1][index2];
-    }
-
     public int getNetWorth(Player player){
-        int netWorth =0;
+        int netWorth = 0;
         netWorth += player.getBalance();
 
         Field[] ownedfields = getPlayerFields(player);
@@ -223,6 +215,9 @@ public class Bank {
             else if (ownedfields[i] instanceof BreweryField) {
                 netWorth += ((BreweryField) ownedfields[i]).getPrice();
             }
+            else if (ownedfields[i] instanceof FerryField) {
+                netWorth += ((FerryField)ownedfields[i]).getPrice();
+            }
 
         }
 
@@ -232,7 +227,8 @@ public class Bank {
     public Field getFieldById(String fieldID){
         Field field = null;
 
-        field =board.getFields()[Integer.parseInt(fieldID)];
+        //TODO: Make sure index is appropriate and does not need +1 or -1.
+        field = board.getFields()[Integer.parseInt(fieldID)];
 
         return field;
 
@@ -260,10 +256,10 @@ public class Bank {
                 else{
                     if(player.getName().equals(fieldOwnerArray[i][0])){
                         Field[] temp = new Field[ownedFields.length+1];
-                        for (int k = 0; k <ownedFields.length ; k++) {
+                        for (int k = 0; k < ownedFields.length ; k++) {
                             temp[k] = ownedFields[k];
                         }
-                        temp[j-1]=board.getFields()[Integer.parseInt(fieldOwnerArray[i][j])];
+                        temp[j-1] = board.getFields()[Integer.parseInt(fieldOwnerArray[i][j])];
                         ownedFields = temp;
                     }
                 }
@@ -273,7 +269,6 @@ public class Bank {
     }
 
     public Field[] getFieldsWithHousesByPlayer(Player player){
-
 
         Field[] playerFieldList = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
@@ -298,16 +293,64 @@ public class Bank {
         return ownedFields;
     }
 
-    public Field[] getFieldsWithNoHousesByPlayer(Player player){
+    public Field[] getFieldsWithNoHousesByPlayerAndCheckPawnStatus(Player player){
 
-        Field[] playerFieldList = getPlayerFields(player);
-        int length = playerFieldList.length;
+        Field[] playerFieldArray = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
 
+        for (Field field : playerFieldArray) {
+            if(field instanceof PropertyField) {
+                if (((PropertyField) field).getBuildingCount() == 0 && !((PropertyField) field).getPawnedStatus()) {
 
-        for (Field aPlayerFieldList : playerFieldList) {
+                    Field[] temp = new Field[ownedFields.length + 1];
+
+                    for (int j = 0; j < ownedFields.length; j++) {
+                        temp[j] = ownedFields[j];
+                    }
+
+                    temp[temp.length - 1] = field;
+
+                    ownedFields = temp;
+
+                }
+
+            }
+            else if(field instanceof BreweryField){
+
+                if(!((BreweryField) field).getPawnedStatus()){
+                    Field[] temp = new Field[ownedFields.length + 1];
+
+                    for (int j = 0; j < ownedFields.length; j++) {
+                        temp[j] = ownedFields[j];
+                    }
+                    temp[temp.length - 1] = field;
+
+                    ownedFields = temp;
+                }
+            } else if(field instanceof FerryField){
+                if(!((FerryField) field).getPawnedStatus()){
+                    Field[] temp = new Field[ownedFields.length + 1];
+
+                    for (int j = 0; j < ownedFields.length; j++) {
+                        temp[j] = ownedFields[j];
+                    }
+                    temp[temp.length - 1] = field;
+
+                    ownedFields = temp;
+                }
+            }
+        }
+        return ownedFields;
+    }
+
+    public Field[] getFieldsWithNoHousesByPlayer(Player player){
+
+        Field[] playerFieldArray = getPlayerFields(player);
+        Field[] ownedFields = new Field[0];
+
+        for (Field aPlayerFieldList : playerFieldArray) {
             if(aPlayerFieldList instanceof PropertyField) {
-                if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0 && !((PropertyField) aPlayerFieldList).getPawnedStatus()) {
+                if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
 
                     Field[] temp = new Field[ownedFields.length + 1];
 
@@ -336,20 +379,6 @@ public class Bank {
 
         }
         return ownedFields;
-    }
-
-    public Field[] getSameTypeFields(Player player){
-        Field[] fields = getPlayerFields(player);
-
-        Field[] typeFields = new Field[0];
-
-        for (Field afield:fields) {
-            if(isOwnerOfAllFieldsOfType(player, afield)){
-
-            }
-        }
-
-        return typeFields;
     }
 
     public int getAmountOfTypeOwned(Player owner, Field field) {
@@ -469,7 +498,7 @@ public class Bank {
     public Player[] findPlayersWithFieldsWithNoHouses(){
         Player[] players = new Player[0];
         for (Player player : playerList.getAllPlayers()){
-            if (getFieldsWithNoHousesByPlayer(player).length > 0){
+            if (getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length > 0){
                 Player[] temp = new Player[players.length+1];
                 for (int i = 0; i < players.length; i++) {
                     temp[i] = players[i];
@@ -481,15 +510,7 @@ public class Bank {
         return players;
     }
 
-    public String[] getPlayerNames(){
-        String[] playerNames = new String[playerListLength];
-        for (int i = 0; i < playerListLength; i++) {
-            playerNames[i] = playerList.getPlayer(i).getName();
-        }
-        return playerNames;
-    }
-
-    public String[] getPlayerNamesWithNoHouses(){
+    public String[] getPlayerNamesWithFieldsWithNoHouses(){
         Player[] players = findPlayersWithFieldsWithNoHouses();
         String[] names = new String[players.length];
         for (int i = 0; i < players.length; i++) {
@@ -499,12 +520,66 @@ public class Bank {
     }
 
     public String[] getPropertyNamesWithNoHousesByPlayer(Player player){
-        Field[] fields = getFieldsWithNoHousesByPlayer(player);
+        Field[] fields = getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
         String[] titles = new String[fields.length];
         for (int i = 0; i < fields.length; i++) {
             titles[i] = fields[i].getTitle();
         }
         return titles;
+    }
+
+    public Field[] getPawnedFieldsByPlayer(Player player) {
+        Field[] fields = getFieldsWithNoHousesByPlayer(player);
+        int counter = 0;
+
+        for (Field field: fields){
+            if(field instanceof PropertyField){
+                if(((PropertyField) field).getPawnedStatus()){
+                    counter++;
+                }
+            }
+            if(field instanceof BreweryField){
+                if(((BreweryField) field).getPawnedStatus()){
+                    counter++;
+                }
+            }
+            if(field instanceof FerryField){
+                if(((FerryField) field).getPawnedStatus()){
+                    counter++;
+                }
+            }
+        }
+
+        Field[] fieldsPawnedCopy = new Field[counter];
+
+        counter = 0;
+        for (int i = 0; i < fields.length; i++) {
+            if(fields[i] instanceof PropertyField){
+                if(((PropertyField) fields[i]).getPawnedStatus()){
+                    fieldsPawnedCopy[counter] = fields[i];
+                    counter++;
+                }
+            }
+            if(fields[i] instanceof BreweryField){
+                if(((BreweryField)fields[i]).getPawnedStatus()){
+                    fieldsPawnedCopy[counter] = fields[i];
+                    counter++;
+                }
+            }
+            if(fields[i] instanceof FerryField){
+                if(((FerryField)fields[i]).getPawnedStatus()){
+                    fieldsPawnedCopy[counter] = fields[i];
+                    counter++;
+                }
+            }
+        }
+
+        return fieldsPawnedCopy;
+
+    }
+
+    public Player[] getPlayers() {
+        return playerList.getAllPlayers();
     }
 }
 

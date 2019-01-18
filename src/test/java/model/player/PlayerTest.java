@@ -10,14 +10,6 @@ public class PlayerTest {
 
     Player player = new Player("Bob");
 
-
-    @Test
-    public void setGetName() {
-        assertEquals("Bob", player.getName());
-
-        assertEquals("Bob Dylan", player.getName());
-    }
-
     @Test
     public void setGetJailCardStatus() {
         assertEquals(false,player.getJailCardStatus());
@@ -68,12 +60,11 @@ public class PlayerTest {
     //integrated tests
     @Test
     public void setGetBalance() {
-        int newbalance = 5;
+        int amount = 5;
+        int oldBalance = player.getBalance();
 
-        assertEquals(0,player.getBalance());
-
-        player.addToBalance(newbalance);
-        assertEquals(newbalance,player.getBalance());
+        player.addToBalance(amount);
+        assertEquals(oldBalance + amount, player.getBalance());
     }
 
 }

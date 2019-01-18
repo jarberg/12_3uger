@@ -181,7 +181,7 @@ public class ViewControllerStub implements ViewControllerInterface {
     }
 
     @Override
-    public void pawn(String fieldName, String name, Color playerColor) {
+    public void pawn(String fieldName, String name, Color playerColor, Color playerColor2) {
 
     }
 }

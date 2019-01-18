@@ -122,6 +122,8 @@ public class GameController {
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
 
+        currentPlayer.setPassedStartStatus(false);
+
         setNextPlayer();
 
 
@@ -149,6 +151,7 @@ public class GameController {
                 sumOfDice = (40-lastField+10)%40;
                 endTurn = true;
             }
+            viewController.showMessage(currentPlayer.getName()+languageCollection.getMenu()[44]+" "+sumOfDice+languageCollection.getMenu()[45]);
             movePlayer(currentPlayer, lastField, sumOfDice);
         }
     }
@@ -182,7 +185,6 @@ public class GameController {
     }
 
     private void setupBank(){
-        bank.setBankNoCrashy(playerlist.getAllPlayers().length);
         bank.setPlayerList(playerlist);
         bank.setBoard(board);
     }
@@ -215,8 +217,7 @@ public class GameController {
         playerlist.setNextPlayer();
     }
 
-    public void Auktion(Player player, Field field){
-
+    public void auction(Player player, Field field){
     }
 
     private void setupLanguage(){
@@ -282,7 +283,7 @@ public class GameController {
 
     private void checkForWinner(){
         Player winner = null;
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+        for (int i = 0; i < playerlist.getAllPlayers().length ; i++) {
             if (!getPlayer(i).getBrokeStatus())
                 winner = playerlist.getAllPlayers()[i];
 
@@ -320,7 +321,7 @@ public class GameController {
             if (currentField instanceof  JailField) {
 
                 if (currentTurn>lastTurn) {
-                    String option = String.format(languageCollection.getMenu()[34]+",9");
+                    String option = String.format(languageCollection.getMenu()[34]+",8");
                     choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getJailCardStatus()) {
@@ -347,19 +348,23 @@ public class GameController {
             String option = languageCollection.getMenu()[35]+",5";
             choiceList = addToStringArray(choiceList, option);
         }
-        if(bank.getFieldsWithNoHousesByPlayer(player).length>0){
+        if(bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length>0){
             String pawnString = languageCollection.getMenu()[27];
             String number = "6";
             String choiceString = String.format("%s,%s", pawnString, number);
             choiceList = addToStringArray(choiceList, choiceString);
         }
-
         if(field instanceof TaxField){
 
         }
-        if (bank.getPlayerNamesWithNoHouses().length > 1){
+        if (bank.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
             String message = languageCollection.getMenu()[41];
             choiceList = addToStringArray(choiceList, message+",9");
+        }
+        Field[] canBuybackFields = bank.getPawnedFieldsByPlayer(player);
+        if(canBuybackFields.length > 0){
+            String message = "buybackFieldField";
+            choiceList = addToStringArray(choiceList, message+",10");
         }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
         String option = String.format(languageCollection.getMenu()[36]+",0");
@@ -447,8 +452,12 @@ public class GameController {
                         {endTurn =true;}
                     break;
 
-            case 9: tradecontroller.tradePropertyWithPlayer(player);
+            case 9: tradecontroller.transferAssets(player);
                     break;
+
+            case 10: tradecontroller.buyBackPawnedProperty(currentPlayer);
+                    break;
+
         }
    }
 
@@ -495,7 +504,17 @@ public class GameController {
         if (field instanceof PropertyField){
             ((PropertyField) field).setPawnedStatus(true);
             tradecontroller.transferAssets(player,((PropertyField) field).getPrice()/2);
-            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor());
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+        }
+        if (field instanceof BreweryField){
+            ((BreweryField) field).setPawnedStatus(true);
+            tradecontroller.transferAssets(player,((BreweryField) field).getPrice()/2);
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+        }
+        if (field instanceof FerryField){
+            ((FerryField) field).setPawnedStatus(true);
+            tradecontroller.transferAssets(player,((FerryField) field).getPrice()/2);
+            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
         }
    }
 

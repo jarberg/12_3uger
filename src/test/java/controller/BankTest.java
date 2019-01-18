@@ -1,3 +1,5 @@
+package controller;
+
 import controller.Bank;
 import model.board.Board;
 import model.board.Field;

@@ -328,12 +328,12 @@ public class ViewController implements ViewControllerInterface {
     }
 
     @Override
-    public void pawn(String fieldName, String name, Color playerColor) {
+    public void pawn(String fieldName, String name, Color playerColor, Color playerColor2) {
         GUI_Field field = getGUIFieldByName(fieldName);
         while(!field.getDescription().equals(name)){
             field.setDescription(name);
         }
-        ((GUI_Street) field).setBorder(playerColor, playerColor.darker());
+        ((GUI_Street) field).setBorder(playerColor, playerColor2);
     }
     @Override
     public void updateFieldBuildings(String fieldName, int buildingCount) {
@@ -366,4 +366,5 @@ public class ViewController implements ViewControllerInterface {
         GUI_Player player = getGui_playerByName(name);
         gui_board[positon].setCar(player, false);
     }
+
 }
