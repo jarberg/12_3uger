@@ -307,20 +307,9 @@ public class Bank {
                 }
 
             }
-            else if(field instanceof BreweryField){
+            else if(field instanceof Ownable){
 
-                if(!((BreweryField) field).getPawnedStatus()){
-                    Field[] temp = new Field[ownedFields.length + 1];
-
-                    for (int j = 0; j < ownedFields.length; j++) {
-                        temp[j] = ownedFields[j];
-                    }
-                    temp[temp.length - 1] = field;
-
-                    ownedFields = temp;
-                }
-            } else if(field instanceof FerryField){
-                if(!((FerryField) field).getPawnedStatus()){
+                if(!((Ownable) field).getPawnedStatus()){
                     Field[] temp = new Field[ownedFields.length + 1];
 
                     for (int j = 0; j < ownedFields.length; j++) {
@@ -374,25 +363,17 @@ public class Bank {
     }
 
     public int getAmountOfTypeOwned(Player owner, Field field) {
+
         Field[] ownedFields = getPlayerFields(owner);
         int counter = 0;
         String fieldType = "";
 
-        if(field instanceof PropertyField){
-            fieldType = ((PropertyField)field).getType();
-        }
-        if(field instanceof FerryField){
-            fieldType = ((FerryField)field).getType();
-        }
+        fieldType = ((Ownable)field).getType();
 
         for(Field f : ownedFields){
-            if(f instanceof PropertyField)
-                if(((PropertyField) f).getType().equals(fieldType))
+
+                if(((Ownable) f).getType().equals(fieldType))
                     counter++;
-            if(f instanceof FerryField){
-                if(((FerryField) f).getType().equals(fieldType))
-                    counter++;
-            }
         }
         return counter;
     }
@@ -525,18 +506,8 @@ public class Bank {
         int counter = 0;
 
         for (Field field: fields){
-            if(field instanceof PropertyField){
-                if(((PropertyField) field).getPawnedStatus()){
-                    counter++;
-                }
-            }
-            if(field instanceof BreweryField){
-                if(((BreweryField) field).getPawnedStatus()){
-                    counter++;
-                }
-            }
-            if(field instanceof FerryField){
-                if(((FerryField) field).getPawnedStatus()){
+            if(field instanceof Ownable){
+                if(((Ownable) field).getPawnedStatus()){
                     counter++;
                 }
             }
@@ -546,20 +517,8 @@ public class Bank {
 
         counter = 0;
         for (int i = 0; i < fields.length; i++) {
-            if(fields[i] instanceof PropertyField){
-                if(((PropertyField) fields[i]).getPawnedStatus()){
-                    fieldsPawnedCopy[counter] = fields[i];
-                    counter++;
-                }
-            }
-            if(fields[i] instanceof BreweryField){
-                if(((BreweryField)fields[i]).getPawnedStatus()){
-                    fieldsPawnedCopy[counter] = fields[i];
-                    counter++;
-                }
-            }
-            if(fields[i] instanceof FerryField){
-                if(((FerryField)fields[i]).getPawnedStatus()){
+            if(fields[i] instanceof Ownable){
+                if(((Ownable) fields[i]).getPawnedStatus()){
                     fieldsPawnedCopy[counter] = fields[i];
                     counter++;
                 }
