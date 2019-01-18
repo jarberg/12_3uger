@@ -195,16 +195,6 @@ public class GameController {
         this.deck  = new Deck(deckLogic, deckText);
     }
 
-    private Player getPlayerByName(String playerName){
-        Player player = null;
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            if(getPlayer(i).getName().equals(playerName)){
-                player =getPlayer(i);
-            }
-        }
-        return player;
-    }
-
     private Player getPlayer(int index) {
         return playerlist.getPlayer(index);
     }
@@ -215,9 +205,6 @@ public class GameController {
 
     private void setNextPlayer(){
         playerlist.setNextPlayer();
-    }
-
-    public void auction(Player player, Field field){
     }
 
     private void setupLanguage(){
@@ -246,13 +233,12 @@ public class GameController {
         FileReader.setLanguage(language);
     }
 
-
     public String getPlayerCount(){
         return String.valueOf(playerCount);
     }
 
     private void createPlayers() {
-        //TODO: playerAmount redundancy
+
         createPlayerList(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
 
@@ -270,7 +256,6 @@ public class GameController {
 
     private void makePlayerChooseCar() {
         for (Player player : playerlist.getAllPlayers()){
-            //TODO:
             Color chosenColor = viewController.getUserColor(player.getName());
             player.setPlayerColor(chosenColor);
         }
@@ -306,14 +291,8 @@ public class GameController {
         return playerAmount;
     }
 
-
     private void buyBuilding(Player player, PropertyField field){
         tradecontroller.buyBuilding(player, field);
-    }
-
-
-    private void payment(Player player, int amount){
-        tradecontroller.transferAssets(player, amount);
     }
 
     private String[][] getChoices(Player player){

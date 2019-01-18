@@ -303,9 +303,7 @@ public class Bank {
                     temp[temp.length - 1] = field;
 
                     ownedFields = temp;
-
                 }
-
             }
             else if(field instanceof Ownable){
 
@@ -362,13 +360,13 @@ public class Bank {
         return ownedFields;
     }
 
-    public int getAmountOfTypeOwned(Player owner, Field field) {
+    public int getAmountOfTypeOwned(Player owner, Ownable field) {
 
         Field[] ownedFields = getPlayerFields(owner);
         int counter = 0;
         String fieldType = "";
 
-        fieldType = ((Ownable)field).getType();
+        fieldType = field.getType();
 
         for(Field f : ownedFields){
 

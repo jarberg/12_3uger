@@ -8,9 +8,8 @@ public interface Visitor {
     void visit(GoToJailField field);
     void visit(JailField field);
     void visit(ParkingField field);
-    void visit(PropertyField field);
+    void visit(Ownable field);
     void visit(TaxField field);
     void visit(StartField field);
-    void visit(BreweryField field);
-    void visit(FerryField ferryField);
+
 }
