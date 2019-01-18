@@ -201,14 +201,17 @@ public class Bank {
     public Field[] getPlayerFields(Player player){
         Field[] ownedFields = new Field[0];
 
-        for (String[] playerOwnedFields : fieldOwnerArray) {
-            for (int j = 1; j < playerOwnedFields.length; j++) {
-                if (playerOwnedFields[j] == null){
+        for (int i = 0; i < fieldOwnerArray.length; i++)  {
+            for (int j = 1; j < fieldOwnerArray[i].length; j++) {
+                if (fieldOwnerArray[i][j] == null){
                     break;
                 }
                 else{
                     if(player.getName().equals(fieldOwnerArray[i][0])){
-                        ownedFields= extendFieldArray(ownedFields, board.getFields()[Integer.parseInt(fieldOwnerArray[i][j])]);
+                        {
+                            ownedFields= extendFieldArray(ownedFields, board.getFields()[Integer.parseInt(fieldOwnerArray[i][j])]);
+                        }
+
                     }
                 }
             }
