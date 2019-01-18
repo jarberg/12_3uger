@@ -36,7 +36,7 @@ public interface ViewControllerInterface {
 
     String getUserLanguage();
 
-    int getPlayerAmount();
+    int getPlayerAmount(String[] options);
 
     String getPlayerName();
 
