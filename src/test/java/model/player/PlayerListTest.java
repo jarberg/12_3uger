@@ -1,21 +1,49 @@
 package model.player;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class PlayerListTest {
-    int playerAmount = 3;
-    Player player1 = new Player("Bob");
-    Player player2 = new Player("Dylan");
-    Player player3 = new Player("Bae");
 
-    PlayerList playerlist = new PlayerList(playerAmount);
+    private PlayerList playerlist;
+    private Player player1;
+    private Player player2;
+    private Player player3;
+
+    @Before
+    public void setUp(){
+        playerlist = new PlayerList(3);
+        player1 = new Player("Bob");
+        player2 = new Player("Dylan");
+        player3 = new Player("Bae");
+    }
+
+    @After
+    public void tearDown(){
+        playerlist = null;
+        player1 = null;
+        player2 = null;
+        player3 = null;
+    }
 
     @Test
     public void getPlayer() {
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
             assertEquals(null, playerlist.getPlayer(i));
+        }
+    }
+
+    @Test
+    public void shouldAllowBetweenThreeAndSixPlayers(){
+        for (int i = 3; i <= 6; i++) {
+            PlayerList playerList = new PlayerList(i);
+            for (int j = 0; j < i; j++) {
+                playerList.addPlayer(j, new Player("Test"));
+                assertNotNull(playerList.getPlayer(j));
+            }
         }
     }
 
