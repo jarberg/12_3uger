@@ -115,6 +115,7 @@ public class GameController {
 
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
+        currentPlayer.addCurrentTurn();
 
         checkIfinJailBeforeMoving();
         checkIfPassedStart();
@@ -258,6 +259,7 @@ public class GameController {
         FileReader.setLanguage(language);
     }
 
+
     public String getPlayerCount(){
         return String.valueOf(playerCount);
     }
@@ -338,7 +340,7 @@ public class GameController {
             //TODO: Had a player stuck in jail forever
             if (currentField instanceof  JailField) {
 
-                if (currentTurn>lastTurn) {
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && !( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())) {
                     String option = String.format(languageCollection.getMenu()[34]+",8");
                     choiceList = addToStringArray(choiceList, option);
                 }
@@ -346,12 +348,15 @@ public class GameController {
                     String option = String.format(languageCollection.getMenu()[33]+",1");
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() > ((JailField) currentField).getBailAmount()) {
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && (currentPlayer.getBalance() > ((JailField) currentField).getBailAmount() || ( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn()))) {
+
                     String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
                     choiceList = addToStringArray(choiceList, option);
+
                 }
-                if (player.getBalance() < ((JailField) currentField).getBailAmount()) {
-                    String option = languageCollection.getMenu()[31]+ ", 7";
+
+                if (currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()|| ((currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()&&( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())))) {
+                    String option = languageCollection.getMenu()[47]+ ",7";
                     choiceList = addToStringArray(choiceList, option);
                 }
             }
@@ -385,7 +390,9 @@ public class GameController {
             choiceList = addToStringArray(choiceList, message+",10");
         }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
-        String option = String.format(languageCollection.getMenu()[36]+",0");
+
+        String option = String.format(languageCollection.getMenu()[36] + ",0");
+
         choiceList = addToStringArray(choiceList, option);
 
         String[][] finalChoiceList = new String[choiceList.length][];
@@ -441,8 +448,10 @@ public class GameController {
                     break;
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
-                    viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
                     currentPlayer.setInJail(false);
+                    if(currentTurn>lastTurn){
+                        currentPlayer.setDoubleTurnStatus(false);
+                    }
                     checkIfinJailBeforeMoving();
                     break;
 
@@ -463,11 +472,12 @@ public class GameController {
                     break;
 
             case 8: rollAndShowDice(currentPlayer);
-                    threwDice = true;
-                    if(currentPlayer.getDoubleTurnStatus())
-                        {movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());}
-                    else
-                        {endTurn =true;}
+                    if(currentPlayer.getDoubleTurnStatus()) {
+                        movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
+                        resolveField();
+                        currentPlayer.setInJail(false);
+                        }
+
                     break;
 
             case 9: tradecontroller.transferAssets(player);

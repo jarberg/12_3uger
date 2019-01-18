@@ -16,6 +16,8 @@ public class Player {
     private boolean inJail = false;
     private boolean hasPassedStart = false;
     private int doublethrownum =0;
+    private int jailTurn=0;
+    private int currentTurn;
 
     //constructor
     public Player(String name){
@@ -86,18 +88,47 @@ public class Player {
             this.doublethrownum++;
     }
     public void resetDoubleThrowTimes(){
-        this.doublethrownum=0;
+        if(!inJail){
+            this.doublethrownum=0;
+        }
+        else{
+
+        }
     }
 
     public boolean isInJail() {
+
         return inJail;
     }
 
     public void setInJail(boolean inJail) {
-        this.inJail = inJail;
+        if(inJail){
+            this.inJail = inJail;
+            setJailTurn();
+        }
+        else{
+            this.inJail = inJail;
+            this.doublethrownum=0;
+        }
     }
 
     public int getDoubleThrowNum(){
         return this.doublethrownum;
+    }
+
+    public int getJailTurn() {
+        return jailTurn;
+    }
+
+    public void setJailTurn() {
+        this.jailTurn = currentTurn;
+    }
+
+
+    public void addCurrentTurn() {
+        this.currentTurn++;
+    }
+    public int getCurrentTurn() {
+        return this.currentTurn;
     }
 }

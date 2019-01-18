@@ -46,3 +46,4 @@ Which property would you like to pawn?
 %s, do You want to participate in the auction?
 The price of %s is currently %s
 %S rolled %s and moves forward.
+Raise Money
