@@ -125,8 +125,50 @@ public class TradeController {
         viewController.setGUI_PlayerBalance(targetPlayer.getName(), targetPlayer.getBalance());
     }
 
-    public void transferAssets(Player sourcePlayer, Player targetPlayer, Field field){
+    public void transferAssets(Player sourcePlayer){
+        String message = languageStringCollection.getMenu()[37];
+        String[] names = bank.getPlayerNamesWithFieldsWithNoHouses();
 
+        // update names so it does not include the sourcePlayer
+        String[] temp = new String[names.length-1];
+        int counter = 0;
+        for (String name : names) {
+            if (!name.equals(sourcePlayer.getName())) {
+                temp[counter] = name;
+                counter++;
+            }
+        }
+        names = temp;
+
+        String playerChoice = viewController.getUserSelection(message, names);
+        Player targetPlayer = bank.getPlayerByName(playerChoice);
+
+        String message3 = String.format(languageStringCollection.getMenu()[38], sourcePlayer.getName());
+        String sourceProperty = viewController.getUserSelection(message3, bank.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
+        Field sField = bank.getFieldByName(sourceProperty);
+
+
+        String message4 = languageStringCollection.getMenu()[39];
+        String targetProperty = viewController.getUserSelection(message4, bank.getPropertyNamesWithNoHousesByPlayer(targetPlayer));
+        Field tField = bank.getFieldByName(targetProperty);
+
+
+        String message2 = String.format(languageStringCollection.getMenu()[40], targetPlayer.getName(), tField.getTitle(), sField.getTitle());
+        String yes = languageStringCollection.getMenu()[16];
+        String no = languageStringCollection.getMenu()[17];
+        String[] yesNo = {yes, no};
+        String answer = viewController.getUserButtonSelection(message2, yesNo);
+
+        if (answer.equals(yes)){
+            bank.removeFieldOwner(tField);
+            bank.removeFieldOwner(sField);
+
+            bank.addFieldToPlayer(sourcePlayer, tField);
+            bank.addFieldToPlayer(targetPlayer, sField);
+
+            viewController.showOwner(sourceProperty, targetPlayer.getName(), targetPlayer.getPlayerColor());
+            viewController.showOwner(targetProperty, sourcePlayer.getName(), sourcePlayer.getPlayerColor());
+        }
     }
 
     public void transferAssets(Player targetPlayer, Field field){
@@ -169,52 +211,6 @@ public class TradeController {
         viewController.addBuilding(field);
     }
 
-    public void tradePropertyWithPlayer(Player sourcePlayer){
-        String message = languageStringCollection.getMenu()[37];
-        String[] names = bank.getPlayerNamesWithFieldsWithNoHouses();
-
-        // update names so it doenst include the sourcePlayer
-        String[] temp = new String[names.length-1];
-        int counter = 0;
-        for (String name : names) {
-            if (!name.equals(sourcePlayer.getName())) {
-                temp[counter] = name;
-                counter++;
-            }
-        }
-        names = temp;
-
-        String playerChoice = viewController.getUserSelection(message, names);
-        Player targetPlayer = bank.getPlayerByName(playerChoice);
-
-        String message3 = String.format(languageStringCollection.getMenu()[38], sourcePlayer.getName());
-        String sourceProperty = viewController.getUserSelection(message3, bank.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
-        Field sField = bank.getFieldByName(sourceProperty);
-
-
-        String message4 = languageStringCollection.getMenu()[39];
-        String targetProperty = viewController.getUserSelection(message4, bank.getPropertyNamesWithNoHousesByPlayer(targetPlayer));
-        Field tField = bank.getFieldByName(targetProperty);
-
-
-        String message2 = String.format(languageStringCollection.getMenu()[40], targetPlayer.getName(), tField.getTitle(), sField.getTitle());
-        String yes = languageStringCollection.getMenu()[16];
-        String no = languageStringCollection.getMenu()[17];
-        String[] yesNo = {yes, no};
-        String answer = viewController.getUserButtonSelection(message2, yesNo);
-
-        if (answer.equals(yes)){
-            bank.removeFieldOwner(tField);
-            bank.removeFieldOwner(sField);
-
-            bank.addFieldToPlayer(sourcePlayer, tField);
-            bank.addFieldToPlayer(targetPlayer, sField);
-
-            viewController.showOwner(sourceProperty, targetPlayer.getName(), targetPlayer.getPlayerColor());
-            viewController.showOwner(targetProperty, sourcePlayer.getName(), sourcePlayer.getPlayerColor());
-        }
-    }
-
     public void buyBackPawnedProperty(Player player){
         String message = "buy pawned property";
         Field[] pawnNames = bank.getPawnedFieldsByPlayer(player);
@@ -248,7 +244,7 @@ public class TradeController {
         if (field instanceof BreweryField){
             int priceWithInterest = (int) (((BreweryField) field).getPrice() * 1.10);
             transferAssets(player, -priceWithInterest);
-            if (player.getBrokeStatus()) {
+            if (!player.getBrokeStatus()) {
                 ((BreweryField) field).setPawnedStatus(false);
                 bank.removeFieldOwner(field);
                 bank.addFieldToPlayer(player, field);

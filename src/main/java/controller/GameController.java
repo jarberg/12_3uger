@@ -451,7 +451,7 @@ public class GameController {
                         {endTurn =true;}
                     break;
 
-            case 9: tradecontroller.tradePropertyWithPlayer(player);
+            case 9: tradecontroller.transferAssets(player);
                     break;
 
             case 10: tradecontroller.buyBackPawnedProperty(currentPlayer);
