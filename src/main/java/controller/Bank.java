@@ -293,7 +293,7 @@ public class Bank {
         return ownedFields;
     }
 
-    public Field[] getFieldsWithNoHousesByPlayer(Player player){
+    public Field[] getFieldsWithNoHousesByPlayerAndCheckPawnStatus(Player player){
 
         Field[] playerFieldArray = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
@@ -343,7 +343,7 @@ public class Bank {
         return ownedFields;
     }
 
-    public Field[] getFieldsWithNoHousesByPlayerDontCheckPawnStatus(Player player){
+    public Field[] getFieldsWithNoHousesByPlayer(Player player){
 
         Field[] playerFieldArray = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
@@ -498,7 +498,7 @@ public class Bank {
     public Player[] findPlayersWithFieldsWithNoHouses(){
         Player[] players = new Player[0];
         for (Player player : playerList.getAllPlayers()){
-            if (getFieldsWithNoHousesByPlayer(player).length > 0){
+            if (getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length > 0){
                 Player[] temp = new Player[players.length+1];
                 for (int i = 0; i < players.length; i++) {
                     temp[i] = players[i];
@@ -520,7 +520,7 @@ public class Bank {
     }
 
     public String[] getPropertyNamesWithNoHousesByPlayer(Player player){
-        Field[] fields = getFieldsWithNoHousesByPlayer(player);
+        Field[] fields = getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
         String[] titles = new String[fields.length];
         for (int i = 0; i < fields.length; i++) {
             titles[i] = fields[i].getTitle();

@@ -281,7 +281,7 @@ public class GameController {
 
     private void checkForWinner(){
         Player winner = null;
-        for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
+        for (int i = 0; i < playerlist.getAllPlayers().length ; i++) {
             if (!getPlayer(i).getBrokeStatus())
                 winner = playerlist.getAllPlayers()[i];
 
@@ -346,7 +346,7 @@ public class GameController {
             String option = languageCollection.getMenu()[35]+",5";
             choiceList = addToStringArray(choiceList, option);
         }
-        if(bank.getFieldsWithNoHousesByPlayer(player).length>0){
+        if(bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length>0){
             String pawnString = languageCollection.getMenu()[27];
             String number = "6";
             String choiceString = String.format("%s,%s", pawnString, number);

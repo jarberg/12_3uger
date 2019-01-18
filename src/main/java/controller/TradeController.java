@@ -42,7 +42,7 @@ public class TradeController {
 
     private void raiseMoney(Player player) {
         Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
-        Field[] fieldsWithoutHouses = bank.getFieldsWithNoHousesByPlayer(player);
+        Field[] fieldsWithoutHouses = bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
 
         String sellHouseOption = languageStringCollection.getMenu()[19];
         String sellFieldOption = languageStringCollection.getMenu()[20];
