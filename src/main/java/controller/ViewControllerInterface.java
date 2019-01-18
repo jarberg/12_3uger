@@ -18,6 +18,8 @@ public interface ViewControllerInterface {
 
     void showGUI();
 
+    void pawn(String fieldName, String name, Color playerColor);
+
     void addPlayer(String name, Color color, int balance);
 
     GUI_Car makePlayerCar(Color color);

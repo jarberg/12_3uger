@@ -27,6 +27,11 @@ public class TradeController {
         return singleInstance;
     }
 
+    public void setViewController(ViewControllerInterface viewController){
+        this.viewController = viewController;
+    }
+
+
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
         while(sourcePlayer.getBalance() < amount){
             raiseMoney(sourcePlayer);

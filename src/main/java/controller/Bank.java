@@ -31,9 +31,11 @@ public class Bank {
         }
     }
 
+
     public void setBoard(Board board){
         this.board = board;
     }
+
 
     public void removeFieldOwner(Field field){
         int idxOfRow = 0;
@@ -120,8 +122,6 @@ public class Bank {
 
         return trueOwner;
     }
-
-
 
     public boolean isOwnerOfAllFieldsOfType(Player player, Field field){
 

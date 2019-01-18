@@ -93,7 +93,7 @@ public class DrawController implements Drawer {
 
         tradeController.transferAssets(player, -(amountOfHotels * multiplierHotel));
         tradeController.transferAssets(player, -(amountOfHouses * multiplierHouse));
-        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
+        viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
     }
 
     @Override //CARD: 17 - 27
@@ -174,7 +174,7 @@ public class DrawController implements Drawer {
         int amount = card.getAmount();
 
         tradeController.transferAssets(player,amount);
-        viewController.getGui_playerByName(player.getName()).setBalance(player.getBalance());
+        viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
 
 
     }

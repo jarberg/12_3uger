@@ -8,6 +8,9 @@ import model.board.PropertyField;
 import java.awt.*;
 
 public class ViewControllerStub implements ViewControllerInterface {
+
+    String choice="";
+
     @Override
     public void showMessage(String message) {
 
@@ -15,6 +18,10 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     @Override
     public void showGameGUI(Field[] fields) {
+
+    }
+    @Override
+    public void pawn(String fieldName, String name, Color playerColor){
 
     }
 
@@ -31,6 +38,7 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     @Override
     public void showGUI() {
+        System.out.println("GUI show");
 
     }
 
@@ -41,7 +49,7 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     @Override
     public GUI_Car makePlayerCar(Color color) {
-        return null;
+           return null;
     }
 
     @Override
@@ -80,14 +88,14 @@ public class ViewControllerStub implements ViewControllerInterface {
     }
 
     @Override
-    public int getPlayerAmount(String[] options) {
-        return 0;
+    public int getPLayerAmount() {
+        return 3;
     }
 
 
     @Override
     public String getPlayerName() {
-        return null;
+        return "Test";
     }
 
     @Override
@@ -134,7 +142,7 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     @Override
     public void addBuilding(PropertyField field) {
-
+        //field.addBuilding();
     }
 
     @Override
@@ -142,9 +150,14 @@ public class ViewControllerStub implements ViewControllerInterface {
         return null;
     }
 
+    public void setChoice(String choice){
+        this.choice = choice;
+    }
+
     @Override
     public String getUserSelection(String message, String... choiceOptions) {
-        return null;
+
+        return this.choice;
     }
 
     @Override
