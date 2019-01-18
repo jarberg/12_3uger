@@ -127,8 +127,8 @@ public class DrawController implements Drawer {
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
 
-        if(bank.hasOwner(disbutedField.getID())){
-            Player otherPlayer =  bank.getOwner(positionAsString);
+        if(bank.fieldHasOwner(disbutedField.getID())){
+            Player otherPlayer =  bank.getOwnerOfField(positionAsString);
             tradeController.transferAssets(player, otherPlayer, amount);
         } else{
             tradeController.askIfWantToBuy(player, disbutedField);

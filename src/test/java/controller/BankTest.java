@@ -41,6 +41,7 @@ public class BankTest {
 
     @Test
     public void shouldSetupFieldOwnerArrayWithPlayerNames() {
+        assertNull(fieldOwnerArray);
         bank.setupFieldOwnerArray(playerList);
         fieldOwnerArray = bank.getFieldOwnerArray();
         int playerNamePosition = 0;
@@ -49,11 +50,25 @@ public class BankTest {
                 assertEquals(playerList.getPlayer(i).getName(), fieldOwnerArray[i][j]);
             }
         }
+        assertNotNull(fieldOwnerArray);
     }
 
     @Test
     public void shouldAddFieldToPlayer() {
         shouldSetupFieldOwnerArrayWithPlayerNames();
+        int numOfNullFields = 0;
+        for (String[] owner : fieldOwnerArray) {
+            for (int j = 0; j < owner.length-1; j++) {
+                if (owner[j + 1] == null) {
+                    numOfNullFields++;
+                }
+            }
+        }
+        int numOfPlayers = fieldOwnerArray.length;
+        int numOfNames = fieldOwnerArray.length;
+        int playerStorageForFields = fieldOwnerArray[0].length;
+        assertEquals(numOfNullFields, (numOfPlayers*playerStorageForFields)-numOfNames);
+
         for (int i = 0; i < playerList.getAllPlayers().length; i++) {
             Player player = playerList.getPlayer(i);
             Field field = board.getFields()[i];
@@ -71,8 +86,16 @@ public class BankTest {
     }
 
     @Test
-    public void removeFieldOwner() {
+    public void shouldRemoveFieldOwner() {
+        shouldAddFieldToPlayer();
+        Field rodovrevej = board.getFields()[1];
+        String rodovrevejID = rodovrevej.getID();
+        String[] ownerOfRodovrevej = fieldOwnerArray[1];
+        assertEquals(rodovrevejID, ownerOfRodovrevej[1]);
 
+        bank.removeFieldOwner(rodovrevej);
+        ownerOfRodovrevej = fieldOwnerArray[1];
+        assertNull(ownerOfRodovrevej[1]);
     }
 
     @Test
@@ -80,11 +103,19 @@ public class BankTest {
     }
 
     @Test
-    public void hasOwner() {
+    public void shouldReturnTrueIfFieldHasOwnerElseFalse() {
+        bank.setupFieldOwnerArray(playerList);
+        Field field = board.getFields()[1];
+        String fieldID = field.getID();
+        assertFalse(bank.fieldHasOwner(fieldID));
+        shouldAddFieldToPlayer();
+        assertTrue(bank.fieldHasOwner(fieldID));
     }
 
     @Test
-    public void getOwner() {
+    public void shouldGetOwnerOfField() {
+
+
     }
 
     @Test

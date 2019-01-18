@@ -34,7 +34,6 @@ public class Bank {
     public void addFieldToPlayer(Player player, Field field){
         for (int j = 0; j < playerListLength; j++) {
             if(player.getName().equals(fieldOwnerArray[j][0])){
-
                 for (int k = 0; k < fieldOwnerArray[j].length; k++) {
                     if(fieldOwnerArray[j][k+1]==null){
                         fieldOwnerArray[j][k+1] = field.getID();
@@ -42,7 +41,6 @@ public class Bank {
                     }
                 }
                 break;
-
             }
         }
     }
@@ -55,6 +53,7 @@ public class Bank {
                 if (field.getID().equals(fieldOwnerArray[i][j])) {
                     idxOfRow = i;
                     idxOfFieldToRemove = j;
+                    break;
                 }
             }
         }
@@ -71,7 +70,7 @@ public class Bank {
         fieldOwnerArray[idxOfRow] = ownedFields;
     }
 
-    //TODO: Information Expert
+    //TODO: Information Expert - Method should be in playerList
 
     public Player getPlayerByName(String name){
         Player player = null;
@@ -84,7 +83,7 @@ public class Bank {
         return player;
     }
 
-    public boolean hasOwner(String fieldID){
+    public boolean fieldHasOwner(String fieldID){
         boolean hasOwner = false;
 
         for (String[] playerOwnedFields : fieldOwnerArray) {
@@ -92,6 +91,7 @@ public class Bank {
                 if (playerOwnedFields[j] != null) {
                     if (playerOwnedFields[j].equals(fieldID)) {
                         hasOwner = true;
+                        break;
                     }
                 }
             }
@@ -100,7 +100,7 @@ public class Bank {
         return hasOwner;
     }
 
-    public Player getOwner(String fieldID) {
+    public Player getOwnerOfField(String fieldID) {
 
         String owner = null;
 
@@ -115,8 +115,8 @@ public class Bank {
         return getPlayerByName(owner);
     }
 
-    public boolean isOwner(Player player, Field field){
-        Player owner = getOwner(field.getID());
+    public boolean isPlayerOwner(Player player, Field field){
+        Player owner = getOwnerOfField(field.getID());
 
         boolean trueOwner = false;
         if(owner == player)
@@ -421,7 +421,7 @@ public class Bank {
 
         counter = 0;
         for(PropertyField field : candidateFields){
-            Player owner = getOwner(field.getID());
+            Player owner = getOwnerOfField(field.getID());
             boolean isOwnerOfAllOfKind = isOwnerOfAllFieldsOfType(owner, field);
             if(isOwnerOfAllOfKind){
                 counter++;
@@ -431,7 +431,7 @@ public class Bank {
         PropertyField[] buildableFieldsCandidates = new PropertyField[counter];
         counter = 0;
         for(PropertyField field : candidateFields){
-            Player owner = getOwner(field.getID());
+            Player owner = getOwnerOfField(field.getID());
             boolean isOwnerOfAllOfKind = isOwnerOfAllFieldsOfType(owner, field);
             if(isOwnerOfAllOfKind){
                 buildableFieldsCandidates[counter] = field;

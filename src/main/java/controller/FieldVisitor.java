@@ -5,7 +5,6 @@ import model.deck.Card;
 import model.deck.Deck;
 import model.player.Player;
 import model.text.LanguageStringCollection;
-import model.text.LogicStringCollection;
 
 public class FieldVisitor implements Visitor  {
 
@@ -55,17 +54,17 @@ public class FieldVisitor implements Visitor  {
     public void visit(PropertyField field) {
         viewController.showMessage(field.getMessage());
 
-        boolean playerIsOwner = bank.isOwner(player, field);
+        boolean playerIsOwner = bank.isPlayerOwner(player, field);
         if(!playerIsOwner){
 
-            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            boolean ownedByAnotherPlayer = bank.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
-                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
-                    Player owner = bank.getOwner(field.getID());
+                    Player owner = bank.getOwnerOfField(field.getID());
                     boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field);
                     if(ownerOwnsAllOfType)
                         tradeController.transferAssets(player, owner, field.getRent() * PROPERTY_MULTIPLIER);
@@ -112,18 +111,18 @@ public class FieldVisitor implements Visitor  {
     public void visit(BreweryField field) {
         viewController.showMessage(field.getMessage());
 
-        boolean playerIsOwner = bank.isOwner(player, field);
+        boolean playerIsOwner = bank.isPlayerOwner(player, field);
         if(!playerIsOwner){
             int diceRoll = player.getPosition() - player.getLastPosition();
 
-            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            boolean ownedByAnotherPlayer = bank.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
-                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
-                    Player owner = bank.getOwner(field.getID());
+                    Player owner = bank.getOwnerOfField(field.getID());
                     boolean ownerOwnsBoth = bank.isOwnerOfAllFieldsOfType(owner, field);
                     if(ownerOwnsBoth)
                         tradeController.transferAssets(player,owner, diceRoll * field.getMultiplier2());
@@ -140,16 +139,16 @@ public class FieldVisitor implements Visitor  {
     public void visit(FerryField field) {
         viewController.showMessage(field.getMessage());
 
-        boolean playerIsOwner = bank.isOwner(player, field);
+        boolean playerIsOwner = bank.isPlayerOwner(player, field);
         if(!playerIsOwner){
-            boolean ownedByAnotherPlayer = bank.hasOwner(field.getID());
+            boolean ownedByAnotherPlayer = bank.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
-                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwner(field.getID()).getName());
+                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
-                    Player owner = bank.getOwner(field.getID());
+                    Player owner = bank.getOwnerOfField(field.getID());
                     int amountOwned = bank.getAmountOfTypeOwned(owner, field);
                     tradeController.transferAssets(player, owner, field.getRent(amountOwned));
                 }
