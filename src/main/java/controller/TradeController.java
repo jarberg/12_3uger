@@ -43,7 +43,7 @@ public class TradeController {
         viewController.setGUI_PlayerBalance(targetPlayer.getName(), targetPlayer.getBalance());
     }
 
-    private void raiseMoney(Player player) {
+    public void raiseMoney(Player player) {
         Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
         Field[] fieldsWithoutHouses = bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
 
@@ -258,6 +258,10 @@ public class TradeController {
 
 
     public void auction(Player player, Player[] allPlayers, Field field) {
+        for(Player possiblyBrokePlayer : allPlayers){
+            if(possiblyBrokePlayer.getBrokeStatus())
+                allPlayers = removePlayerFromArray(allPlayers, possiblyBrokePlayer);
+        }
         String auctionMessage = String.format(languageStringCollection.getMenu()[44], field.getTitle(), player.getName());
         viewController.showMessage(auctionMessage);
         Player[] auctionPlayers = new Player[0];
@@ -311,7 +315,7 @@ public class TradeController {
     private Player[] removePlayerFromArray(Player[] array, Player toBeRemoved){
         Player[] newArray = new Player[array.length - 1];
         int counter = 0;
-        for (int i = 0; i < newArray.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             if(array[i] != toBeRemoved){
                 newArray[counter] = array[i];
                 counter++;

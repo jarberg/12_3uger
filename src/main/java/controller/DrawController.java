@@ -111,13 +111,13 @@ public class DrawController implements Drawer {
         int fouFerry = 35;
 
         if (player.getPosition() < 5 || player.getPosition() > 35) {
-            player.setPosition(firFerry);
+            player.setPositionWithoutStartMoney(firFerry);
         } else if (player.getPosition() > 5 && player.getPosition() < 15) {
-            player.setPosition(secFerry);
+            player.setPositionWithoutStartMoney(secFerry);
         } else if (player.getPosition() > 15 && player.getPosition() < 25) {
-            player.setPosition(thiFerry);
+            player.setPositionWithoutStartMoney(thiFerry);
         } else if (player.getPosition() > 25 && player.getPosition() < 35) {
-            player.setPosition(fouFerry);
+            player.setPositionWithoutStartMoney(fouFerry);
         }
 
         int newPosition = player.getPosition();
@@ -146,7 +146,7 @@ public class DrawController implements Drawer {
 
         player.setInJail(true);
 
-        player.setPosition(newPosition);
+        player.setPositionWithoutStartMoney(newPosition);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
     }
 
@@ -190,6 +190,9 @@ public class DrawController implements Drawer {
         int newPosition =  (board.getFields().length + oldPosition + amount) % board.getFields().length;
 
         player.setPosition(newPosition);
+        if(amount<3){
+            player.setPassedStartStatus(false);
+        }
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
 
         String newField = String.valueOf(newPosition);

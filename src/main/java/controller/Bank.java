@@ -70,17 +70,8 @@ public class Bank {
         fieldOwnerArray[idxOfRow] = ownedFields;
     }
 
-    //TODO: Information Expert - Method should be in playerList
-
     public Player getPlayerByName(String name){
-        Player player = null;
-
-        for (int i = 0; i <playerListLength ; i++) {
-            if(name != null && name.equals(playerList.getPlayer(i).getName())){
-                player = playerList.getPlayer(i);
-            }
-        }
-        return player;
+        return playerList.getPlayerByName(name);
     }
 
     public boolean fieldHasOwner(String fieldID){
@@ -96,6 +87,7 @@ public class Bank {
                 }
             }
         }
+
         return hasOwner;
     }
 
@@ -110,7 +102,7 @@ public class Bank {
                 }
             }
         }
-        return getPlayerByName(owner);
+        return playerList.getPlayerByName(owner);
     }
 
     public boolean isPlayerOwner(Player player, Field field){
@@ -216,7 +208,10 @@ public class Bank {
 
         for (String[] playerOwnedFields : fieldOwnerArray) {
             for (int j = 1; j < playerOwnedFields.length; j++) {
-                if (playerOwnedFields[j] != null && player.getName().equals(playerOwnedFields[0])) {
+                if (playerOwnedFields[j] == null){
+                    break;
+                }
+                if (player.getName().equals(playerOwnedFields[0])) {
                     Field[] temp = new Field[ownedFields.length + 1];
                     for (int k = 0; k < ownedFields.length; k++) {
                         temp[k] = ownedFields[k];
@@ -224,8 +219,6 @@ public class Bank {
                     temp[j - 1] = board.getFields()[Integer.parseInt(playerOwnedFields[j])];
                     ownedFields = temp;
                 }
-
-
             }
         }
         return ownedFields;

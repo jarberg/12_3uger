@@ -1,8 +1,8 @@
 Hvor mange spillere er i?
-Hvem er du?
-Hvor gammel er du?
+Indtast navn paa spiller %s?
+Hvor gammel er %s?
 Saa er det tid til at slaa med terningerne. Det er din tur,
-Hvilken bil vaelger du?
+Hvilken bil vaelger du, %s?
 Den cyan UFO
 Den roede racerbil
 Den orange traktor
@@ -20,14 +20,14 @@ Nej
 Saelg Bygning
 Saelg Grund
 Hvad saelger De?
-%s er gaaet fallit
-Betal de faste 100 kr.
+%s er gaaet fallit, og er ude af spillet
+Betal 100 kr.
 De passerer start og modtager 200 kr.
 %s har vundet!
 %s har pantsat dette felt, og kan derfor ikke modtage rente.
 Pantsaet grund
 Hvilket felt bygger De paa?
-Goer en ting
+Vaelg hvad De oensker at goere,
 Betal
 Saelg
 Saelg frihedskort
@@ -42,7 +42,7 @@ Accepterer %s at give %s i bytte for %s ?
 Byt grund
 Vaer venlig at skrive et nyt navn!
 Hvilken grund oensker du at pantsaette?
-%s er på offentlig auktion fordi %s valgte ikke at købe den!
+%s er paa offentlig auktion fordi %s valgte ikke at koebe den!
 %s, vil De deltage i auktionen?
-Prisen på %s er %s
-%s har slaaet %S og rykker frem.
+Prisen paa %s er %s
+%s har slaaet %s og rykker frem.

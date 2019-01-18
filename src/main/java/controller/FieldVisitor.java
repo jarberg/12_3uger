@@ -36,8 +36,9 @@ public class FieldVisitor implements Visitor  {
     public void visit(GoToJailField field) {
         viewController.showMessage(field.getMessage());
         viewController.movePlayer(player.getName(),player.getPosition(),20);
-        player.setPosition(10);
+        player.setPositionWithoutStartMoney(10);
         player.setInJail(true);
+
     }
 
     @Override
