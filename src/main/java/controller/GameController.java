@@ -302,7 +302,7 @@ public class GameController {
     private int getPlayerAmount() {
         if (playerAmount == 0)
             playerAmount = viewController.getPlayerAmount(logicCollection.getPlayerAmount());
-            //TODO: Getplayerchoice, no hardcoded options
+
         return playerAmount;
     }
 
@@ -311,7 +311,7 @@ public class GameController {
         tradecontroller.buyBuilding(player, field);
     }
 
-    //TODO: Use trade controller
+
     private void payment(Player player, int amount){
         tradecontroller.transferAssets(player, amount);
     }
@@ -322,9 +322,9 @@ public class GameController {
 
         Field field = board.getFields()[player.getPosition()%40];
 
-        //TODO: Sell jail card (not end turn + work)
+
         if(playerInJail) {
-            //TODO: Had a player stuck in jail forever
+
             if (currentField instanceof  JailField) {
 
                 if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && !( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())) {
@@ -445,7 +445,6 @@ public class GameController {
             case 3: this.endTurn = true;
                     break;
 
-            //TODO: Make sure this method isn't breaking anything
             case 4: sellJailCard();
                     break;
 
