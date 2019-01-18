@@ -214,8 +214,7 @@ public class GameController {
         playerlist.setNextPlayer();
     }
 
-    public void Auktion(Player player, Field field){
-
+    public void auction(Player player, Field field){
     }
 
     private void setupLanguage(){
@@ -352,7 +351,6 @@ public class GameController {
             String choiceString = String.format("%s,%s", pawnString, number);
             choiceList = addToStringArray(choiceList, choiceString);
         }
-
         if(field instanceof TaxField){
 
         }
@@ -456,7 +454,6 @@ public class GameController {
 
             case 10: tradecontroller.buyBackPawnedProperty(currentPlayer);
                     break;
-
 
         }
    }

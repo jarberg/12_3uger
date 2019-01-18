@@ -577,6 +577,10 @@ public class Bank {
         return fieldsPawnedCopy;
 
     }
+
+    public Player[] getPlayers() {
+        return playerList.getAllPlayers();
+    }
 }
 
 
