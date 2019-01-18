@@ -42,3 +42,5 @@ Accepterer %s at give %s i bytte for %s ?
 Byt grund
 Vaer venlig at skrive et nyt navn!
 Hvilken grund oensker du at pantsaette?
+ har slaaet
+ og rykker frem.
