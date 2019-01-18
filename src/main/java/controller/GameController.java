@@ -321,7 +321,7 @@ public class GameController {
         boolean playerInJail = player.isInJail();
 
         Field field = board.getFields()[player.getPosition()%40];
-        //TODO: Menu.txt
+
         //TODO: Sell jail card (not end turn + work)
         if(playerInJail) {
             //TODO: Had a player stuck in jail forever
