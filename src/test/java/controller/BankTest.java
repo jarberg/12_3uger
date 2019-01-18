@@ -1,21 +1,133 @@
 package controller;
 
-import controller.Bank;
 import model.board.Board;
-import model.board.Field;
 import model.player.Player;
 import model.player.PlayerList;
+import model.text.LanguageStringCollection;
+import model.text.LogicStringCollection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class BankTest {
-    Board board;
-    PlayerList playerList;
+    private Bank bank;
+    private Board board;
+    private PlayerList playerList;
 
-    Bank bank;
+    @Before
+    public void setUp(){
+        bank = Bank.getSingleInstance();
+        LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
+        LogicStringCollection logicStringCollection = LogicStringCollection.getSingleInstance();
+        board = new Board(logicStringCollection.getFieldsText(), languageStringCollection.getFieldsText());
+        int numOfPlayers = 3;
+        playerList = new PlayerList(numOfPlayers);
+        for (int i = 0; i < numOfPlayers; i++) {
+            Player player = new Player("PlayerName#" + i);
+            playerList.addPlayer(i, player);
+        }
+    }
+
+    @After
+    public void tearDown(){
+        bank = null;
+        board = null;
+        playerList = null;
+    }
+
+    @Test
+    public void shouldSetupFieldOwnerArrayWithPlayerNames() {
+        bank.setupFieldOwnerArray(playerList);
+        String[][] fieldOwnerArray = bank.getFieldOwnerArray();
+        int playerNamePosition = 0;
+        for (int i = 0; i < fieldOwnerArray.length; i++) {
+            for (int j = playerNamePosition; j < 1 ; j++) {
+                assertEquals(playerList.getPlayer(i).getName(), fieldOwnerArray[i][j]);
+            }
+        }
+    }
+
+    @Test
+    public void removeFieldOwner() {
+    }
+
+    @Test
+    public void getPlayerByName() {
+    }
+
+    @Test
+    public void addFieldToPlayer() {
+    }
+
+    @Test
+    public void hasOwner() {
+    }
+
+    @Test
+    public void getOwner() {
+    }
+
+    @Test
+    public void isOwner() {
+    }
+
+    @Test
+    public void isOwnerOfAllFieldsOfType() {
+    }
+
+    @Test
+    public void getNetWorth() {
+    }
+
+    @Test
+    public void getFieldById() {
+    }
+
+    @Test
+    public void getFieldByName() {
+    }
+
+    @Test
+    public void getPlayerFields() {
+    }
+
+    @Test
+    public void getFieldsWithHousesByPlayer() {
+    }
+
+    @Test
+    public void getFieldsWithNoHousesByPlayerAndCheckPawnStatus() {
+    }
+
+    @Test
+    public void getFieldsWithNoHousesByPlayer() {
+    }
+
+    @Test
+    public void getAmountOfTypeOwned() {
+    }
+
+    @Test
+    public void getPlayerBuildableFields() {
+    }
+
+    @Test
+    public void findPlayersWithFieldsWithNoHouses() {
+    }
+
+    @Test
+    public void getPlayerNamesWithFieldsWithNoHouses() {
+    }
+
+    @Test
+    public void getPropertyNamesWithNoHousesByPlayer() {
+    }
+
+    @Test
+    public void getPawnedFieldsByPlayer() {
+    }
+
 /*
     @Before
     public void setUp(){

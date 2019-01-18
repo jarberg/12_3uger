@@ -188,7 +188,7 @@ public class GameController {
     }
 
     private void setupBank(){
-        bank.setPlayerList(playerlist);
+        bank.setupFieldOwnerArray(playerlist);
         bank.setBoard(board);
     }
 

@@ -22,17 +22,13 @@ public class Bank {
     private Bank(){
     }
 
-    public void setPlayerList(PlayerList playerlist){
+    public void setupFieldOwnerArray(PlayerList playerlist){
         this.playerList = playerlist;
         this.playerListLength = this.playerList.getAllPlayers().length;
         this.fieldOwnerArray = new String[playerListLength][300];
         for (int i = 0; i < playerListLength; i++) {
             fieldOwnerArray[i][0] = playerlist.getPlayer(i).getName();
         }
-    }
-
-    public void setBoard(Board board){
-        this.board = board;
     }
 
     public void removeFieldOwner(Field field){
@@ -60,6 +56,7 @@ public class Bank {
     }
 
     //TODO: Information Expert
+
     public Player getPlayerByName(String name){
         Player player = null;
 
@@ -70,7 +67,6 @@ public class Bank {
         }
         return player;
     }
-
 
     public void addFieldToPlayer(Player player, Field field){
         for (int j = 0; j < playerListLength; j++) {
@@ -578,8 +574,16 @@ public class Bank {
 
     }
 
+    public void setBoard(Board board){
+        this.board = board;
+    }
+
     public Player[] getPlayers() {
         return playerList.getAllPlayers();
+    }
+
+    public String[][] getFieldOwnerArray() {
+        return fieldOwnerArray;
     }
 }
 
