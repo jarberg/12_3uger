@@ -309,7 +309,7 @@ public class GameController {
         tradecontroller.transferAssets(player, amount);
     }
 
-    private String[][] getChoices(Player player){
+    String[][] getChoices(Player player){
         String[] choiceList = new String[0];
         boolean playerInJail = player.isInJail();
 
@@ -384,7 +384,7 @@ public class GameController {
         return newArray;
     }
 
-    private void playerOptions(String[][] choices, Player player) {
+    void playerOptions(String[][] choices, Player player) {
         Field field = board.getFields()[player.getPosition()%40];
 
         String[] choiceOptions = new String[choices.length];

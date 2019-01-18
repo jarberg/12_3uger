@@ -20,6 +20,10 @@ public class ViewControllerStub implements ViewControllerInterface {
     public void showGameGUI(Field[] fields) {
 
     }
+    @Override
+    public void pawn(String fieldName, String name, Color playerColor){
+        
+    }
 
     @Override
     public void showEmptyGUI() {

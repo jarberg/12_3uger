@@ -25,7 +25,7 @@ public class DrawController implements Drawer {
         this.deck = deck;
     }
 
-    @Override//CARD: 24 - 26
+    //CARD: 24 - 26
     DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board, Deck deck, ViewControllerInterface viewController){
         this.player = player;
         this.otherPlayers = otherPlayers;

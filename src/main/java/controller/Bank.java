@@ -4,7 +4,7 @@ import model.board.*;
 import model.player.Player;
 import model.player.PlayerList;
 
-public class Bank {
+public class Bank  {
 
     private String[][] fieldOwnerArray;
     private int playerListLength;
@@ -15,12 +15,9 @@ public class Bank {
 
     private static Bank singletonInstance = new Bank();
 
-    public static Bank getSingleInstance(){
-        return singletonInstance;
+    public Bank(){
     }
 
-    private Bank(){
-    }
 
     public void setBankNoCrashy(int length){
 
@@ -35,9 +32,11 @@ public class Bank {
         }
     }
 
+
     public void setBoard(Board board){
         this.board = board;
     }
+
 
     public void removeFieldOwner(Field field){
 
@@ -134,8 +133,6 @@ public class Bank {
         return trueOwner;
     }
 
-
-
     public boolean isOwnerOfAllFieldsOfType(Player player, Field field){
 
         String fieldTypeID;
@@ -205,7 +202,7 @@ public class Bank {
         return (count == amountOfFields);
     }
 
-    public String getInfo(int index1,int index2){
+    public String getInfo(int index1, int index2){
         return fieldOwnerArray[index1][index2];
     }
 
