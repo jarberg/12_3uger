@@ -33,7 +33,7 @@ public class Board {
         int fieldGroup = fieldLogic[2];
         switch (fieldGroup){
             case 0: // Skat, Helle
-                fieldColor = Color.getHSBColor(60, 5, 100);
+                fieldColor = new Color(232, 201, 172);
                 break;
             case 1: // Rødovre, Hvidovre
                 fieldColor = new Color(115, 175, 228);
@@ -57,19 +57,19 @@ public class Board {
                 fieldColor = new Color(196, 142, 88);
                 break;
             case 8: // Frederiksberg, Rådhuspladsen
-                fieldColor = new Color(255, 111, 212);
+                fieldColor = new Color(255, 180, 232);
                 break;
             case 9: // Dampskib
                 fieldColor = Color.cyan;
                 break;
             case 10: // Bryggeri
-                fieldColor = Color.orange;
+                fieldColor = new Color(189, 195, 110);
                 break;
             case 11: // Fængsel
                 fieldColor = Color.GRAY.darker();
                 break;
             case 12: // Chance
-                fieldColor = Color.YELLOW;
+                fieldColor = new Color(255, 245, 86);
                 break;
             case 13: //Start
                 fieldColor = Color.red;
