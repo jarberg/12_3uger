@@ -80,11 +80,18 @@ public class DrawControllerTest {
 
         MonopolyJackpotCard card = new MonopolyJackpotCard("desc",750,2000);
 
+        assertEquals(1500,player.getBalance());
 
-        player.addToBalance(-500);
+        player.addToBalance(-1000);
         drawcontroller.draw(card);
 
+        assertEquals(2500,player.getBalance());
 
+        //String message = card.getDescription();
+        //viewController.showMessage(message);
+
+        //int jackpot = card.getJackpot();
+        //int amount = card.getAmount();
 
 
 
