@@ -56,7 +56,7 @@ public class DrawController implements Drawer {
 
         int position = player.getPosition(); //spillers position
         int destination = card.getDestination(); //Det felt nummer man skal rykke frem til
-        player.setPosition(destination);
+        player.setPositionWithStartMoney(destination);
 
         int amount = (destination - position + board.getFields().length) % board.getFields().length;
         viewController.movePlayer(player.getName(),position,amount);
@@ -189,7 +189,7 @@ public class DrawController implements Drawer {
 
         int newPosition =  (board.getFields().length + oldPosition + amount) % board.getFields().length;
 
-        player.setPosition(newPosition);
+        player.setPositionWithStartMoney(newPosition);
         if(amount<3){
             player.setPassedStartStatus(false);
         }

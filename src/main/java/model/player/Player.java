@@ -60,7 +60,7 @@ public class Player {
 
     public void setPlayerColor(Color setColor){ this.playerColor = setColor;}
 
-    public void setPosition(int setPosition){
+    public void setPositionWithStartMoney(int setPosition){
         int beforePosition = position;
         this.lastPosition = this.position;
         this.position = setPosition;
@@ -91,9 +91,7 @@ public class Player {
         if(!inJail){
             this.doublethrownum=0;
         }
-        else{
 
-        }
     }
 
     public boolean isInJail() {

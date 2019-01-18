@@ -84,7 +84,7 @@ public class GameController {
     private boolean checkdiceForDoubleRoll(){ return dice.getIdenticalRolls(); }
 
     private void movePlayer(Player player, int position, int amount){
-        player.setPosition((position+amount)%board.getFields().length);
+        player.setPositionWithStartMoney((position+amount)%board.getFields().length);
         viewController.movePlayer(currentPlayer.getName(), position, amount);
 
     }

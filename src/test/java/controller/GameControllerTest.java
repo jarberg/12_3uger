@@ -72,7 +72,7 @@ public class GameControllerTest {
             assertEquals(0, gamelogic.getAllPlayers()[i].getPosition());
         }
         for (int i = 0; i < gamelogic.getAllPlayers().length ; i++) {
-            gamelogic.getAllPlayers()[i].setPosition(i+1*2);
+            gamelogic.getAllPlayers()[i].setPositionWithStartMoney(i+1*2);
         }
         for (int i = 0; i < gamelogic.getAllPlayers().length ; i++) {
             assertEquals((i+1*2),gamelogic.getAllPlayers()[i].getPosition());
