@@ -1,6 +1,6 @@
 How many players are you?
-Who are you?
-How old are you?
+Enter name of player %s
+How old is &s?
 Now it's time to roll the dice. It's your turn,
 Which car would you like?
 The cyan UFO
@@ -27,7 +27,7 @@ You passed start and receive 200 kr.
 %s has pawned off this field, and thus can not receive rent.
 Pawn property
 Which field will You build on?
-Do a thing
+Choose what you want to do
 Pay
 Sell
 Sell get outta jail card
@@ -46,3 +46,4 @@ Which property would you like to pawn?
 %s, do You want to participate in the auction?
 The price of %s is currently %s
 %S rolled %s and moves forward.
+Raise Money

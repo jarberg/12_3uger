@@ -16,19 +16,18 @@ public class DieSet {
         this.dieOneValue = rollDie();
         this.dieTwoValue = rollDie();
         this.value = (this.dieOneValue + this.dieTwoValue);
-        identicalRoll = (dieOneValue == dieTwoValue);
+        identicalRoll = (getDieOneValue()  == getDieTwoValue());
     }
 
     private int rollDie(){
         return (int) (Math.random() * SIDES) + 1;
     }
 
-    public int getDieOneValue() {
-        return dieOneValue;
-    }
+    public int getDieOneValue() { return this.dieOneValue; }
+
 
     public int getDieTwoValue() {
-        return dieTwoValue;
+        return this.dieTwoValue;
     }
 
     public int getValue(){

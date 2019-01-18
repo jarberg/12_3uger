@@ -19,7 +19,8 @@ public class GameController {
     private ViewControllerInterface viewController;
     private FileReader fileReader;
 
-    private DieSet dice;
+    private DieSet
+            dice;
     private int playerAmount;
     private boolean endTurn = false;
     private Field currentField;
@@ -32,6 +33,7 @@ public class GameController {
     private int currentTurn;
     private TradeController tradecontroller = TradeController.getSingleInstance();
     private boolean threwDice = false;
+    private int playerCount = 1;
 
     //TODO: if time. split into use case controllers
     private GameController(){
@@ -92,19 +94,6 @@ public class GameController {
         playerlist = new PlayerList(amount);
     }
 
-    public Player[] getPlayersButPlayer(Player notThisOneToo){
-        Player[] playersInGame = playerlist.getAllPlayers();
-        int length = playersInGame.length;
-        Player[] otherPlayers = new Player[length - 1];
-        int counter = 0;
-        for (Player aPlayersInGame : playersInGame) {
-            if (aPlayersInGame != notThisOneToo) {
-                otherPlayers[counter] = aPlayersInGame;
-                counter++;
-            }
-        }
-        return otherPlayers;
-    }
 
     private void playTurn(){
 
@@ -113,6 +102,7 @@ public class GameController {
 
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
+        currentPlayer.addCurrentTurn();
 
         checkIfinJailBeforeMoving();
         checkIfPassedStart();
@@ -136,7 +126,7 @@ public class GameController {
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board);
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, playerlist.getPlayersButPlayer(currentPlayer), deck, board);
         currentField.accept(fieldVisitor);
     }
 
@@ -172,6 +162,13 @@ public class GameController {
         rollDice(curPlayer);
         int dieOneValue = dice.getDieOneValue();
         int dieTwoValue = dice.getDieTwoValue();
+        if(dice.getIdenticalRolls()) {
+
+            currentPlayer.addDoubleThrowTimes();
+        }
+        else{
+            currentPlayer.resetDoubleThrowTimes();
+        }
         viewController.showDice(dieOneValue, dieTwoValue);
     }
 
@@ -241,7 +238,7 @@ public class GameController {
 
     private void rollDice(Player player){
         dice.roll();
-        player.setDoubleTurnStatus(checkdiceForDoubleRoll());
+        player.setDoubleTurnStatus(dice.getIdenticalRolls());
     }
 
     private void setFilepathLanguage(String language) {
@@ -249,10 +246,16 @@ public class GameController {
         FileReader.setLanguage(language);
     }
 
+
+    public String getPlayerCount(){
+        return String.valueOf(playerCount);
+    }
+
     private void createPlayers() {
         //TODO: playerAmount redundancy
         createPlayerList(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
+
             String name = viewController.getPlayerName();
             String playerName = name;
             int playerIdentifier = 2;
@@ -261,6 +264,7 @@ public class GameController {
                 playerIdentifier++;
             }
             addPlayer(i, new Player(playerName));
+            playerCount++;
         }
     }
 
@@ -297,7 +301,7 @@ public class GameController {
 
     private int getPlayerAmount() {
         if (playerAmount == 0)
-            playerAmount = viewController.getPLayerAmount();
+            playerAmount = viewController.getPlayerAmount();
             //TODO: Getplayerchoice, no hardcoded options
         return playerAmount;
     }
@@ -323,7 +327,7 @@ public class GameController {
             //TODO: Had a player stuck in jail forever
             if (currentField instanceof  JailField) {
 
-                if (currentTurn>lastTurn) {
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && !( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())) {
                     String option = String.format(languageCollection.getMenu()[34]+",8");
                     choiceList = addToStringArray(choiceList, option);
                 }
@@ -331,12 +335,15 @@ public class GameController {
                     String option = String.format(languageCollection.getMenu()[33]+",1");
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() > ((JailField) currentField).getBailAmount()) {
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && (currentPlayer.getBalance() > ((JailField) currentField).getBailAmount() || ( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn()))) {
+
                     String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
                     choiceList = addToStringArray(choiceList, option);
+
                 }
-                if (player.getBalance() < ((JailField) currentField).getBailAmount()) {
-                    String option = languageCollection.getMenu()[31]+ ", 2";
+
+                if (currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()|| ((currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()&&( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())))) {
+                    String option = languageCollection.getMenu()[47]+ ",7";
                     choiceList = addToStringArray(choiceList, option);
                 }
             }
@@ -369,8 +376,10 @@ public class GameController {
             String message = "buybackFieldField";
             choiceList = addToStringArray(choiceList, message+",10");
         }
-        //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
-        String option = String.format(languageCollection.getMenu()[36]+",0");
+
+
+        String option = String.format(languageCollection.getMenu()[36] + ",0");
+
         choiceList = addToStringArray(choiceList, option);
 
         String[][] finalChoiceList = new String[choiceList.length][];
@@ -426,8 +435,10 @@ public class GameController {
                     break;
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
-                    viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
                     currentPlayer.setInJail(false);
+                    if(currentTurn>lastTurn){
+                        currentPlayer.setDoubleTurnStatus(false);
+                    }
                     checkIfinJailBeforeMoving();
                     break;
 
@@ -444,15 +455,16 @@ public class GameController {
             case 6: pawnProperty(player);
                     break;
 
-            case 7: this.endTurn = true;
+            case 7: tradecontroller.raiseMoney(currentPlayer);
                     break;
 
             case 8: rollAndShowDice(currentPlayer);
-                    threwDice = true;
-                    if(currentPlayer.getDoubleTurnStatus())
-                        {movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());}
-                    else
-                        {endTurn =true;}
+                    if(currentPlayer.getDoubleTurnStatus()) {
+                        movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
+                        resolveField();
+                        currentPlayer.setInJail(false);
+                        }
+
                     break;
 
             case 9: tradecontroller.transferAssets(player);

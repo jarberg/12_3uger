@@ -43,7 +43,7 @@ public class TradeController {
         viewController.setGUI_PlayerBalance(targetPlayer.getName(), targetPlayer.getBalance());
     }
 
-    private void raiseMoney(Player player) {
+    public void raiseMoney(Player player) {
         Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
         Field[] fieldsWithoutHouses = bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
 

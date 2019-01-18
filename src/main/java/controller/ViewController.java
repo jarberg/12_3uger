@@ -18,6 +18,7 @@ public class ViewController implements ViewControllerInterface {
     private GUI_Player[] gui_players;
     private String[] colorChoices;
 
+
     private static ViewController singleInstance = new ViewController();
 
     private ViewController() {
@@ -60,15 +61,6 @@ public class ViewController implements ViewControllerInterface {
         this.gui.close();
     }
 
-    @Override
-    public void createBoard() {
-
-    }
-
-    @Override
-    public void addPlayer(String name, int balance) {
-
-    }
 
     @Override
     public void showGUI(){
@@ -76,7 +68,6 @@ public class ViewController implements ViewControllerInterface {
             gui.close();
 
         this.gui = new GUI(gui_board,new Color(234, 234, 227));
-        GUI_Center.getInstance().setBGColor(new Color(219, 81, 86));
     }
 
 
@@ -192,7 +183,7 @@ public class ViewController implements ViewControllerInterface {
     }
 
     @Override
-    public int getPLayerAmount() {
+    public int getPlayerAmount() {
         String[] playerOptions = {"3", "4", "5", "6"};
         String message = languageStringCollection.getMenu()[0];
         String userChoise = gui.getUserSelection(message, playerOptions);
@@ -201,7 +192,9 @@ public class ViewController implements ViewControllerInterface {
 
     @Override
     public String getPlayerName() {
-        String message = languageStringCollection.getMenu()[1];
+        GameController gameController = GameController.getSingleInstance();
+        String playerCount = gameController.getPlayerCount();
+        String message = String.format(languageStringCollection.getMenu()[1],String.valueOf(playerCount));
         String name = "";
         while (true){
             name = gui.getUserString(message);
@@ -233,7 +226,7 @@ public class ViewController implements ViewControllerInterface {
         if (colorChoices[0] == null)
             setUpColors();
 
-        String message = languageStringCollection.getMenu()[4] + " " + name;
+        String message = String.format(languageStringCollection.getMenu()[4],name);
         String colorString = gui.getUserSelection(message, colorChoices);
         Color colorChosen = Color.BLACK;
         int number =0;
