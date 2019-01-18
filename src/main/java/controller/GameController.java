@@ -19,8 +19,7 @@ public class GameController {
     private ViewControllerInterface viewController;
     private FileReader fileReader;
 
-    private DieSet
-            dice;
+    private DieSet dice;
     private int playerAmount;
     private boolean endTurn = false;
     private Field currentField;
@@ -302,7 +301,7 @@ public class GameController {
 
     private int getPlayerAmount() {
         if (playerAmount == 0)
-            playerAmount = viewController.getPlayerAmount();
+            playerAmount = viewController.getPlayerAmount(logicCollection.getPlayerAmount());
             //TODO: Getplayerchoice, no hardcoded options
         return playerAmount;
     }
@@ -322,7 +321,7 @@ public class GameController {
         boolean playerInJail = player.isInJail();
 
         Field field = board.getFields()[player.getPosition()%40];
-        //TODO: Menu.txt
+
         //TODO: Sell jail card (not end turn + work)
         if(playerInJail) {
             //TODO: Had a player stuck in jail forever
