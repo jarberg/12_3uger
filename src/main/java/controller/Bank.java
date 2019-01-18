@@ -96,12 +96,10 @@ public class Bank {
                 }
             }
         }
-
         return hasOwner;
     }
 
     public Player getOwnerOfField(String fieldID) {
-
         String owner = null;
 
         for (int i = 0; i <fieldOwnerArray.length ; i++) {
@@ -124,8 +122,6 @@ public class Bank {
 
         return trueOwner;
     }
-
-
 
     public boolean isOwnerOfAllFieldsOfType(Player player, Field field){
 

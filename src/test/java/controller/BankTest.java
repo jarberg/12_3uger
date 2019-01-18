@@ -114,16 +114,26 @@ public class BankTest {
 
     @Test
     public void shouldGetOwnerOfField() {
-
-
+        bank.setupFieldOwnerArray(playerList);
+        Field field = board.getFields()[1];
+        String fieldID = field.getID();
+        assertNull(bank.getOwnerOfField(fieldID));
+        shouldAddFieldToPlayer();
+        assertEquals(playerList.getPlayer(1), bank.getOwnerOfField(fieldID));
     }
 
     @Test
-    public void isOwner() {
+    public void shouldReturnTrueIfPlayerOwnerOfField() {
+        bank.setupFieldOwnerArray(playerList);
+        Field field = board.getFields()[1];
+        assertFalse(bank.isPlayerOwner(playerList.getPlayer(1), field));
+        shouldAddFieldToPlayer();
+        assertTrue(bank.isPlayerOwner(playerList.getPlayer(1), field));
     }
 
     @Test
     public void isOwnerOfAllFieldsOfType() {
+
     }
 
     @Test
