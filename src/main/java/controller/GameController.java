@@ -331,11 +331,11 @@ public class GameController {
                     String option = String.format(languageCollection.getMenu()[33]+",1");
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() > ((JailField) field).getBailAmount()) {
-                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) field).getBailAmount()+ ",2");
+                if (player.getBalance() > ((JailField) currentField).getBailAmount()) {
+                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() < ((JailField) field).getBailAmount()) {
+                if (player.getBalance() < ((JailField) currentField).getBailAmount()) {
                     String option = languageCollection.getMenu()[31]+ ", 2";
                     choiceList = addToStringArray(choiceList, option);
                 }
