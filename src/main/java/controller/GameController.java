@@ -356,7 +356,7 @@ public class GameController {
         if(field instanceof TaxField){
 
         }
-        if (bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
+        if (bank.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
             String message = languageCollection.getMenu()[41];
             choiceList = addToStringArray(choiceList, message+",9");
         }
