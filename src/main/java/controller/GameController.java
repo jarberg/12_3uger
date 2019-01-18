@@ -301,7 +301,7 @@ public class GameController {
 
     private int getPlayerAmount() {
         if (playerAmount == 0)
-            playerAmount = viewController.getPlayerAmount();
+            playerAmount = viewController.getPlayerAmount(logicCollection.getPlayerAmount());
             //TODO: Getplayerchoice, no hardcoded options
         return playerAmount;
     }

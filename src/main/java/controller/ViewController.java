@@ -183,8 +183,8 @@ public class ViewController implements ViewControllerInterface {
     }
 
     @Override
-    public int getPLayerAmount() {
-        String[] playerOptions = {"3", "4", "5", "6"};
+    public int getPlayerAmount(String[] options) {
+        String[] playerOptions = options;
         String message = languageStringCollection.getMenu()[0];
         String userChoise = gui.getUserSelection(message, playerOptions);
         return Integer.parseInt(userChoise);

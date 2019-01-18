@@ -11,6 +11,7 @@ public class FileReader {
     private static final String LOGIC_DIRECTORY_PATH = "logic/";
     private static final String CHANCECARD_FILENAME = "/ChanceCards.txt";
     private static final String MENU_FILENAME = "/Menu.txt";
+    private static final String SETUP_FILENAME ="/Setup.txt";
     private static final String FIELDS_FILENAME ="/Fields.txt";
     private static final String EMPTY_STRING = "";
 
@@ -116,4 +117,6 @@ public class FileReader {
     public int[][] getFieldsInt() {
         return twoDIntArray(FIELDS_FILENAME, LOGIC_DIRECTORY_PATH);
     }
+
+    public String[][] getPlayerAmount(){return twoDStringArrayLogic(SETUP_FILENAME, LOGIC_DIRECTORY_PATH);}
 }
