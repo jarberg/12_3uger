@@ -139,7 +139,7 @@ public class ViewController implements ViewControllerInterface {
                 position = position % gui_board.length;
                 gui_board[position].setCar(movingPlayer, true);
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(75);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

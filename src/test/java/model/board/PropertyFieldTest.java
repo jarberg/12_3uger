@@ -27,7 +27,7 @@ public class PropertyFieldTest {
     @Test
     public void shouldHaveAppropriateRentAtCreation(){
         try {
-            assertEquals(rents[0], field.getRent());
+            assertEquals(rents[0], field.getRentA());
         } catch (RentNotSpecifiedException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class PropertyFieldTest {
         }
 
         try {
-            assertEquals(rents[increase], field.getRent());
+            assertEquals(rents[increase], field.getRentA());
         } catch (RentNotSpecifiedException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class PropertyFieldTest {
         for (int i = 0; i < 100; i++) {
             field.addBuilding();
         }
-        field.getRent();
+        field.getRentA();
     }
 */
 }

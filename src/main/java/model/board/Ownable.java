@@ -7,10 +7,14 @@ public abstract class Ownable extends Field {
 
     private boolean pawned;
     private String type;
+    int[] rents;
+    private int price;
 
-    public Ownable(String ID, String title, String subtitle, String message, Color fieldColor,String type) {
+    public Ownable(String ID, String title, String subtitle, String message, Color fieldColor,String type, int price, int...rents) {
         super(ID,title,subtitle,message,fieldColor);
         this.type = type;
+        this.rents = rents;
+        this.price = price;
     }
 
     public boolean getPawnedStatus(){ return this.pawned; }
@@ -22,4 +26,13 @@ public abstract class Ownable extends Field {
     public String getType() {
         return type;
     }
+
+    public abstract int getRent(int buildingCount);
+
+    public abstract int getRent();
+
+    public int getPrice(){
+        return price;
+    }
+
 }

@@ -7,29 +7,21 @@ import java.awt.*;
 public class PropertyField extends Ownable {
 
 
-    private int price;
     private int buildingPrice;
     private int buildingCount;
-    private int[] rents;
+
 
 
     public PropertyField(String ID, String title, String subtitle, String message, Color fieldColor, String type, int price, int buildingPrice, int... rents){
-        super(ID, title, subtitle, message, fieldColor,type);
+        super(ID, title, subtitle, message, fieldColor,type,price,rents);
 
-
-        this.price = price;
         this.buildingPrice = buildingPrice;
-        this.rents = rents;
 
     }
 
     @Override
     public void accept(Visitor visitor){
         visitor.visit(this);
-    }
-
-    public int getPrice(){
-        return price;
     }
 
     public int getBuildingPrice(){
@@ -50,8 +42,10 @@ public class PropertyField extends Ownable {
         buildingCount--;
     }
 
-    public int getRent(){
-            return rents[buildingCount];
+    @Override
+    public int getRent(int buildingCount) {
+         return rents[buildingCount];
     }
-
+    @Override
+    public int getRent() { return rents[buildingCount]; }
 }

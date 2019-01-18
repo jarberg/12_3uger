@@ -93,22 +93,6 @@ public class GameController {
         playerlist = new PlayerList(amount);
     }
 
-    Player[] getPlayersButPlayer(Player notThisOneToo){
-
-        Player[] playersInGame = playerlist.getAllPlayers();
-        int length = playersInGame.length;
-        Player[] otherPlayers = new Player[length - 1];
-        int counter = 0;
-        for (Player aPlayersInGame : playersInGame) {
-            if (aPlayersInGame != notThisOneToo) {
-                otherPlayers[counter] = aPlayersInGame;
-                counter++;
-            }
-        }
-
-        return otherPlayers;
-    }
-
     public void playTurn(){
 
         currentTurn++;
@@ -438,7 +422,6 @@ public class GameController {
         }
 
         switch(typeChoice){
-
             case 0: this.endTurn = true;
                     break;
 
@@ -447,12 +430,7 @@ public class GameController {
                     endTurn = true;
                     break;
 
-            case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
-                    currentPlayer.setInJail(false);
-                    if(currentTurn>lastTurn){
-                        currentPlayer.setDoubleTurnStatus(false);
-                    }
-                    checkIfinJailBeforeMoving();
+            case 2: payToLeaveJail((JailField) field);
                     break;
 
             case 3: this.endTurn = true;
@@ -476,8 +454,7 @@ public class GameController {
                         movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
                         resolveField();
                         currentPlayer.setInJail(false);
-                        }
-
+                    }
                     break;
 
             case 9: tradecontroller.transferAssets(player);
@@ -488,6 +465,15 @@ public class GameController {
 
         }
    }
+
+    public void payToLeaveJail(JailField field) {
+        tradecontroller.transferAssets(currentPlayer,-field.getBailAmount());
+        currentPlayer.setInJail(false);
+        if(currentPlayer.getCurrentTurn() > currentPlayer.getJailTurn()){
+            currentPlayer.setDoubleTurnStatus(false);
+        }
+        checkIfinJailBeforeMoving();
+    }
 
     public void sellJailCard() {
         currentPlayer.setJailCardStatus(false);

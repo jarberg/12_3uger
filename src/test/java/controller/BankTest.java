@@ -2,6 +2,7 @@ package controller;
 
 import model.board.Board;
 import model.board.Field;
+import model.board.Ownable;
 import model.board.PropertyField;
 import model.player.Player;
 import model.player.PlayerList;
@@ -248,13 +249,13 @@ public class BankTest {
         shouldSetupFieldOwnerArrayWithPlayerNames();
         Player player = playerList.getPlayer(1);
         Field valby = board.getFields()[8];
-        int amountOfTypeOwned = bank.getAmountOfTypeOwned(player, valby);
+        int amountOfTypeOwned = bank.getAmountOfTypeOwned(player, ((Ownable)valby));
         assertEquals(0, amountOfTypeOwned);
         Field rodovrevej = board.getFields()[1];
         Field hvidovrevej = board.getFields()[3];
         bank.addFieldToPlayer(player, rodovrevej);
         bank.addFieldToPlayer(player, hvidovrevej);
-        amountOfTypeOwned = bank.getAmountOfTypeOwned(player, rodovrevej);
+        amountOfTypeOwned = bank.getAmountOfTypeOwned(player, ((Ownable)rodovrevej));
         assertEquals(2, amountOfTypeOwned);
     }
 
