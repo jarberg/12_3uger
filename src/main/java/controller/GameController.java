@@ -343,7 +343,7 @@ public class GameController {
                 }
 
                 if (currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()|| ((currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()&&( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())))) {
-                    String option = languageCollection.getMenu()[47]+ ",7";
+                    String option = languageCollection.getMenu()[20]+ ",7";
                     choiceList = addToStringArray(choiceList, option);
                 }
             }
