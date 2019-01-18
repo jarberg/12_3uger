@@ -94,19 +94,6 @@ public class GameController {
         playerlist = new PlayerList(amount);
     }
 
-    public Player[] getPlayersButPlayer(Player notThisOneToo){
-        Player[] playersInGame = playerlist.getAllPlayers();
-        int length = playersInGame.length;
-        Player[] otherPlayers = new Player[length - 1];
-        int counter = 0;
-        for (Player aPlayersInGame : playersInGame) {
-            if (aPlayersInGame != notThisOneToo) {
-                otherPlayers[counter] = aPlayersInGame;
-                counter++;
-            }
-        }
-        return otherPlayers;
-    }
 
     private void playTurn(){
 
@@ -139,7 +126,7 @@ public class GameController {
         int position = currentPlayer.getPosition();
         currentField = board.getFields()[position];
 
-        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, getPlayersButPlayer(currentPlayer), deck, board);
+        FieldVisitor fieldVisitor = new FieldVisitor(currentPlayer, playerlist.getPlayersButPlayer(currentPlayer), deck, board);
         currentField.accept(fieldVisitor);
     }
 
@@ -314,7 +301,7 @@ public class GameController {
 
     private int getPlayerAmount() {
         if (playerAmount == 0)
-            playerAmount = viewController.getPLayerAmount();
+            playerAmount = viewController.getPlayerAmount();
             //TODO: Getplayerchoice, no hardcoded options
         return playerAmount;
     }
@@ -389,7 +376,7 @@ public class GameController {
             String message = "buybackFieldField";
             choiceList = addToStringArray(choiceList, message+",10");
         }
-        //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
+
 
         String option = String.format(languageCollection.getMenu()[36] + ",0");
 
