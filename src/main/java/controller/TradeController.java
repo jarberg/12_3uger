@@ -1,9 +1,6 @@
 package controller;
 
-import model.board.BreweryField;
-import model.board.FerryField;
-import model.board.Field;
-import model.board.PropertyField;
+import model.board.*;
 import model.player.Player;
 import model.player.PlayerList;
 import model.text.LanguageStringCollection;
@@ -62,13 +59,13 @@ public class TradeController {
                 Field field = bank.getFieldByName(sellingField);
                 bank.removeFieldOwner(field);
                 viewController.showOwner(field.getTitle(), " ", Color.BLACK);
-                if(field instanceof PropertyField){
-                    player.addToBalance(((PropertyField) field).getPrice() / 2);
-                } else if (field instanceof BreweryField){
-                    player.addToBalance(((BreweryField) field).getPrice()/2);
+                if(field instanceof Ownable){
+                    player.addToBalance(((Ownable) field).getPrice() / 2);
                 }
                 //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
-            } else if(choice.equals(sellHouseOption)){
+            }
+
+            else if(choice.equals(sellHouseOption)){
                 String[] fieldNames = new String[fieldsWithHouses.length];
                 for (int i = 0; i < fieldNames.length; i++) {
                     fieldNames[i] = fieldsWithHouses[i].getTitle();
@@ -80,7 +77,9 @@ public class TradeController {
                 player.addToBalance(field.getBuildingPrice()/2);
             }
 
-        } else if (fieldsWithHouses.length > 0){
+        }
+
+        else if (fieldsWithHouses.length > 0){
             viewController.getUserButtonSelection(sellMessage, sellHouseOption);
             String[] fieldNames = new String[fieldsWithHouses.length];
             for (int i = 0; i < fieldNames.length; i++) {
@@ -92,7 +91,9 @@ public class TradeController {
             viewController.updateFieldBuildings(sellingField, (field.getBuildingCount()));
             player.addToBalance(field.getBuildingPrice()/2);
 
-        } else if (fieldsWithoutHouses.length > 0){
+        }
+
+        else if (fieldsWithoutHouses.length > 0){
             viewController.getUserButtonSelection(sellMessage, sellFieldOption);
             String[] fieldNames = new String[fieldsWithoutHouses.length];
             for (int i = 0; i < fieldNames.length; i++) {
@@ -103,13 +104,13 @@ public class TradeController {
             bank.removeFieldOwner(field);
             viewController.showOwner(field.getTitle(), " ", Color.BLACK);
 
-            if(field instanceof PropertyField){
-                player.addToBalance(((PropertyField) field).getPrice() / 2);
-            } else if (field instanceof BreweryField){
-                player.addToBalance(((BreweryField) field).getPrice()/2);
+            if(field instanceof Ownable){
+                player.addToBalance(((Ownable) field).getPrice() / 2);
             }
             //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
-        } else {
+        }
+
+        else {
             String brokeMessage = String.format(languageStringCollection.getMenu()[22], player.getName());
             viewController.showMessage(brokeMessage);
             player.setBrokeStatus(true);
@@ -177,16 +178,8 @@ public class TradeController {
         bank.addFieldToPlayer(targetPlayer, field);
         viewController.showOwner(field.getTitle(), targetPlayer.getName(), targetPlayer.getPlayerColor());
 
-        if(field instanceof PropertyField){
-            transferAssets(targetPlayer, -((PropertyField)field).getPrice());
-        }
-
-        if(field instanceof BreweryField){
-            transferAssets(targetPlayer, -((BreweryField)field).getPrice());
-        }
-
-        if(field instanceof FerryField){
-            transferAssets(targetPlayer, -((FerryField)field).getPrice());
+        if(field instanceof Ownable){
+            transferAssets(targetPlayer, -((Ownable)field).getPrice());
         }
     }
 
@@ -223,8 +216,8 @@ public class TradeController {
         String choice = viewController.getUserSelection(message, fieldNames);
         Field field = bank.getFieldByName(choice);
 
-        if (field instanceof PropertyField){
-            int priceWithInterest = (int) (((PropertyField) field).getPrice() * 1.10);
+        if (field instanceof Ownable){
+            int priceWithInterest = (int) (((Ownable) field).getPrice() * 1.10);
             transferAssets(player, -priceWithInterest);
             if (!player.getBrokeStatus()) {
                 ((PropertyField) field).setPawnedStatus(false);
@@ -233,27 +226,6 @@ public class TradeController {
                 viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());
             }
         }
-        if (field instanceof FerryField){
-            int priceWithInterest = (int) (((FerryField) field).getPrice() * 1.10);
-            transferAssets(player, -priceWithInterest);
-            if (!player.getBrokeStatus()) {
-                ((FerryField) field).setPawnedStatus(false);
-                bank.removeFieldOwner(field);
-                bank.addFieldToPlayer(player, field);
-                viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());
-            }
-        }
-        if (field instanceof BreweryField){
-            int priceWithInterest = (int) (((BreweryField) field).getPrice() * 1.10);
-            transferAssets(player, -priceWithInterest);
-            if (!player.getBrokeStatus()) {
-                ((BreweryField) field).setPawnedStatus(false);
-                bank.removeFieldOwner(field);
-                bank.addFieldToPlayer(player, field);
-                viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());
-            }
-        }
-
     }
 
 
@@ -326,15 +298,10 @@ public class TradeController {
 
     private int getFieldPrice(Field field){
         int price = 0;
-        if(field instanceof PropertyField){
-            price = ((PropertyField) field).getPrice();
+        if(field instanceof Ownable){
+            price = ((Ownable) field).getPrice();
         }
-        if(field instanceof FerryField){
-            price = ((FerryField) field).getPrice();
-        }
-        if(field instanceof BreweryField){
-            price = ((BreweryField) field).getPrice();
-        }
+
         return price;
     }
 
