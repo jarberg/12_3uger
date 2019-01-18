@@ -18,8 +18,9 @@ public class Bank  {
     public Bank(){
     }
 
-
-    public void setBankNoCrashy(int length){
+    public static Bank getSingleInstance(){
+        return singletonInstance;
+    }    public void setBankNoCrashy(int length){
 
     }
 
