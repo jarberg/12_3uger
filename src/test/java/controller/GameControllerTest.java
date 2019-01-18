@@ -1,5 +1,7 @@
 package controller;
 
+import model.board.Field;
+import model.board.PropertyField;
 import model.player.Player;
 import model.player.PlayerList;
 import model.text.LanguageStringCollection;
@@ -74,6 +76,71 @@ public class GameControllerTest {
         assertNotEquals(originalMenu, newMenu);
         assertNotEquals(originalCard, newCard);
         assertNotEquals(originalField, newField);
+    }
+
+    @Test
+    public void shouldStartPlayersOnStart(){
+        gameCon.setupGame();
+        for(Player player : gameCon.getPlayerList().getAllPlayers()){
+            assertEquals(0, player.getPosition());
+        }
+    }
+
+    @Test
+    public void shouldStartWithExpectedAmount(){
+        int expectedAmount = 1500;
+        gameCon.setupGame();
+        for(Player player : gameCon.getPlayerList().getAllPlayers()){
+            assertEquals(expectedAmount, player.getBalance());
+        }
+    }
+
+    @Test
+    public void shouldMoveInRightDirection(){
+        int reps = 1000;
+        for (int i = 0; i < reps; i++) {
+            gameCon.setupGame();
+            Player player = gameCon.getPlayerList().getCurrentPlayer();
+            int initialPosition = player.getPosition();
+            gameCon.checkIfinJailBeforeMoving();
+            int laterPosition = player.getPosition();
+            assertTrue(initialPosition < laterPosition);
+        }
+    }
+
+    @Test
+    public void shouldStartWithNoOwner(){
+        gameCon.setupGame();
+        for(Field field : gameCon.getBoard().getFields()){
+            assertNull(gameCon.getBank().getOwnerOfField(field.getID()));
+        }
+    }
+
+    @Test
+    public void shouldBeGivenOptionToBuyField(){
+        int testAmount = 1000;
+        int counter = 0;
+        int counterTwo = 0;
+        for (int i = 0; i < testAmount; i++) {
+            gameCon.setupGame();
+            Player player = gameCon.getPlayerList().getCurrentPlayer();
+            if(viewController instanceof ViewControllerStub){
+                ((ViewControllerStub) viewController).setChoice("Ja");
+            }
+            gameCon.checkIfinJailBeforeMoving();
+            gameCon.resolveField();
+            String[][] options = gameCon.getChoices(player);
+            Field field = gameCon.getCurrentField();
+            if(field instanceof PropertyField){
+                boolean hasBoughtField = options.length > 1;
+                if(hasBoughtField){
+                    counter++;
+                }
+                counterTwo++;
+            }
+        }
+        assertNotEquals(0, counter);
+        assertEquals(counter, counterTwo);
     }
 
 /*

@@ -278,6 +278,7 @@ public class GameController {
             addPlayer(i, new Player(playerName));
             playerCount++;
         }
+        currentPlayer = playerlist.getCurrentPlayer();
     }
 
     public void makePlayerChooseCar() {
@@ -564,5 +565,9 @@ public class GameController {
 
     public Board getBoard() {
         return board;
+    }
+
+    public Field getCurrentField() {
+        return currentField;
     }
 }
