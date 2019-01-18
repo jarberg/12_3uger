@@ -35,7 +35,7 @@ public class DrawControllerTest {
         gamecontroller.setupGame();
         board = gamecontroller.getBoard();
         deck = gamecontroller.getDeck();
-        playerList = gamecontroller.getPlayerlist();
+        playerList = gamecontroller.getPlayerList();
 
         Player playerOne = playerList.getAllPlayers()[0];
         Player[] players = new Player[2];
