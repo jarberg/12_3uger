@@ -151,7 +151,10 @@ public class GameController {
                 sumOfDice = (40-lastField+10)%40;
                 endTurn = true;
             }
-            viewController.showMessage(currentPlayer.getName()+languageCollection.getMenu()[44]+" "+sumOfDice+languageCollection.getMenu()[45]);
+            if(!currentPlayer.isInJail()) {
+                String message = String.format(languageCollection.getMenu()[47], currentPlayer.getName(), sumOfDice);
+                viewController.showMessage(message);
+            }
             movePlayer(currentPlayer, lastField, sumOfDice);
         }
     }

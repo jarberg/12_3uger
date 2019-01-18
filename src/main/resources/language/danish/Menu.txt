@@ -45,5 +45,4 @@ Hvilken grund oensker du at pantsaette?
 %s er på offentlig auktion fordi %s valgte ikke at købe den!
 %s, vil De deltage i auktionen?
 Prisen på %s er %s
- har slaaet
- og rykker frem.
+%s har slaaet %S og rykker frem.
