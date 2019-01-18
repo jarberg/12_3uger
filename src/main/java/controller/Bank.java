@@ -306,11 +306,10 @@ public class Bank {
         fieldType = ((Ownable)field).getType();
 
         for(Field f : ownedFields){
-
-                if(((Ownable) f).getType().equals(fieldType))
-                    counter++;
-            }
+            if(((Ownable) f).getType().equals(fieldType))
+                counter++;
         }
+
         return counter;
     }
 
