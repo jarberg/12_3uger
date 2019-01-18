@@ -31,6 +31,22 @@ public class Bank {
         }
     }
 
+    public void addFieldToPlayer(Player player, Field field){
+        for (int j = 0; j < playerListLength; j++) {
+            if(player.getName().equals(fieldOwnerArray[j][0])){
+
+                for (int k = 0; k < fieldOwnerArray[j].length; k++) {
+                    if(fieldOwnerArray[j][k+1]==null){
+                        fieldOwnerArray[j][k+1] = field.getID();
+                        break;
+                    }
+                }
+                break;
+
+            }
+        }
+    }
+
     public void removeFieldOwner(Field field){
         int idxOfRow = 0;
         int idxOfFieldToRemove = 0;
@@ -66,22 +82,6 @@ public class Bank {
             }
         }
         return player;
-    }
-
-    public void addFieldToPlayer(Player player, Field field){
-        for (int j = 0; j < playerListLength; j++) {
-            if(player.getName().equals(fieldOwnerArray[j][0])){
-
-                for (int k = 0; k < fieldOwnerArray[j].length; k++) {
-                    if(fieldOwnerArray[j][k+1]==null){
-                        fieldOwnerArray[j][k+1] = field.getID();
-                        break;
-                    }
-                }
-                break;
-
-            }
-        }
     }
 
     public boolean hasOwner(String fieldID){

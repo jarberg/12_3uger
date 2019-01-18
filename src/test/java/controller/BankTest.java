@@ -1,6 +1,7 @@
 package controller;
 
 import model.board.Board;
+import model.board.Field;
 import model.player.Player;
 import model.player.PlayerList;
 import model.text.LanguageStringCollection;
@@ -14,6 +15,7 @@ public class BankTest {
     private Bank bank;
     private Board board;
     private PlayerList playerList;
+    private String[][] fieldOwnerArray;
 
     @Before
     public void setUp(){
@@ -21,6 +23,7 @@ public class BankTest {
         LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
         LogicStringCollection logicStringCollection = LogicStringCollection.getSingleInstance();
         board = new Board(logicStringCollection.getFieldsText(), languageStringCollection.getFieldsText());
+        board.setupBoard();
         int numOfPlayers = 3;
         playerList = new PlayerList(numOfPlayers);
         for (int i = 0; i < numOfPlayers; i++) {
@@ -39,7 +42,7 @@ public class BankTest {
     @Test
     public void shouldSetupFieldOwnerArrayWithPlayerNames() {
         bank.setupFieldOwnerArray(playerList);
-        String[][] fieldOwnerArray = bank.getFieldOwnerArray();
+        fieldOwnerArray = bank.getFieldOwnerArray();
         int playerNamePosition = 0;
         for (int i = 0; i < fieldOwnerArray.length; i++) {
             for (int j = playerNamePosition; j < 1 ; j++) {
@@ -49,15 +52,31 @@ public class BankTest {
     }
 
     @Test
+    public void shouldAddFieldToPlayer() {
+        shouldSetupFieldOwnerArrayWithPlayerNames();
+        for (int i = 0; i < playerList.getAllPlayers().length; i++) {
+            Player player = playerList.getPlayer(i);
+            Field field = board.getFields()[i];
+            bank.addFieldToPlayer(player, field);
+        }
+
+        int counter = 0;
+        int posOfFirstFieldID = 1;
+        for (String[] playerFields : fieldOwnerArray){
+            String fieldID = board.getFields()[counter].getID();
+            String addedFieldIDToPlayer = playerFields[posOfFirstFieldID];
+            assertEquals(fieldID, addedFieldIDToPlayer);
+            counter++;
+        }
+    }
+
+    @Test
     public void removeFieldOwner() {
+
     }
 
     @Test
     public void getPlayerByName() {
-    }
-
-    @Test
-    public void addFieldToPlayer() {
     }
 
     @Test
