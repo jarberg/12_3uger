@@ -1,5 +1,6 @@
 package controller;
 
+import model.board.JailField;
 import model.player.Player;
 import model.player.PlayerList;
 import model.text.LanguageStringCollection;
@@ -7,6 +8,8 @@ import model.text.LogicStringCollection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.awt.*;
 
 import static org.junit.Assert.*;
 
@@ -74,6 +77,20 @@ public class GameControllerTest {
         //assertNotEquals(originalMenu, newMenu);
         //assertNotEquals(originalCard, newCard);
         //assertNotEquals(originalField, newField);
+    }
+
+    @Test
+    public void shouldLetPlayerLeavePrisonIfPaying50(){
+        gameCon.setupGame();
+        PlayerList playerList = gameCon.getPlayerList();
+        Player player = playerList.getCurrentPlayer();
+        player.addCurrentTurn();
+        player.setInJail(true);
+        player.setJailTurn();
+        JailField jail = new JailField("ID", "Title", "Subtitle", "message", Color.black, 50, 3);
+        gameCon.payToLeaveJail(jail);
+        assertEquals(1450, player.getBalance());
+        assertFalse(player.getJailCardStatus());
     }
 /*
     @Test
