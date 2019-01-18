@@ -20,6 +20,7 @@ public class DrawControllerTest {
     private Deck deck;
     private PlayerList playerList;
     private TradeController tradecontroller;
+    private DrawController drawController;
 
     @Before
     public void setUp() {
@@ -35,6 +36,12 @@ public class DrawControllerTest {
         board = gamecontroller.getBoard();
         deck = gamecontroller.getDeck();
         playerList = gamecontroller.getPlayerlist();
+
+        Player playerOne = playerList.getAllPlayers()[0];
+        Player[] players = new Player[2];
+        players[0] = playerList.getAllPlayers()[1];
+        players[1] = playerList.getAllPlayers()[2];
+        drawController = new DrawController(playerOne, players, bank, board, deck, viewcontroller);
     }
 
     @After
@@ -46,6 +53,7 @@ public class DrawControllerTest {
         deck = null;
         bank = null;
         playerList = null;
+        drawController = null;
     }
 
 
@@ -182,14 +190,6 @@ public class DrawControllerTest {
         Player playerThree = playerList.getAllPlayers()[2];
         int playerThreeStartBalance = playerThree.getBalance();
 
-        Player[] players = new Player[2];
-
-        players [0] = playerTwo;
-        players [1] = playerThree;
-
-        DrawController drawController = new DrawController(playerOne, players, bank, board, deck, viewcontroller);
-
-
         drawController.draw(card);
 
         assertEquals(amount*2 + playerOneStartBalance, playerOne.getBalance());
@@ -202,14 +202,21 @@ public class DrawControllerTest {
     }
 
 
-
-
     @Test
-    public void MoneyCard() {
+    public void ShouldGiveAndTakeMonies() {
 
-    int amount = 10;
-    MoneyCard card = new MoneyCard("desc", amount );
+        int amount = 10;
+        MoneyCard card = new MoneyCard("desc", amount);
 
+        Player player = playerList.getCurrentPlayer();
+        int playerStartBalance = player.getBalance();
+
+        
+        drawController.draw(card);
+
+        assertEquals(amount+playerStartBalance, player.getBalance());
+
+    }
 
     /*
 
@@ -238,4 +245,4 @@ public class DrawControllerTest {
     */
 
     }
- }
+
