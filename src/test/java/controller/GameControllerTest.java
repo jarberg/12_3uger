@@ -74,9 +74,9 @@ public class GameControllerTest {
         String newCard = languageCollection.getChanceCard()[0][1];
         String newField = languageCollection.getFieldsText()[7][1];
 
-        //assertNotEquals(originalMenu, newMenu);
-        //assertNotEquals(originalCard, newCard);
-        //assertNotEquals(originalField, newField);
+        assertNotEquals(originalMenu, newMenu);
+        assertNotEquals(originalCard, newCard);
+        assertNotEquals(originalField, newField);
     }
 
     @Test

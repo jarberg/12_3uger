@@ -116,7 +116,7 @@ public class Board {
                 field = new ParkingField(ID, name, subtitle, message, color);
                 break;
             case 8:
-                field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5], fieldLogic[3],Integer.toString(fieldLogic[2]));
+                field = new BreweryField(ID, name, subtitle, message, color, fieldLogic[4], fieldLogic[5], fieldLogic[3],Integer.toString(fieldLogic[2]),fieldLogic[5]);
                 break;
             case 9:
                 field = new FerryField(
