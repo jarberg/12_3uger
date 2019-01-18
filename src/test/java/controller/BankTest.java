@@ -40,6 +40,7 @@ public class BankTest {
         bank = null;
         board = null;
         playerList = null;
+        fieldOwnerArray = null;
     }
 
     @Test
