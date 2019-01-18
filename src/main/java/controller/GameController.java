@@ -32,7 +32,6 @@ public class GameController {
     private int lastTurn;
     private int currentTurn;
     private TradeController tradecontroller = TradeController.getSingleInstance();
-    private boolean threwDice = false;
 
     //TODO: if time. split into use case controllers
     private GameController(){
@@ -115,8 +114,6 @@ public class GameController {
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
         currentPlayer.addCurrentTurn();
-        System.out.println(currentPlayer.getCurrentTurn());
-        System.out.println(currentPlayer.getJailTurn());
 
         checkIfinJailBeforeMoving();
         checkIfPassedStart();
@@ -260,6 +257,7 @@ public class GameController {
         FileReader.setLanguage(language);
     }
 
+
     private void createPlayers() {
         //TODO: playerAmount redundancy
         createPlayerList(playerAmount);
@@ -334,25 +332,22 @@ public class GameController {
             //TODO: Had a player stuck in jail forever
             if (currentField instanceof  JailField) {
 
-                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn()+1
-                        && !( currentPlayer.getCurrentTurn() >= 4+currentPlayer.getJailTurn())) {
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && !( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())) {
                     String option = String.format(languageCollection.getMenu()[34]+",8");
                     choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getJailCardStatus()) {
                     String option = String.format(languageCollection.getMenu()[33]+",1");
-
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() > ((JailField) currentField).getBailAmount()|| ( currentPlayer.getCurrentTurn() >= 4+currentPlayer.getJailTurn())) {
-                    if((currentTurn==lastTurn)){
-                        String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
-                        choiceList = addToStringArray(choiceList, option);
-                    }
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && (currentPlayer.getBalance() > ((JailField) currentField).getBailAmount() || ( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn()))) {
+
+                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
+                    choiceList = addToStringArray(choiceList, option);
+
                 }
 
-                if (player.getBalance() < ((JailField) currentField).getBailAmount()||( currentPlayer.getCurrentTurn() >= 4+currentPlayer.getJailTurn())
-                ) {
+                if (currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()|| ((currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()&&( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())))) {
                     String option = languageCollection.getMenu()[47]+ ",7";
                     choiceList = addToStringArray(choiceList, option);
                 }
@@ -469,13 +464,12 @@ public class GameController {
                     break;
 
             case 8: rollAndShowDice(currentPlayer);
-                    threwDice = true;
                     if(currentPlayer.getDoubleTurnStatus()) {
                         movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
+                        resolveField();
                         currentPlayer.setInJail(false);
                         }
-                    else
-                        {endTurn =true;}
+
                     break;
 
             case 9: tradecontroller.transferAssets(player);
