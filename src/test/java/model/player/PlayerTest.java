@@ -1,7 +1,5 @@
 package model.player;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
@@ -9,17 +7,6 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 public class PlayerTest {
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
-
-
 
     Player player = new Player("Bob");
 
@@ -44,10 +31,10 @@ public class PlayerTest {
     @Test
     public void setGetPosition() {
 
-        int testPosition =5;
-        int boardsize =40;
+        int testPosition = 5;
+        int boardsize = 40;
         assertEquals(0,player.getPosition()%boardsize);
-        player.setPosition(testPosition);
+        player.setPositionWithStartMoney(testPosition);
         assertEquals(testPosition,player.getPosition()%boardsize);
 
         assertEquals(testPosition,(player.getPosition()+boardsize)%boardsize);
@@ -79,34 +66,43 @@ public class PlayerTest {
     }
 
 
-
-
     @Test
-    public void getLastPosition() {
+    public void shouldAddToBalance() {
+        int beforeBalance = player.getBalance();
+        player.addToBalance(100);
+        assertEquals(beforeBalance,player.getBalance()-100);
     }
 
     @Test
-    public void getPassedStartStatus() {
+    public void shouldAddDoubleThrowTimes() {
+        int beforeDoubleThrowNum = player.getDoubleThrowNum();
+        player.addDoubleThrowTimes();
+        assertEquals(beforeDoubleThrowNum,player.getDoubleThrowNum()-1);
     }
 
     @Test
-    public void setPassedStartStatus() {
+    public void shouldResetDoubleThrowTimes() {
+        assertEquals(player.getDoubleThrowNum(),0);
     }
 
     @Test
-    public void setBrokeStatus() {
-    }
-
-
-    @Test
-    public void isInJail() {
-    }
-
-    @Test
-    public void setInJail() {
+    public void shouldSetInJail() {
+        player.setInJail(true);
+        assertTrue(player.isInJail());
+        player.setInJail(false);
+        assertTrue(!player.isInJail());
     }
 
     @Test
-    public void getDoubleThrowNum() {
+    public void shouldSetJailTurn() {
+        player.setJailTurn();
+        assertEquals(player.getJailTurn(),player.getCurrentTurn());
+    }
+
+    @Test
+    public void addCurrentTurn() {
+        int beforeTurn = player.getCurrentTurn();
+        player.addCurrentTurn();
+        assertEquals(beforeTurn,player.getCurrentTurn()-1);
     }
 }
