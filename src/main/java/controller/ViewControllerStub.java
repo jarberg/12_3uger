@@ -80,7 +80,7 @@ public class ViewControllerStub implements ViewControllerInterface {
     }
 
     @Override
-    public int getPLayerAmount() {
+    public int getPlayerAmount() {
         return 0;
     }
 

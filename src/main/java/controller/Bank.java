@@ -59,16 +59,8 @@ public class Bank {
         fieldOwnerArray[idxOfRow] = ownedFields;
     }
 
-    //TODO: Information Expert
     public Player getPlayerByName(String name){
-        Player player = null;
-
-        for (int i = 0; i <playerListLength ; i++) {
-            if(name != null && name.equals(playerList.getPlayer(i).getName())){
-                player = playerList.getPlayer(i);
-            }
-        }
-        return player;
+        return playerList.getPlayerByName(name);
     }
 
 
@@ -116,7 +108,7 @@ public class Bank {
                 }
             }
         }
-        return getPlayerByName(owner);
+        return playerList.getPlayerByName(owner);
     }
 
     public boolean isOwner(Player player, Field field){
