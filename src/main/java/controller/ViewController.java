@@ -75,8 +75,8 @@ public class ViewController implements ViewControllerInterface {
         if(this.gui != null)
             gui.close();
 
-        this.gui = new GUI(gui_board,Color.white);
-        GUI_Center.getInstance().setBGColor(Color.red);
+        this.gui = new GUI(gui_board,new Color(234, 234, 227));
+        GUI_Center.getInstance().setBGColor(new Color(219, 81, 86));
     }
 
 
