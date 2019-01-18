@@ -80,13 +80,13 @@ public class Player {
 
     public void setDoubleTurnStatus(boolean status){
         this.doubleTurn = status;
-        if(status){
+
+    }
+    public void addDoubleThrowTimes(){
             this.doublethrownum++;
-        }
-        else
-        {
-            this.doublethrownum =0;
-        }
+    }
+    public void resetDoubleThrowTimes(){
+        this.doublethrownum=0;
     }
 
     public boolean isInJail() {

@@ -16,7 +16,7 @@ public class DieSet {
         this.dieOneValue = rollDie();
         this.dieTwoValue = rollDie();
         this.value = (this.dieOneValue + this.dieTwoValue);
-        identicalRoll = (dieOneValue == dieTwoValue);
+        identicalRoll = (getDieOneValue()  == getDieTwoValue());
     }
 
     private int rollDie(){
@@ -24,11 +24,11 @@ public class DieSet {
     }
 
     public int getDieOneValue() {
-        return dieOneValue;
+        return this.dieOneValue;
     }
 
     public int getDieTwoValue() {
-        return dieTwoValue;
+        return this.dieTwoValue;
     }
 
     public int getValue(){
