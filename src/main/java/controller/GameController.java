@@ -356,7 +356,7 @@ public class GameController {
         if(field instanceof TaxField){
 
         }
-        if (bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
+        if (bank.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
             String message = languageCollection.getMenu()[41];
             choiceList = addToStringArray(choiceList, message+",9");
         }
@@ -451,7 +451,7 @@ public class GameController {
                         {endTurn =true;}
                     break;
 
-            case 9: tradecontroller.tradePropertyWithPlayer(player);
+            case 9: tradecontroller.transferAssets(player);
                     break;
 
             case 10: tradecontroller.buyBackPawnedProperty(currentPlayer);
