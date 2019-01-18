@@ -48,3 +48,4 @@ The price of %s is currently %s
 %S rolled %s and moves forward.
 Raise Money
 You are in jail, %s
+Buy back pawned field

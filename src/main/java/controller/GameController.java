@@ -385,7 +385,7 @@ public class GameController {
         }
         Field[] canBuybackFields = bank.getPawnedFieldsByPlayer(player);
         if(canBuybackFields.length > 0){
-            String message = "buybackFieldField";
+            String message = languageCollection.getMenu()[50];
             choiceList = addToStringArray(choiceList, message+",10");
         }
 
