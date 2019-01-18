@@ -114,6 +114,9 @@ public class GameController {
 
         endTurn = false;
         currentPlayer = playerlist.getCurrentPlayer();
+        currentPlayer.addCurrentTurn();
+        System.out.println(currentPlayer.getCurrentTurn());
+        System.out.println(currentPlayer.getJailTurn());
 
         checkIfinJailBeforeMoving();
         checkIfPassedStart();
@@ -331,20 +334,26 @@ public class GameController {
             //TODO: Had a player stuck in jail forever
             if (currentField instanceof  JailField) {
 
-                if (currentTurn>lastTurn) {
+                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn()+1
+                        && !( currentPlayer.getCurrentTurn() >= 4+currentPlayer.getJailTurn())) {
                     String option = String.format(languageCollection.getMenu()[34]+",8");
                     choiceList = addToStringArray(choiceList, option);
                 }
                 if (player.getJailCardStatus()) {
                     String option = String.format(languageCollection.getMenu()[33]+",1");
+
                     choiceList = addToStringArray(choiceList, option);
                 }
-                if (player.getBalance() > ((JailField) currentField).getBailAmount()) {
-                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
-                    choiceList = addToStringArray(choiceList, option);
+                if (player.getBalance() > ((JailField) currentField).getBailAmount()|| ( currentPlayer.getCurrentTurn() >= 4+currentPlayer.getJailTurn())) {
+                    if((currentTurn==lastTurn)){
+                        String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
+                        choiceList = addToStringArray(choiceList, option);
+                    }
                 }
-                if (player.getBalance() < ((JailField) currentField).getBailAmount()) {
-                    String option = languageCollection.getMenu()[31]+ ", 7";
+
+                if (player.getBalance() < ((JailField) currentField).getBailAmount()||( currentPlayer.getCurrentTurn() >= 4+currentPlayer.getJailTurn())
+                ) {
+                    String option = languageCollection.getMenu()[47]+ ",7";
                     choiceList = addToStringArray(choiceList, option);
                 }
             }
@@ -378,7 +387,9 @@ public class GameController {
             choiceList = addToStringArray(choiceList, message+",10");
         }
         //TODO: Show ROLL AGAIN or GO TO JAIL YOU LUCKY BASTARD instead of END TURN when rolled identical rolls
-        String option = String.format(languageCollection.getMenu()[36]+",0");
+
+        String option = String.format(languageCollection.getMenu()[36] + ",0");
+
         choiceList = addToStringArray(choiceList, option);
 
         String[][] finalChoiceList = new String[choiceList.length][];
@@ -434,8 +445,10 @@ public class GameController {
                     break;
 
             case 2: tradecontroller.transferAssets(currentPlayer,-((JailField) field).getBailAmount());
-                    viewController.setGUI_PlayerBalance(currentPlayer.getName(),currentPlayer.getBalance());
                     currentPlayer.setInJail(false);
+                    if(currentTurn>lastTurn){
+                        currentPlayer.setDoubleTurnStatus(false);
+                    }
                     checkIfinJailBeforeMoving();
                     break;
 
@@ -457,8 +470,10 @@ public class GameController {
 
             case 8: rollAndShowDice(currentPlayer);
                     threwDice = true;
-                    if(currentPlayer.getDoubleTurnStatus())
-                        {movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());}
+                    if(currentPlayer.getDoubleTurnStatus()) {
+                        movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
+                        currentPlayer.setInJail(false);
+                        }
                     else
                         {endTurn =true;}
                     break;

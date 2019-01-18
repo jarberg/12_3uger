@@ -146,6 +146,7 @@ public class DrawController implements Drawer {
 
         player.setInJail(true);
 
+
         player.setPosition(newPosition);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
     }

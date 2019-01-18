@@ -23,12 +23,10 @@ public class DieSet {
         return (int) (Math.random() * SIDES) + 1;
     }
 
-    public int getDieOneValue() {
-        return this.dieOneValue;
-    }
+    public int getDieOneValue() { return 1; }
 
     public int getDieTwoValue() {
-        return this.dieTwoValue;
+        return 1;
     }
 
     public int getValue(){

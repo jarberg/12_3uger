@@ -5,6 +5,7 @@ public class PlayerList {
     private int playerAmount;
     private int NextPlayerIndex;
     private Player[] playerList;
+    private int currentTurn;
 
     //constructor
 
@@ -45,5 +46,7 @@ public class PlayerList {
                 setNextPlayer();
         }
     }
+
+
 }
 
