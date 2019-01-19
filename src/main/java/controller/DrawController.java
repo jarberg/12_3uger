@@ -126,27 +126,13 @@ public class DrawController implements Drawer {
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
         Player fieldOwner = bank.getOwnerOfField(positionAsString);
+        int howManyOfTheSameFieldTypeIsOwnedByOwner = (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]));
 
         if (bank.fieldHasOwner(disbutedField.getID())) {
-
             boolean fieldNotPawned = !((Ownable) disbutedField).getPawnedStatus();
             if (fieldNotPawned){
-                if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 1) {
-                    int amount = ((Ownable)disbutedField).getRent(1) * card.getMultiplier();
-                    tradeController.transferAssets(player, fieldOwner, amount);
-
-                } else if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 2) {
-                    int amount = ((Ownable)disbutedField).getRent(2) * card.getMultiplier();
-                    tradeController.transferAssets(player, fieldOwner, amount);
-
-                } else if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 3) {
-                    int amount = ((Ownable)disbutedField).getRent(3) * card.getMultiplier();
-                    tradeController.transferAssets(player, fieldOwner, amount);
-
-                } else if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 4) {
-                    int amount = ((Ownable)disbutedField).getRent(4) * card.getMultiplier();
-                    tradeController.transferAssets(player, fieldOwner, amount);
-                }
+                int amount = ((Ownable)disbutedField).getRent(howManyOfTheSameFieldTypeIsOwnedByOwner) * card.getMultiplier();
+                tradeController.transferAssets(player, fieldOwner, amount);
             } else {
                 tradeController.askIfWantToBuy(player, disbutedField);
             }
