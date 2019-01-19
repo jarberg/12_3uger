@@ -101,7 +101,7 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        int amount = 25*card.getMultiplier();
+        int amount = 25 * card.getMultiplier();
 
         int oldPosition = player.getPosition();
 
@@ -123,18 +123,18 @@ public class DrawController implements Drawer {
         int newPosition = player.getPosition();
 
 
-
         String positionAsString = String.valueOf(newPosition);
         Field disbutedField = bank.getFieldById(positionAsString);
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
 
-        if(bank.fieldHasOwner(disbutedField.getID())){
+        if (bank.fieldHasOwner(disbutedField.getID())) {
             if (bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length < 1) {
                 Player otherPlayer = bank.getOwnerOfField(positionAsString);
                 tradeController.transferAssets(player, otherPlayer, amount);
-            } else{
-            tradeController.askIfWantToBuy(player, disbutedField);
+            } else {
+                tradeController.askIfWantToBuy(player, disbutedField);
+            }
         }
     }
 
