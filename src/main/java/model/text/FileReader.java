@@ -119,4 +119,8 @@ public class FileReader {
     }
 
     public String[][] getPlayerAmount(){return twoDStringArrayLogic(SETUP_FILENAME, LOGIC_DIRECTORY_PATH);}
+
+    public void setDefaultLanguage() {
+        language = DEFAULT_LANGUAGE;
+    }
 }

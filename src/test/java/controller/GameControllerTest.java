@@ -5,6 +5,7 @@ import model.board.PropertyField;
 import model.board.JailField;
 import model.player.Player;
 import model.player.PlayerList;
+import model.text.FileReader;
 import model.text.LanguageStringCollection;
 import model.text.LogicStringCollection;
 import org.junit.After;
@@ -25,6 +26,7 @@ public class GameControllerTest {
     private TradeController tradeController;
     private FieldVisitor fieldVisitor;
     private DrawController drawController;
+    private FileReader fileReader;
 
     @Before
     public void setUp(){
@@ -37,6 +39,7 @@ public class GameControllerTest {
 
         languageCollection = LanguageStringCollection.getSingleInstance();
         logicCollection = LogicStringCollection.getSingleInstance();
+        fileReader = FileReader.getSingleInstance();
     }
 
     @After
@@ -48,6 +51,24 @@ public class GameControllerTest {
         viewController = null;
         fieldVisitor = null;
         drawController = null;
+        fileReader = null;
+    }
+
+    @Test
+    public void shouldChangeLanguage(){
+        fileReader.setDefaultLanguage();
+
+        String originalMenu = languageCollection.getMenu()[0];
+        String originalCard = languageCollection.getChanceCard()[0][1];
+        String originalField = languageCollection.getFieldsText()[7][1];
+        gameCon.setupGame();
+        String newMenu = languageCollection.getMenu()[0];
+        String newCard = languageCollection.getChanceCard()[0][1];
+        String newField = languageCollection.getFieldsText()[7][1];
+
+        assertNotEquals(originalMenu, newMenu);
+        assertNotEquals(originalCard, newCard);
+        assertNotEquals(originalField, newField);
     }
 
     @Test
@@ -66,20 +87,6 @@ public class GameControllerTest {
         drawController = new DrawController(currentPlayer, otherPlayers, gameCon.getBank(), gameCon.getBoard(), gameCon.getDeck(), viewController);
     }
 
-    @Test
-    public void shouldChangeLanguage(){
-        String originalMenu = languageCollection.getMenu()[0];
-        String originalCard = languageCollection.getChanceCard()[0][1];
-        String originalField = languageCollection.getFieldsText()[7][1];
-        gameCon.setupGame();
-        String newMenu = languageCollection.getMenu()[0];
-        String newCard = languageCollection.getChanceCard()[0][1];
-        String newField = languageCollection.getFieldsText()[7][1];
-
-        assertNotEquals(originalMenu, newMenu);
-        assertNotEquals(originalCard, newCard);
-        assertNotEquals(originalField, newField);
-    }
 
     @Test
     public void shouldLetPlayerLeavePrisonIfPaying50(){
