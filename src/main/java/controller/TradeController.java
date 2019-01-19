@@ -188,11 +188,14 @@ public class TradeController {
     }
 
     public void transferAssets(Player targetPlayer, Field field){
-        bank.addFieldToPlayer(targetPlayer, field);
-        viewController.showOwner(field.getTitle(), targetPlayer.getPlayerColor());
 
         if(field instanceof Ownable){
             transferAssets(targetPlayer, -((Ownable)field).getPrice());
+
+            if(!targetPlayer.getBrokeStatus()){
+                bank.addFieldToPlayer(targetPlayer, field);
+                viewController.showOwner(field.getTitle(), targetPlayer.getPlayerColor());
+            }
         }
     }
 
