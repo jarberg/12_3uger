@@ -220,7 +220,7 @@ public class TradeController {
             int priceWithInterest = (int) (((Ownable) field).getPrice() * 1.10);
             transferAssets(player, -priceWithInterest);
             if (!player.getBrokeStatus()) {
-                ((PropertyField) field).setPawnedStatus(false);
+                ((Ownable) field).setPawnedStatus(false);
                 bank.removeFieldOwner(field);
                 bank.addFieldToPlayer(player, field);
                 viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());

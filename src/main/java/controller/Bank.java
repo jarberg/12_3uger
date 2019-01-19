@@ -252,11 +252,14 @@ public class Bank {
         Field[] ownedFields = new Field[0];
 
         for (Field aPlayerFieldList : playerFieldArray) {
-            if(aPlayerFieldList instanceof PropertyField) {
-                if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
+            if(aPlayerFieldList instanceof Ownable) {
+                if(aPlayerFieldList instanceof PropertyField){
+                    if (((PropertyField) aPlayerFieldList).getBuildingCount() == 0) {
+                        ownedFields= extendFieldArray(ownedFields,aPlayerFieldList);
+                    }
+                } else{
                     ownedFields= extendFieldArray(ownedFields,aPlayerFieldList);
                 }
-
             }
         }
         return ownedFields;
