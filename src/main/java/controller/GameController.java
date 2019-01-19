@@ -54,6 +54,7 @@ public class GameController {
 
     public void playGame(){
         setupGame();
+        tradecontroller.setPlayerList(playerlist);
         viewController.showFieldMessage(playerlist.getCurrentPlayer().getName(), languageCollection.getMenu()[11]);
         while(!checkIfAllBroke()){
             playTurn();
@@ -512,6 +513,7 @@ public class GameController {
         buyBuilding(currentPlayer, (PropertyField) test);
     }
 
+    //TODO: 3???
     private void pawnProperty(Player player){
         String message = languageCollection.getMenu()[43];
         String[] options = bank.getPropertyNamesWithNoHousesByPlayer(player);
@@ -520,17 +522,17 @@ public class GameController {
         if (field instanceof PropertyField){
             ((PropertyField) field).setPawnedStatus(true);
             tradecontroller.transferAssets(player,((PropertyField) field).getPrice()/2);
-            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+            viewController.pawn(field.getTitle(), player.getPlayerColor(), player.getPlayerColor().darker());
         }
         if (field instanceof BreweryField){
             ((BreweryField) field).setPawnedStatus(true);
             tradecontroller.transferAssets(player,((BreweryField) field).getPrice()/2);
-            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+            viewController.pawn(field.getTitle(), player.getPlayerColor(), player.getPlayerColor().darker());
         }
         if (field instanceof FerryField){
             ((FerryField) field).setPawnedStatus(true);
             tradecontroller.transferAssets(player,((FerryField) field).getPrice()/2);
-            viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor().darker());
+            viewController.pawn(field.getTitle(), player.getPlayerColor(), player.getPlayerColor().darker());
         }
    }
 

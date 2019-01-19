@@ -8,6 +8,8 @@ import model.text.LanguageStringCollection;
 import java.awt.*;
 import java.util.StringJoiner;
 
+import static java.awt.Color.black;
+
 public class TradeController {
 
     private static final int PRICE_INCREMENT = 50;
@@ -15,6 +17,7 @@ public class TradeController {
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private ViewControllerInterface viewController = ViewController.getSingleInstance();
     private static Bank bank = Bank.getSingleInstance();
+    private PlayerList playerList;
 
     private TradeController(){
 
@@ -58,7 +61,7 @@ public class TradeController {
                 String sellingField = viewController.getUserSelection(sellFieldOption, fieldNames);
                 Field field = bank.getFieldByName(sellingField);
                 bank.removeFieldOwner(field);
-                viewController.showOwner(field.getTitle(), " ", Color.BLACK);
+                viewController.showOwner(field.getTitle(), Color.BLACK);
                 if(field instanceof Ownable){
                     player.addToBalance(((Ownable) field).getPrice() / 2);
                 }
@@ -102,7 +105,7 @@ public class TradeController {
             String sellingField = viewController.getUserSelection(sellFieldOption, fieldNames);
             Field field = bank.getFieldByName(sellingField);
             bank.removeFieldOwner(field);
-            viewController.showOwner(field.getTitle(), " ", Color.BLACK);
+            viewController.showOwner(field.getTitle(), Color.BLACK);
 
             if(field instanceof Ownable){
                 player.addToBalance(((Ownable) field).getPrice() / 2);
@@ -117,6 +120,16 @@ public class TradeController {
             viewController.vanishPlayer(player.getName(), player.getPosition());
         }
         viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
+        if(player.getBrokeStatus()){
+            Field[] pawnedFields = bank.getPawnedFieldsByPlayer(player);
+            for(Field field : pawnedFields){
+                auction(player, playerList.getPlayersButPlayer(player), field);
+            }
+        }
+    }
+
+    public void setPlayerList(PlayerList playerList){
+        this.playerList = playerList;
     }
 
     public void transferAssets(Player targetPlayer, int amount){
@@ -169,14 +182,14 @@ public class TradeController {
             bank.addFieldToPlayer(sourcePlayer, tField);
             bank.addFieldToPlayer(targetPlayer, sField);
 
-            viewController.showOwner(sourceProperty, targetPlayer.getName(), targetPlayer.getPlayerColor());
-            viewController.showOwner(targetProperty, sourcePlayer.getName(), sourcePlayer.getPlayerColor());
+            viewController.showOwner(sourceProperty, targetPlayer.getPlayerColor());
+            viewController.showOwner(targetProperty, sourcePlayer.getPlayerColor());
         }
     }
 
     public void transferAssets(Player targetPlayer, Field field){
         bank.addFieldToPlayer(targetPlayer, field);
-        viewController.showOwner(field.getTitle(), targetPlayer.getName(), targetPlayer.getPlayerColor());
+        viewController.showOwner(field.getTitle(), targetPlayer.getPlayerColor());
 
         if(field instanceof Ownable){
             transferAssets(targetPlayer, -((Ownable)field).getPrice());
@@ -223,7 +236,7 @@ public class TradeController {
                 ((Ownable) field).setPawnedStatus(false);
                 bank.removeFieldOwner(field);
                 bank.addFieldToPlayer(player, field);
-                viewController.pawn(field.getTitle(), player.getName(), player.getPlayerColor(), player.getPlayerColor());
+                viewController.pawn(field.getTitle(), player.getPlayerColor(), player.getPlayerColor());
             }
         }
     }
@@ -279,7 +292,13 @@ public class TradeController {
                 player.addToBalance(-price);
                 bank.addFieldToPlayer(auctionPlayers[0], field);
                 viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
-                viewController.showOwner(field.getTitle(), player.getName(), player.getPlayerColor());
+                viewController.showOwner(field.getTitle(), player.getPlayerColor());
+            }
+        }else if(field instanceof Ownable){
+            if(((Ownable) field).getPawnedStatus()){
+                ((Ownable) field).setPawnedStatus(false);
+                bank.removeFieldOwner(field);
+                viewController.showOwner(field.getTitle(), black);
             }
         }
     }

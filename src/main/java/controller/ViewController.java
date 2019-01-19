@@ -311,20 +311,14 @@ public class ViewController implements ViewControllerInterface {
     }
 
     @Override
-    public void showOwner(String fieldName, String name, Color playerColor) {
+    public void showOwner(String fieldName, Color playerColor) {
         GUI_Field field = getGUIFieldByName(fieldName);
-        while(!field.getDescription().equals(name)){
-            field.setDescription(name);
-        }
         ((GUI_Street) field).setBorder(playerColor);
     }
 
     @Override
-    public void pawn(String fieldName, String name, Color playerColor, Color playerColor2) {
+    public void pawn(String fieldName, Color playerColor, Color playerColor2) {
         GUI_Field field = getGUIFieldByName(fieldName);
-        while(!field.getDescription().equals(name)){
-            field.setDescription(name);
-        }
         ((GUI_Street) field).setBorder(playerColor, playerColor2);
     }
     @Override
