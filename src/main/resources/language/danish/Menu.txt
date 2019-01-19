@@ -50,4 +50,4 @@ Skaf penge
 De er i faengsel, %s. De kan enten vaelge at forsøge at slå 2 ens, eller betale kr. 50 og blive sat fri med det samme!
 Koeb et pantsat felt tilbage
 De har slaaet to ens tre gange i traek, og ryger direkte i faengsel!
-De har været i fængsel i tre ture, og bliver tvunget til at betale frihedsafgiften kr. 50
+De har vaeret i faengsel i tre ture, og bliver tvunget til at betale frihedsafgiften kr. 50
