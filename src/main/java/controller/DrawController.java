@@ -101,8 +101,6 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        int amount = 25 * card.getMultiplier();
-
         int oldPosition = player.getPosition();
 
         int firFerry = 5;
@@ -127,16 +125,34 @@ public class DrawController implements Drawer {
         Field disbutedField = bank.getFieldById(positionAsString);
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
+        Player fieldOwner = bank.getOwnerOfField(positionAsString);
 
         if (bank.fieldHasOwner(disbutedField.getID())) {
-            if (bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length < 1) {
-                Player otherPlayer = bank.getOwnerOfField(positionAsString);
-                tradeController.transferAssets(player, otherPlayer, amount);
+
+            boolean fieldNotPawned = !((Ownable) disbutedField).getPawnedStatus();
+            if (fieldNotPawned){
+                if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 1) {
+                    int amount = ((Ownable)disbutedField).getRent(1) * card.getMultiplier();
+                    tradeController.transferAssets(player, fieldOwner, amount);
+
+                } else if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 2) {
+                    int amount = ((Ownable)disbutedField).getRent(2) * card.getMultiplier();
+                    tradeController.transferAssets(player, fieldOwner, amount);
+
+                } else if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 3) {
+                    int amount = ((Ownable)disbutedField).getRent(3) * card.getMultiplier();
+                    tradeController.transferAssets(player, fieldOwner, amount);
+
+                } else if (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]) == 4) {
+                    int amount = ((Ownable)disbutedField).getRent(4) * card.getMultiplier();
+                    tradeController.transferAssets(player, fieldOwner, amount);
+                }
             } else {
                 tradeController.askIfWantToBuy(player, disbutedField);
             }
         }
     }
+
 
     @Override //CARD: 6 - 8 - 11
     public void draw(GoToJail card) {
@@ -193,7 +209,7 @@ public class DrawController implements Drawer {
         int newPosition =  (board.getFields().length + oldPosition + amount) % board.getFields().length;
 
         player.setPositionWithStartMoney(newPosition);
-        if(amount<3){
+        if(amount < 3){
             player.setPassedStartStatus(false);
         }
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);

@@ -16,8 +16,14 @@ public class Deck {
             String desc = deckText[i][1];
             String info1 = deckLogic[i][2];
             String info2 = deckLogic[i][3];
+            String price2 = deckLogic[i][4];
+            String price3 = deckLogic[i][5];
+            String price4 = deckLogic[i][6];
             int info1int = Integer.parseInt(info1);
             int info2int = Integer.parseInt(info2);
+            int price2field = Integer.parseInt(price2);
+            int price3field = Integer.parseInt(price3);
+            int price4field = Integer.parseInt(price4);
 
             switch (deckLogic[i][0]){
                 case "1":
@@ -33,7 +39,7 @@ public class Deck {
                     cardArray[i] = new PayForBuildingsCard(desc,info1int,info2int);
                     break;
                 case "5":
-                    cardArray[i] = new TeleportAndPayDoubleCard(desc,info1int);
+                    cardArray[i] = new TeleportAndPayDoubleCard(desc,info1int,info2int,price2field,price3field,price4field);
                     break;
                 case "6":
                     cardArray[i] = new GoToJail(desc,info1int);
