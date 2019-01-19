@@ -124,6 +124,10 @@ public class TradeController {
             Field[] pawnedFields = bank.getPawnedFieldsByPlayer(player);
             for(Field field : pawnedFields){
                 auction(player, playerList.getPlayersButPlayer(player), field);
+                if(bank.getOwnerOfField(field.getID()) == player){
+                    bank.removeFieldOwner(field);
+                    viewController.showOwner(field.getTitle(), black);
+                }
             }
         }
     }
