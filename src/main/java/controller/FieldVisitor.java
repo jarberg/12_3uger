@@ -39,6 +39,7 @@ public class FieldVisitor implements Visitor  {
         viewController.movePlayer(player.getName(),player.getPosition(),20);
         player.setPositionWithoutStartMoney(10);
         player.setInJail(true);
+        player.setDoubleTurnStatus(false);
 
     }
 
