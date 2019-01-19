@@ -136,6 +136,8 @@ public class GameController {
             if(currentPlayer.getDoubleThrowNum()>2){
                 currentPlayer.setInJail(true);
                 sumOfDice = (40-lastField+10)%40;
+                viewController.showMessage(languageCollection.getMenu()[51]);
+                currentPlayer.setDoubleTurnStatus(false);
                 endTurn = true;
             }
             if(!currentPlayer.isInJail()) {
