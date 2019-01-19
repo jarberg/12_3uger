@@ -108,6 +108,16 @@ public class GameController {
         checkIfPassedStart();
 
         while(!endTurn) {
+            Field field = board.getFields()[currentPlayer.getPosition() % 40];
+            if (currentPlayer.isInJail() && currentPlayer.getCurrentTurn() >= 3 + currentPlayer.getJailTurn()) {
+                currentPlayer.setInJail(false);
+                viewController.showMessage(languageCollection.getMenu()[52]);
+                payToLeaveJail((JailField) field);
+                checkIfinJailBeforeMoving();
+                checkIfPassedStart();
+                resolveField();
+                checkIfPassedStart();
+            }
           playerOptions(getChoices(currentPlayer),currentPlayer);
         }
 
@@ -316,80 +326,82 @@ public class GameController {
         tradecontroller.transferAssets(player, amount);
     }
 
-    public String[][] getChoices(Player player){
+    public String[][] getChoices(Player player) {
         String[] choiceList = new String[0];
         boolean playerInJail = player.isInJail();
 
-        Field field = board.getFields()[player.getPosition()%40];
+        Field field = board.getFields()[player.getPosition() % 40];
 
         //TODO: Sell jail card (not end turn + work)
-        if(playerInJail) {
+        if (playerInJail) {
             //TODO: Had a player stuck in jail forever
-            if (currentField instanceof  JailField) {
+            if (currentField instanceof JailField) {
 
-                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && !( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())) {
-                    String option = String.format(languageCollection.getMenu()[34]+",8");
-                    choiceList = addToStringArray(choiceList, option);
-                }
-                if (player.getJailCardStatus()) {
-                    String option = String.format(languageCollection.getMenu()[33]+",1");
-                    choiceList = addToStringArray(choiceList, option);
-                }
-                if (currentPlayer.getCurrentTurn()>currentPlayer.getJailTurn() && (currentPlayer.getBalance() > ((JailField) currentField).getBailAmount() || ( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn()))) {
 
-                    String option = String.format(languageCollection.getMenu()[30]+" "+((JailField) currentField).getBailAmount()+ ",2");
-                    choiceList = addToStringArray(choiceList, option);
+                    if (currentPlayer.getCurrentTurn() > currentPlayer.getJailTurn()) {
+                        String option = String.format(languageCollection.getMenu()[34] + ",8");
+                        choiceList = addToStringArray(choiceList, option);
+                    }
+                    if (player.getJailCardStatus()) {
+                        String option = String.format(languageCollection.getMenu()[33] + ",1");
+                        choiceList = addToStringArray(choiceList, option);
+                    }
+                    if (currentPlayer.getCurrentTurn() > currentPlayer.getJailTurn()) {
 
-                }
+                        String option = String.format(languageCollection.getMenu()[30] + " " + ((JailField) currentField).getBailAmount() + ",2");
+                        choiceList = addToStringArray(choiceList, option);
 
-                if (currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()|| ((currentPlayer.getBalance() < ((JailField) currentField).getBailAmount()&&( currentPlayer.getCurrentTurn() >= 3+currentPlayer.getJailTurn())))) {
-                    String option = languageCollection.getMenu()[20]+ ",7";
-                    choiceList = addToStringArray(choiceList, option);
+                    }
+
+                    if (currentPlayer.getBalance() < ((JailField) currentField).getBailAmount() || ((currentPlayer.getBalance() < ((JailField) currentField).getBailAmount() && (currentPlayer.getCurrentTurn() >= 3 + currentPlayer.getJailTurn())))) {
+                        String option = languageCollection.getMenu()[20] + ",7";
+                        choiceList = addToStringArray(choiceList, option);
+                    }
                 }
             }
-        }
-        if(player.getJailCardStatus()){
-            String option = String.format(languageCollection.getMenu()[32]+",4");
+            if (player.getJailCardStatus()) {
+                String option = String.format(languageCollection.getMenu()[32] + ",4");
+                choiceList = addToStringArray(choiceList, option);
+            }
+            PropertyField[] buildableProperty = bank.getPlayerBuildableFields(currentPlayer);
+            boolean playerCanBuild = (buildableProperty.length > 0);
+            if (playerCanBuild) {
+                String option = languageCollection.getMenu()[35] + ",5";
+                choiceList = addToStringArray(choiceList, option);
+            }
+            if (bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length > 0) {
+                String pawnString = languageCollection.getMenu()[27];
+                String number = "6";
+                String choiceString = String.format("%s,%s", pawnString, number);
+                choiceList = addToStringArray(choiceList, choiceString);
+            }
+            if (field instanceof TaxField) {
+
+            }
+            if (bank.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && bank.getPlayerNamesWithFieldsWithNoHouses().length > 1) {
+                String message = languageCollection.getMenu()[41];
+                choiceList = addToStringArray(choiceList, message + ",9");
+            }
+            Field[] canBuybackFields = bank.getPawnedFieldsByPlayer(player);
+            if (canBuybackFields.length > 0) {
+                String message = languageCollection.getMenu()[50];
+                choiceList = addToStringArray(choiceList, message + ",10");
+            }
+
+
+            String option = String.format(languageCollection.getMenu()[36] + ",0");
+
             choiceList = addToStringArray(choiceList, option);
-        }
-        PropertyField[] buildableProperty = bank.getPlayerBuildableFields(currentPlayer);
-        boolean playerCanBuild = (buildableProperty.length > 0);
-        if(playerCanBuild){
-            String option = languageCollection.getMenu()[35]+",5";
-            choiceList = addToStringArray(choiceList, option);
-        }
-        if(bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length>0){
-            String pawnString = languageCollection.getMenu()[27];
-            String number = "6";
-            String choiceString = String.format("%s,%s", pawnString, number);
-            choiceList = addToStringArray(choiceList, choiceString);
-        }
-        if(field instanceof TaxField){
 
-        }
-        if (bank.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && bank.getPlayerNamesWithFieldsWithNoHouses().length > 1){
-            String message = languageCollection.getMenu()[41];
-            choiceList = addToStringArray(choiceList, message+",9");
-        }
-        Field[] canBuybackFields = bank.getPawnedFieldsByPlayer(player);
-        if(canBuybackFields.length > 0){
-            String message = languageCollection.getMenu()[50];
-            choiceList = addToStringArray(choiceList, message+",10");
+            String[][] finalChoiceList = new String[choiceList.length][];
+
+            for (int i = 0; i < choiceList.length; i++) {
+                finalChoiceList[i] = choiceList[i].split(",");
+            }
+
+            return finalChoiceList;
         }
 
-
-        String option = String.format(languageCollection.getMenu()[36] + ",0");
-
-        choiceList = addToStringArray(choiceList, option);
-
-        String[][] finalChoiceList = new String[choiceList.length][];
-
-        for (int i = 0; i < choiceList.length ; i++) {
-            finalChoiceList[i] = choiceList[i].split(",");
-        }
-
-        return finalChoiceList;
-    }
 
     private String[] addToStringArray(String[] array, String newString){
         String[] newArray = new String[array.length + 1];
@@ -429,11 +441,33 @@ public class GameController {
                     break;
 
             case 1: useJailCard();
-                    currentPlayer.setDoubleTurnStatus(true);
-                    endTurn = true;
+                    checkIfinJailBeforeMoving();
+                    checkIfPassedStart();
+                    resolveField();
+                    checkIfPassedStart();
+
+                    while(!endTurn) {
+                        playerOptions(getChoices(currentPlayer),currentPlayer);
+                    }
+
+                    currentPlayer.setPassedStartStatus(false);
+
+                    setNextPlayer();
                     break;
 
             case 2: payToLeaveJail((JailField) field);
+                    checkIfinJailBeforeMoving();
+                    checkIfPassedStart();
+                    resolveField();
+                    checkIfPassedStart();
+
+                    while(!endTurn) {
+                        playerOptions(getChoices(currentPlayer),currentPlayer);
+                    }
+
+                    currentPlayer.setPassedStartStatus(false);
+
+                    setNextPlayer();
                     break;
 
             case 3: this.endTurn = true;
@@ -455,9 +489,21 @@ public class GameController {
             case 8: rollAndShowDice(currentPlayer);
                     if(currentPlayer.getDoubleTurnStatus()) {
                         movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
-                        resolveField();
                         currentPlayer.setInJail(false);
+                        checkIfPassedStart();
+                        resolveField();
+                        checkIfPassedStart();
+
+                        while(!endTurn) {
+                            playerOptions(getChoices(currentPlayer),currentPlayer);
+                        }
+
+                        currentPlayer.setPassedStartStatus(false);
+
+                        setNextPlayer();
+                        break;
                     }
+                    endTurn = true;
                     break;
 
             case 9: tradecontroller.transferAssets(player);
@@ -475,7 +521,6 @@ public class GameController {
         if(currentPlayer.getCurrentTurn() > currentPlayer.getJailTurn()){
             currentPlayer.setDoubleTurnStatus(false);
         }
-        checkIfinJailBeforeMoving();
     }
 
     public void sellJailCard() {

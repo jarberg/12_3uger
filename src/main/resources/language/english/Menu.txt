@@ -47,6 +47,7 @@ Which property would you like to pawn?
 The price of %s is currently %s
 %S rolled %s and moves forward.
 Raise Money
-You are in jail, %s
+You are in jail, %s. You can choose to try and roll 2 identical or pay kr. 50 and get out!
 Buy back pawned field
 You rolled identical rolls three times in a row, and are thrown directly in jail!
+You have been in jail 3 turns and are forced to pay kr. 50 for your freedom
