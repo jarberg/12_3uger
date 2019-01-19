@@ -239,7 +239,9 @@ public class Bank {
         for (Field field : playerFieldArray) {
             if(field instanceof Ownable){
                 if(!((Ownable) field).getPawnedStatus()){
-                    ownedFields= extendFieldArray(ownedFields, field);
+                    if (!(field instanceof PropertyField) || ((PropertyField) field).getBuildingCount() <= 0) {
+                        ownedFields= extendFieldArray(ownedFields, field);
+                    }
                 }
             }
         }
