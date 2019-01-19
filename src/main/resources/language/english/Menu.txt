@@ -49,3 +49,4 @@ The price of %s is currently %s
 Raise Money
 You are in jail, %s
 Buy back pawned field
+You rolled identical rolls three times in a row, and are thrown directly in jail!
