@@ -60,7 +60,7 @@ public interface ViewControllerInterface {
 
     String getUserButtonSelection(String message, String... options);
 
-    void showOwner(String fieldName, String name, Color playerColor);
+    void showOwner(String fieldName, Color playerColor);
 
     void updateFieldBuildings(String fieldName, int buildingCount);
 
@@ -68,5 +68,5 @@ public interface ViewControllerInterface {
 
     void vanishPlayer(String name, int positon);
 
-    void pawn(String fieldName, String name, Color playerColor, Color playerColor2);
+    void pawn(String fieldName, Color playerColor, Color playerColor2);
 }
