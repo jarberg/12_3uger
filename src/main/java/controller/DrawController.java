@@ -101,8 +101,6 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        int amount = 25*card.getMultiplier();
-
         int oldPosition = player.getPosition();
 
         int firFerry = 5;
@@ -122,18 +120,25 @@ public class DrawController implements Drawer {
 
         int newPosition = player.getPosition();
 
+
         String positionAsString = String.valueOf(newPosition);
         Field disbutedField = bank.getFieldById(positionAsString);
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
+        Player fieldOwner = bank.getOwnerOfField(positionAsString);
+        int howManyOfTheSameFieldTypeIsOwnedByOwner = (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]));
 
-        if(bank.fieldHasOwner(disbutedField.getID())){
-            Player otherPlayer =  bank.getOwnerOfField(positionAsString);
-            tradeController.transferAssets(player, otherPlayer, amount);
-        } else{
-            tradeController.askIfWantToBuy(player, disbutedField);
+        if (bank.fieldHasOwner(disbutedField.getID())) {
+            boolean fieldNotPawned = !((Ownable) disbutedField).getPawnedStatus();
+            if (fieldNotPawned){
+                int amount = ((Ownable)disbutedField).getRent(howManyOfTheSameFieldTypeIsOwnedByOwner) * card.getMultiplier();
+                tradeController.transferAssets(player, fieldOwner, amount);
+            } else {
+                tradeController.askIfWantToBuy(player, disbutedField);
+            }
         }
     }
+
 
     @Override //CARD: 6 - 8 - 11
     public void draw(GoToJail card) {
@@ -191,7 +196,7 @@ public class DrawController implements Drawer {
         int newPosition =  (board.getFields().length + oldPosition + amount) % board.getFields().length;
 
         player.setPositionWithStartMoney(newPosition);
-        if(amount<3){
+        if(amount < 3){
             player.setPassedStartStatus(false);
         }
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
