@@ -125,16 +125,20 @@ public class DrawController implements Drawer {
         Field disbutedField = bank.getFieldById(positionAsString);
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
-        Player fieldOwner = bank.getOwnerOfField(positionAsString);
-        int howManyOfTheSameFieldTypeIsOwnedByOwner = (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]));
+        if(bank.fieldHasOwner(positionAsString)){
+            if(!bank.isPlayerOwner(player, disbutedField)){
+                Player fieldOwner = bank.getOwnerOfField(positionAsString);
+                int howManyOfTheSameFieldTypeIsOwnedByOwner = (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]));
 
-        if (bank.fieldHasOwner(disbutedField.getID())) {
-            boolean fieldNotPawned = !((Ownable) disbutedField).getPawnedStatus();
-            if (fieldNotPawned){
-                int amount = ((Ownable)disbutedField).getRent(howManyOfTheSameFieldTypeIsOwnedByOwner) * card.getMultiplier();
-                tradeController.transferAssets(player, fieldOwner, amount);
-            } else {
-                tradeController.askIfWantToBuy(player, disbutedField);
+                if (bank.fieldHasOwner(disbutedField.getID())) {
+                    boolean fieldNotPawned = !((Ownable) disbutedField).getPawnedStatus();
+                    if (fieldNotPawned){
+                        int amount = ((Ownable)disbutedField).getRent(howManyOfTheSameFieldTypeIsOwnedByOwner) * card.getMultiplier();
+                        tradeController.transferAssets(player, fieldOwner, amount);
+                    } else {
+                        tradeController.askIfWantToBuy(player, disbutedField);
+                    }
+                }
             }
         }
     }

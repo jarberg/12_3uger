@@ -1,4 +1,4 @@
-package model.text;
+package utilities;
 
 public class LanguageStringCollection {
 

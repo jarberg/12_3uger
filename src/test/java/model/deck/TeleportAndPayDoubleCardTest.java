@@ -12,7 +12,7 @@ public class TeleportAndPayDoubleCardTest {
 
     @Before
     public void setUp(){
-        teleportAndPayDoubleCard=new TeleportAndPayDoubleCard("test",2,25,50,100,200);
+        teleportAndPayDoubleCard=new TeleportAndPayDoubleCard("test",2);
     }
 
     @After

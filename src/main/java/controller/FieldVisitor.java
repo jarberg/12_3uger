@@ -4,7 +4,7 @@ import model.board.*;
 import model.deck.Card;
 import model.deck.Deck;
 import model.player.Player;
-import model.text.LanguageStringCollection;
+import utilities.LanguageStringCollection;
 
 public class FieldVisitor implements Visitor  {
 

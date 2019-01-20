@@ -1,7 +1,7 @@
 package model.board;
 
-import model.text.LanguageStringCollection;
-import model.text.LogicStringCollection;
+import utilities.LanguageStringCollection;
+import utilities.LogicStringCollection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

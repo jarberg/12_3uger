@@ -3,10 +3,9 @@ package controller;
 import model.board.*;
 import model.player.Player;
 import model.player.PlayerList;
-import model.text.LanguageStringCollection;
+import utilities.LanguageStringCollection;
 
 import java.awt.*;
-import java.util.StringJoiner;
 
 import static java.awt.Color.black;
 
@@ -300,6 +299,8 @@ public class TradeController {
                 bank.addFieldToPlayer(auctionPlayers[0], field);
                 viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
                 viewController.showOwner(field.getTitle(), player.getPlayerColor());
+                String message = String.format(languageStringCollection.getMenu()[53], player.getName(), field.getTitle(), String.valueOf(price));
+                viewController.showMessage(message);
             }
         }else if(field instanceof Ownable){
             if(((Ownable) field).getPawnedStatus()){

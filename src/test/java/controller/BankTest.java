@@ -6,11 +6,10 @@ import model.board.Ownable;
 import model.board.PropertyField;
 import model.player.Player;
 import model.player.PlayerList;
-import model.text.LanguageStringCollection;
-import model.text.LogicStringCollection;
+import utilities.LanguageStringCollection;
+import utilities.LogicStringCollection;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

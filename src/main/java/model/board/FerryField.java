@@ -15,8 +15,6 @@ public class FerryField extends Ownable {
 
     @Override
     public int getRent(int amountOwned) {
-        if(this.getPawnedStatus())
-            return 0;
         return rents[amountOwned-1];
     }
 

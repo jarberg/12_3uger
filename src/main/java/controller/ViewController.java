@@ -1,11 +1,10 @@
 package controller;
 
-import gui_codebehind.GUI_Center;
 import gui_fields.*;
 import gui_main.GUI;
 import model.board.Field;
 import model.board.PropertyField;
-import model.text.LanguageStringCollection;
+import utilities.LanguageStringCollection;
 
 import java.awt.*;
 
@@ -156,9 +155,6 @@ public class ViewController implements ViewControllerInterface {
 
     }
 
-
-
-
     private GUI_Player getPlayerByName(String playerName){
         GUI_Player player = null;
         for(GUI_Player p : gui_players){
@@ -168,6 +164,7 @@ public class ViewController implements ViewControllerInterface {
 
         return player;
     }
+
     @Override
     public GUI_Player[] getGUI_Players() {
         return gui_players;

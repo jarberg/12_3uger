@@ -5,9 +5,9 @@ import model.deck.Deck;
 import model.misc.DieSet;
 import model.player.Player;
 import model.player.PlayerList;
-import model.text.FileReader;
-import model.text.LanguageStringCollection;
-import model.text.LogicStringCollection;
+import utilities.FileReader;
+import utilities.LanguageStringCollection;
+import utilities.LogicStringCollection;
 
 import java.awt.*;
 
