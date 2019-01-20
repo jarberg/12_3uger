@@ -54,12 +54,10 @@ public class Deck {
 
     public void shuffleDeck() {
 
-        Random random = new Random(); //generator random number
-
-        for (int i = 0; i < cardArray.length; i++) {
-            int randomPosition = random.nextInt(cardArray.length);
+        for (int i = 0; i <cardArray.length; i++) {
+            int randomPosition = (int) (Math.random() * (cardArray.length));
             Card temp = cardArray[i];
-            cardArray[i] = cardArray[randomPosition];
+            cardArray[i]= cardArray[randomPosition];
             cardArray[randomPosition] = temp;
         }
     }
