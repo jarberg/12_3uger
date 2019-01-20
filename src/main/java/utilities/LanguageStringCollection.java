@@ -6,29 +6,34 @@ public class LanguageStringCollection {
 
     private FileReader fileReader = FileReader.getSingleInstance();
 
-    private LanguageStringCollection(){
+    private String[][] fieldsTextHolder;
+    private String[] directoriesTextHolder;
+    private String[][] chanceCardTextHolder;
+    private String[] menuTextHolder;
 
+    private LanguageStringCollection(){
+        fieldsTextHolder =fileReader.getFieldInfo();
+        directoriesTextHolder =fileReader.getDirectoriesStringArray();
+        chanceCardTextHolder =fileReader.getChanceCardsText();
+        menuTextHolder =fileReader.getMenuText();
     }
+
+
 
     public static LanguageStringCollection getSingleInstance(){
         return singletonInstance;
     }
 
     public String[][] getFieldsText() {
-        return fileReader.getFieldInfo();
+        return fieldsTextHolder;
     }
 
-
-    public String[] getDirectories() {
-        return fileReader.getDirectoriesStringArray();
-    }
+    public String[] getDirectories() { return directoriesTextHolder;    }
 
     public String[][] getChanceCard() {
-        return fileReader.getChanceCardsText();
+        return chanceCardTextHolder;
     }
 
-    public String[] getMenu(){
-        return fileReader.getMenuText();
-    }
+    public String[] getMenu(){ return menuTextHolder; }
 
 }
