@@ -226,7 +226,7 @@ public class TradeController {
     }
 
     public void buyBackPawnedProperty(Player player){
-        String message = "buy pawned property";
+        String message = languageStringCollection.getMenu()[56];
         Field[] pawnNames = playerFieldRelationController.getPawnedFieldsByPlayer(player);
         String[] fieldNames = new String[pawnNames.length];
         for (int i = 0; i < fieldNames.length; i++) {

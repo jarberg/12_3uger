@@ -54,3 +54,4 @@ De har vaeret i faengsel i tre ture, og bliver tvunget til at betale frihedsafgi
 %s har koebt %s paa auktion for %s
 Du rullede 2 ens og kom ud af fængsel
 Du rullede IKKE 2 ens og blev i fængselet
+"køb pansat ejendom tilbage"
