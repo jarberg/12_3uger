@@ -135,7 +135,9 @@ public class Bank {
                     for (Field f : playerField) {
                         if (f instanceof PropertyField) {
                             if (((PropertyField) f).getType().equals(((PropertyField) field).getType())) {
-                                count++;
+                                if(!((PropertyField)f).getPawnedStatus()){
+                                    count++;
+                                }
                             }
                         }
                     }

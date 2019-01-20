@@ -159,7 +159,7 @@ public class DrawControllerTest {
         assertTrue(field instanceof FerryField);
         int amount = ((FerryField)field).getRent(1);
 
-        TeleportAndPayDoubleCard card = new TeleportAndPayDoubleCard("desc", 2);
+        TeleportAndPayDoubleCard card = new TeleportAndPayDoubleCard("desc", 2,25,50,100,200);
 
         int multiplied = card.getMultiplier();
 
