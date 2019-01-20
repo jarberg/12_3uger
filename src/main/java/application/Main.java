@@ -1,3 +1,5 @@
+package application;
+
 import controller.GameController;
 import model.deck.Card;
 

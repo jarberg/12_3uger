@@ -462,10 +462,7 @@ public class DeckTest {
 
         double averageNotTheSameCount = testAmount*cardArrayLength*(cardArrayLength-0.9)/cardArrayLength;
         double averageTheSameCount = testAmount*cardArrayLength*0.9/cardArrayLength;
-        /*
-        System.out.println("The same count: "+theSame);
-        System.out.println("Average the same count: "+averageTheSameCount);
-        */
+
         System.out.println("Not the same count: "+notTheSame);
         System.out.println("Average not the same count: "+averageNotTheSameCount);
 

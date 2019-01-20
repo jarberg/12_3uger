@@ -24,7 +24,7 @@ public class BoardTest {
     }
 
     @Test
-    public void setupBoard() {
+    public void shouldSetupBoard() {
         int[] numOfFieldType = new int[9];
 
         board.setupBoard();

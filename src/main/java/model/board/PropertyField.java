@@ -21,7 +21,7 @@ public class PropertyField extends Ownable {
 
     @Override
     public void accept(Visitor visitor){
-        visitor.visit(this);
+        visitor.landOnField(this);
     }
 
     public int getBuildingPrice(){
