@@ -52,3 +52,5 @@ Koeb et pantsat felt tilbage
 De har slaaet to ens tre gange i traek, og ryger direkte i faengsel!
 De har vaeret i faengsel i tre ture, og bliver tvunget til at betale frihedsafgiften kr. 50
 %s har koebt %s paa auktion for %s
+Du rullede 2 ens og kom ud af fængsel
+Du rullede IKKE 2 ens og blev i fængselet

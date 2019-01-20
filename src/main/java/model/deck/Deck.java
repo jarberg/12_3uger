@@ -53,7 +53,6 @@ public class Deck {
     }
 
     public void shuffleDeck() {
-
         for (int i = 0; i <cardArray.length; i++) {
             int randomPosition = (int) (Math.random() * (cardArray.length));
             Card temp = cardArray[i];
@@ -73,16 +72,12 @@ public class Deck {
     public void putTopCardToBottom(){
 
         int cardArrayLength = cardArray.length;
-
         Card[] temporaryArray = new Card[cardArrayLength];
-
         for (int i = 0; i < cardArrayLength-1; i++) {
             temporaryArray[i] = cardArray[(i+1)];
 
         }
-
         temporaryArray[cardArrayLength-1] = cardArray[0];
-
         for (int j = 0; j < cardArrayLength; j++) {
             cardArray[j] = temporaryArray[j];
 

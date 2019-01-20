@@ -255,7 +255,6 @@ public class GameController {
         FileReader.setLanguage(language);
     }
 
-
     public String getPlayerCount(){
         return String.valueOf(playerCount);
     }
@@ -316,7 +315,6 @@ public class GameController {
         return playerAmount;
     }
 
-
     public void buyBuilding(Player player, PropertyField field){
         tradecontroller.buyBuilding(player, field);
     }
@@ -337,8 +335,7 @@ public class GameController {
             //TODO: Had a player stuck in jail forever
             if (currentField instanceof JailField) {
 
-
-                    if (currentPlayer.getCurrentTurn() > currentPlayer.getJailTurn()) {
+                    if (currentPlayer.getCurrentTurn() > currentPlayer.getJailTurn() && currentPlayer.isInJail()) {
                         String option = String.format(languageCollection.getMenu()[34] + ",8");
                         choiceList = addToStringArray(choiceList, option);
                     }
@@ -487,7 +484,10 @@ public class GameController {
                     break;
 
             case 8: rollAndShowDice(currentPlayer);
+                    currentPlayer.setPositionWithoutStartMoney(dice.getValue());
+
                     if(currentPlayer.getDoubleTurnStatus()) {
+                        viewController.showMessage(languageCollection.getMenu()[54]);
                         movePlayer(currentPlayer, currentPlayer.getPosition(), dice.getValue());
                         currentPlayer.setInJail(false);
                         checkIfPassedStart();
@@ -503,6 +503,7 @@ public class GameController {
                         setNextPlayer();
                         break;
                     }
+                    viewController.showMessage(languageCollection.getMenu()[55]);
                     endTurn = true;
                     break;
 

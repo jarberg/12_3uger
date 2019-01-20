@@ -52,3 +52,5 @@ Buy back pawned field
 You rolled identical rolls three times in a row, and are thrown directly in jail!
 You have been in jail 3 turns and are forced to pay kr. 50 for your freedom
 %s has bought %s on auction for %s
+You made a doubleroll and got released from jail
+You didnt roll a double and get to stay in jail
