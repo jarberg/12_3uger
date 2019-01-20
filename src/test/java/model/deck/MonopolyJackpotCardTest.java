@@ -22,12 +22,12 @@ public class MonopolyJackpotCardTest {
     }
 
     @Test
-    public void getAmount() {
+    public void shouldGetAmount() {
         assertEquals(monopolyJackpotCard.getAmount(),100);
     }
 
     @Test
-    public void getJackpot() {
+    public void shouldGetJackpot() {
         assertEquals(monopolyJackpotCard.getJackpot(),1000);
     }
 }
