@@ -40,7 +40,7 @@ Which player would You like to trade property with?
 Which property would you like in exchange?
 Does %s accept to trade %s in exchange for %s ?
 Trade property
-Please write a new name!
+Please write a new name longer than 3 letters!
 Which property would you like to pawn?
 %s is going up for auction after %s passed on buying it!
 %s, do You want to participate in the auction?

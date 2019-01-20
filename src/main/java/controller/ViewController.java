@@ -185,7 +185,7 @@ public class ViewController implements ViewControllerInterface {
         String name = "";
         while (true){
             name = gui.getUserString(message);
-            if (name.length() < 1)
+            if (name.length() < 3)
                 showMessage(languageStringCollection.getMenu()[42]);
             else{
                 break;

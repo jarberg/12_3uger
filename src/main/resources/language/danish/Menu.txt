@@ -40,7 +40,7 @@ Hvilken spiller vil De gerne bytte grund med?
 Hvilken grund vil de bytte grunden for?
 Accepterer %s at give %s i bytte for %s ?
 Byt grund
-Vaer venlig at skrive et nyt navn!
+Vaer venlig at skrive et nyt navn længere end 3 bogstaver!
 Hvilken grund oensker du at pantsaette?
 %s er paa offentlig auktion fordi %s valgte ikke at koebe den!
 %s, vil De deltage i auktionen?
