@@ -34,7 +34,7 @@ public class GameController {
     private boolean threwDice = false;
     private int playerCount = 1;
 
-    //TODO: if time. split into use case controllers
+
     private GameController(){
 
         this.fileReader         = FileReader.getSingleInstance();
@@ -264,7 +264,7 @@ public class GameController {
     }
 
     public void createPlayers() {
-        //TODO: playerAmount redundancy
+
         createPlayerList(playerAmount);
         for (int i = 0; i < playerAmount; i++) {
 
@@ -283,7 +283,7 @@ public class GameController {
 
     public void makePlayerChooseCar() {
         for (Player player : playerlist.getAllPlayers()){
-            //TODO:
+
             Color chosenColor = viewController.getUserColor(player.getName());
             player.setPlayerColor(chosenColor);
         }
@@ -315,7 +315,7 @@ public class GameController {
     public int getPlayerAmount() {
         if (playerAmount == 0)
             playerAmount = viewController.getPlayerAmount(logicCollection.getPlayerAmount());
-            //TODO: Getplayerchoice, no hardcoded options
+
         return playerAmount;
     }
 
@@ -323,7 +323,7 @@ public class GameController {
         tradecontroller.buyBuilding(player, field);
     }
 
-    //TODO: Use trade controller
+
     public void payment(Player player, int amount){
         tradecontroller.transferAssets(player, amount);
     }
@@ -334,9 +334,9 @@ public class GameController {
 
         Field field = board.getFields()[player.getPosition() % 40];
 
-        //TODO: Sell jail card (not end turn + work)
+
         if (playerInJail) {
-            //TODO: Had a player stuck in jail forever
+
             if (currentField instanceof JailField) {
 
                     if (currentPlayer.getCurrentTurn() > currentPlayer.getJailTurn() && currentPlayer.isInJail()) {
@@ -474,7 +474,7 @@ public class GameController {
             case 3: this.endTurn = true;
                     break;
 
-            //TODO: Make sure this method isn't breaking anything
+
             case 4: sellJailCard();
                     break;
 
@@ -563,7 +563,7 @@ public class GameController {
         buyBuilding(currentPlayer, (PropertyField) test);
     }
 
-    //TODO: 3???
+
     private void pawnProperty(Player player){
         String message = languageCollection.getMenu()[43];
         String[] options = playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(player);

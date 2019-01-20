@@ -185,7 +185,7 @@ public class PlayerFieldRelationController {
     public Field getFieldById(String fieldID){
         Field field = null;
 
-        //TODO: Make sure index is appropriate and does not need +1 or -1.
+
         field = board.getFields()[Integer.parseInt(fieldID)];
 
         return field;
