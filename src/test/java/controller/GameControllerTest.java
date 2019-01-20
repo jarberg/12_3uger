@@ -148,7 +148,7 @@ public class GameControllerTest {
             gameCon.setupGame();
             Player player = gameCon.getPlayerList().getCurrentPlayer();
             if(viewController instanceof ViewControllerStub){
-                ((ViewControllerStub) viewController).setChoice("Yes");
+                ((ViewControllerStub) viewController).setChoice("Ja");
             }
             gameCon.checkIfinJailBeforeMoving();
             gameCon.resolveField();
