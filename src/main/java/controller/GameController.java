@@ -183,6 +183,7 @@ public class GameController {
 
     public void setupGame(){
         setupLanguage();
+        logicCollection.getTextFromFileReader();
         this.playerAmount = getPlayerAmount();
         createPlayers();
         makePlayerChooseCar();
@@ -235,6 +236,9 @@ public class GameController {
         setFilepathLanguage(userLanguage);
         this.logicCollection = LogicStringCollection.getSingleInstance();
         this.languageCollection = LanguageStringCollection.getSingleInstance();
+        setFilepathLanguage(userLanguage);
+        languageCollection.getTextFromFileReader();
+
     }
 
     public boolean hasPlayerWithName(String name){

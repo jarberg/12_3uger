@@ -12,10 +12,7 @@ public class LanguageStringCollection {
     private String[] menuTextHolder;
 
     private LanguageStringCollection(){
-        fieldsTextHolder =fileReader.getFieldInfo();
         directoriesTextHolder =fileReader.getDirectoriesStringArray();
-        chanceCardTextHolder =fileReader.getChanceCardsText();
-        menuTextHolder =fileReader.getMenuText();
     }
 
 
@@ -36,4 +33,10 @@ public class LanguageStringCollection {
 
     public String[] getMenu(){ return menuTextHolder; }
 
+    public void getTextFromFileReader(){
+        fieldsTextHolder =fileReader.getFieldInfo();
+
+        chanceCardTextHolder =fileReader.getChanceCardsText();
+        menuTextHolder =fileReader.getMenuText();
+    }
 }

@@ -12,9 +12,7 @@ public class LogicStringCollection{
 
     private LogicStringCollection(){
 
-        ChanceCardTextHolder = filereader.getChanceCardsLogic();
-        this.fieldsTexHolder = filereader.getFieldsInt();
-        playerAmount = filereader.getPlayerAmount()[0];
+
     }
 
     public static LogicStringCollection getSingleInstance(){
@@ -28,4 +26,10 @@ public class LogicStringCollection{
     public String[][] getChanceCard() { return ChanceCardTextHolder; }
 
     public String[] getPlayerAmount(){return playerAmount;}
+
+    public void getTextFromFileReader(){
+        ChanceCardTextHolder = filereader.getChanceCardsLogic();
+        this.fieldsTexHolder = filereader.getFieldsInt();
+        playerAmount = filereader.getPlayerAmount()[0];
+    }
 }
