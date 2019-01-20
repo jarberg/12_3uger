@@ -5,10 +5,8 @@ import controller.Visitor;
 import java.awt.*;
 
 public class JailField extends Field {
-
     private int bailAmount;
     private int maxSuccessiveAttempts;
-
 
     public JailField(String ID, String title, String subtitle, String message, Color fieldColor, int releaseCharge, int maxSuccessiveAttempts){
         super(ID, title, subtitle, message, fieldColor);
@@ -29,5 +27,4 @@ public class JailField extends Field {
     public int getMaxSuccesiveAttempts(){
         return maxSuccessiveAttempts;
     }
-
 }

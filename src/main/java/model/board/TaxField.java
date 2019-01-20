@@ -5,7 +5,6 @@ import controller.Visitor;
 import java.awt.*;
 
 public class TaxField extends Field{
-
     private int flatAmount;
     private int percentage;
 
@@ -28,5 +27,4 @@ public class TaxField extends Field{
     public int getPercentage(){
         return percentage;
     }
-
 }

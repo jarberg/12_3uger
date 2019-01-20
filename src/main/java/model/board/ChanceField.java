@@ -14,5 +14,4 @@ public class ChanceField extends Field {
     public void accept(Visitor visitor){
         visitor.landOnField(this);
     }
-
 }

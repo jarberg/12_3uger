@@ -4,7 +4,6 @@ import java.awt.*;
 
 
 public abstract class Ownable extends Field {
-
     private boolean pawned;
     private String type;
     int[] rents;
@@ -32,5 +31,4 @@ public abstract class Ownable extends Field {
     public int getPrice(){
         return price;
     }
-
 }

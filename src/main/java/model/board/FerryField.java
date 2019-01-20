@@ -6,8 +6,6 @@ import java.awt.*;
 
 public class FerryField extends Ownable {
 
-
-
     public FerryField(String ID, String title, String subtitle, String message, Color fieldColor, String type, int price, int... rents ) {
         super(ID, title, subtitle, message, fieldColor,type,price,rents);
 
@@ -18,16 +16,8 @@ public class FerryField extends Ownable {
         return rents[amountOwned-1];
     }
 
-
     @Override
     public void accept(Visitor visitor) {
         visitor.landOnField(this);
     }
-
-
-
-
-
-
-
 }
