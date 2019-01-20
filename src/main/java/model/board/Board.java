@@ -24,10 +24,6 @@ public class Board {
         }
     }
 
-    public int getBoardSize(){
-        return fields.length;
-    }
-
     private Color decideFieldColor(int[] fieldLogic) {
         Color fieldColor = new Color(0,0,0);
         int fieldGroup = fieldLogic[2];
