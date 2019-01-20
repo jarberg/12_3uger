@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.Scanner;
 
 public class FileReader {
-
     private static final String LANGUAGE_DIRECTORY_PATH = "language/";
     private static final String LOGIC_DIRECTORY_PATH = "logic/";
     private static final String CHANCECARD_FILENAME = "/ChanceCards.txt";
@@ -28,7 +27,6 @@ public class FileReader {
     public static void setLanguage(String newLanguage){
         language = newLanguage;
     }
-    //reads from given filepath
 
     private String[] read1DFromFile(String filePath, String directory){
         InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(directory + filePath);
@@ -48,10 +46,7 @@ public class FileReader {
         return stringList;
     }
 
-    //Uses reader method to build a 2d stringArray from a given filepath+filename
-
     private String[][] twoDStringArray(String fileName, String directory){
-
         String newFilepath = language+fileName;
         String[] stringArray = read1DFromFile(newFilepath, directory);
         String[][] finalStringArray = new String[stringArray.length][];
@@ -63,8 +58,6 @@ public class FileReader {
     }
 
     private String[][] twoDStringArrayLogic(String fileName, String directory){
-
-
         String[] stringArray = read1DFromFile(fileName, directory);
         String[][] finalStringArray = new String[stringArray.length][];
 
@@ -75,7 +68,6 @@ public class FileReader {
     }
 
     private int[][] twoDIntArray(String fileName, String directory){
-
         String[] stringArray = read1DFromFile(fileName, directory);
         int[][] finalStringArray = new int[stringArray.length][];
 
@@ -90,12 +82,9 @@ public class FileReader {
         return finalStringArray;
     }
 
-    //Uses reader method to build a stringArray from a given filepath+filename
 
     private String[] oneDStringArray(String fileName, String directory){
         String newFilepath = language+fileName;
-        //String[] finalFields = new String[fields.length];
-        //System.arraycopy(fields, 0, finalFields, 0, finalFields.length);
         return read1DFromFile(newFilepath, directory);
     }
 

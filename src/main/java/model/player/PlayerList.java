@@ -1,20 +1,14 @@
 package model.player;
 
 public class PlayerList {
-
     private int playerAmount;
     private Player[] playerList;
-
-    //constructor
 
     public PlayerList(int amount){
 
         this.playerAmount = amount;
         playerList = new Player[playerAmount];
     }
-
-
-    //getters
 
     public Player getPlayer(int index){ return playerList[index]; }
 
@@ -33,7 +27,6 @@ public class PlayerList {
         return player;
     }
 
-    //setters
     public void addPlayer(int index, Player player){
         this.playerList[index] = player;
     }
@@ -68,4 +61,3 @@ public class PlayerList {
         return otherPlayers;
     }
 }
-

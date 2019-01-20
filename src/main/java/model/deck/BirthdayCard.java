@@ -3,7 +3,6 @@ package model.deck;
 import controller.Drawer;
 
 public class BirthdayCard extends Card {
-
     private int amount;
 
     public BirthdayCard(String description, int amount) {
@@ -21,4 +20,3 @@ public class BirthdayCard extends Card {
         return amount;
     }
 }
-

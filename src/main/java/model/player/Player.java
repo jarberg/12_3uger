@@ -3,9 +3,7 @@ package model.player;
 import java.awt.*;
 
 public class Player {
-
     private Account account;
-
     private String name;
     private Color playerColor;
     private int position = 0;
@@ -19,9 +17,7 @@ public class Player {
     private int jailTurn=0;
     private int currentTurn;
 
-    //constructor
     public Player(String name){
-
         account = new Account();
         broke = false;
         hasGetOutOfJailCard = false;
@@ -29,8 +25,6 @@ public class Player {
         this.name = name;
     }
 
-
-    //getters
     public String getName(){ return this.name;    }
 
     public boolean getJailCardStatus(){   return this.hasGetOutOfJailCard; }
@@ -53,7 +47,6 @@ public class Player {
         return hasPassedStart;
     }
 
-    //Setters
     public void setJailCardStatus(boolean status){   this.hasGetOutOfJailCard = status; }
 
     public void addToBalance(int amount){ this.account.addToBalance(amount); }
@@ -91,11 +84,9 @@ public class Player {
         if(!inJail){
             this.doublethrownum=0;
         }
-
     }
 
     public boolean isInJail() {
-
         return inJail;
     }
 
@@ -121,7 +112,6 @@ public class Player {
     public void setJailTurn() {
         this.jailTurn = currentTurn;
     }
-
 
     public void addCurrentTurn() {
         this.currentTurn++;

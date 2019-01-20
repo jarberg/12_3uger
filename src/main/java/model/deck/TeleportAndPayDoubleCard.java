@@ -3,7 +3,6 @@ package model.deck;
 import controller.Drawer;
 
 public class TeleportAndPayDoubleCard extends Card{
-
     private int multiplier;
 
     public TeleportAndPayDoubleCard(String description, int multiplier) {

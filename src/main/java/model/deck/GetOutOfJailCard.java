@@ -5,8 +5,6 @@ import controller.Drawer;
 public class GetOutOfJailCard extends Card{
     private int price;
 
-
-
     public GetOutOfJailCard(String description, int price) {
         super(description);
         this.price = price;

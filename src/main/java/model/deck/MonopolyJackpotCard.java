@@ -3,7 +3,6 @@ package model.deck;
 import controller.Drawer;
 
 public class MonopolyJackpotCard extends Card {
-
     private int amount;
     private int jackpot;
 
@@ -19,7 +18,6 @@ public class MonopolyJackpotCard extends Card {
     public void accept(Drawer drawer) {
         drawer.draw(this);
     }
-
 
     public int getAmount() {
         return amount;

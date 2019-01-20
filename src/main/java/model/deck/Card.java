@@ -1,7 +1,6 @@
 package model.deck;
 
 public abstract class Card implements Drawable {
-
     private String description;
 
     public Card(String description) {

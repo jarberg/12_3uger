@@ -6,7 +6,6 @@ public class PayForBuildingsCard extends Card {
     private int house;
     private int hotel;
 
-
     public PayForBuildingsCard(String description, int house, int hotel) {
         super(description);
 
@@ -18,7 +17,6 @@ public class PayForBuildingsCard extends Card {
     public void accept(Drawer drawer) {
         drawer.draw(this);
     }
-
 
     public int getHotel() {
         return hotel;

@@ -3,7 +3,6 @@ package model.deck;
 import controller.Drawer;
 
 public class MoveAmountCard extends Card {
-
     private int amount;
 
     public MoveAmountCard(String description, int amount) {
@@ -20,5 +19,4 @@ public class MoveAmountCard extends Card {
     public int getAmount() {
         return amount;
     }
-
 }

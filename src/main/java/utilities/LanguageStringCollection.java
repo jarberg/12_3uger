@@ -1,11 +1,8 @@
 package utilities;
 
 public class LanguageStringCollection {
-
     private static LanguageStringCollection singletonInstance = new LanguageStringCollection();
-
     private FileReader fileReader = FileReader.getSingleInstance();
-
     private String[][] fieldsTextHolder;
     private String[] directoriesTextHolder;
     private String[][] chanceCardTextHolder;
@@ -14,8 +11,6 @@ public class LanguageStringCollection {
     private LanguageStringCollection(){
         directoriesTextHolder =fileReader.getDirectoriesStringArray();
     }
-
-
 
     public static LanguageStringCollection getSingleInstance(){
         return singletonInstance;
@@ -35,7 +30,6 @@ public class LanguageStringCollection {
 
     public void getTextFromFileReader(){
         fieldsTextHolder =fileReader.getFieldInfo();
-
         chanceCardTextHolder =fileReader.getChanceCardsText();
         menuTextHolder =fileReader.getMenuText();
     }
