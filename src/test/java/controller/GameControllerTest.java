@@ -57,7 +57,7 @@ public class GameControllerTest {
     @Test
     public void shouldChangeLanguage(){
         fileReader.setDefaultLanguage();
-
+        languageCollection.getTextFromFileReader();
         String originalMenu = languageCollection.getMenu()[0];
         String originalCard = languageCollection.getChanceCard()[0][1];
         String originalField = languageCollection.getFieldsText()[7][1];
