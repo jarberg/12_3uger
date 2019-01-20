@@ -9,8 +9,6 @@ import utilities.LanguageStringCollection;
 import java.awt.*;
 
 public class ViewController implements ViewControllerInterface {
-
-
     private final LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private GUI gui;
     private GUI_Field[] gui_board;
@@ -54,8 +52,6 @@ public class ViewController implements ViewControllerInterface {
         this.gui = new GUI(new GUI_Field[0]);
     }
 
-
-
     @Override
     public void showGUI(){
         if(this.gui != null)
@@ -63,7 +59,6 @@ public class ViewController implements ViewControllerInterface {
 
         this.gui = new GUI(gui_board,new Color(234, 234, 227));
     }
-
 
     @Override
     public void addPlayer(String name, Color color, int balance){
@@ -82,7 +77,6 @@ public class ViewController implements ViewControllerInterface {
         gui_players = temp;
         GUI_Car car = makePlayerCar(color);
         GUI_Player newPlayer = new GUI_Player(name, balance, car);
-
         gui_players[length] = newPlayer;
     }
 
@@ -119,6 +113,7 @@ public class ViewController implements ViewControllerInterface {
             }
         }
     }
+
     @Override
     public void movePlayer(String playerName, int position, int amount){
         GUI_Player movingPlayer = getPlayerByName(playerName);
@@ -137,7 +132,6 @@ public class ViewController implements ViewControllerInterface {
         }
     }
 
-
     @Override
     public void teleportPlayer(String playerName, int oldposition, int newposition){
         GUI_Player teleportPlayer = getPlayerByName(playerName);
@@ -152,7 +146,6 @@ public class ViewController implements ViewControllerInterface {
             if(p.getName().equals(playerName))
                 player = p;
         }
-
         return player;
     }
 
@@ -163,7 +156,6 @@ public class ViewController implements ViewControllerInterface {
 
     @Override
     public String getUserLanguage() {
-        // default language is english otherwise change the string argument below :))))
         String[] languageChoices = languageStringCollection.getDirectories();
         String userChoice = gui.getUserSelection("Choose a language", languageChoices);
         return userChoice;
@@ -256,15 +248,11 @@ public class ViewController implements ViewControllerInterface {
     @Override
     public void addBuilding(PropertyField field){
         if(field.getBuildingCount()==5){
-
             ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHotel(true);
         }
         else{
             ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHouses(field.getBuildingCount());
-
         }
-
-
     }
 
     @Override
@@ -274,7 +262,6 @@ public class ViewController implements ViewControllerInterface {
             if(p.getName()==name){
                 player = p;
             }
-
         }
         return player;
     }
@@ -282,7 +269,6 @@ public class ViewController implements ViewControllerInterface {
 
     @Override
     public String getUserSelection(String message, String... choiceOptions) {
-
         return gui.getUserSelection(message, choiceOptions);
     }
 
@@ -302,6 +288,7 @@ public class ViewController implements ViewControllerInterface {
         GUI_Field field = getGUIFieldByName(fieldName);
         ((GUI_Street) field).setBorder(playerColor, playerColor2);
     }
+
     @Override
     public void updateFieldBuildings(String fieldName, int buildingCount) {
         GUI_Street field = (GUI_Street)getGUIFieldByName(fieldName);
@@ -333,5 +320,4 @@ public class ViewController implements ViewControllerInterface {
         GUI_Player player = getGui_playerByName(name);
         gui_board[positon].setCar(player, false);
     }
-
 }

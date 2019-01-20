@@ -7,7 +7,6 @@ import model.player.Player;
 import utilities.LanguageStringCollection;
 
 public class FieldVisitor implements Visitor  {
-
     private static final int PROPERTY_MULTIPLIER = 2;
     private Player player;
     private Player[] otherPlayers;
@@ -40,7 +39,6 @@ public class FieldVisitor implements Visitor  {
         player.setPositionWithoutStartMoney(10);
         player.setInJail(true);
         player.setDoubleTurnStatus(false);
-
     }
 
     @Override
@@ -62,8 +60,8 @@ public class FieldVisitor implements Visitor  {
         viewController.showMessage(field.getMessage());
         int diceRoll = player.getPosition() - player.getLastPosition();
         boolean playerIsOwner = playerFieldRelationController.isPlayerOwner(player, field);
-        if(!playerIsOwner){
 
+        if(!playerIsOwner){
             boolean ownedByAnotherPlayer = playerFieldRelationController.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
@@ -118,13 +116,10 @@ public class FieldVisitor implements Visitor  {
                 tradeController.transferAssets(player, -amount);
             }
         }
-
     }
 
     @Override
     public void landOnField(StartField field) {
         viewController.showMessage(field.getMessage());
     }
-
-
 }

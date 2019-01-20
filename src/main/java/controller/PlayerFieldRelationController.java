@@ -5,13 +5,10 @@ import model.player.Player;
 import model.player.PlayerList;
 
 public class PlayerFieldRelationController {
-
     private String[][] fieldOwnerArray;
     private int playerListLength;
     private PlayerList playerList;
     private Board board;
-
-
 
     private static PlayerFieldRelationController singletonInstance = new PlayerFieldRelationController();
 
@@ -87,7 +84,6 @@ public class PlayerFieldRelationController {
                 }
             }
         }
-
         return hasOwner;
     }
 
@@ -158,7 +154,6 @@ public class PlayerFieldRelationController {
                     }
                 }
             }
-
         }
         return (count == amountOfFields);
     }
@@ -178,18 +173,13 @@ public class PlayerFieldRelationController {
                 netWorth += ((Ownable) ownedfields[i]).getPrice();
             }
         }
-
         return netWorth;
     }
 
     public Field getFieldById(String fieldID){
         Field field = null;
-
-
         field = board.getFields()[Integer.parseInt(fieldID)];
-
         return field;
-
     }
 
     public Field getFieldByName(String fieldName){
@@ -270,7 +260,6 @@ public class PlayerFieldRelationController {
     }
 
     public int getAmountOfTypeOwned(Player owner, Ownable field) {
-
         Field[] ownedFields = getPlayerFields(owner);
         int counter = 0;
         String fieldType = "";
@@ -431,9 +420,7 @@ public class PlayerFieldRelationController {
                 }
             }
         }
-
         return fieldsPawnedCopy;
-
     }
 
     public void setBoard(Board board){
@@ -458,8 +445,4 @@ public class PlayerFieldRelationController {
         returnArray = temp;
         return returnArray;
     }
-
-
 }
-
-

@@ -10,7 +10,6 @@ import java.awt.*;
 import static java.awt.Color.black;
 
 public class TradeController {
-
     private static final int PRICE_INCREMENT = 50;
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
@@ -64,9 +63,7 @@ public class TradeController {
                 if(field instanceof Ownable){
                     player.addToBalance(((Ownable) field).getPrice() / 2);
                 }
-                //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
             }
-
             else if(choice.equals(sellHouseOption)){
                 String[] fieldNames = new String[fieldsWithHouses.length];
                 for (int i = 0; i < fieldNames.length; i++) {
@@ -78,9 +75,7 @@ public class TradeController {
                 viewController.updateFieldBuildings(sellingField, (field.getBuildingCount()));
                 player.addToBalance(field.getBuildingPrice()/2);
             }
-
         }
-
         else if (fieldsWithHouses.length > 0){
             viewController.getUserButtonSelection(sellMessage, sellHouseOption);
             String[] fieldNames = new String[fieldsWithHouses.length];
@@ -92,9 +87,7 @@ public class TradeController {
             field.removeBuilding();
             viewController.updateFieldBuildings(sellingField, (field.getBuildingCount()));
             player.addToBalance(field.getBuildingPrice()/2);
-
         }
-
         else if (fieldsWithoutHouses.length > 0){
             viewController.getUserButtonSelection(sellMessage, sellFieldOption);
             String[] fieldNames = new String[fieldsWithoutHouses.length];
@@ -109,9 +102,7 @@ public class TradeController {
             if(field instanceof Ownable){
                 player.addToBalance(((Ownable) field).getPrice() / 2);
             }
-            //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
         }
-
         else {
             String brokeMessage = String.format(languageStringCollection.getMenu()[22], player.getName());
             viewController.showMessage(brokeMessage);
@@ -149,7 +140,6 @@ public class TradeController {
         String message = languageStringCollection.getMenu()[37];
         String[] names = playerFieldRelationController.getPlayerNamesWithFieldsWithNoHouses();
 
-        // update names so it does not include the sourcePlayer
         String[] temp = new String[names.length-1];
         int counter = 0;
         for (String name : names) {
@@ -167,11 +157,9 @@ public class TradeController {
         String sourceProperty = viewController.getUserSelection(message3, playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
         Field sField = playerFieldRelationController.getFieldByName(sourceProperty);
 
-
         String message4 = languageStringCollection.getMenu()[39];
         String targetProperty = viewController.getUserSelection(message4, playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(targetPlayer));
         Field tField = playerFieldRelationController.getFieldByName(targetProperty);
-
 
         String message2 = String.format(languageStringCollection.getMenu()[40], targetPlayer.getName(), tField.getTitle(), sField.getTitle());
         String yes = languageStringCollection.getMenu()[16];
@@ -191,10 +179,8 @@ public class TradeController {
     }
 
     public void transferAssets(Player targetPlayer, Field field){
-
         if(field instanceof Ownable){
             transferAssets(targetPlayer, -((Ownable)field).getPrice());
-
             if(!targetPlayer.getBrokeStatus()){
                 playerFieldRelationController.addFieldToPlayer(targetPlayer, field);
                 viewController.showOwner(field.getTitle(), targetPlayer.getPlayerColor());
@@ -328,7 +314,6 @@ public class TradeController {
         if(field instanceof Ownable){
             price = ((Ownable) field).getPrice();
         }
-
         return price;
     }
 
