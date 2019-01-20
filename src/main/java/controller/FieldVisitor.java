@@ -26,7 +26,7 @@ public class FieldVisitor implements Visitor  {
         this.viewController = viewController;
     }
     @Override
-    public void visit(ChanceField field) {
+    public void landOnField(ChanceField field) {
         Card card = deck.getTopCard();
         deck.putTopCardToBottom();
         DrawController drawer = new DrawController(player, otherPlayers, bank, board, deck, viewController);
@@ -34,7 +34,7 @@ public class FieldVisitor implements Visitor  {
     }
 
     @Override
-    public void visit(GoToJailField field) {
+    public void landOnField(GoToJailField field) {
         viewController.showMessage(field.getMessage());
         viewController.movePlayer(player.getName(),player.getPosition(),20);
         player.setPositionWithoutStartMoney(10);
@@ -44,7 +44,7 @@ public class FieldVisitor implements Visitor  {
     }
 
     @Override
-    public void visit(JailField field) {
+    public void landOnField(JailField field) {
         if(player.isInJail()) {
             viewController.showMessage(String.format(languageStringCollection.getMenu()[49],player.getName()));
         }else{
@@ -53,12 +53,12 @@ public class FieldVisitor implements Visitor  {
     }
 
     @Override
-    public void visit(ParkingField field) {
+    public void landOnField(ParkingField field) {
         viewController.showMessage(field.getMessage());
     }
 
     @Override
-    public void visit(Ownable field) {
+    public void landOnField(Ownable field) {
         viewController.showMessage(field.getMessage());
         int diceRoll = player.getPosition() - player.getLastPosition();
         boolean playerIsOwner = bank.isPlayerOwner(player, field);
@@ -98,7 +98,7 @@ public class FieldVisitor implements Visitor  {
 
 
     @Override
-    public void visit(TaxField field) {
+    public void landOnField(TaxField field) {
         viewController.showMessage(field.getMessage());
 
         if (field.getPercentage() == 0) {
@@ -122,7 +122,7 @@ public class FieldVisitor implements Visitor  {
     }
 
     @Override
-    public void visit(StartField field) {
+    public void landOnField(StartField field) {
         viewController.showMessage(field.getMessage());
     }
 

@@ -25,7 +25,7 @@ public class FerryField extends Ownable {
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.visit(this);
+        visitor.landOnField(this);
     }
 
 

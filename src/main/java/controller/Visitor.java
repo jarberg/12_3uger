@@ -4,12 +4,12 @@ import model.board.*;
 
 public interface Visitor {
 
-    void visit(ChanceField field);
-    void visit(GoToJailField field);
-    void visit(JailField field);
-    void visit(ParkingField field);
-    void visit(Ownable field);
-    void visit(TaxField field);
-    void visit(StartField field);
+    void landOnField(ChanceField field);
+    void landOnField(GoToJailField field);
+    void landOnField(JailField field);
+    void landOnField(ParkingField field);
+    void landOnField(Ownable field);
+    void landOnField(TaxField field);
+    void landOnField(StartField field);
 
 }
