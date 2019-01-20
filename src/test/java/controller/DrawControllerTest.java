@@ -11,8 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.security.acl.Owner;
-
 
 import static org.junit.Assert.*;
 
@@ -20,7 +18,7 @@ public class DrawControllerTest {
 
     private GameController gamecontroller;
     private ViewControllerInterface viewcontroller;
-    private Bank bank;
+    private PlayerFieldRelationController playerFieldRelationController;
     private Board board;
     private Deck deck;
     private PlayerList playerList;
@@ -35,7 +33,7 @@ public class DrawControllerTest {
 
         tradecontroller = TradeController.getSingleInstance();
         tradecontroller.setViewController(viewcontroller);
-        bank = Bank.getSingleInstance();
+        playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
 
         gamecontroller.setupGame();
         board = gamecontroller.getBoard();
@@ -46,7 +44,7 @@ public class DrawControllerTest {
         Player[] players = new Player[2];
         players[0] = playerList.getAllPlayers()[1];
         players[1] = playerList.getAllPlayers()[2];
-        drawController = new DrawController(playerOne, players, bank, board, deck, viewcontroller);
+        drawController = new DrawController(playerOne, players, playerFieldRelationController, board, deck, viewcontroller);
     }
 
     @After
@@ -56,7 +54,7 @@ public class DrawControllerTest {
         tradecontroller = null;
         board = null;
         deck = null;
-        bank = null;
+        playerFieldRelationController = null;
         playerList = null;
         drawController = null;
     }
@@ -145,7 +143,7 @@ public class DrawControllerTest {
     private void setPlayerOwnAllFields(Player player){
         for(Field field : board.getFields()){
             if(field instanceof PropertyField){
-                bank.addFieldToPlayer(player,field);
+                playerFieldRelationController.addFieldToPlayer(player,field);
             }
         }
     }
@@ -155,7 +153,7 @@ public class DrawControllerTest {
     public void shouldTeleportAndPayDouble() {
 
         int destinationField = 5;
-        Field field = bank.getFieldById(String.valueOf(destinationField));
+        Field field = playerFieldRelationController.getFieldById(String.valueOf(destinationField));
         assertTrue(field instanceof FerryField);
         int amount = ((FerryField)field).getRent(1);
 
@@ -169,7 +167,7 @@ public class DrawControllerTest {
         Player playerTwo = playerList.getAllPlayers()[1];
         int playerTwoBalance = playerTwo.getBalance();
 
-        bank.addFieldToPlayer(playerTwo,field);
+        playerFieldRelationController.addFieldToPlayer(playerTwo,field);
 
         drawController.draw(card);
 

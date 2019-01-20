@@ -11,16 +11,16 @@ public class DrawController implements Drawer {
     private Player[] otherPlayers;
     private ViewControllerInterface viewController;
     private TradeController tradeController;
-    private Bank bank;
+    private PlayerFieldRelationController playerFieldRelationController;
     private Board board;
     private Deck deck;
 
-    DrawController(Player player, Player[] otherPlayers,  Bank bank, Board board, Deck deck, ViewControllerInterface viewController){
+    DrawController(Player player, Player[] otherPlayers, PlayerFieldRelationController playerFieldRelationController, Board board, Deck deck, ViewControllerInterface viewController){
         this.player = player;
         this.otherPlayers = otherPlayers;
         this.viewController = viewController;
         this.tradeController = TradeController.getSingleInstance();
-        this.bank = bank;
+        this.playerFieldRelationController = playerFieldRelationController;
         this.board = board;
         this.deck = deck;
     }
@@ -43,7 +43,7 @@ public class DrawController implements Drawer {
         int jackpot = card.getJackpot();
         int amount = card.getAmount();
 
-        if (bank.getNetWorth(player) <= amount) {
+        if (playerFieldRelationController.getNetWorth(player) <= amount) {
             tradeController.transferAssets(player,jackpot);
         }
     }
@@ -62,7 +62,7 @@ public class DrawController implements Drawer {
         viewController.movePlayer(player.getName(),position,amount);
 
         String newFieldId = String.valueOf(destination);
-        Field newField = bank.getFieldById(newFieldId);
+        Field newField = playerFieldRelationController.getFieldById(newFieldId);
 
         FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board, viewController);
         newField.accept(fieldVisitor);
@@ -75,7 +75,7 @@ public class DrawController implements Drawer {
         String message = card.getDescription();
         viewController.showMessage(message); //(message) = parameter
 
-        Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
+        Field[] fieldsWithHouses = playerFieldRelationController.getFieldsWithHousesByPlayer(player);
 
         int amountOfHouses = 0;
         int amountOfHotels = 0;
@@ -122,15 +122,15 @@ public class DrawController implements Drawer {
 
 
         String positionAsString = String.valueOf(newPosition);
-        Field disbutedField = bank.getFieldById(positionAsString);
+        Field disbutedField = playerFieldRelationController.getFieldById(positionAsString);
 
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
-        if(bank.fieldHasOwner(positionAsString)){
-            if(!bank.isPlayerOwner(player, disbutedField)){
-                Player fieldOwner = bank.getOwnerOfField(positionAsString);
-                int howManyOfTheSameFieldTypeIsOwnedByOwner = (bank.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]));
+        if(playerFieldRelationController.fieldHasOwner(positionAsString)){
+            if(!playerFieldRelationController.isPlayerOwner(player, disbutedField)){
+                Player fieldOwner = playerFieldRelationController.getOwnerOfField(positionAsString);
+                int howManyOfTheSameFieldTypeIsOwnedByOwner = (playerFieldRelationController.getAmountOfTypeOwned(fieldOwner, (Ownable) board.getFields()[player.getPosition()]));
 
-                if (bank.fieldHasOwner(disbutedField.getID())) {
+                if (playerFieldRelationController.fieldHasOwner(disbutedField.getID())) {
                     boolean fieldNotPawned = !((Ownable) disbutedField).getPawnedStatus();
                     if (fieldNotPawned){
                         int amount = ((Ownable)disbutedField).getRent(howManyOfTheSameFieldTypeIsOwnedByOwner) * card.getMultiplier();
@@ -206,7 +206,7 @@ public class DrawController implements Drawer {
         viewController.teleportPlayer(player.getName(), oldPosition, newPosition);
 
         String newField = String.valueOf(newPosition);
-        Field newFieldId = bank.getFieldById(newField);
+        Field newFieldId = playerFieldRelationController.getFieldById(newField);
 
         FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board, viewController);
         newFieldId.accept(fieldVisitor);

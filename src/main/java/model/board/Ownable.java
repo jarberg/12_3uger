@@ -27,9 +27,7 @@ public abstract class Ownable extends Field {
         return type;
     }
 
-    public abstract int getRent(int buildingCount);
-
-    public abstract int getRent();
+    public abstract int getRent(int amount);
 
     public int getPrice(){
         return price;

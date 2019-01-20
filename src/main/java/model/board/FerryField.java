@@ -18,10 +18,6 @@ public class FerryField extends Ownable {
         return rents[amountOwned-1];
     }
 
-    @Override
-    public int getRent() {
-        return 0;
-    }
 
     @Override
     public void accept(Visitor visitor) {

@@ -84,7 +84,7 @@ public class GameControllerTest {
         Player currentPlayer = playerList.getAllPlayers()[0];
         Player[] otherPlayers = playerList.getPlayersButPlayer(currentPlayer);
         fieldVisitor = new FieldVisitor(currentPlayer, otherPlayers, gameCon.getDeck(), gameCon.getBoard(), viewController);
-        drawController = new DrawController(currentPlayer, otherPlayers, gameCon.getBank(), gameCon.getBoard(), gameCon.getDeck(), viewController);
+        drawController = new DrawController(currentPlayer, otherPlayers, gameCon.getPlayerFieldRelationController(), gameCon.getBoard(), gameCon.getDeck(), viewController);
     }
 
 
@@ -135,7 +135,7 @@ public class GameControllerTest {
     public void shouldStartWithNoOwner(){
         gameCon.setupGame();
         for(Field field : gameCon.getBoard().getFields()){
-            assertNull(gameCon.getBank().getOwnerOfField(field.getID()));
+            assertNull(gameCon.getPlayerFieldRelationController().getOwnerOfField(field.getID()));
         }
     }
 

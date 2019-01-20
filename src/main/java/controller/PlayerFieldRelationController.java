@@ -4,7 +4,7 @@ import model.board.*;
 import model.player.Player;
 import model.player.PlayerList;
 
-public class Bank {
+public class PlayerFieldRelationController {
 
     private String[][] fieldOwnerArray;
     private int playerListLength;
@@ -13,13 +13,13 @@ public class Bank {
 
 
 
-    private static Bank singletonInstance = new Bank();
+    private static PlayerFieldRelationController singletonInstance = new PlayerFieldRelationController();
 
-    public static Bank getSingleInstance(){
+    public static PlayerFieldRelationController getSingleInstance(){
         return singletonInstance;
     }
 
-    private Bank(){
+    private PlayerFieldRelationController(){
     }
 
     public void setupFieldOwnerArray(PlayerList playerlist){

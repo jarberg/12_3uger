@@ -15,7 +15,7 @@ public class TradeController {
     private static TradeController singleInstance = new TradeController();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private ViewControllerInterface viewController = ViewController.getSingleInstance();
-    private static Bank bank = Bank.getSingleInstance();
+    private static PlayerFieldRelationController playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
     private PlayerList playerList;
 
     private TradeController(){
@@ -43,8 +43,8 @@ public class TradeController {
     }
 
     public void raiseMoney(Player player) {
-        Field[] fieldsWithHouses = bank.getFieldsWithHousesByPlayer(player);
-        Field[] fieldsWithoutHouses = bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
+        Field[] fieldsWithHouses = playerFieldRelationController.getFieldsWithHousesByPlayer(player);
+        Field[] fieldsWithoutHouses = playerFieldRelationController.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
 
         String sellHouseOption = languageStringCollection.getMenu()[19];
         String sellFieldOption = languageStringCollection.getMenu()[20];
@@ -58,8 +58,8 @@ public class TradeController {
                     fieldNames[i] = fieldsWithoutHouses[i].getTitle();
                 }
                 String sellingField = viewController.getUserSelection(sellFieldOption, fieldNames);
-                Field field = bank.getFieldByName(sellingField);
-                bank.removeFieldOwner(field);
+                Field field = playerFieldRelationController.getFieldByName(sellingField);
+                playerFieldRelationController.removeFieldOwner(field);
                 viewController.showOwner(field.getTitle(), Color.BLACK);
                 if(field instanceof Ownable){
                     player.addToBalance(((Ownable) field).getPrice() / 2);
@@ -73,7 +73,7 @@ public class TradeController {
                     fieldNames[i] = fieldsWithHouses[i].getTitle();
                 }
                 String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
-                PropertyField field = ((PropertyField)bank.getFieldByName(sellingField));
+                PropertyField field = ((PropertyField) playerFieldRelationController.getFieldByName(sellingField));
                 field.removeBuilding();
                 viewController.updateFieldBuildings(sellingField, (field.getBuildingCount()));
                 player.addToBalance(field.getBuildingPrice()/2);
@@ -88,7 +88,7 @@ public class TradeController {
                 fieldNames[i] = fieldsWithHouses[i].getTitle();
             }
             String sellingField = viewController.getUserSelection(sellHouseOption, fieldNames);
-            PropertyField field = ((PropertyField)bank.getFieldByName(sellingField));
+            PropertyField field = ((PropertyField) playerFieldRelationController.getFieldByName(sellingField));
             field.removeBuilding();
             viewController.updateFieldBuildings(sellingField, (field.getBuildingCount()));
             player.addToBalance(field.getBuildingPrice()/2);
@@ -102,8 +102,8 @@ public class TradeController {
                 fieldNames[i] = fieldsWithoutHouses[i].getTitle();
             }
             String sellingField = viewController.getUserSelection(sellFieldOption, fieldNames);
-            Field field = bank.getFieldByName(sellingField);
-            bank.removeFieldOwner(field);
+            Field field = playerFieldRelationController.getFieldByName(sellingField);
+            playerFieldRelationController.removeFieldOwner(field);
             viewController.showOwner(field.getTitle(), Color.BLACK);
 
             if(field instanceof Ownable){
@@ -120,11 +120,11 @@ public class TradeController {
         }
         viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
         if(player.getBrokeStatus()){
-            Field[] pawnedFields = bank.getPawnedFieldsByPlayer(player);
+            Field[] pawnedFields = playerFieldRelationController.getPawnedFieldsByPlayer(player);
             for(Field field : pawnedFields){
                 auction(player, playerList.getPlayersButPlayer(player), field);
-                if(bank.getOwnerOfField(field.getID()) == player){
-                    bank.removeFieldOwner(field);
+                if(playerFieldRelationController.getOwnerOfField(field.getID()) == player){
+                    playerFieldRelationController.removeFieldOwner(field);
                     viewController.showOwner(field.getTitle(), black);
                 }
             }
@@ -147,7 +147,7 @@ public class TradeController {
 
     public void transferAssets(Player sourcePlayer){
         String message = languageStringCollection.getMenu()[37];
-        String[] names = bank.getPlayerNamesWithFieldsWithNoHouses();
+        String[] names = playerFieldRelationController.getPlayerNamesWithFieldsWithNoHouses();
 
         // update names so it does not include the sourcePlayer
         String[] temp = new String[names.length-1];
@@ -161,16 +161,16 @@ public class TradeController {
         names = temp;
 
         String playerChoice = viewController.getUserSelection(message, names);
-        Player targetPlayer = bank.getPlayerByName(playerChoice);
+        Player targetPlayer = playerFieldRelationController.getPlayerByName(playerChoice);
 
         String message3 = String.format(languageStringCollection.getMenu()[38], sourcePlayer.getName());
-        String sourceProperty = viewController.getUserSelection(message3, bank.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
-        Field sField = bank.getFieldByName(sourceProperty);
+        String sourceProperty = viewController.getUserSelection(message3, playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
+        Field sField = playerFieldRelationController.getFieldByName(sourceProperty);
 
 
         String message4 = languageStringCollection.getMenu()[39];
-        String targetProperty = viewController.getUserSelection(message4, bank.getPropertyNamesWithNoHousesByPlayer(targetPlayer));
-        Field tField = bank.getFieldByName(targetProperty);
+        String targetProperty = viewController.getUserSelection(message4, playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(targetPlayer));
+        Field tField = playerFieldRelationController.getFieldByName(targetProperty);
 
 
         String message2 = String.format(languageStringCollection.getMenu()[40], targetPlayer.getName(), tField.getTitle(), sField.getTitle());
@@ -179,11 +179,11 @@ public class TradeController {
         String answer = viewController.getUserButtonSelection(message2, yes, no);
 
         if (answer.equals(yes)){
-            bank.removeFieldOwner(tField);
-            bank.removeFieldOwner(sField);
+            playerFieldRelationController.removeFieldOwner(tField);
+            playerFieldRelationController.removeFieldOwner(sField);
 
-            bank.addFieldToPlayer(sourcePlayer, tField);
-            bank.addFieldToPlayer(targetPlayer, sField);
+            playerFieldRelationController.addFieldToPlayer(sourcePlayer, tField);
+            playerFieldRelationController.addFieldToPlayer(targetPlayer, sField);
 
             viewController.showOwner(sourceProperty, targetPlayer.getPlayerColor());
             viewController.showOwner(targetProperty, sourcePlayer.getPlayerColor());
@@ -196,7 +196,7 @@ public class TradeController {
             transferAssets(targetPlayer, -((Ownable)field).getPrice());
 
             if(!targetPlayer.getBrokeStatus()){
-                bank.addFieldToPlayer(targetPlayer, field);
+                playerFieldRelationController.addFieldToPlayer(targetPlayer, field);
                 viewController.showOwner(field.getTitle(), targetPlayer.getPlayerColor());
             }
         }
@@ -210,7 +210,7 @@ public class TradeController {
         if(choice.equals(yes)){
             transferAssets(player, field);
         } else if (choice.equals(no)){
-            auction(player, bank.getPlayers(), field);
+            auction(player, playerFieldRelationController.getPlayers(), field);
         }
     }
 
@@ -227,21 +227,21 @@ public class TradeController {
 
     public void buyBackPawnedProperty(Player player){
         String message = "buy pawned property";
-        Field[] pawnNames = bank.getPawnedFieldsByPlayer(player);
+        Field[] pawnNames = playerFieldRelationController.getPawnedFieldsByPlayer(player);
         String[] fieldNames = new String[pawnNames.length];
         for (int i = 0; i < fieldNames.length; i++) {
             fieldNames[i] = pawnNames[i].getTitle();
         }
         String choice = viewController.getUserSelection(message, fieldNames);
-        Field field = bank.getFieldByName(choice);
+        Field field = playerFieldRelationController.getFieldByName(choice);
 
         if (field instanceof Ownable){
             int priceWithInterest = (int) (((Ownable) field).getPrice() * 1.10);
             transferAssets(player, -priceWithInterest);
             if (!player.getBrokeStatus()) {
                 ((Ownable) field).setPawnedStatus(false);
-                bank.removeFieldOwner(field);
-                bank.addFieldToPlayer(player, field);
+                playerFieldRelationController.removeFieldOwner(field);
+                playerFieldRelationController.addFieldToPlayer(player, field);
                 viewController.pawn(field.getTitle(), player.getPlayerColor(), player.getPlayerColor());
             }
         }
@@ -296,7 +296,7 @@ public class TradeController {
             }
             if(!player.getBrokeStatus()){
                 player.addToBalance(-price);
-                bank.addFieldToPlayer(auctionPlayers[0], field);
+                playerFieldRelationController.addFieldToPlayer(auctionPlayers[0], field);
                 viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
                 viewController.showOwner(field.getTitle(), player.getPlayerColor());
                 String message = String.format(languageStringCollection.getMenu()[53], player.getName(), field.getTitle(), String.valueOf(price));
@@ -305,7 +305,7 @@ public class TradeController {
         }else if(field instanceof Ownable){
             if(((Ownable) field).getPawnedStatus()){
                 ((Ownable) field).setPawnedStatus(false);
-                bank.removeFieldOwner(field);
+                playerFieldRelationController.removeFieldOwner(field);
                 viewController.showOwner(field.getTitle(), black);
             }
         }

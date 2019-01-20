@@ -3,9 +3,7 @@ package model.player;
 public class PlayerList {
 
     private int playerAmount;
-    private int NextPlayerIndex;
     private Player[] playerList;
-    private int currentTurn;
 
     //constructor
 
@@ -36,7 +34,6 @@ public class PlayerList {
     }
 
     //setters
-
     public void addPlayer(int index, Player player){
         this.playerList[index] = player;
     }
@@ -56,7 +53,6 @@ public class PlayerList {
                 setNextPlayer();
         }
     }
-
 
     public Player[] getPlayersButPlayer(Player notThisOneToo){
         Player[] playersInGame = getAllPlayers();

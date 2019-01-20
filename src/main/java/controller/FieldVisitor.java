@@ -16,7 +16,7 @@ public class FieldVisitor implements Visitor  {
     private ViewControllerInterface viewController;
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
-    private static Bank bank = Bank.getSingleInstance();
+    private static PlayerFieldRelationController playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
 
     public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck, Board board, ViewControllerInterface viewController) {
         this.otherPlayers = otherPlayers;
@@ -29,7 +29,7 @@ public class FieldVisitor implements Visitor  {
     public void visit(ChanceField field) {
         Card card = deck.getTopCard();
         deck.putTopCardToBottom();
-        DrawController drawer = new DrawController(player, otherPlayers, bank, board, deck, viewController);
+        DrawController drawer = new DrawController(player, otherPlayers, playerFieldRelationController, board, deck, viewController);
         card.accept(drawer);
     }
 
@@ -61,23 +61,23 @@ public class FieldVisitor implements Visitor  {
     public void visit(Ownable field) {
         viewController.showMessage(field.getMessage());
         int diceRoll = player.getPosition() - player.getLastPosition();
-        boolean playerIsOwner = bank.isPlayerOwner(player, field);
+        boolean playerIsOwner = playerFieldRelationController.isPlayerOwner(player, field);
         if(!playerIsOwner){
 
-            boolean ownedByAnotherPlayer = bank.fieldHasOwner(field.getID());
+            boolean ownedByAnotherPlayer = playerFieldRelationController.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
-                    String message = String.format(languageStringCollection.getMenu()[26], bank.getOwnerOfField(field.getID()).getName());
+                    String message = String.format(languageStringCollection.getMenu()[26], playerFieldRelationController.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
-                    Player owner = bank.getOwnerOfField(field.getID());
-                    boolean ownerOwnsAllOfType = bank.isOwnerOfAllFieldsOfType(owner, field);
+                    Player owner = playerFieldRelationController.getOwnerOfField(field.getID());
+                    boolean ownerOwnsAllOfType = playerFieldRelationController.isOwnerOfAllFieldsOfType(owner, field);
                     if(field instanceof  PropertyField)
                         if(ownerOwnsAllOfType)
-                            tradeController.transferAssets(player, owner, field.getRent() * PROPERTY_MULTIPLIER);
+                            tradeController.transferAssets(player, owner, field.getRent(((PropertyField) field).getBuildingCount()) * PROPERTY_MULTIPLIER);
                         else
-                            tradeController.transferAssets(player, owner, field.getRent());
+                            tradeController.transferAssets(player, owner, field.getRent(((PropertyField) field).getBuildingCount()));
                     else if(field instanceof BreweryField) {
                         if (ownerOwnsAllOfType)
                             tradeController.transferAssets(player, owner, diceRoll * ((BreweryField)field).getMultiplier2());
@@ -85,7 +85,7 @@ public class FieldVisitor implements Visitor  {
                             tradeController.transferAssets(player, owner, diceRoll * ((BreweryField)field).getMultiplier1());
                     }
                     else if(field instanceof  FerryField){
-                        int amountOwned = bank.getAmountOfTypeOwned(owner, field);
+                        int amountOwned = playerFieldRelationController.getAmountOfTypeOwned(owner, field);
                         tradeController.transferAssets(player, owner, field.getRent(amountOwned));
                     }
                 }
@@ -113,7 +113,7 @@ public class FieldVisitor implements Visitor  {
             if(choice.equals(flatAmount)){
                 tradeController.transferAssets(player, -field.getFlatAmount());
             } else if (choice.equals(percentage)){
-                int netWorth = bank.getNetWorth(player);
+                int netWorth = playerFieldRelationController.getNetWorth(player);
                 int amount = (int)(netWorth * (field.getPercentage()/100.00));
                 tradeController.transferAssets(player, -amount);
             }

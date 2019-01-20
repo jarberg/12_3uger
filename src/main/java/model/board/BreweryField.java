@@ -37,8 +37,4 @@ public class BreweryField extends Ownable {
         return rents[amountOwned];
     }
 
-    @Override
-    public int getRent() {
-        return 0;
-    }
 }

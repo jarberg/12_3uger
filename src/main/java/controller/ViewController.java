@@ -54,10 +54,6 @@ public class ViewController implements ViewControllerInterface {
         this.gui = new GUI(new GUI_Field[0]);
     }
 
-    @Override
-    public void closeGUI(){
-        this.gui.close();
-    }
 
 
     @Override
@@ -114,12 +110,7 @@ public class ViewController implements ViewControllerInterface {
             this.gui.addPlayer(player);
         }
     }
-    @Override
-    public void changePlayerBalance(String playerName, int amount){
-        GUI_Player player = getPlayerByName(playerName);
-        int currentBalance = player.getBalance();
-        player.setBalance(currentBalance + amount);
-    }
+
     @Override
     public void spawnPlayers(){
         if(gui_board[0] != null){
@@ -201,13 +192,6 @@ public class ViewController implements ViewControllerInterface {
             }
         }
         return name;
-    }
-
-    @Override
-    public int getPlayerAge() {
-        String message = languageStringCollection.getMenu()[2];
-        int age = gui.getUserInteger(message);
-        return age;
     }
 
     @Override

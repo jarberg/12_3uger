@@ -14,8 +14,6 @@ public interface ViewControllerInterface {
 
     void showEmptyGUI();
 
-    void closeGUI();
-
     void showGUI();
 
     void addPlayer(String name, Color color, int balance);
@@ -23,8 +21,6 @@ public interface ViewControllerInterface {
     GUI_Car makePlayerCar(Color color);
 
     void showPlayerScores();
-
-    void changePlayerBalance(String playerName, int amount);
 
     void spawnPlayers();
 
@@ -39,8 +35,6 @@ public interface ViewControllerInterface {
     int getPlayerAmount(String[] options);
 
     String getPlayerName();
-
-    int getPlayerAge();
 
     void setUpColors();
 

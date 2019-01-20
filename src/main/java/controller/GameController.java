@@ -26,7 +26,7 @@ public class GameController {
     private Player currentPlayer;
     private PlayerList playerlist;
     private Board board;
-    private Bank bank = Bank.getSingleInstance();
+    private PlayerFieldRelationController playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
     private Deck deck;
     private int lastTurn;
     private int currentTurn;
@@ -194,8 +194,8 @@ public class GameController {
     }
 
     private void setupBank(){
-        bank.setupFieldOwnerArray(playerlist);
-        bank.setBoard(board);
+        playerFieldRelationController.setupFieldOwnerArray(playerlist);
+        playerFieldRelationController.setBoard(board);
     }
 
     public void createDeck(){
@@ -360,13 +360,13 @@ public class GameController {
                 String option = String.format(languageCollection.getMenu()[32] + ",4");
                 choiceList = addToStringArray(choiceList, option);
             }
-            PropertyField[] buildableProperty = bank.getPlayerBuildableFields(currentPlayer);
+            PropertyField[] buildableProperty = playerFieldRelationController.getPlayerBuildableFields(currentPlayer);
             boolean playerCanBuild = (buildableProperty.length > 0);
             if (playerCanBuild) {
                 String option = languageCollection.getMenu()[35] + ",5";
                 choiceList = addToStringArray(choiceList, option);
             }
-            if (bank.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length > 0) {
+            if (playerFieldRelationController.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length > 0) {
                 String pawnString = languageCollection.getMenu()[27];
                 String number = "6";
                 String choiceString = String.format("%s,%s", pawnString, number);
@@ -375,11 +375,11 @@ public class GameController {
             if (field instanceof TaxField) {
 
             }
-            if (bank.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && bank.getPlayerNamesWithFieldsWithNoHouses().length > 1) {
+            if (playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(player).length > 0 && playerFieldRelationController.getPlayerNamesWithFieldsWithNoHouses().length > 1) {
                 String message = languageCollection.getMenu()[41];
                 choiceList = addToStringArray(choiceList, message + ",9");
             }
-            Field[] canBuybackFields = bank.getPawnedFieldsByPlayer(player);
+            Field[] canBuybackFields = playerFieldRelationController.getPawnedFieldsByPlayer(player);
             if (canBuybackFields.length > 0) {
                 String message = languageCollection.getMenu()[50];
                 choiceList = addToStringArray(choiceList, message + ",10");
@@ -548,13 +548,13 @@ public class GameController {
     }
 
     public void getListOfBuildable(){
-        PropertyField[] buildable = bank.getPlayerBuildableFields(currentPlayer);
+        PropertyField[] buildable = playerFieldRelationController.getPlayerBuildableFields(currentPlayer);
         String[] options = new String[buildable.length];
         for (int i = 0; i < buildable.length; i++) {
             options[i] = buildable[i].getTitle();
         }
         String message = languageCollection.getMenu()[28];
-        Field test= bank.getFieldByName(viewController.getUserSelection(message, options));
+        Field test= playerFieldRelationController.getFieldByName(viewController.getUserSelection(message, options));
 
         buyBuilding(currentPlayer, (PropertyField) test);
     }
@@ -562,9 +562,9 @@ public class GameController {
     //TODO: 3???
     private void pawnProperty(Player player){
         String message = languageCollection.getMenu()[43];
-        String[] options = bank.getPropertyNamesWithNoHousesByPlayer(player);
+        String[] options = playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(player);
         String choice = viewController.getUserSelection(message, options);
-        Field field = bank.getFieldByName(choice);
+        Field field = playerFieldRelationController.getFieldByName(choice);
         if (field instanceof PropertyField){
             ((PropertyField) field).setPawnedStatus(true);
             tradecontroller.transferAssets(player,((PropertyField) field).getPrice()/2);
@@ -591,8 +591,8 @@ public class GameController {
         return playerlist;
     }
 
-    public Bank getBank() {
-        return bank;
+    public PlayerFieldRelationController getPlayerFieldRelationController() {
+        return playerFieldRelationController;
     }
 
     public Deck getDeck() {

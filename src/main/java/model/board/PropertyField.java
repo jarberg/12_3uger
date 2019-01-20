@@ -46,6 +46,4 @@ public class PropertyField extends Ownable {
     public int getRent(int buildingCount) {
         return rents[buildingCount];
     }
-    @Override
-    public int getRent() { return rents[buildingCount]; }
 }

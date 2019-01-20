@@ -26,11 +26,6 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     }
 
-    @Override
-    public void closeGUI() {
-
-    }
-
 
     @Override
     public void showGUI() {
@@ -53,10 +48,6 @@ public class ViewControllerStub implements ViewControllerInterface {
 
     }
 
-    @Override
-    public void changePlayerBalance(String playerName, int amount) {
-
-    }
 
     @Override
     public void spawnPlayers() {
@@ -91,11 +82,6 @@ public class ViewControllerStub implements ViewControllerInterface {
     @Override
     public String getPlayerName() {
         return "Test";
-    }
-
-    @Override
-    public int getPlayerAge() {
-        return 0;
     }
 
     @Override
