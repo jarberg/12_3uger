@@ -3,7 +3,6 @@ package model.deck;
 import controller.Drawer;
 
 public class MoveToFieldCard extends Card{
-
     private int destination;
 
     public MoveToFieldCard(String description, int destination) {

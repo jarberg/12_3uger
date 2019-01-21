@@ -3,7 +3,6 @@ package model.board;
 import java.awt.*;
 
 public abstract class Ownable extends Field {
-
     private boolean pawned;
     private String type;
     private int price;
@@ -33,5 +32,4 @@ public abstract class Ownable extends Field {
     public int getPrice(){
         return price;
     }
-
 }

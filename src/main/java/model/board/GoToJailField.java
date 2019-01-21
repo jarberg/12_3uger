@@ -14,5 +14,4 @@ public class GoToJailField extends Field{
     public void accept(Visitor visitor) {
         visitor.landOnField(this);
     }
-
 }

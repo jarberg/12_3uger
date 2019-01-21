@@ -14,5 +14,4 @@ public class ParkingField extends Field {
     public void accept(Visitor visitor){
         visitor.landOnField(this);
     }
-
 }

@@ -3,7 +3,6 @@ package model.deck;
 import controller.Drawer;
 
 public class GoToJail extends Card {
-
     private int position;
 
     public GoToJail(String description, int position) {

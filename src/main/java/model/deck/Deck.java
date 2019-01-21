@@ -69,8 +69,8 @@ public class Deck {
     }
 
     public void putTopCardToBottom(){
-
         int cardArrayLength = cardArray.length;
+
         Card[] temporaryArray = new Card[cardArrayLength];
         for (int i = 0; i < cardArrayLength-1; i++) {
             temporaryArray[i] = cardArray[(i+1)];
@@ -79,9 +79,6 @@ public class Deck {
         temporaryArray[cardArrayLength-1] = cardArray[0];
         for (int j = 0; j < cardArrayLength; j++) {
             cardArray[j] = temporaryArray[j];
-
         }
-
     }
-
 }

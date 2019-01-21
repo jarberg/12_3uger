@@ -3,7 +3,6 @@ package controller;
 import model.board.*;
 
 public interface Visitor {
-
     void landOnField(ChanceField field);
     void landOnField(GoToJailField field);
     void landOnField(JailField field);
@@ -11,5 +10,4 @@ public interface Visitor {
     void landOnField(Ownable field);
     void landOnField(TaxField field);
     void landOnField(StartField field);
-
 }

@@ -1,17 +1,13 @@
 package utilities;
 
 public class LogicStringCollection{
-
     private static LogicStringCollection singletonInstance = new LogicStringCollection();
-
     private FileReader filereader = FileReader.getSingleInstance();
     private String[][] ChanceCardTextHolder;
     private int[][] fieldsTexHolder;
     private String[] playerAmount;
 
-
     private LogicStringCollection(){
-
 
     }
 

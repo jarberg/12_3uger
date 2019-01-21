@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.Scanner;
 
 public class FileReader {
-
     private static final String LANGUAGE_DIRECTORY_PATH = "language/";
     private static final String LOGIC_DIRECTORY_PATH = "logic/";
     private static final String CHANCECARD_FILENAME = "/ChanceCards.txt";
@@ -49,7 +48,6 @@ public class FileReader {
     }
 
     private String[][] twoDStringArray(String fileName, String directory){
-
         String newFilepath = language+fileName;
         String[] stringArray = read1DFromFile(newFilepath, directory);
         String[][] finalStringArray = new String[stringArray.length][];
@@ -61,8 +59,6 @@ public class FileReader {
     }
 
     private String[][] twoDStringArrayLogic(String fileName, String directory){
-
-
         String[] stringArray = read1DFromFile(fileName, directory);
         String[][] finalStringArray = new String[stringArray.length][];
 
@@ -73,7 +69,6 @@ public class FileReader {
     }
 
     private int[][] twoDIntArray(String fileName, String directory){
-
         String[] stringArray = read1DFromFile(fileName, directory);
         int[][] finalStringArray = new int[stringArray.length][];
 
