@@ -201,13 +201,13 @@ public class GameController {
         makePlayerChooseCar();
         createBoard(logicCollection.getFieldsText(), languageCollection.getFieldsText());
         createDeck();
-        setupBank();
+        setupPlayerFieldRelation();
         showGameBoard();
         addPlayersToGUI();
 
     }
 
-    private void setupBank(){
+    private void setupPlayerFieldRelation(){
 
         playerFieldRelationController.setupFieldOwnerArray(playerlist);
         playerFieldRelationController.setBoard(board);
