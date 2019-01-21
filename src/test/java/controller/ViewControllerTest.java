@@ -1,6 +1,5 @@
 package controller;
 
-import controller.ViewController;
 import gui_fields.GUI_Car;
 import org.junit.After;
 import org.junit.Before;

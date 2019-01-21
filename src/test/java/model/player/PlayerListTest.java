@@ -32,7 +32,7 @@ public class PlayerListTest {
     @Test
     public void getPlayer() {
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            assertEquals(null, playerlist.getPlayer(i));
+            assertNull(playerlist.getPlayer(i));
         }
     }
 
@@ -65,7 +65,7 @@ public class PlayerListTest {
     @Test
     public void getAllPlayers() {
         for (int i = 0; i <playerlist.getAllPlayers().length ; i++) {
-            assertEquals(null, playerlist.getAllPlayers()[i]);
+            assertNull(playerlist.getAllPlayers()[i]);
         }
 
         addPlayer();
@@ -86,7 +86,7 @@ public class PlayerListTest {
     @Test
     public void getCurrentPlayer() {
 
-        assertEquals(null, playerlist.getCurrentPlayer());
+        assertNull(playerlist.getCurrentPlayer());
         addPlayer();
         assertEquals(player1, playerlist.getCurrentPlayer());
     }

@@ -1,6 +1,5 @@
 package model.misc;
 
-import model.misc.DieSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

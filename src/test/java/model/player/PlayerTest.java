@@ -1,5 +1,7 @@
 package model.player;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
@@ -8,13 +10,23 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    Player player = new Player("Bob");
+    private Player player;
+
+    @Before
+    public void setUp(){
+        player = new Player("Bob");
+    }
+
+    @After
+    public void tearDown(){
+        this.player = null;
+    }
 
     @Test
     public void setGetJailCardStatus() {
-        assertEquals(false,player.getJailCardStatus());
+        assertFalse(player.getJailCardStatus());
         player.setJailCardStatus(true);
-        assertEquals(true,player.getJailCardStatus());
+        assertTrue(player.getJailCardStatus());
     }
 
     @Test
@@ -22,7 +34,7 @@ public class PlayerTest {
 
         Color colorCheck= Color.CYAN;
 
-        assertEquals(null, player.getPlayerColor());
+        assertNull(player.getPlayerColor());
 
         player.setPlayerColor(colorCheck);
         assertEquals(colorCheck, player.getPlayerColor());
@@ -42,17 +54,17 @@ public class PlayerTest {
 
     @Test
     public void setGetBrokeStatus() {
-        assertEquals(false,player.getBrokeStatus());
+        assertFalse(player.getBrokeStatus());
         player.setBrokeStatus(true);
-        assertEquals(true,player.getBrokeStatus());
+        assertTrue(player.getBrokeStatus());
 
     }
 
     @Test
     public void setGetDoubbleTurnStatus() {
-        assertEquals(false,player.getDoubleTurnStatus());
+        assertFalse(player.getDoubleTurnStatus());
         player.setDoubleTurnStatus(true);
-        assertEquals(true,player.getDoubleTurnStatus());
+        assertTrue(player.getDoubleTurnStatus());
 
     }
     //integrated tests
