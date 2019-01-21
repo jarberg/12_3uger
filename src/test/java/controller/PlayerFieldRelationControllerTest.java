@@ -214,11 +214,11 @@ public class PlayerFieldRelationControllerTest {
         playerFieldRelationController.addFieldToPlayer(player, hvidovrevej);
         ((PropertyField) rodovrevej).addBuilding();
         ((PropertyField) hvidovrevej).setPawnedStatus(true);
-        int fieldsLength = playerFieldRelationController.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length;
+        int fieldsLength = playerFieldRelationController.getUnpawnedFieldsWithNoHousesByPlayer(player).length;
          assertEquals(0, fieldsLength);
 
         ((PropertyField) hvidovrevej).setPawnedStatus(false);
-        fieldsLength = playerFieldRelationController.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length;
+        fieldsLength = playerFieldRelationController.getUnpawnedFieldsWithNoHousesByPlayer(player).length;
         assertEquals(1, fieldsLength);
     }
 
@@ -287,12 +287,12 @@ public class PlayerFieldRelationControllerTest {
         Field allegade = board.getFields()[9];
         playerFieldRelationController.addFieldToPlayer(player2, valby);
         playerFieldRelationController.addFieldToPlayer(player2, allegade);
-        int numOfPlayers = playerFieldRelationController.findPlayersWithFieldsWithNoHouses().length;
+        int numOfPlayers = playerFieldRelationController.getPlayersWithFieldsWithNoHouses().length;
         assertEquals(2, numOfPlayers);
 
         ((PropertyField) valby).addBuilding();
         ((PropertyField) allegade).addBuilding();
-        numOfPlayers = playerFieldRelationController.findPlayersWithFieldsWithNoHouses().length;
+        numOfPlayers = playerFieldRelationController.getPlayersWithFieldsWithNoHouses().length;
         assertEquals(1, numOfPlayers);
     }
 

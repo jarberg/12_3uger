@@ -20,6 +20,5 @@ public class GoToJail extends Card {
     public int getPosition() {
         return position;
     }
+
 }
-
-

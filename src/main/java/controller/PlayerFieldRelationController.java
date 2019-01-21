@@ -6,32 +6,34 @@ import model.player.PlayerList;
 
 public class PlayerFieldRelationController {
 
+    private static PlayerFieldRelationController singletonInstance = new PlayerFieldRelationController();
+
     private String[][] fieldOwnerArray;
     private int playerListLength;
     private PlayerList playerList;
     private Board board;
 
 
-
-    private static PlayerFieldRelationController singletonInstance = new PlayerFieldRelationController();
+    private PlayerFieldRelationController(){
+    }
 
     public static PlayerFieldRelationController getSingleInstance(){
         return singletonInstance;
     }
 
-    private PlayerFieldRelationController(){
-    }
-
     public void setupFieldOwnerArray(PlayerList playerlist){
+
         this.playerList = playerlist;
         this.playerListLength = this.playerList.getAllPlayers().length;
         this.fieldOwnerArray = new String[playerListLength][300];
         for (int i = 0; i < playerListLength; i++) {
             fieldOwnerArray[i][0] = playerlist.getPlayer(i).getName();
         }
+
     }
 
     public void addFieldToPlayer(Player player, Field field){
+
         for (int j = 0; j < playerListLength; j++) {
             if(player.getName().equals(fieldOwnerArray[j][0])){
                 for (int k = 0; k < fieldOwnerArray[j].length; k++) {
@@ -43,9 +45,11 @@ public class PlayerFieldRelationController {
                 break;
             }
         }
+
     }
 
     public void removeFieldOwner(Field field){
+
         int idxOfRow = 0;
         int idxOfFieldToRemove = 0;
         for (int i = 0; i < fieldOwnerArray.length; i++) {
@@ -68,10 +72,7 @@ public class PlayerFieldRelationController {
             }
         }
         fieldOwnerArray[idxOfRow] = ownedFields;
-    }
 
-    public Player getPlayerByName(String name){
-        return playerList.getPlayerByName(name);
     }
 
     public boolean fieldHasOwner(String fieldID){
@@ -91,7 +92,8 @@ public class PlayerFieldRelationController {
         return hasOwner;
     }
 
-    public Player getOwnerOfField(String fieldID) {
+    public Player getOwnerOfField(String fieldID){
+
         String owner = null;
 
         for (String[] playerOwnedFields : fieldOwnerArray) {
@@ -103,6 +105,7 @@ public class PlayerFieldRelationController {
             }
         }
         return playerList.getPlayerByName(owner);
+
     }
 
     public boolean isPlayerOwner(Player player, Field field){
@@ -111,11 +114,12 @@ public class PlayerFieldRelationController {
     }
 
     public boolean isOwnerOfAllFieldsOfType(Player player, Field field){
+
         String fieldTypeID;
         int amountOfFields = 0;
         int count = 0;
 
-        if(field instanceof PropertyField) {
+        if(field instanceof PropertyField){
             fieldTypeID = ((PropertyField) field).getType();
             switch (fieldTypeID) {
                 case "1": amountOfFields = 2; break;
@@ -128,24 +132,23 @@ public class PlayerFieldRelationController {
                 case "8": amountOfFields = 2; break;
             }
 
-            //Checks if you own the correct amount of a type of field. Owning 3 "Allégade" will let you buy houses on it.
-            for (String[] playerOwnedFields : fieldOwnerArray) {
+            for (String[] playerOwnedFields : fieldOwnerArray){
                 if (playerOwnedFields[0].equals(player.getName())) {
                     Field[] playerField = getPlayerFields(player);
                     for (Field f : playerField) {
-                        if (f instanceof PropertyField) {
-                            if (((PropertyField) f).getType().equals(((PropertyField) field).getType())) {
-                                if(!((PropertyField)f).getPawnedStatus()){
+                        if (f instanceof Ownable) {
+                            if (((Ownable) f).getType().equals(((Ownable) field).getType())) {
+                                if(!((Ownable)f).getPawnedStatus()){
                                     count++;
                                 }
                             }
                         }
                     }
+
                 }
             }
         }
 
-        //Checks if you own the correct amount of a type of field. Owning 3 "Allégade" will let you buy houses on it.
         if(field instanceof BreweryField){
             amountOfFields = 2;
             for (String[] playerOwnedFields : fieldOwnerArray) {
@@ -161,9 +164,11 @@ public class PlayerFieldRelationController {
 
         }
         return (count == amountOfFields);
+
     }
 
     public int getNetWorth(Player player){
+
         int netWorth = 0;
         netWorth += player.getBalance();
 
@@ -183,35 +188,33 @@ public class PlayerFieldRelationController {
     }
 
     public Field getFieldById(String fieldID){
-        Field field = null;
 
-
-        field = board.getFields()[Integer.parseInt(fieldID)];
-
-        return field;
+        return board.getFields()[Integer.parseInt(fieldID)];
 
     }
 
     public Field getFieldByName(String fieldName){
-        for (Field field : board.getFields()){
+
+        for(Field field : board.getFields()){
             if (field.getTitle().equals(fieldName))
                 return field;
         }
         return null;
+
     }
 
     public Field[] getPlayerFields(Player player){
+
         Field[] ownedFields = new Field[0];
 
-        for (int i = 0; i < fieldOwnerArray.length; i++)  {
-            for (int j = 1; j < fieldOwnerArray[i].length; j++) {
-                if (fieldOwnerArray[i][j] == null){
+        for(String[] aFieldOwnerArray : fieldOwnerArray){
+            for (int j = 1; j < aFieldOwnerArray.length; j++){
+                if(aFieldOwnerArray[j] == null){
                     break;
-                }
-                else{
-                    if(player.getName().equals(fieldOwnerArray[i][0])){
+                } else{
+                    if(player.getName().equals(aFieldOwnerArray[0])){
                         {
-                            ownedFields= extendFieldArray(ownedFields, board.getFields()[Integer.parseInt(fieldOwnerArray[i][j])]);
+                            ownedFields = extendFieldArray(ownedFields, board.getFields()[Integer.parseInt(aFieldOwnerArray[j])]);
                         }
 
                     }
@@ -219,9 +222,11 @@ public class PlayerFieldRelationController {
             }
         }
         return ownedFields;
+
     }
 
     public Field[] getFieldsWithHousesByPlayer(Player player){
+
         Field[] playerFieldList = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
 
@@ -233,9 +238,11 @@ public class PlayerFieldRelationController {
             }
         }
         return ownedFields;
+
     }
 
-    public Field[] getFieldsWithNoHousesByPlayerAndCheckPawnStatus(Player player){
+    public Field[] getUnpawnedFieldsWithNoHousesByPlayer(Player player){
+
         Field[] playerFieldArray = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
         for (Field field : playerFieldArray) {
@@ -249,9 +256,11 @@ public class PlayerFieldRelationController {
         }
 
         return ownedFields;
+
     }
 
     public Field[] getFieldsWithNoHousesByPlayer(Player player){
+
         Field[] playerFieldArray = getPlayerFields(player);
         Field[] ownedFields = new Field[0];
 
@@ -267,15 +276,14 @@ public class PlayerFieldRelationController {
             }
         }
         return ownedFields;
+
     }
 
-    public int getAmountOfTypeOwned(Player owner, Ownable field) {
+    public int getAmountOfTypeOwned(Player owner, Ownable field){
 
         Field[] ownedFields = getPlayerFields(owner);
         int counter = 0;
-        String fieldType = "";
-
-        fieldType = field.getType();
+        String fieldType = field.getType();
 
         for(Field f : ownedFields){
             if(((Ownable) f).getType().equals(fieldType))
@@ -283,9 +291,11 @@ public class PlayerFieldRelationController {
         }
 
         return counter;
+
     }
 
-    public PropertyField[] getPlayerBuildableFields(Player currentPlayer) {
+    public PropertyField[] getPlayerBuildableFields(Player currentPlayer){
+
         Field[] playerFields = getPlayerFields(currentPlayer);
         int counter = 0;
         for(Field field : playerFields){
@@ -352,6 +362,7 @@ public class PlayerFieldRelationController {
         }
 
         return buildableFields;
+
     }
 
     private PropertyField[] getAllPropertyFieldsOfType(PropertyField field) {
@@ -375,10 +386,10 @@ public class PlayerFieldRelationController {
         return allFields;
     }
 
-    public Player[] findPlayersWithFieldsWithNoHouses(){
+    public Player[] getPlayersWithFieldsWithNoHouses(){
         Player[] players = new Player[0];
         for (Player player : playerList.getAllPlayers()){
-            if (getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player).length > 0){
+            if (getUnpawnedFieldsWithNoHousesByPlayer(player).length > 0){
                 Player[] temp = new Player[players.length+1];
                 for (int i = 0; i < players.length; i++) {
                     temp[i] = players[i];
@@ -391,24 +402,29 @@ public class PlayerFieldRelationController {
     }
 
     public String[] getPlayerNamesWithFieldsWithNoHouses(){
-        Player[] players = findPlayersWithFieldsWithNoHouses();
+
+        Player[] players = getPlayersWithFieldsWithNoHouses();
         String[] names = new String[players.length];
         for (int i = 0; i < players.length; i++) {
             names[i] = players[i].getName();
         }
         return names;
+
     }
 
     public String[] getPropertyNamesWithNoHousesByPlayer(Player player){
-        Field[] fields = getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
+
+        Field[] fields = getUnpawnedFieldsWithNoHousesByPlayer(player);
         String[] titles = new String[fields.length];
         for (int i = 0; i < fields.length; i++) {
             titles[i] = fields[i].getTitle();
         }
         return titles;
+
     }
 
-    public Field[] getPawnedFieldsByPlayer(Player player) {
+    public Field[] getPawnedFieldsByPlayer(Player player){
+
         Field[] fields = getFieldsWithNoHousesByPlayer(player);
         int counter = 0;
 
@@ -440,15 +456,16 @@ public class PlayerFieldRelationController {
         this.board = board;
     }
 
-    public Player[] getPlayers() {
+    public Player[] getPlayers(){
         return playerList.getAllPlayers();
     }
 
-    public String[][] getFieldOwnerArray() {
+    public String[][] getFieldOwnerArray(){
         return fieldOwnerArray;
     }
 
-    public Field[] extendFieldArray(Field[] ownedFields, Field field ){
+    public Field[] extendFieldArray(Field[] ownedFields, Field field){
+
         Field[] returnArray = ownedFields;
         Field[] temp = new Field[ownedFields.length + 1];
         for (int j = 0; j < returnArray.length; j++) {
@@ -457,9 +474,7 @@ public class PlayerFieldRelationController {
         temp[temp.length - 1] = field;
         returnArray = temp;
         return returnArray;
+
     }
 
-
 }
-
-

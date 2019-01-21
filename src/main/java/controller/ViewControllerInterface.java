@@ -8,6 +8,7 @@ import model.board.PropertyField;
 import java.awt.*;
 
 public interface ViewControllerInterface {
+
     void showMessage(String message);
 
     void showGameGUI(Field[] fields);
@@ -63,4 +64,5 @@ public interface ViewControllerInterface {
     void vanishPlayer(String name, int positon);
 
     void pawn(String fieldName, Color playerColor, Color playerColor2);
+
 }

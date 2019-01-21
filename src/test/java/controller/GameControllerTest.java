@@ -96,7 +96,7 @@ public class GameControllerTest {
         player.addCurrentTurn();
         player.setInJail(true);
         player.setJailTurn();
-        JailField jail = new JailField("ID", "Title", "Subtitle", "message", Color.black, 50, 3);
+        JailField jail = new JailField("ID", "Title", "Subtitle", "message", Color.black, 50);
         gameCon.payToLeaveJail(jail);
         assertEquals(1450, player.getBalance());
         assertFalse(player.getJailCardStatus());

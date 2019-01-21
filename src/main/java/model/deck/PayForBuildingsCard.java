@@ -3,6 +3,7 @@ package model.deck;
 import controller.Drawer;
 
 public class PayForBuildingsCard extends Card {
+
     private int house;
     private int hotel;
 

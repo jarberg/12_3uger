@@ -6,50 +6,62 @@ import model.deck.Deck;
 import model.player.Player;
 import utilities.LanguageStringCollection;
 
-public class FieldVisitor implements Visitor  {
+public class FieldVisitor implements Visitor {
 
     private static final int PROPERTY_MULTIPLIER = 2;
-    private Player player;
-    private Player[] otherPlayers;
-    private Deck deck;
-    private Board board;
-    private ViewControllerInterface viewController;
+
+    private static PlayerFieldRelationController playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private TradeController tradeController = TradeController.getSingleInstance();
-    private static PlayerFieldRelationController playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
+    private ViewControllerInterface viewController;
+    private Player[] otherPlayers;
+    private Player player;
+    private Board board;
+    private Deck deck;
 
-    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck, Board board, ViewControllerInterface viewController) {
+    public FieldVisitor(Player currentPlayer, Player[] otherPlayers,  Deck deck, Board board, ViewControllerInterface viewController){
+        this.viewController = viewController;
         this.otherPlayers = otherPlayers;
         this.player = currentPlayer;
-        this.deck = deck;
         this.board = board;
-        this.viewController = viewController;
+        this.deck = deck;
     }
+
     @Override
-    public void landOnField(ChanceField field) {
+    public void landOnField(ChanceField field){
+
         Card card = deck.getTopCard();
         deck.putTopCardToBottom();
         DrawController drawer = new DrawController(player, otherPlayers, playerFieldRelationController, board, deck, viewController);
         card.accept(drawer);
+
     }
 
     @Override
-    public void landOnField(GoToJailField field) {
+    public void landOnField(GoToJailField field){
+
         viewController.showMessage(field.getMessage());
         viewController.movePlayer(player.getName(),player.getPosition(),20);
         player.setPositionWithoutStartMoney(10);
         player.setInJail(true);
         player.setDoubleTurnStatus(false);
 
+
     }
 
     @Override
     public void landOnField(JailField field) {
-        if(player.isInJail()) {
+
+        if(player.isInJail() && player.getCurrentTurn()>2+player.getJailTurn()) {
+
+        }else if(player.isInJail()){
             viewController.showMessage(String.format(languageStringCollection.getMenu()[49],player.getName()));
-        }else{
+        }
+        else{
             viewController.showMessage(field.getMessage());
         }
+
+
     }
 
     @Override
@@ -59,6 +71,7 @@ public class FieldVisitor implements Visitor  {
 
     @Override
     public void landOnField(Ownable field) {
+
         viewController.showMessage(field.getMessage());
         int diceRoll = player.getPosition() - player.getLastPosition();
         boolean playerIsOwner = playerFieldRelationController.isPlayerOwner(player, field);
@@ -66,12 +79,14 @@ public class FieldVisitor implements Visitor  {
 
             boolean ownedByAnotherPlayer = playerFieldRelationController.fieldHasOwner(field.getID());
             if(ownedByAnotherPlayer){
+
                 boolean fieldIsPawned = field.getPawnedStatus();
                 if(fieldIsPawned){
                     String message = String.format(languageStringCollection.getMenu()[26], playerFieldRelationController.getOwnerOfField(field.getID()).getName());
                     viewController.showMessage(message);
                 } else{
                     Player owner = playerFieldRelationController.getOwnerOfField(field.getID());
+
                     boolean ownerOwnsAllOfType = playerFieldRelationController.isOwnerOfAllFieldsOfType(owner, field);
                     if(field instanceof  PropertyField)
                         if(ownerOwnsAllOfType)
@@ -89,16 +104,19 @@ public class FieldVisitor implements Visitor  {
                         tradeController.transferAssets(player, owner, field.getRent(amountOwned));
                     }
                 }
+
             }
             else{
                 tradeController.askIfWantToBuy(player, field);
             }
         }
+
     }
 
 
     @Override
     public void landOnField(TaxField field) {
+
         viewController.showMessage(field.getMessage());
 
         if (field.getPercentage() == 0) {
@@ -125,6 +143,5 @@ public class FieldVisitor implements Visitor  {
     public void landOnField(StartField field) {
         viewController.showMessage(field.getMessage());
     }
-
 
 }

@@ -1,8 +1,7 @@
 package model.deck;
 
-import java.util.Random;
-
 public class Deck {
+
     private Card[] cardArray;
 
     public Deck(String[][] deckLogic, String[][] deckText) {

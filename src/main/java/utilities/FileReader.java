@@ -12,23 +12,23 @@ public class FileReader {
     private static final String SETUP_FILENAME ="/Setup.txt";
     private static final String FIELDS_FILENAME ="/Fields.txt";
     private static final String EMPTY_STRING = "";
+    private static final String REGEX = "~";
 
     private static FileReader singletonInstance = new FileReader();
 
     private static final String DEFAULT_LANGUAGE = "english";
     private static String language = DEFAULT_LANGUAGE;
 
-    public static FileReader getSingleInstance(){
-        return singletonInstance;
+    private FileReader(){
     }
 
-    private FileReader(){
+    public static FileReader getSingleInstance(){
+        return singletonInstance;
     }
 
     public static void setLanguage(String newLanguage){
         language = newLanguage;
     }
-    //reads from given filepath
 
     private String[] read1DFromFile(String filePath, String directory){
         InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(directory + filePath);
@@ -48,8 +48,6 @@ public class FileReader {
         return stringList;
     }
 
-    //Uses reader method to build a 2d stringArray from a given filepath+filename
-
     private String[][] twoDStringArray(String fileName, String directory){
 
         String newFilepath = language+fileName;
@@ -57,7 +55,7 @@ public class FileReader {
         String[][] finalStringArray = new String[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
-            finalStringArray[i] = stringArray[i].split("~");
+            finalStringArray[i] = stringArray[i].split(REGEX);
         }
         return finalStringArray;
     }
@@ -69,7 +67,7 @@ public class FileReader {
         String[][] finalStringArray = new String[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
-            finalStringArray[i] = stringArray[i].split("~");
+            finalStringArray[i] = stringArray[i].split(REGEX);
         }
         return finalStringArray;
     }
@@ -80,7 +78,7 @@ public class FileReader {
         int[][] finalStringArray = new int[stringArray.length][];
 
         for (int i = 0; i < finalStringArray.length; i++) {
-            String[] temp1 = stringArray[i].split("~");
+            String[] temp1 = stringArray[i].split(REGEX);
             int[] temp2 = new int[temp1.length];
             for (int j = 0; j < temp1.length; j++) {
                 temp2[j] = Integer.parseInt(temp1[j]);
@@ -90,18 +88,14 @@ public class FileReader {
         return finalStringArray;
     }
 
-    //Uses reader method to build a stringArray from a given filepath+filename
 
     private String[] oneDStringArray(String fileName, String directory){
         String newFilepath = language+fileName;
-        //String[] finalFields = new String[fields.length];
-        //System.arraycopy(fields, 0, finalFields, 0, finalFields.length);
         return read1DFromFile(newFilepath, directory);
     }
 
-    // each method uses either 1d or 2d StringBuilder to return a specific file's content in an array
-    public String[][] getChanceCards(){ return twoDStringArray(CHANCECARD_FILENAME, LOGIC_DIRECTORY_PATH); }
     public String[][] getChanceCardsText(){ return twoDStringArray(CHANCECARD_FILENAME, LANGUAGE_DIRECTORY_PATH); }
+
     public String[][] getChanceCardsLogic(){ return twoDStringArrayLogic(CHANCECARD_FILENAME, LOGIC_DIRECTORY_PATH); }
 
     public String[] getMenuText(){return oneDStringArray(MENU_FILENAME, LANGUAGE_DIRECTORY_PATH); }

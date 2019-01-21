@@ -10,14 +10,14 @@ import java.awt.*;
 
 public class ViewController implements ViewControllerInterface {
 
+    private static ViewControllerInterface singleInstance = new ViewController();
 
     private final LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
-    private GUI gui;
-    private GUI_Field[] gui_board;
     private GUI_Player[] gui_players;
     private String[] colorChoices;
+    private GUI_Field[] gui_board;
+    private GUI gui;
 
-    private static ViewControllerInterface singleInstance = new ViewController();
 
     private ViewController() {
         this.gui_board = new GUI_Field[40];
@@ -28,12 +28,10 @@ public class ViewController implements ViewControllerInterface {
         return singleInstance;
     }
 
-    @Override
     public void showMessage(String message){
         gui.showMessage(message);
     }
 
-    @Override
     public void showGameGUI(Field[] fields){
         int boardLength = fields.length;
         GUI_Street[] gui_street = new GUI_Street[boardLength];
@@ -49,24 +47,20 @@ public class ViewController implements ViewControllerInterface {
         this.gui_board = gui_street;
         showGUI();
     }
-    @Override
+
     public void showEmptyGUI(){
         this.gui = new GUI(new GUI_Field[0]);
     }
 
-
-
-    @Override
     public void showGUI(){
         if(this.gui != null)
             gui.close();
 
-        this.gui = new GUI(gui_board,new Color(234, 234, 227));
+        this.gui = new GUI(gui_board, new Color(234, 234, 227));
     }
 
-
-    @Override
     public void addPlayer(String name, Color color, int balance){
+
         int length;
         try{
             length = gui_players.length;
@@ -84,10 +78,11 @@ public class ViewController implements ViewControllerInterface {
         GUI_Player newPlayer = new GUI_Player(name, balance, car);
 
         gui_players[length] = newPlayer;
+
     }
 
-    @Override
     public GUI_Car makePlayerCar(Color color) {
+
         GUI_Car playerCar = new GUI_Car();
         if (color == Color.cyan)
             playerCar = new GUI_Car(color, color, GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
@@ -103,24 +98,30 @@ public class ViewController implements ViewControllerInterface {
             playerCar = new GUI_Car(color, color, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
 
         return playerCar;
+
     }
-    @Override
+
     public void showPlayerScores(){
+
         for(GUI_Player player : gui_players){
             this.gui.addPlayer(player);
         }
+
     }
 
-    @Override
+
     public void spawnPlayers(){
+
         if(gui_board[0] != null){
             for(GUI_Player player : gui_players){
                 gui_board[0].setCar(player, true);
             }
         }
+
     }
-    @Override
+
     public void movePlayer(String playerName, int position, int amount){
+
         GUI_Player movingPlayer = getPlayerByName(playerName);
         if(amount > 0){
             for (int i = 0; i < amount; i++) {
@@ -135,11 +136,11 @@ public class ViewController implements ViewControllerInterface {
                 }
             }
         }
+
     }
 
-
-    @Override
     public void teleportPlayer(String playerName, int oldposition, int newposition){
+
         GUI_Player teleportPlayer = getPlayerByName(playerName);
              gui_board[oldposition].setCar(teleportPlayer,false);
              gui_board[newposition%40].setCar(teleportPlayer, true);
@@ -147,6 +148,7 @@ public class ViewController implements ViewControllerInterface {
     }
 
     private GUI_Player getPlayerByName(String playerName){
+
         GUI_Player player = null;
         for(GUI_Player p : gui_players){
             if(p.getName().equals(playerName))
@@ -154,35 +156,37 @@ public class ViewController implements ViewControllerInterface {
         }
 
         return player;
+
     }
 
-    @Override
     public GUI_Player[] getGUI_Players() {
         return gui_players;
     }
 
-    @Override
-    public String getUserLanguage() {
-        // default language is english otherwise change the string argument below :))))
+    public String getUserLanguage(){
+
         String[] languageChoices = languageStringCollection.getDirectories();
-        String userChoice = gui.getUserSelection("Choose a language", languageChoices);
-        return userChoice;
+        return gui.getUserSelection("Choose a language", languageChoices);
+
     }
 
-    @Override
-    public int getPlayerAmount(String[] options) {
-        String[] playerOptions = options;
+
+    public int getPlayerAmount(String[] options){
+
         String message = languageStringCollection.getMenu()[0];
-        String userChoise = gui.getUserSelection(message, playerOptions);
+        String userChoise = gui.getUserSelection(message, options);
+
         return Integer.parseInt(userChoise);
+
     }
 
-    @Override
-    public String getPlayerName() {
+    public String getPlayerName(){
+
         GameController gameController = GameController.getSingleInstance();
         String playerCount = gameController.getPlayerCount();
         String message = String.format(languageStringCollection.getMenu()[1],String.valueOf(playerCount));
-        String name = "";
+        String name;
+
         while (true){
             name = gui.getUserString(message);
             if (name.length() < 3)
@@ -191,25 +195,26 @@ public class ViewController implements ViewControllerInterface {
                 break;
             }
         }
+
         return name;
+
     }
 
-    @Override
     public void setUpColors(){
         for (int i = 0; i < colorChoices.length; i++) {
-            this.colorChoices[i] = languageStringCollection.getMenu()[i+5];
+            this.colorChoices[i] = languageStringCollection.getMenu()[i + 5];
         }
     }
 
-    @Override
     public Color getUserColor(String name) {
+
         if (colorChoices[0] == null)
             setUpColors();
 
         String message = String.format(languageStringCollection.getMenu()[4],name);
         String colorString = gui.getUserSelection(message, colorChoices);
         Color colorChosen = Color.BLACK;
-        int number =0;
+        int number = 0;
 
         for (int i = 5; i <languageStringCollection.getMenu().length ; i++) {
             if (colorString.equals(languageStringCollection.getMenu()[i]))
@@ -228,34 +233,36 @@ public class ViewController implements ViewControllerInterface {
 
         this.colorChoices = removeColor(colorString, colorChoices);
         return  colorChosen;
+
     }
 
-    @Override
     public String[] removeColor(String colorChosen, String[] colorChoices){
-        String[] updatedColorChoices = new String[colorChoices.length-1];
+
+        String[] updatedColorChoices = new String[colorChoices.length - 1];
         int idx = 0;
+
         for (String colorChoice : colorChoices) {
             if (!colorChosen.equals(colorChoice)) {
                 updatedColorChoices[idx] = colorChoice;
                 idx++;
             }
         }
+
         return updatedColorChoices;
+
     }
 
-    @Override
     public void showDice(int dieOneValue, int dieTwoValue) {
         gui.setDice(dieOneValue, dieTwoValue);
     }
 
-    @Override
-    public void showFieldMessage(String name, String fieldMessasge) {
+    public void showFieldMessage(String name, String fieldMessasge){
         gui.showMessage(name + " " + fieldMessasge);
     }
 
-    @Override
     public void addBuilding(PropertyField field){
-        if(field.getBuildingCount()==5){
+
+        if(field.getBuildingCount() == 5){
 
             ((GUI_Street)gui_board[Integer.parseInt(((Field)field).getID())]).setHotel(true);
         }
@@ -264,74 +271,75 @@ public class ViewController implements ViewControllerInterface {
 
         }
 
-
     }
 
-    @Override
     public GUI_Player getGui_playerByName(String name){
+
         GUI_Player player = null;
         for (GUI_Player p:getGUI_Players()) {
-            if(p.getName()==name){
+            if(p.getName().equals(name)){
                 player = p;
             }
 
         }
         return player;
+
     }
 
 
-    @Override
-    public String getUserSelection(String message, String... choiceOptions) {
-
+    public String getUserSelection(String message, String... choiceOptions){
         return gui.getUserSelection(message, choiceOptions);
     }
 
-    @Override
-    public String getUserButtonSelection(String message, String... options) {
+    public String getUserButtonSelection(String message, String... options){
         return gui.getUserButtonPressed(message, options);
     }
 
-    @Override
-    public void showOwner(String fieldName, Color playerColor) {
+    public void showOwner(String fieldName, Color playerColor){
         GUI_Field field = getGUIFieldByName(fieldName);
         ((GUI_Street) field).setBorder(playerColor);
     }
 
-    @Override
-    public void pawn(String fieldName, Color playerColor, Color playerColor2) {
+    public void pawn(String fieldName, Color playerColor, Color playerColor2){
         GUI_Field field = getGUIFieldByName(fieldName);
         ((GUI_Street) field).setBorder(playerColor, playerColor2);
     }
-    @Override
-    public void updateFieldBuildings(String fieldName, int buildingCount) {
+
+    public void updateFieldBuildings(String fieldName, int buildingCount){
+
         GUI_Street field = (GUI_Street)getGUIFieldByName(fieldName);
         field.setHotel(false);
-        if(buildingCount == 5){
+
+        if(buildingCount == 5)
             field.setHotel(true);
-        }
         else
             field.setHouses(buildingCount);
+
     }
 
-    @Override
     public void setGUI_PlayerBalance(String playerName, int amount){
+
         GUI_Player player = getGui_playerByName(playerName);
         player.setBalance(amount);
+
     }
 
     private GUI_Field getGUIFieldByName(String fieldName){
+
         for(GUI_Field field : gui_board){
             if(field.getTitle().equals(fieldName)){
                 return field;
             }
         }
         return null;
+
     }
 
-    @Override
     public void vanishPlayer(String name, int positon) {
+
         GUI_Player player = getGui_playerByName(name);
         gui_board[positon].setCar(player, false);
+
     }
 
 }

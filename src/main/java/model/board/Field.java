@@ -4,28 +4,24 @@ import java.awt.*;
 
 public abstract class Field implements Visitable {
 
-    private String ID;
-    private String title;
+    private Color fillColor;
     private String subtitle;
     private String message;
-    private Color fillColor;
-    private Color borderColor;
+    private String title;
+    private String ID;
 
     public Field(String ID, String title, String subtitle, String message, Color fieldColor){
+
         this.ID = ID;
         this.title = title;
         this.subtitle = subtitle;
         this.message = message;
         this.fillColor = fieldColor;
-        this.borderColor = Color.white;
+
     }
 
     public Color getFillColor() {
         return fillColor;
-    }
-
-    public Color getBorderColor() {
-        return borderColor;
     }
 
     public String getID() {
@@ -43,6 +39,5 @@ public abstract class Field implements Visitable {
     public String getMessage() {
         return message;
     }
-
 
 }

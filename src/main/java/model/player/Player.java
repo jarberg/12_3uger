@@ -15,11 +15,10 @@ public class Player {
     private boolean doubleTurn;
     private boolean inJail = false;
     private boolean hasPassedStart = false;
-    private int doublethrownum =0;
+    private int doubleThrowNum =0;
     private int jailTurn=0;
     private int currentTurn;
 
-    //constructor
     public Player(String name){
 
         account = new Account();
@@ -27,10 +26,10 @@ public class Player {
         hasGetOutOfJailCard = false;
         doubleTurn = false;
         this.name = name;
+
     }
 
 
-    //getters
     public String getName(){ return this.name;    }
 
     public boolean getJailCardStatus(){   return this.hasGetOutOfJailCard; }
@@ -53,7 +52,7 @@ public class Player {
         return hasPassedStart;
     }
 
-    //Setters
+
     public void setJailCardStatus(boolean status){   this.hasGetOutOfJailCard = status; }
 
     public void addToBalance(int amount){ this.account.addToBalance(amount); }
@@ -85,11 +84,11 @@ public class Player {
 
     }
     public void addDoubleThrowTimes(){
-            this.doublethrownum++;
+            this.doubleThrowNum++;
     }
     public void resetDoubleThrowTimes(){
         if(!inJail){
-            this.doublethrownum=0;
+            this.doubleThrowNum =0;
         }
 
     }
@@ -106,12 +105,12 @@ public class Player {
         }
         else{
             this.inJail = inJail;
-            this.doublethrownum=0;
+            this.doubleThrowNum =0;
         }
     }
 
     public int getDoubleThrowNum(){
-        return this.doublethrownum;
+        return this.doubleThrowNum;
     }
 
     public int getJailTurn() {
@@ -126,6 +125,7 @@ public class Player {
     public void addCurrentTurn() {
         this.currentTurn++;
     }
+
     public int getCurrentTurn() {
         return this.currentTurn;
     }

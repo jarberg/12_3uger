@@ -1,7 +1,6 @@
 package model.misc;
 public class DieSet {
 
-
     private final int SIDES;
     private int value;
     private boolean identicalRoll;
@@ -31,7 +30,7 @@ public class DieSet {
     }
 
     public int getValue(){
-        return dieOneValue + dieTwoValue;
+        return value;
     }
 
     public boolean getIdenticalRolls(){

@@ -28,4 +28,5 @@ public class MonopolyJackpotCard extends Card {
     public int getJackpot() {
         return jackpot;
     }
+
 }

@@ -3,9 +3,8 @@ package model.deck;
 import controller.Drawer;
 
 public class GetOutOfJailCard extends Card{
+
     private int price;
-
-
 
     public GetOutOfJailCard(String description, int price) {
         super(description);
@@ -20,4 +19,5 @@ public class GetOutOfJailCard extends Card{
     public int getPrice() {
         return price;
     }
+
 }

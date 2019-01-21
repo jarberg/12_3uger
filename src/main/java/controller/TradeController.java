@@ -11,11 +11,12 @@ import static java.awt.Color.black;
 
 public class TradeController {
 
-    private static final int PRICE_INCREMENT = 50;
     private static TradeController singleInstance = new TradeController();
+    private static final int PRICE_INCREMENT = 50;
+
+    private static PlayerFieldRelationController playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
     private LanguageStringCollection languageStringCollection = LanguageStringCollection.getSingleInstance();
     private ViewControllerInterface viewController = ViewController.getSingleInstance();
-    private static PlayerFieldRelationController playerFieldRelationController = PlayerFieldRelationController.getSingleInstance();
     private PlayerList playerList;
 
     private TradeController(){
@@ -27,6 +28,7 @@ public class TradeController {
     }
 
     public void transferAssets(Player sourcePlayer, Player targetPlayer, int amount){
+
         while(sourcePlayer.getBalance() < amount){
             raiseMoney(sourcePlayer);
             if(sourcePlayer.getBrokeStatus())
@@ -40,11 +42,13 @@ public class TradeController {
         }
         viewController.setGUI_PlayerBalance(sourcePlayer.getName(), sourcePlayer.getBalance());
         viewController.setGUI_PlayerBalance(targetPlayer.getName(), targetPlayer.getBalance());
+
     }
 
     public void raiseMoney(Player player) {
+
         Field[] fieldsWithHouses = playerFieldRelationController.getFieldsWithHousesByPlayer(player);
-        Field[] fieldsWithoutHouses = playerFieldRelationController.getFieldsWithNoHousesByPlayerAndCheckPawnStatus(player);
+        Field[] fieldsWithoutHouses = playerFieldRelationController.getUnpawnedFieldsWithNoHousesByPlayer(player);
 
         String sellHouseOption = languageStringCollection.getMenu()[19];
         String sellFieldOption = languageStringCollection.getMenu()[20];
@@ -64,7 +68,6 @@ public class TradeController {
                 if(field instanceof Ownable){
                     player.addToBalance(((Ownable) field).getPrice() / 2);
                 }
-                //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
             }
 
             else if(choice.equals(sellHouseOption)){
@@ -76,7 +79,7 @@ public class TradeController {
                 PropertyField field = ((PropertyField) playerFieldRelationController.getFieldByName(sellingField));
                 field.removeBuilding();
                 viewController.updateFieldBuildings(sellingField, (field.getBuildingCount()));
-                player.addToBalance(field.getBuildingPrice()/2);
+                player.addToBalance(field.getBuildingPrice() / 2);
             }
 
         }
@@ -91,7 +94,7 @@ public class TradeController {
             PropertyField field = ((PropertyField) playerFieldRelationController.getFieldByName(sellingField));
             field.removeBuilding();
             viewController.updateFieldBuildings(sellingField, (field.getBuildingCount()));
-            player.addToBalance(field.getBuildingPrice()/2);
+            player.addToBalance(field.getBuildingPrice() / 2);
 
         }
 
@@ -109,7 +112,6 @@ public class TradeController {
             if(field instanceof Ownable){
                 player.addToBalance(((Ownable) field).getPrice() / 2);
             }
-            //viewController.showOwner(sellingField, player.getName(), player.getPlayerColor());
         }
 
         else {
@@ -129,6 +131,7 @@ public class TradeController {
                 }
             }
         }
+
     }
 
     public void setPlayerList(PlayerList playerList){
@@ -136,6 +139,7 @@ public class TradeController {
     }
 
     public void transferAssets(Player targetPlayer, int amount){
+
         targetPlayer.addToBalance(amount);
         while(targetPlayer.getBalance() < 0){
             raiseMoney(targetPlayer);
@@ -143,17 +147,19 @@ public class TradeController {
                 break;
         }
         viewController.setGUI_PlayerBalance(targetPlayer.getName(), targetPlayer.getBalance());
+
     }
 
     public void transferAssets(Player sourcePlayer){
+
         String message = languageStringCollection.getMenu()[37];
         String[] names = playerFieldRelationController.getPlayerNamesWithFieldsWithNoHouses();
 
         // update names so it does not include the sourcePlayer
-        String[] temp = new String[names.length-1];
+        String[] temp = new String[names.length - 1];
         int counter = 0;
         for (String name : names) {
-            if (!name.equals(sourcePlayer.getName())) {
+            if (!name.equals(sourcePlayer.getName())){
                 temp[counter] = name;
                 counter++;
             }
@@ -161,7 +167,7 @@ public class TradeController {
         names = temp;
 
         String playerChoice = viewController.getUserSelection(message, names);
-        Player targetPlayer = playerFieldRelationController.getPlayerByName(playerChoice);
+        Player targetPlayer = playerList.getPlayerByName(playerChoice);
 
         String message3 = String.format(languageStringCollection.getMenu()[38], sourcePlayer.getName());
         String sourceProperty = viewController.getUserSelection(message3, playerFieldRelationController.getPropertyNamesWithNoHousesByPlayer(sourcePlayer));
@@ -188,6 +194,7 @@ public class TradeController {
             viewController.showOwner(sourceProperty, targetPlayer.getPlayerColor());
             viewController.showOwner(targetProperty, sourcePlayer.getPlayerColor());
         }
+
     }
 
     public void transferAssets(Player targetPlayer, Field field){
@@ -200,38 +207,48 @@ public class TradeController {
                 viewController.showOwner(field.getTitle(), targetPlayer.getPlayerColor());
             }
         }
+
     }
 
-    public void askIfWantToBuy(Player player, Field field) {
+    public void askIfWantToBuy(Player player, Field field){
+
         String message = languageStringCollection.getMenu()[15];
         String yes = languageStringCollection.getMenu()[16];
         String no = languageStringCollection.getMenu()[17];
         String choice = viewController.getUserSelection(message, yes, no);
+
         if(choice.equals(yes)){
             transferAssets(player, field);
         } else if (choice.equals(no)){
             auction(player, playerFieldRelationController.getPlayers(), field);
         }
+
     }
 
     public void buyBuilding(Player player, PropertyField field){
+
         while(player.getBalance() < field.getBuildingPrice()){
             raiseMoney(player);
             if(player.getBrokeStatus())
                 break;
         }
+
         transferAssets(player, -field.getBuildingPrice());
         field.addBuilding();
         viewController.addBuilding(field);
+
     }
 
     public void buyBackPawnedProperty(Player player){
+
         String message = languageStringCollection.getMenu()[56];
         Field[] pawnNames = playerFieldRelationController.getPawnedFieldsByPlayer(player);
         String[] fieldNames = new String[pawnNames.length];
+
         for (int i = 0; i < fieldNames.length; i++) {
             fieldNames[i] = pawnNames[i].getTitle();
         }
+
         String choice = viewController.getUserSelection(message, fieldNames);
         Field field = playerFieldRelationController.getFieldByName(choice);
 
@@ -245,14 +262,17 @@ public class TradeController {
                 viewController.pawn(field.getTitle(), player.getPlayerColor(), player.getPlayerColor());
             }
         }
+
     }
 
 
     public void auction(Player player, Player[] allPlayers, Field field) {
+
         for(Player possiblyBrokePlayer : allPlayers){
             if(possiblyBrokePlayer.getBrokeStatus())
                 allPlayers = removePlayerFromArray(allPlayers, possiblyBrokePlayer);
         }
+
         String auctionMessage = String.format(languageStringCollection.getMenu()[44], field.getTitle(), player.getName());
         viewController.showMessage(auctionMessage);
         Player[] auctionPlayers = new Player[0];
@@ -270,8 +290,10 @@ public class TradeController {
                 auctionPlayers = newAuctionPlayers;
             }
         }
+
         int rounds = 0;
         int price = getFieldPrice(field);
+
         while(auctionPlayers.length > 1){
             rounds++;
             price = getFieldPrice(field) + PRICE_INCREMENT * rounds;
@@ -287,6 +309,7 @@ public class TradeController {
                 }
             }
         }
+
         if(auctionPlayers.length > 0){
             player = auctionPlayers[0];
             while(player.getBalance() < price){
@@ -302,37 +325,43 @@ public class TradeController {
                 String message = String.format(languageStringCollection.getMenu()[53], player.getName(), field.getTitle(), String.valueOf(price));
                 viewController.showMessage(message);
             }
-        }else if(field instanceof Ownable){
+        } else if(field instanceof Ownable){
             if(((Ownable) field).getPawnedStatus()){
                 ((Ownable) field).setPawnedStatus(false);
                 playerFieldRelationController.removeFieldOwner(field);
                 viewController.showOwner(field.getTitle(), black);
             }
         }
+
     }
 
     private Player[] removePlayerFromArray(Player[] array, Player toBeRemoved){
+
         Player[] newArray = new Player[array.length - 1];
         int counter = 0;
-        for (int i = 0; i < array.length; i++) {
-            if(array[i] != toBeRemoved){
-                newArray[counter] = array[i];
+        for (Player anArray : array) {
+            if (anArray != toBeRemoved) {
+                newArray[counter] = anArray;
                 counter++;
             }
         }
         return newArray;
+
     }
 
     private int getFieldPrice(Field field){
+
         int price = 0;
         if(field instanceof Ownable){
             price = ((Ownable) field).getPrice();
         }
 
         return price;
+
     }
 
     public void setViewController(ViewControllerInterface viewController) {
         this.viewController = viewController;
     }
+
 }

@@ -31,10 +31,9 @@ public class BreweryField extends Ownable {
         return multiplier2;
     }
 
-
     @Override
     public int getRent(int amountOwned) {
-        return rents[amountOwned];
+        return super.getRent(amountOwned);
     }
 
 }

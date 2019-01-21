@@ -7,35 +7,36 @@ import model.player.Player;
 public class DrawController implements Drawer {
 
 
-    private Player player;
-    private Player[] otherPlayers;
+    private PlayerFieldRelationController playerFieldRelationController;
     private ViewControllerInterface viewController;
     private TradeController tradeController;
-    private PlayerFieldRelationController playerFieldRelationController;
+    private Player[] otherPlayers;
+    private Player player;
     private Board board;
     private Deck deck;
 
     DrawController(Player player, Player[] otherPlayers, PlayerFieldRelationController playerFieldRelationController, Board board, Deck deck, ViewControllerInterface viewController){
-        this.player = player;
-        this.otherPlayers = otherPlayers;
-        this.viewController = viewController;
-        this.tradeController = TradeController.getSingleInstance();
         this.playerFieldRelationController = playerFieldRelationController;
+        this.tradeController = TradeController.getSingleInstance();
+        this.viewController = viewController;
+        this.otherPlayers = otherPlayers;
+        this.player = player;
         this.board = board;
         this.deck = deck;
     }
 
-    @Override//CARD: 24 - 26
-    public void draw(GetOutOfJailCard card) {
+    @Override
+    public void draw(GetOutOfJailCard card){
 
         String message = card.getDescription();
         viewController.showMessage(message);
 
         player.setJailCardStatus(true);
+
     }
 
-    @Override //CARD: 2
-    public void draw(MonopolyJackpotCard card) {
+    @Override
+    public void draw(MonopolyJackpotCard card){
 
         String message = card.getDescription();
         viewController.showMessage(message);
@@ -43,19 +44,20 @@ public class DrawController implements Drawer {
         int jackpot = card.getJackpot();
         int amount = card.getAmount();
 
-        if (playerFieldRelationController.getNetWorth(player) <= amount) {
+        if(playerFieldRelationController.getNetWorth(player) <= amount){
             tradeController.transferAssets(player,jackpot);
         }
+
     }
 
-    @Override //CARD: 3 - 4 - 5 - 12
-    public void draw(MoveToFieldCard card) {
+    @Override
+    public void draw(MoveToFieldCard card){
 
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        int position = player.getPosition(); //spillers position
-        int destination = card.getDestination(); //Det felt nummer man skal rykke frem til
+        int position = player.getPosition();
+        int destination = card.getDestination();
         player.setPositionWithStartMoney(destination);
 
         int amount = (destination - position + board.getFields().length) % board.getFields().length;
@@ -68,12 +70,13 @@ public class DrawController implements Drawer {
         newField.accept(fieldVisitor);
 
     }
-    //felt 8, felt 5
 
-    @Override //CARD: 13 - 14
-    public void draw(PayForBuildingsCard card) {
+
+    @Override
+    public void draw(PayForBuildingsCard card){
+
         String message = card.getDescription();
-        viewController.showMessage(message); //(message) = parameter
+        viewController.showMessage(message);
 
         Field[] fieldsWithHouses = playerFieldRelationController.getFieldsWithHousesByPlayer(player);
 
@@ -82,10 +85,12 @@ public class DrawController implements Drawer {
 
         for (Field field : fieldsWithHouses){
             PropertyField currentField = (PropertyField) field;
-            if(currentField.getBuildingCount() == 5)
+            if(currentField.getBuildingCount() == 5){
                 amountOfHotels++;
-            else
+            } else{
                 amountOfHouses += currentField.getBuildingCount();
+            }
+
         }
 
         int multiplierHotel =  card.getHotel();
@@ -94,10 +99,12 @@ public class DrawController implements Drawer {
         tradeController.transferAssets(player, -(amountOfHotels * multiplierHotel));
         tradeController.transferAssets(player, -(amountOfHouses * multiplierHouse));
         viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
+
     }
 
-    @Override //CARD: 17 - 27
-    public void draw(TeleportAndPayDoubleCard card) {
+    @Override
+    public void draw(TeleportAndPayDoubleCard card){
+
         String message = card.getDescription();
         viewController.showMessage(message);
 
@@ -141,11 +148,12 @@ public class DrawController implements Drawer {
                 }
             }
         }
+
     }
 
 
-    @Override //CARD: 6 - 8 - 11
-    public void draw(GoToJail card) {
+    @Override
+    public void draw(GoToJail card){
 
         String message = card.getDescription();
         viewController.showMessage(message);
@@ -158,25 +166,25 @@ public class DrawController implements Drawer {
         player.setPositionWithoutStartMoney(newPosition);
         player.setDoubleTurnStatus(false);
         viewController.teleportPlayer(player.getName(),oldPosition,newPosition);
+
     }
 
-    @Override //CARD: 15
-    public void draw(BirthdayCard card) {
+    @Override
+    public void draw(BirthdayCard card){
 
         String message = card.getDescription();
-        viewController.showMessage(message); //(message) = parameter
+        viewController.showMessage(message);
 
         int amount = card.getAmount();
 
         for (int i = 0; i < otherPlayers.length; i++) {
-
             tradeController.transferAssets(otherPlayers[i],player,amount);
-
         }
+
     }
 
-    @Override //CARD: 1 - 7 - 16 - 18 - 19 - 20 - 21 - 22 - 23 - 25 - 28 - 29 - 30 - 31 - 32
-    public void draw(MoneyCard card) {
+    @Override
+    public void draw(MoneyCard card){
 
         String message = card.getDescription();
         viewController.showMessage(message);
@@ -186,16 +194,16 @@ public class DrawController implements Drawer {
         tradeController.transferAssets(player,amount);
         viewController.setGUI_PlayerBalance(player.getName(), player.getBalance());
 
-
     }
 
-    @Override //CARD: 9 - 10
-    public void draw(MoveAmountCard card) {
+    @Override
+    public void draw(MoveAmountCard card){
+
         String message = card.getDescription();
         viewController.showMessage(message);
 
-        int oldPosition = player.getPosition(); //spillers position
-        int amount = card.getAmount(); //antal ryk der står på kortet
+        int oldPosition = player.getPosition();
+        int amount = card.getAmount();
 
         int newPosition =  (board.getFields().length + oldPosition + amount) % board.getFields().length;
 
@@ -210,6 +218,7 @@ public class DrawController implements Drawer {
 
         FieldVisitor fieldVisitor = new FieldVisitor(player,otherPlayers,deck,board, viewController);
         newFieldId.accept(fieldVisitor);
+
     }
 
 }

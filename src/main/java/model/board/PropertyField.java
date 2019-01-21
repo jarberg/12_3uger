@@ -6,11 +6,8 @@ import java.awt.*;
 
 public class PropertyField extends Ownable {
 
-
     private int buildingPrice;
     private int buildingCount;
-
-
 
     public PropertyField(String ID, String title, String subtitle, String message, Color fieldColor, String type, int price, int buildingPrice, int... rents){
         super(ID, title, subtitle, message, fieldColor,type,price,rents);
@@ -44,6 +41,6 @@ public class PropertyField extends Ownable {
 
     @Override
     public int getRent(int buildingCount) {
-        return rents[buildingCount];
+        return super.getRent(buildingCount + 1);
     }
 }

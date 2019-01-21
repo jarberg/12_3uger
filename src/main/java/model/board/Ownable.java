@@ -2,13 +2,12 @@ package model.board;
 
 import java.awt.*;
 
-
 public abstract class Ownable extends Field {
 
     private boolean pawned;
     private String type;
-    int[] rents;
     private int price;
+    private int[] rents;
 
     public Ownable(String ID, String title, String subtitle, String message, Color fieldColor,String type, int price, int...rents) {
         super(ID,title,subtitle,message,fieldColor);
@@ -27,7 +26,9 @@ public abstract class Ownable extends Field {
         return type;
     }
 
-    public abstract int getRent(int amount);
+    public int getRent(int amount){
+        return rents[amount - 1];
+    }
 
     public int getPrice(){
         return price;
